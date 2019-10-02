@@ -1209,7 +1209,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E004000240014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000280014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3738,7 +3738,7 @@ object MainForm: TMainForm
   end
   object IBDatabase: TIBDatabase
     Connected = True
-    DatabaseName = 'D:\hvd\src\GKU.FDB'
+    DatabaseName = 'D:\hvd\hvoda\GKU.FDB'
     Params.Strings = (
       'user_name=sysdba'
       'password=masterkey'
@@ -3750,7 +3750,6 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'
@@ -5614,7 +5613,6 @@ object MainForm: TMainForm
       '  NAIM = :NAIM'
       'where'
       '  KL = :OLD_KL')
-    Active = True
     Left = 352
     Top = 352
     object plombKL: TIntegerField
