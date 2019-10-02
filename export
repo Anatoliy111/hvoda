@@ -1,0 +1,66 @@
+procedure Export(Filename:string);
+var hh:TDbf;
+   hvd_rep:TData;
+
+begin
+  hh:=TDbf.Create(nil);
+  hh.TableName:=Filename;
+  hh.FieldDefs.Add('schet',ftString,10,false);
+  hh.FieldDefs.Add('wid',ftString,1,false);
+  hh.FieldDefs.Add('koli_p',ftFloat,0,false);
+  hh.FieldDefs.Add('old',ftFloat,0,false);
+  hh.FieldDefs.Add('cur',ftFloat,0,false);
+  hh.FieldDefs.Add('razn',ftFloat,0,false);
+//  hh.LanguageID:=ConstructLangId(866, GetUserDefaultLCID, false);;
+//  hh.DbfFile.UseCodePage :=866;
+//  FDefaultCreateLangId := ConstructLangId(NewCodePage, GetUserDefaultLCID, false);
+
+  try
+    hvd_rep := OpenData('hvd_rep');
+    hh.CreateTable;
+    hh.Open;
+    hvd_rep.First;
+    while not hvd_rep.Eof do
+    begin
+      if hvd_rep.fieldbyname('SCH_RAZN').asfloat<>0 then
+      begin
+        hh.Insert;
+        hh.FieldByName('schet').AsString:=hvd_rep.fieldbyname('SCHET').AsString;
+        hh.FieldByName('razn').AsFloat:=hvd_rep.fieldbyname('SCH_RAZN').AsFloat;
+        hh.FieldByName('old').AsFloat:=hvd_rep.fieldbyname('SCH_OLD').AsFloat;
+        hh.FieldByName('cur').AsFloat:=hvd_rep.fieldbyname('SCH_CUR').AsFloat;
+        hh.FieldByName('wid').AsString:=' ';
+        hh.Post;
+      end;
+      if hvd_rep.fieldbyname('GRP_RAZN').asfloat<>0 then
+      begin
+        hh.Insert;
+        hh.FieldByName('schet').AsString:=hvd_rep.fieldbyname('SCHET').AsString;
+        hh.FieldByName('razn').AsFloat:=hvd_rep.fieldbyname('GRP_RAZN').AsFloat;
+        hh.FieldByName('wid').AsString:='p';
+        hh.FieldByName('koli_p').asFloat:=hvd_rep.fieldbyname('KOLI_P').AsFloat;
+        hh.Post;
+      end;
+      if hvd_rep.fieldbyname('NOR_RAZN').asfloat<>0 then
+      begin
+        hh.Insert;
+        hh.FieldByName('schet').AsString:=hvd_rep.fieldbyname('SCHET').AsString;
+        hh.FieldByName('razn').AsFloat:=hvd_rep.fieldbyname('NOR_RAZN').AsFloat;
+        hh.FieldByName('wid').AsString:='n';
+        hh.FieldByName('koli_p').asFloat:=hvd_rep.fieldbyname('KOLI_P').AsFloat;
+        hh.Post;
+      end;
+
+      hvd_rep.Next;
+    end;
+
+  finally
+    hvd_rep.Close;
+    hh.Close;
+    hh.Free;
+  end;
+end;
+
+begin
+
+end.

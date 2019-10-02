@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{9534eed1-8c9a-4ec4-81c0-e4e9906cf5bf}</ProjectGuid>
+    <MainSource>gku_hvoda.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>gku_hvoda.exe</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_UnitSearchPath>D:\WORK\DELPHI\common\dbf</DCC_UnitSearchPath>
+    <DCC_ResourcePath>D:\WORK\DELPHI\common\dbf</DCC_ResourcePath>
+    <DCC_ObjPath>D:\WORK\DELPHI\common\dbf</DCC_ObjPath>
+    <DCC_IncludePath>D:\WORK\DELPHI\common\dbf</DCC_IncludePath>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_UnitSearchPath>dbf</DCC_UnitSearchPath>
+    <DCC_ResourcePath>dbf</DCC_ResourcePath>
+    <DCC_ObjPath>dbf</DCC_ObjPath>
+    <DCC_IncludePath>dbf</DCC_IncludePath>
+    <DCC_Define>DEBUG</DCC_Define>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Language><Language Name="RootDir">C:\Program Files\Borland\Delphi7\Bin\</Language></Language><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">0</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">2</VersionInfo><VersionInfo Name="Build">29</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1049</VersionInfo><VersionInfo Name="CodePage">1251</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription">Розрахунок х.води</VersionInfoKeys><VersionInfoKeys Name="FileVersion">0.0.2.29</VersionInfoKeys><VersionInfoKeys Name="InternalName">h_voda.exe</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">h_voda.exe</VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">gku_hvoda.dpr</Source></Source><Excluded_Packages>
+      
+      
+      
+      
+      <Excluded_Packages Name="$(BDS)\bin\bcboffice2k100.bpl">CodeGear C++Builder Office 2000 Servers Package</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\bcbofficexp100.bpl">CodeGear C++Builder Office XP Servers Package</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+    </Excluded_Packages></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="gku_hvoda.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\common\myform.pas">
+      <Form>MyForm</Form>
+    </DCCReference>
+    <DCCReference Include="..\common\mytools.pas" />
+    <DCCReference Include="common\myform.pas">
+      <Form>MyForm</Form>
+    </DCCReference>
+    <DCCReference Include="common\mytools.pas" />
+    <DCCReference Include="D:\common\myform.pas">
+      <Form>MyForm</Form>
+    </DCCReference>
+    <DCCReference Include="D:\common\mytools.pas" />
+    <DCCReference Include="D:\myform.pas">
+      <Form>MyForm</Form>
+    </DCCReference>
+    <DCCReference Include="D:\mytools.pas" />
+    <DCCReference Include="edexpr.pas">
+      <Form>FormEdExpr</Form>
+    </DCCReference>
+    <DCCReference Include="edplomb.pas">
+      <Form>FormEdPlomb</Form>
+    </DCCReference>
+    <DCCReference Include="iimport.pas">
+      <Form>Form4</Form>
+    </DCCReference>
+    <DCCReference Include="import.pas">
+      <Form>Form1</Form>
+    </DCCReference>
+    <DCCReference Include="inpedpro.pas">
+      <Form>FormInplaces</Form>
+    </DCCReference>
+    <DCCReference Include="itoghvd.pas">
+      <Form>FormItogHvd</Form>
+    </DCCReference>
+    <DCCReference Include="kart.pas">
+      <Form>Form2</Form>
+    </DCCReference>
+    <DCCReference Include="lichall.pas">
+      <Form>Form3</Form>
+    </DCCReference>
+    <DCCReference Include="main.pas">
+      <Form>MainForm</Form>
+    </DCCReference>
+    <DCCReference Include="mmon\myform.pas">
+      <Form>MyForm</Form>
+    </DCCReference>
+    <DCCReference Include="mmon\mytools.pas" />
+    <DCCReference Include="mon\myform.pas">
+      <Form>MyForm</Form>
+    </DCCReference>
+    <DCCReference Include="mon\mytools.pas" />
+    <DCCReference Include="myform.pas">
+      <Form>MyForm</Form>
+    </DCCReference>
+    <DCCReference Include="mytools.pas" />
+    <DCCReference Include="n\myform.pas">
+      <Form>MyForm</Form>
+    </DCCReference>
+    <DCCReference Include="n\mytools.pas" />
+    <DCCReference Include="ommon\myform.pas">
+      <Form>MyForm</Form>
+    </DCCReference>
+    <DCCReference Include="ommon\mytools.pas" />
+    <DCCReference Include="on\myform.pas">
+      <Form>MyForm</Form>
+    </DCCReference>
+    <DCCReference Include="on\mytools.pas" />
+    <DCCReference Include="progress.pas">
+      <Form>FormProgress</Form>
+    </DCCReference>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TfrxReport Name="" DotMatrixReport="True" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="2047" PreviewOptions.Zoom="1" PrintOptions.Printer="По умолчанию" ReportOptions.CreateDate="38464,6937336574" ReportOptions.Description.Text="" ReportOptions.LastChange="38477,951879375" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." PropData="044C65667403E80203546F7003C20008446174617365747301010C2A00000020446174615365743D22667278444244617461736574312220446174615365744E616D653D22687664220000095661726961626C65730100055374796C650100">
+  <TfrxDMPPage Name="Page1" PaperWidth="210,819863845505" PaperHeight="296,862308276426" PaperSize="9" LeftMargin="2,53999835958439" RightMargin="2,53999835958439" TopMargin="4,49791376176403" BottomMargin="4,49791376176403" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="" FontStyle="0">
+    <TfrxReportTitle Name="ReportTitle1" Height="34" Left="0" Top="17" Width="777,6">
+      <TfrxDMPMemoView Name="DMPMemo1" Align="baWidth" Left="0" Top="0" Width="777,6" Height="17" HAlign="haCenter" Memo.Text="Звiт по холоднiй водi" VAlign="vaCenter"/>
+    </TfrxReportTitle>
+    <TfrxPageHeader Name="PageHeader1" Height="68" Left="0" Top="68" Width="777,6">
+      <TfrxDMPMemoView Name="DMPMemo3" Left="0" Top="0" Width="57,6" Height="51" HAlign="haCenter" Memo.Text="№ &#13;&#10;кварт"/>
+      <TfrxDMPMemoView Name="DMPMemo4" Left="67,2" Top="0" Width="67,2" Height="51" HAlign="haCenter" Memo.Text="Лiчил., норма ..."/>
+      <TfrxDMPMemoView Name="DMPMemo5" Left="144" Top="0" Width="96" Height="51" HAlign="haCenter" Memo.Text="Теперiш.&#13;&#10;показн.&#13;&#10;лiчильн."/>
+      <TfrxDMPMemoView Name="DMPMemo6" Left="249,6" Top="0" Width="96" Height="51" HAlign="haCenter" Memo.Text="Минулi&#13;&#10;показн.&#13;&#10;лiчильн."/>
+      <TfrxDMPMemoView Name="DMPMemo7" Left="355,2" Top="34" Width="96" Height="17" HAlign="haCenter" Memo.Text="Лiчил.м3"/>
+      <TfrxDMPMemoView Name="DMPMemo8" Left="470,4" Top="34" Width="96" Height="17" HAlign="haCenter" Memo.Text="Прописка"/>
+      <TfrxDMPMemoView Name="DMPMemo9" Left="576" Top="34" Width="96" Height="17" HAlign="haCenter" Memo.Text="Норма,м3&#13;&#10;7,015"/>
+      <TfrxDMPMemoView Name="DMPMemo10" Left="681,6" Top="34" Width="96" Height="17" HAlign="haCenter" Memo.Text="Пiд&#34;їзд,м3"/>
+      <TfrxDMPLineView Name="DMPLine1" Left="4,8" Top="59,5" Width="768" Height="0"/>
+      <TfrxDMPMemoView Name="DMPMemo26" Left="355,2" Top="0" Width="422,4" Height="17" Frame.Typ="8" HAlign="haCenter" Memo.Text="Показники"/>
+    </TfrxPageHeader>
+    <TfrxGroupHeader Name="GroupHeader1" Height="51" Left="0" Top="170" Width="777,6" Condition="hvd.&#34;DOM&#34;" OutlineText="'Буд '+&#60;hvd.&#34;DOM&#34;&#62;">
+      <TfrxDMPMemoView Name="DMPMemo2" Align="baWidth" Left="0" Top="17" Width="777,6" Height="17" DataSet="frxDBDataset1" DataSetName="hvd" Memo.Text="Будинок № [hvd.&#34;DOM&#34;]" VAlign="vaCenter"/>
+    </TfrxGroupHeader>
+    <TfrxMasterData Name="MasterData1" Height="17" Left="0" Top="238" Width="777,6" ColumnWidth="0" ColumnGap="0" DataSet="frxDBDataset1" DataSetName="hvd" RowCount="0">
+      <TfrxDMPMemoView Name="DMPMemo11" Left="0" Top="0" Width="57,6" Height="17" DataField="KVART" DataSet="frxDBDataset1" DataSetName="hvd" Memo.Text="[hvd.&#34;KVART&#34;]"/>
+      <TfrxDMPMemoView Name="DMPMemo12" Left="67,2" Top="0" Width="86,4" Height="17" AutoWidth="True" DataSet="frxDBDataset1" DataSetName="hvd" Memo.Text="[iif(&#60;hvd.&#34;PLOMB&#34;&#62;=1,'Опломбований',&#13;&#10;iif(&#60;hvd.&#34;WID&#34;&#62;=1,'Лiч',&#13;&#10;iif(&#60;hvd.&#34;WID&#34;&#62;=2,' Нор',&#13;&#10;iif(&#60;hvd.&#34;WID&#34;&#62;=3,'  Пiд',''))))]"/>
+      <TfrxDMPMemoView Name="DMPMemo13" Left="153,6" Top="0" Width="86,4" Height="17" DataSet="frxDBDataset1" DataSetName="hvd" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" HideZeros="True" Memo.Text="[hvd.&#34;SCH_CUR&#34;]"/>
+      <TfrxDMPMemoView Name="DMPMemo14" Left="249,6" Top="0" Width="96" Height="17" DataField="SCH_OLD" DataSet="frxDBDataset1" DataSetName="hvd" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" HideZeros="True" Memo.Text="[hvd.&#34;SCH_OLD&#34;]"/>
+      <TfrxDMPMemoView Name="DMPMemo15" Left="355,2" Top="0" Width="96" Height="17" DataField="SCH_RAZN" DataSet="frxDBDataset1" DataSetName="hvd" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" HideZeros="True" Memo.Text="[hvd.&#34;SCH_RAZN&#34;]"/>
+      <TfrxDMPMemoView Name="DMPMemo16" Left="470,4" Top="0" Width="96" Height="17" DataSet="frxDBDataset1" DataSetName="hvd" HAlign="haRight" HideZeros="True" Memo.Text="[hvd.&#34;KOLI_P&#34;]"/>
+      <TfrxDMPMemoView Name="DMPMemo17" Left="576" Top="0" Width="96" Height="17" DataSet="frxDBDataset1" DataSetName="hvd" DisplayFormat.FormatStr="%2.3f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" HideZeros="True" Memo.Text="[hvd.&#34;NOR_RAZN&#34;]"/>
+      <TfrxDMPMemoView Name="DMPMemo18" Left="681,6" Top="0" Width="96" Height="17" DataSet="frxDBDataset1" DataSetName="hvd" DisplayFormat.FormatStr="%2.3f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" HideZeros="True" Memo.Text="[hvd.&#34;GRP_RAZN&#34;]"/>
+    </TfrxMasterData>
+    <TfrxGroupFooter Name="GroupFooter1" Height="51" Left="0" Top="272" Width="777,6">
+      <TfrxDMPLineView Name="DMPLine2" Left="4,8" Top="8,5" Width="768" Height="0"/>
+      <TfrxDMPMemoView Name="DMPMemo19" Left="355,2" Top="17" Width="96" Height="17" DataSet="frxDBDataset1" DataSetName="hvd" DisplayFormat.FormatStr="%2.2f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" Memo.Text="[SUM(&#60;hvd.&#34;SCH_RAZN&#34;&#62;,MasterData1)]"/>
+      <TfrxDMPMemoView Name="DMPMemo22" Left="470,4" Top="17" Width="96" Height="17" DataSet="frxDBDataset1" DataSetName="hvd" HAlign="haRight" Memo.Text="[SUM(&#60;hvd.&#34;KOLI_P&#34;&#62;,MasterData1)]"/>
+      <TfrxDMPMemoView Name="DMPMemo23" Left="576" Top="17" Width="96" Height="17" DataSet="frxDBDataset1" DataSetName="hvd" DisplayFormat.FormatStr="%2.3f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" HideZeros="True" Memo.Text="[SUM(&#60;hvd.&#34;NOR_RAZN&#34;&#62;,MasterData1)]"/>
+      <TfrxDMPMemoView Name="DMPMemo24" Left="681,6" Top="17" Width="96" Height="17" DataSet="frxDBDataset1" DataSetName="hvd" DisplayFormat.FormatStr="%2.3f" DisplayFormat.Kind="fkNumeric" HAlign="haRight" HideZeros="True" Memo.Text="[SUM(&#60;hvd.&#34;GRP_RAZN&#34;&#62;,MasterData1)]"/>
+      <TfrxDMPMemoView Name="DMPMemo25" Left="57,6" Top="17" Width="278,4" Height="17" HAlign="haRight" Memo.Text="Всього по будинку [hvd.&#34;DOM&#34;]"/>
+    </TfrxGroupFooter>
+    <TfrxPageFooter Name="PageFooter1" Height="34" Left="0" Top="357" Width="777,6">
+      <TfrxDMPMemoView Name="DMPMemo20" Align="baLeft" Left="0" Top="17" Width="192" Height="17" AutoWidth="True" Memo.Text="[Date] [Time]"/>
+      <TfrxDMPMemoView Name="DMPMemo21" Align="baRight" Left="700,8" Top="17" Width="76,8" Height="17" HAlign="haRight" Memo.Text="Стор. [Page#]"/>
+    </TfrxPageFooter>
+  </TfrxDMPPage>
+</TfrxReport>
