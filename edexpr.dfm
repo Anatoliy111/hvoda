@@ -579,7 +579,6 @@ object FormEdExpr: TFormEdExpr
     Top = 336
   end
   object IBTransactionScript: TIBTransaction
-    Active = True
     DefaultDatabase = MainForm.IBDatabase
     Params.Strings = (
       'read_committed'
@@ -655,7 +654,7 @@ object FormEdExpr: TFormEdExpr
       'from'
       '(select schet,sch_razn,nor_razn,'
       'case'
-      'when sch_razn>0 then 1'
+      'when sch_razn<>0 then 1'
       'else 0'
       'end kol'
       'from H_VODA'
