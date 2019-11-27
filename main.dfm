@@ -195,6 +195,8 @@ object MainForm: TMainForm
           object DBGrid1KOLI_F: TcxGridDBBandedColumn
             Caption = #1055#1088#1086#1078#1080#1074#1072#1108
             DataBinding.FieldName = 'KOLI_F'
+            PropertiesClassName = 'TcxPopupEditProperties'
+            Properties.ReadOnly = True
             Width = 61
             Position.BandIndex = 2
             Position.ColIndex = 1
@@ -203,6 +205,7 @@ object MainForm: TMainForm
           object DBGrid1NOR_RAZN: TcxGridDBBandedColumn
             DataBinding.FieldName = 'NOR_RAZN'
             PropertiesClassName = 'TcxCalcEditProperties'
+            Properties.ReadOnly = True
             Options.Editing = False
             Width = 68
             Position.BandIndex = 2
@@ -228,6 +231,7 @@ object MainForm: TMainForm
           object DBGrid1SCH_RAZN: TcxGridDBBandedColumn
             DataBinding.FieldName = 'SCH_RAZN'
             PropertiesClassName = 'TcxCalcEditProperties'
+            Properties.ReadOnly = True
             Options.Editing = False
             Width = 63
             Position.BandIndex = 1
@@ -1227,7 +1231,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E004000380014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E0040003C0014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
