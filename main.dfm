@@ -117,7 +117,7 @@ object MainForm: TMainForm
             end
             item
               Caption = #1053#1086#1088#1084#1072
-              Width = 112
+              Width = 185
             end
             item
               Caption = #1055#1110#1076#1111#1079#1076
@@ -187,18 +187,26 @@ object MainForm: TMainForm
             Properties.ReadOnly = True
             Properties.OnCloseUp = DBGrid1KOLI_PPropertiesCloseUp
             Properties.OnPopup = DBGrid1KOLI_PPropertiesPopup
-            Width = 55
+            Width = 56
             Position.BandIndex = 2
             Position.ColIndex = 0
+            Position.RowIndex = 0
+          end
+          object DBGrid1KOLI_F: TcxGridDBBandedColumn
+            Caption = #1055#1088#1086#1078#1080#1074#1072#1108
+            DataBinding.FieldName = 'KOLI_F'
+            Width = 61
+            Position.BandIndex = 2
+            Position.ColIndex = 1
             Position.RowIndex = 0
           end
           object DBGrid1NOR_RAZN: TcxGridDBBandedColumn
             DataBinding.FieldName = 'NOR_RAZN'
             PropertiesClassName = 'TcxCalcEditProperties'
             Options.Editing = False
-            Width = 64
+            Width = 68
             Position.BandIndex = 2
-            Position.ColIndex = 1
+            Position.ColIndex = 2
             Position.RowIndex = 0
           end
           object DBGrid1SCH_CUR: TcxGridDBBandedColumn
@@ -255,6 +263,16 @@ object MainForm: TMainForm
                 Description = #1055#1110#1076'`'#1111#1079#1076
                 Tag = 3
                 Value = 3
+              end
+              item
+                Description = #1053#1077' '#1087#1088#1086#1078#1080#1074#1072#1108
+                Tag = 4
+                Value = 4
+              end
+              item
+                Description = #1053#1077' '#1085#1072#1088#1072#1093#1086#1074#1091#1074#1072#1090#1080
+                Tag = 5
+                Value = '5'
               end>
             Width = 85
             Position.BandIndex = 0
@@ -1209,7 +1227,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E0040002C0014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000380014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3750,6 +3768,7 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'
@@ -3776,7 +3795,7 @@ object MainForm: TMainForm
         'ZN, PERE_DAY, '
       
         '   PERE_RAZN, PLOMB, SCH_CUR, SCH_OLD, SCHET, UL, WID, YEARMON,N' +
-        'OTE)'
+        'OTE,KOLI_F)'
       'values'
       
         '  (:FIO, :GRP_RAZN, :ID_KONTR, :KL, :KOLI_P, :KV, :N_DOM, :N_SCH' +
@@ -3784,7 +3803,7 @@ object MainForm: TMainForm
       
         '   :PERE_DAY, :PERE_RAZN, :PLOMB, :SCH_CUR, :SCH_OLD, :SCHET, :U' +
         'L, :WID, '
-      '   :YEARMON,:NOTE)')
+      '   :YEARMON,:NOTE,:KOLI_F)')
     RefreshSQL.Strings = (
       'Select '
       '  DOM,'
@@ -3808,17 +3827,19 @@ object MainForm: TMainForm
       '  N_DOM,'
       '  KV,'
       '  ID_KONTR,'
-      '  NOTE'
+      '  NOTE,'
+      '  KOLI_F'
       'from H_VODA '
       'where'
       '  KL = :KL')
     SelectSQL.Strings = (
       
         'SELECT H_VODA.DOM, H_VODA.GRP_RAZN, H_VODA.KL, H_VODA.KOLI_P, H_' +
-        'VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD, H_VODA.SCH_RAZN, ' +
-        'H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_voda.FIO, h_voda.WID' +
-        ',  h_voda.yearmon, H_VODA.PERE_DAY, H_VODA.PERE_RAZN, H_VODA.n_s' +
-        'ch, H_VODA.UL,H_VODA.N_DOM,H_VODA.KV,H_VODA.ID_KONTR'
+        'VODA.KOLI_F, H_VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD, H_' +
+        'VODA.SCH_RAZN, H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_voda.' +
+        'FIO, h_voda.WID,  h_voda.yearmon, H_VODA.PERE_DAY, H_VODA.PERE_R' +
+        'AZN, H_VODA.n_sch, H_VODA.UL,H_VODA.N_DOM,H_VODA.KV,H_VODA.ID_KO' +
+        'NTR'
       
         ', r3.srazn3,r3.snorm3,r12.srazn12, round(r12.srazn12/12,0) sred,' +
         ' r12.kol,'
@@ -3883,7 +3904,8 @@ object MainForm: TMainForm
       '  UL = :UL,'
       '  WID = :WID,'
       '  YEARMON = :YEARMON,'
-      '  NOTE = :NOTE'
+      '  NOTE = :NOTE,'
+      '  KOLI_F=:KOLI_F'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'
@@ -4083,6 +4105,10 @@ object MainForm: TMainForm
       FieldName = 'NOTE'
       Origin = '"H_VODA"."NOTE"'
       Size = 50
+    end
+    object hvdKOLI_F: TLargeintField
+      FieldName = 'KOLI_F'
+      Origin = '"H_VODA"."KOLI_F"'
     end
   end
   object hvdSource: TDataSource
@@ -5741,20 +5767,20 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into H_VODA'
       
-        '  (FIO, GRP_RAZN, ID_KONTR, KL, KOLI_P, KOLI_P0, KOLI_P1, KV, N_' +
-        'DOM, N_SCH, '
+        '  (FIO, GRP_RAZN, ID_KONTR, KL, KOLI_F, KOLI_P, KOLI_P0, KOLI_P1' +
+        ', KV, N_DOM, '
       
-        '   NOR_RAZN, PERE_DAY, PERE_RAZN, PLOMB, SCH_CUR, SCH_OLD, SCHET' +
-        ', UL, WID, '
-      '   YEARMON)'
+        '   N_SCH, NOR_RAZN, NOTE, PERE_DAY, PERE_RAZN, PLOMB, SCH_CUR, S' +
+        'CH_OLD, '
+      '   SCHET, UL, WID, YEARMON)'
       'values'
       
-        '  (:FIO, :GRP_RAZN, :ID_KONTR, :KL, :KOLI_P, :KOLI_P0, :KOLI_P1,' +
-        ' :KV, :N_DOM, '
+        '  (:FIO, :GRP_RAZN, :ID_KONTR, :KL, :KOLI_F, :KOLI_P, :KOLI_P0, ' +
+        ':KOLI_P1, '
       
-        '   :N_SCH, :NOR_RAZN, :PERE_DAY, :PERE_RAZN, :PLOMB, :SCH_CUR, :' +
-        'SCH_OLD, '
-      '   :SCHET, :UL, :WID, :YEARMON)')
+        '   :KV, :N_DOM, :N_SCH, :NOR_RAZN, :NOTE, :PERE_DAY, :PERE_RAZN,' +
+        ' :PLOMB, '
+      '   :SCH_CUR, :SCH_OLD, :SCHET, :UL, :WID, :YEARMON)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -5779,7 +5805,9 @@ object MainForm: TMainForm
       '  ID_KONTR,'
       '  UL,'
       '  N_DOM,'
-      '  KV'
+      '  KV,'
+      '  NOTE,'
+      '  KOLI_F'
       'from H_VODA '
       'where'
       '  KL = :KL')
@@ -5792,6 +5820,7 @@ object MainForm: TMainForm
       '  GRP_RAZN = :GRP_RAZN,'
       '  ID_KONTR = :ID_KONTR,'
       '  KL = :KL,'
+      '  KOLI_F = :KOLI_F,'
       '  KOLI_P = :KOLI_P,'
       '  KOLI_P0 = :KOLI_P0,'
       '  KOLI_P1 = :KOLI_P1,'
@@ -5799,6 +5828,7 @@ object MainForm: TMainForm
       '  N_DOM = :N_DOM,'
       '  N_SCH = :N_SCH,'
       '  NOR_RAZN = :NOR_RAZN,'
+      '  NOTE = :NOTE,'
       '  PERE_DAY = :PERE_DAY,'
       '  PERE_RAZN = :PERE_RAZN,'
       '  PLOMB = :PLOMB,'
@@ -5940,6 +5970,15 @@ object MainForm: TMainForm
       FieldName = 'KV'
       Origin = '"H_VODA"."KV"'
       Size = 10
+    end
+    object hvdallNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"H_VODA"."NOTE"'
+      Size = 50
+    end
+    object hvdallKOLI_F: TLargeintField
+      FieldName = 'KOLI_F'
+      Origin = '"H_VODA"."KOLI_F"'
     end
   end
   object hvdallSource: TDataSource

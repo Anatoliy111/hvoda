@@ -267,6 +267,10 @@ type
     DBGrid1SREDKOL: TcxGridDBBandedColumn;
     hvdNOTE: TIBStringField;
     DBGrid1NOTE: TcxGridDBBandedColumn;
+    hvdallNOTE: TIBStringField;
+    hvdKOLI_F: TLargeintField;
+    hvdallKOLI_F: TLargeintField;
+    DBGrid1KOLI_F: TcxGridDBBandedColumn;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -945,11 +949,13 @@ procedure TMainForm.dxBarButton6Click(Sender: TObject);
 var kl:integer;
   kk:double;
 begin
+   kl:=hvdKL.Value;
+  if hvd.State in [dsInsert,dsEdit] then hvd.Post;
   IBtransaction1.CommitRetaining;
   StartWait;
   prop.Open;
   prop.First;
-  kl:=hvdKL.Value;
+
   hvd.DisableControls;
   Enabled:=false;
   try

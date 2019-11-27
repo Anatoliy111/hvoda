@@ -64,8 +64,6 @@ object FormEdExpr: TFormEdExpr
     Width = 794
     Height = 419
     Align = alClient
-    ExplicitTop = 87
-    ExplicitHeight = 497
     DockType = 0
     OriginalWidth = 794
     OriginalHeight = 419
@@ -178,10 +176,10 @@ object FormEdExpr: TFormEdExpr
       end
     end
     object dxDockPanel2: TdxDockPanel
-      Left = -217
+      Left = 0
       Top = 0
       Width = 217
-      Height = 0
+      Height = 140
       Visible = False
       AllowFloating = True
       AutoHide = True
@@ -194,7 +192,7 @@ object FormEdExpr: TFormEdExpr
       object cxDBTreeList1: TcxDBTreeList
         Left = 0
         Top = 0
-        Width = 217
+        Width = 213
         Height = 153
         Align = alTop
         Bands = <
@@ -210,6 +208,7 @@ object FormEdExpr: TFormEdExpr
         RootValue = 2
         TabOrder = 0
         OnDblClick = cxDBTreeList1DblClick
+        ExplicitWidth = 217
         object cxDBTreeList1TITLE: TcxDBTreeListColumn
           Caption.Text = #1055#1086#1084#1086#1097#1100
           DataBinding.FieldName = 'TITLE'
@@ -236,6 +235,7 @@ object FormEdExpr: TFormEdExpr
         Style.Font.Style = [fsBold]
         Style.IsFontAssigned = True
         TabOrder = 1
+        ExplicitWidth = 217
         Height = 49
         Width = 217
       end

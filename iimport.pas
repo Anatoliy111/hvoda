@@ -61,6 +61,7 @@ begin
           MainForm.hvdall.edit;
           MainForm.hvdallFIO.Value:=dos2win(kk.fieldbyname('fio').AsString+' '+kk.fieldbyname('im').AsString+' '+kk.fieldbyname('ot').AsString);
           MainForm.hvdallKOLI_P.Value:=kk.fieldbyname('koli_p').AsInteger;
+          MainForm.hvdallKOLI_F.Value:=kk.fieldbyname('koli_pf').AsInteger;
           MainForm.hvdallUL.Value:=dos2win(kk.fieldbyname('ULNAIM').AsString);
           MainForm.hvdallN_DOM.Value:=dos2win(kk.fieldbyname('NOMDOM').AsString);
           MainForm.hvdallKV.Value:=dos2win(kk.fieldbyname('NOMKV').AsString);

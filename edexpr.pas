@@ -304,7 +304,11 @@ begin
       qry.ExecSQL;
 
       qry.SQL.Clear;
-      qry.SQL.Add(format('update h_voda set wid=2 where wid>2 and yearmon=%d',[MainForm.curYM]));
+      qry.SQL.Add(format('update h_voda set wid=2 where wid=3 and yearmon=%d',[MainForm.curYM]));
+      qry.ExecSQL;
+
+      qry.SQL.Clear;
+      qry.SQL.Add(format('update h_voda set note=null where yearmon=%d',[MainForm.curYM]));
       qry.ExecSQL;
     end
     else
