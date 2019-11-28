@@ -89,53 +89,50 @@ object Form1: TForm1
     InsertSQL.Strings = (
       'insert into H_VODA'
       
-        '  (KL, KOLI_P0, KOLI_P, KOLI_P1, PLOMB, SCH_CUR, SCH_OLD, SCHET,' +
-        ' YEARMON, '
-      '   WID, FIO)'
+        '  (FIO, KL, KOLI_F, KOLI_P, KOLI_P0, KOLI_P1, PLOMB, SCH_CUR, SC' +
+        'H_OLD, '
+      '   SCHET, WID, YEARMON)'
       'values'
       
-        '  (:KL, :KOLI_P0, :KOLI_P, :KOLI_P1, :PLOMB, :SCH_CUR, :SCH_OLD,' +
-        ' :SCHET, '
-      '   :YEARMON, :WID, :FIO)')
+        '  (:FIO, :KL, :KOLI_F, :KOLI_P, :KOLI_P0, :KOLI_P1, :PLOMB, :SCH' +
+        '_CUR, :SCH_OLD, '
+      '   :SCHET, :WID, :YEARMON)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
-      '  YEARMON,'
-      '  PLOMB,'
-      '  FIO,'
-      '  DOM,'
-      '  KVART,'
-      '  WID,'
-      '  SCHET,'
-      '  SCH_OLD,'
-      '  SCH_CUR,'
-      '  SCH_RAZN,'
-      '  KOLI_P,'
       '  KOLI_P0,'
+      '  KOLI_P,'
+      '  KOLI_F,'
       '  KOLI_P1,'
-      '  NOR_RAZN,'
-      '  GRP_RAZN'
+      '  PLOMB,'
+      '  SCH_CUR,'
+      '  SCH_OLD,'
+      '  SCHET,'
+      '  YEARMON,'
+      '  WID,'
+      '  FIO'
       'from H_VODA '
       'where'
       '  KL = :KL')
     SelectSQL.Strings = (
       
-        'select KL, KOLI_P0, koli_p,koli_p1,PLOMB, SCH_CUR, SCH_OLD, SCHE' +
-        'T, YEARMON, WID, FIO from H_VODA')
+        'select KL, KOLI_P0, koli_p,koli_f,koli_p1,PLOMB, SCH_CUR, SCH_OL' +
+        'D, SCHET, YEARMON, WID, FIO from H_VODA')
     ModifySQL.Strings = (
       'update H_VODA'
       'set'
+      '  FIO = :FIO,'
       '  KL = :KL,'
-      '  KOLI_P0 = :KOLI_P0,'
+      '  KOLI_F = :KOLI_F,'
       '  KOLI_P = :KOLI_P,'
+      '  KOLI_P0 = :KOLI_P0,'
       '  KOLI_P1 = :KOLI_P1,'
       '  PLOMB = :PLOMB,'
       '  SCH_CUR = :SCH_CUR,'
       '  SCH_OLD = :SCH_OLD,'
       '  SCHET = :SCHET,'
-      '  YEARMON = :YEARMON,'
       '  WID = :WID,'
-      '  FIO = :FIO'
+      '  YEARMON = :YEARMON'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'
@@ -198,6 +195,10 @@ object Form1: TForm1
       FieldName = 'KOLI_P1'
       Origin = 'H_VODA.KOLI_P1'
     end
+    object hvdKOLI_F: TLargeintField
+      FieldName = 'KOLI_F'
+      Origin = '"H_VODA"."KOLI_F"'
+    end
   end
   object OpenDialog1: TOpenDialog
     Filter = 'dbf|*.dbf'
@@ -205,6 +206,7 @@ object Form1: TForm1
     Top = 96
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultDatabase = MainForm.IBDatabase
     Left = 104
     Top = 176

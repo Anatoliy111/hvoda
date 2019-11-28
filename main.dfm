@@ -1231,7 +1231,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E0040003C0014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000480014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5314,34 +5314,31 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into H_VODA'
       
-        '  (GRP_RAZN, KL, KOLI_P, NOR_RAZN, SCH_CUR, SCH_OLD, SCHET, PLOM' +
-        'B, '
-      'FIO, '
-      '   WID, YEARMON, PERE_DAY, PERE_RAZN)'
+        '  (FIO, GRP_RAZN, KL, KOLI_F, KOLI_P, NOR_RAZN, PERE_DAY, PERE_R' +
+        'AZN, PLOMB, '
+      '   SCH_CUR, SCH_OLD, SCHET, WID, YEARMON)'
       'values'
       
-        '  (:GRP_RAZN, :KL, :KOLI_P, :NOR_RAZN, :SCH_CUR, :SCH_OLD, :SCHE' +
-        'T, '
-      ':PLOMB, '
-      '   :FIO, :WID, :YEARMON, :PERE_DAY, :PERE_RAZN)')
+        '  (:FIO, :GRP_RAZN, :KL, :KOLI_F, :KOLI_P, :NOR_RAZN, :PERE_DAY,' +
+        ' :PERE_RAZN, '
+      '   :PLOMB, :SCH_CUR, :SCH_OLD, :SCHET, :WID, :YEARMON)')
     RefreshSQL.Strings = (
       'Select '
+      '  DOM,'
+      '  GRP_RAZN,'
       '  KL,'
-      '  YEARMON,'
+      '  KOLI_P,'
+      '  KOLI_F,'
+      '  NOR_RAZN,'
+      '  SCH_CUR,'
+      '  SCH_OLD,'
+      '  SCH_RAZN,'
+      '  SCHET,'
+      '  KVART,'
       '  PLOMB,'
       '  FIO,'
-      '  DOM,'
-      '  KVART,'
       '  WID,'
-      '  SCHET,'
-      '  SCH_OLD,'
-      '  SCH_CUR,'
-      '  SCH_RAZN,'
-      '  KOLI_P,'
-      '  KOLI_P0,'
-      '  KOLI_P1,'
-      '  NOR_RAZN,'
-      '  GRP_RAZN,'
+      '  YEARMON,'
       '  PERE_DAY,'
       '  PERE_RAZN'
       'from H_VODA '
@@ -5350,28 +5347,29 @@ object MainForm: TMainForm
     SelectSQL.Strings = (
       
         'SELECT H_VODA.DOM, H_VODA.GRP_RAZN, H_VODA.KL, H_VODA.KOLI_P, H_' +
-        'VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD, H_VODA.SCH_RAZN, ' +
-        'H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_voda.FIO, h_voda.WID' +
-        ',  h_voda.yearmon, PERE_DAY, PERE_RAZN'
+        'VODA.KOLI_F,H_VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD, H_V' +
+        'ODA.SCH_RAZN, H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_voda.F' +
+        'IO, h_voda.WID,  h_voda.yearmon, PERE_DAY, PERE_RAZN'
       'FROM H_VODA'
       'where h_voda.yearmon=:yearmon '
       'ORDER BY H_VODA.SCHET')
     ModifySQL.Strings = (
       'update H_VODA'
       'set'
+      '  FIO = :FIO,'
       '  GRP_RAZN = :GRP_RAZN,'
       '  KL = :KL,'
+      '  KOLI_F = :KOLI_F,'
       '  KOLI_P = :KOLI_P,'
       '  NOR_RAZN = :NOR_RAZN,'
+      '  PERE_DAY = :PERE_DAY,'
+      '  PERE_RAZN = :PERE_RAZN,'
+      '  PLOMB = :PLOMB,'
       '  SCH_CUR = :SCH_CUR,'
       '  SCH_OLD = :SCH_OLD,'
       '  SCHET = :SCHET,'
-      '  PLOMB = :PLOMB,'
-      '  FIO = :FIO,'
       '  WID = :WID,'
-      '  YEARMON = :YEARMON,'
-      '  PERE_DAY = :PERE_DAY,'
-      '  PERE_RAZN = :PERE_RAZN'
+      '  YEARMON = :YEARMON'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'
@@ -5469,6 +5467,10 @@ object MainForm: TMainForm
       Origin = 'H_VODA.PERE_RAZN'
       Precision = 18
       Size = 4
+    end
+    object hvd_repKOLI_F: TLargeintField
+      FieldName = 'KOLI_F'
+      Origin = '"H_VODA"."KOLI_F"'
     end
   end
   object cxStyleRepository1: TcxStyleRepository
@@ -5643,6 +5645,7 @@ object MainForm: TMainForm
       '  NAIM = :NAIM'
       'where'
       '  KL = :OLD_KL')
+    Active = True
     Left = 352
     Top = 352
     object plombKL: TIntegerField

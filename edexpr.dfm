@@ -64,6 +64,8 @@ object FormEdExpr: TFormEdExpr
     Width = 794
     Height = 419
     Align = alClient
+    ExplicitTop = 87
+    ExplicitHeight = 497
     DockType = 0
     OriginalWidth = 794
     OriginalHeight = 419
@@ -176,10 +178,10 @@ object FormEdExpr: TFormEdExpr
       end
     end
     object dxDockPanel2: TdxDockPanel
-      Left = 0
+      Left = -217
       Top = 0
       Width = 217
-      Height = 140
+      Height = 0
       Visible = False
       AllowFloating = True
       AutoHide = True
@@ -192,7 +194,7 @@ object FormEdExpr: TFormEdExpr
       object cxDBTreeList1: TcxDBTreeList
         Left = 0
         Top = 0
-        Width = 213
+        Width = 217
         Height = 153
         Align = alTop
         Bands = <
@@ -208,7 +210,6 @@ object FormEdExpr: TFormEdExpr
         RootValue = 2
         TabOrder = 0
         OnDblClick = cxDBTreeList1DblClick
-        ExplicitWidth = 217
         object cxDBTreeList1TITLE: TcxDBTreeListColumn
           Caption.Text = #1055#1086#1084#1086#1097#1100
           DataBinding.FieldName = 'TITLE'
@@ -235,7 +236,6 @@ object FormEdExpr: TFormEdExpr
         Style.Font.Style = [fsBold]
         Style.IsFontAssigned = True
         TabOrder = 1
-        ExplicitWidth = 217
         Height = 49
         Width = 217
       end
@@ -579,6 +579,7 @@ object FormEdExpr: TFormEdExpr
     Top = 336
   end
   object IBTransactionScript: TIBTransaction
+    Active = True
     DefaultDatabase = MainForm.IBDatabase
     Params.Strings = (
       'read_committed'
@@ -601,7 +602,7 @@ object FormEdExpr: TFormEdExpr
         '  (GRP_RAZN, KL, KOLI_P, NOR_RAZN, PLOMB, SCH_CUR, SCH_OLD, SCHE' +
         'T, '
       'WID, '
-      '   YEARMON, KOLI_P0, KOLI_P1, PERE_DAY, PERE_RAZN,NOTE)'
+      '   YEARMON, KOLI_P0, KOLI_P1, PERE_DAY, PERE_RAZN,NOTE,KOLI_F)'
       'values'
       
         '  (:GRP_RAZN, :KL, :KOLI_P, :NOR_RAZN, :PLOMB, :SCH_CUR, :SCH_OL' +
@@ -609,22 +610,23 @@ object FormEdExpr: TFormEdExpr
       ':SCHET, '
       
         '   :WID, :YEARMON, :KOLI_P0, :KOLI_P1, :PERE_DAY, :PERE_RAZN,:NO' +
-        'TE)')
+        'TE,:KOLI_F)')
     RefreshSQL.Strings = (
       'Select GRP_RAZN, KL, KOLI_P, NOR_RAZN, PLOMB, SCH_CUR, SCH_OLD, '
       'SCHET, '
       'WID, '
-      '   YEARMON, KOLI_P0, KOLI_P1, PERE_DAY, PERE_RAZN, NOTE'
+      '   YEARMON, KOLI_P0, KOLI_P1, PERE_DAY, PERE_RAZN, NOTE,KOLI_F'
       'from h_voda '
       'where'
       '  KL = :KL')
     SelectSQL.Strings = (
       
-        'SELECT H_VODA.DOM, H_VODA.GRP_RAZN, H_VODA.KL, H_VODA.KOLI_P, H_' +
-        'VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD, H_VODA.SCH_RAZN, ' +
-        'H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_voda.FIO, h_voda.WID' +
-        ',  h_voda.yearmon, H_VODA.PERE_DAY, H_VODA.PERE_RAZN, H_VODA.n_s' +
-        'ch, H_VODA.UL,H_VODA.N_DOM,H_VODA.KV,H_VODA.ID_KONTR'
+        'SELECT H_VODA.DOM, H_VODA.GRP_RAZN, H_VODA.KL, H_VODA.KOLI_P,H_V' +
+        'ODA.KOLI_F, H_VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD, H_V' +
+        'ODA.SCH_RAZN, H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_voda.F' +
+        'IO, h_voda.WID,  h_voda.yearmon, H_VODA.PERE_DAY, H_VODA.PERE_RA' +
+        'ZN, H_VODA.n_sch, H_VODA.UL,H_VODA.N_DOM,H_VODA.KV,H_VODA.ID_KON' +
+        'TR'
       
         ', r3.srazn3,r3.snorm3,r12.srazn12, round(r12.srazn12/12,0) sred,' +
         ' r12.kol,'
@@ -685,7 +687,8 @@ object FormEdExpr: TFormEdExpr
       '  KOLI_P1 = :KOLI_P1,'
       '  PERE_DAY = :PERE_DAY,'
       '  PERE_RAZN = :PERE_RAZN,'
-      '  NOTE = :NOTE'
+      '  NOTE = :NOTE,'
+      '  KOLI_F = :KOLI_F'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'

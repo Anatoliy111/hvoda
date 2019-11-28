@@ -268,9 +268,10 @@ type
     hvdNOTE: TIBStringField;
     DBGrid1NOTE: TcxGridDBBandedColumn;
     hvdallNOTE: TIBStringField;
-    hvdKOLI_F: TLargeintField;
     hvdallKOLI_F: TLargeintField;
     DBGrid1KOLI_F: TcxGridDBBandedColumn;
+    hvdKOLI_F: TLargeintField;
+    hvd_repKOLI_F: TLargeintField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;

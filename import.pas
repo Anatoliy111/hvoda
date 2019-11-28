@@ -33,6 +33,7 @@ type
     hvdKOLI_P: TIBBCDField;
     hvdKOLI_P1: TIntegerField;
     Button3: TButton;
+    hvdKOLI_F: TLargeintField;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
