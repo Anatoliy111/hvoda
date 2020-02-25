@@ -561,6 +561,7 @@ end;
 
 procedure TMainForm.dxBarLookupCombo2KeyValueChange(Sender: TObject);
 begin
+  IBTransaction1.CommitRetaining;
   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
@@ -690,6 +691,7 @@ end;
 
 procedure TMainForm.dxBarButton4Click(Sender: TObject);
 begin
+  IBTransaction1.CommitRetaining;
   StartWait;
   dxBarLookupCombo1.Enabled:=not dxBarButton4.down;
   hvd.Close;
