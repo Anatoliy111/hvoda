@@ -331,6 +331,7 @@ type
     procedure hvdWIDValidate(Sender: TField);
     procedure hvd3BeforeOpen(DataSet: TDataSet);
     procedure hvd12BeforeOpen(DataSet: TDataSet);
+    procedure DBGrid1WIDPropertiesChange(Sender: TObject);
   private
     { Private declarations }
     schet:string;
@@ -561,7 +562,7 @@ end;
 
 procedure TMainForm.dxBarLookupCombo2KeyValueChange(Sender: TObject);
 begin
-  IBTransaction1.CommitRetaining;
+  if hvd.State in [dsInsert,dsEdit] then hvd.Post;
   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
@@ -691,7 +692,7 @@ end;
 
 procedure TMainForm.dxBarButton4Click(Sender: TObject);
 begin
-  IBTransaction1.CommitRetaining;
+  if hvd.State in [dsInsert,dsEdit] then hvd.Post;
   StartWait;
   dxBarLookupCombo1.Enabled:=not dxBarButton4.down;
   hvd.Close;
@@ -794,9 +795,9 @@ end;
 
 procedure TMainForm.hvdSCH_CURChange(Sender: TField);
 begin
-  if (hvdWID.Value=2) then
+  if (hvdWID.Value<>1) then
   begin
-    ShowMessage('¬иставлена норма, зм≥н≥ть вид на л≥чильник !!!  ƒл€ в≥дм≥ни редагуванн€ натисн≥ть ESC');
+    ShowMessage('«м≥н≥ть вид на Ћ≤„»Ћ№Ќ»  !!!');
 //    hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
 
     hvd.Cancel;
@@ -887,6 +888,11 @@ begin
     DBGrid1n_sch.Options.Editing:=true;
 //    ADone:=true;
   end;
+end;
+
+procedure TMainForm.DBGrid1WIDPropertiesChange(Sender: TObject);
+begin
+  hvd.Post;
 end;
 
 procedure TMainForm.ActionPrintTotalExecute(Sender: TObject);
