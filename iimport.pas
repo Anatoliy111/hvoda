@@ -28,7 +28,7 @@ var
 implementation
 
 uses main,dbf,dbf_lang,mytools, kart;
-var hh,kk,oo:TDbf;
+var hh,kk,oo,oo1:TDbf;
 
 {$R *.dfm}
 
@@ -47,6 +47,35 @@ begin
  Form4.Label2.Caption:='Перевірка підключення до бази даних.Зачекайте...';
    try
 
+     oo1:=TDbf.Create(self);
+     oo1.TableName:=main.MainForm.PathKvart+'obor.dbf';
+     oo1.Open;
+
+    Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
+    oo1.First;
+    while not oo1.Eof do
+    begin
+       if oo1.fieldbyname('wid').AsString='hv' then
+       begin
+       MainForm.hvdall.First;
+       if not MainForm.hvdall.Locate('schet',dos2win(oo1.fieldbyname('schet').AsString),[]) then
+       begin
+          MainForm.hvdall.Insert;
+          MainForm.hvdall.edit;
+          MainForm.hvdallSCHET.Value:=dos2win(oo1.fieldbyname('schet').AsString);
+          MainForm.hvdallYEARMON.Value:=main.MainForm.dataYEARMON.Value;
+          MainForm.hvdall.post;
+       end;
+       end;
+      oo1.Next;
+      cxProgressBar1.Position:=oo1.RecNo/oo1.RecordCount*100;
+      application.ProcessMessages;
+    end;
+
+
+
+
+
      kk:=TDbf.Create(self);
      kk.TableName:=main.MainForm.PathKvart+'kart.dbf';
      kk.Open;
@@ -56,7 +85,7 @@ begin
     while not kk.Eof do
     begin
        MainForm.hvdall.First;
-       if MainForm.hvdall.Locate('schet',kk.fieldbyname('schet').AsString,[]) then
+       if MainForm.hvdall.Locate('schet',dos2win(kk.fieldbyname('schet').AsString),[]) then
        begin
           MainForm.hvdall.edit;
           MainForm.hvdallFIO.Value:=dos2win(kk.fieldbyname('fio').AsString+' '+kk.fieldbyname('im').AsString+' '+kk.fieldbyname('ot').AsString);

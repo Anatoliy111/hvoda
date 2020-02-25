@@ -468,14 +468,14 @@ var i:integer;
 begin
 //  if AViewInfo.Selected then exit;
 
-  if vartype(AViewInfo.GridRecord.Values[DBGrid1PLOMB.Index])=varNull then i:=0
-  else i:=AViewInfo.GridRecord.Values[DBGrid1PLOMB.Index];
+//  if vartype(AViewInfo.GridRecord.Values[DBGrid1PLOMB.Index])=varNull then i:=0
+//  else i:=AViewInfo.GridRecord.Values[DBGrid1PLOMB.Index];
 
-  if i<>0 then
-  begin
-    ACanvas.Canvas.Brush.Style := bsSolid;
-    ACanvas.Canvas.Brush.Color := clSilver;//  $00F7EAD9;
-  end;
+//  if i<>0 then
+//  begin
+//    ACanvas.Canvas.Brush.Style := bsSolid;
+//    ACanvas.Canvas.Brush.Color := clSilver;//  $00F7EAD9;
+//  end;
 
 {  if AViewInfo.Selected then exit;
 
@@ -516,16 +516,16 @@ var AViewInfo: TcxCustomGridTableViewInfo;
 var i:integer;
 
 begin
-  if vartype(Sender.Items[DBGrid1PLOMB.Index].EditValue)=varNull then i:=0
-  else i:=Sender.Items[DBGrid1PLOMB.Index].EditValue;
+ // if vartype(Sender.Items[DBGrid1PLOMB.Index].EditValue)=varNull then i:=0
+ // else i:=Sender.Items[DBGrid1PLOMB.Index].EditValue;
 
-  if i<>0 then
-  if (AItem.Index = DBGrid1SCH_CUR.Index) or
-     (AItem.Index = DBGrid1SCH_OLD.Index) or
-     (AItem.Index = DBGrid1KOLI_P.Index) or
-     (AItem.Index = DBGrid1GRP_RAZN.Index) or
-     (AItem.Index = DBGrid1SCH_RAZN.Index) or
-     (AItem.Index = DBGrid1NOR_RAZN.Index) then AAllow:=false;
+ // if i<>0 then
+ // if (AItem.Index = DBGrid1SCH_CUR.Index) or
+  //   (AItem.Index = DBGrid1SCH_OLD.Index) or
+    // (AItem.Index = DBGrid1KOLI_P.Index) or
+   //  (AItem.Index = DBGrid1GRP_RAZN.Index) or
+   //  (AItem.Index = DBGrid1SCH_RAZN.Index) or
+   //  (AItem.Index = DBGrid1NOR_RAZN.Index) then AAllow:=false;
 
 //  Sender.Items[DBGrid1WID.Index].EditValue=1
 

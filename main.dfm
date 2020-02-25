@@ -50,6 +50,8 @@ object MainForm: TMainForm
         Height = 437
         Align = alClient
         TabOrder = 1
+        ExplicitLeft = 3
+        ExplicitTop = 32
         object DBGrid1: TcxGridDBBandedTableView
           OnKeyDown = DBGrid1KeyDown
           NavigatorButtons.OnButtonClick = DBGrid1NavigatorButtonsButtonClick
@@ -60,7 +62,9 @@ object MainForm: TMainForm
           NavigatorButtons.Next.Hint = #1053#1072#1089#1090#1091#1087#1085#1080#1081
           NavigatorButtons.NextPage.Hint = #1053#1072#1089#1090#1091#1087#1085#1072' '#1089#1090#1086#1088#1110#1085#1082#1072
           NavigatorButtons.Last.Hint = #1054#1089#1090#1072#1085#1085#1110#1081' '#1079#1072#1087#1080#1089
+          NavigatorButtons.Insert.Enabled = False
           NavigatorButtons.Insert.Hint = #1042#1089#1090#1072#1074#1080#1090#1080' '#1079#1072#1087#1080#1089
+          NavigatorButtons.Append.Enabled = False
           NavigatorButtons.Delete.Hint = #1042#1080#1076#1072#1083#1080#1090#1080
           NavigatorButtons.Edit.Hint = #1056#1077#1076#1072#1075#1091#1074#1072#1090#1080
           NavigatorButtons.Post.Hint = #1047#1073#1077#1088#1077#1075#1090#1080
@@ -1232,7 +1236,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E004000500014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000540014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
