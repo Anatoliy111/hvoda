@@ -737,12 +737,12 @@ end;
 procedure TMainForm.hvdBeforePost(DataSet: TDataSet);
 begin
   if hvdYEARMON.Value=0 then hvdYEARMON.Value:=CurYM;
-  if hvdPlomb.Value=1 then
-  begin
-    hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
-    hvdGRP_RAZN.Value:=0;
-    hvdNOR_RAZN.Value:=0;
-  end;
+ // if hvdPlomb.Value=1 then
+ // begin
+ //   hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
+ //   hvdGRP_RAZN.Value:=0;
+ //   hvdNOR_RAZN.Value:=0;
+ // end;
 
 end;
 
@@ -810,13 +810,13 @@ begin
      (hvdSCH_CUR.Value-hvdSCH_OLD.Value>150) then
   ShowMessage('Перевірте правильність введених даних');
 
-  if (hvdPLOMB.Value=1) and (hvdSCH_CUR.Value<>hvdSCH_OLD.Value) then
-  begin
-    ShowMessage('Вода опломбована, а є показання лічильника !!!');
-    hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
+ // if (hvdPLOMB.Value=1) and (hvdSCH_CUR.Value<>hvdSCH_OLD.Value) then
+//  begin
+ //   ShowMessage('Вода опломбована, а є показання лічильника !!!');
+ //   hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
 
-    abort;
-  end;
+ //   abort;
+//  end;
 
 
 end;
