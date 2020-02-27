@@ -72,7 +72,7 @@ begin
       application.ProcessMessages;
     end;
 
-
+     oo1.Free;
 
 
 
@@ -101,6 +101,8 @@ begin
       application.ProcessMessages;
     end;
     MainForm.IBTransaction1.CommitRetaining;
+
+    kk.Free;
 //    MessageDlg('Імпорт виконано', mtConfirmation, [mbOK], 0);
     MainForm.hvd.Close;
     MainForm.hvd.Open;
