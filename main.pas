@@ -14,7 +14,7 @@ uses
   cxImageComboBox, dxBarExtDBItems, inifiles, IBServices,cxGridExportLink,
   cxCalc, frxClass, frxDBSet, IBQuery, ExtCtrls, frxDMPExport, frxDesgn,cxNavigator,
   cxPC, frxExportPDF, frxExportRTF, frxExportXML, cxSplitter,
-  cxLookAndFeelPainters, dxSkinsCore, cxButtonEdit;
+  cxLookAndFeelPainters, dxSkinsCore, cxButtonEdit, cxDBLookupComboBox;
 
 type
   TMainForm = class(TForm)
@@ -68,11 +68,6 @@ type
     frxDBDataset1: TfrxDBDataset;
     grp: TIBDataSet;
     grpSource: TDataSource;
-    grpKL: TIntegerField;
-    grpRAZN: TIBBCDField;
-    grpSCH0: TIBStringField;
-    grpSCH1: TIBStringField;
-    grpYEARMON: TIntegerField;
     Timer1: TTimer;
     dxBarLargeButton3: TdxBarLargeButton;
     ActionPrint: TAction;
@@ -117,12 +112,6 @@ type
     dxBarButton7: TdxBarButton;
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
-    grpNOTE: TIBStringField;
-    DBGrid3KL: TcxGridDBColumn;
-    DBGrid3RAZN: TcxGridDBColumn;
-    DBGrid3SCH0: TcxGridDBColumn;
-    DBGrid3SCH1: TcxGridDBColumn;
-    DBGrid3YEARMON: TcxGridDBColumn;
     DBGrid3NOTE: TcxGridDBColumn;
     propNOTE: TIBStringField;
     DBGrid2DD: TcxGridDBColumn;
@@ -272,6 +261,45 @@ type
     DBGrid1KOLI_F: TcxGridDBBandedColumn;
     hvdKOLI_F: TLargeintField;
     hvd_repKOLI_F: TLargeintField;
+    DBGrid3DOM: TcxGridDBColumn;
+    DBGrid3POD: TcxGridDBColumn;
+    DBGrid3SCH_OLD: TcxGridDBColumn;
+    DBGrid3SCH_CUR: TcxGridDBColumn;
+    DBGrid3SCH_RAZN: TcxGridDBColumn;
+    hvdPOD: TIntegerField;
+    hvdRASCH_KUB: TIBBCDField;
+    DBGrid1POD: TcxGridDBBandedColumn;
+    DBGrid1RASCH_KUB: TcxGridDBBandedColumn;
+    DBGrid3NORMA: TcxGridDBColumn;
+    hvdRASCH_NOR: TIBBCDField;
+    DBGrid1RASCH_NOR: TcxGridDBBandedColumn;
+    hvdallRASCH_KUB: TIBBCDField;
+    hvdallRASCH_NOR: TIBBCDField;
+    hvdallPOD: TIntegerField;
+    DBGrid3SCH_KUB: TcxGridDBColumn;
+    DBGrid3SCH_FACT: TcxGridDBColumn;
+    grpKL: TIntegerField;
+    grpYEARMON: TIntegerField;
+    grpDOM: TIBStringField;
+    grpPOD: TIntegerField;
+    grpSCH0: TIBStringField;
+    grpSCH1: TIBStringField;
+    grpSCH_OLD: TIBBCDField;
+    grpSCH_CUR: TIBBCDField;
+    grpSCH_FACT: TIBBCDField;
+    grpNORMA: TIBBCDField;
+    grpRAZN: TIBBCDField;
+    grpNOTE: TIBStringField;
+    grpSCH_KUB: TIBBCDField;
+    grpSCH_RAZN: TIBBCDField;
+    grpNORMA_BL: TIBBCDField;
+    DBGrid3NORMA_BL: TcxGridDBColumn;
+    hvdRASCH_NOTE: TIBStringField;
+    hvdallRASCH_NOTE: TIBStringField;
+    DBGrid1RASCH_NOTE: TcxGridDBBandedColumn;
+    DBGrid1SRED: TcxGridDBBandedColumn;
+    grpSCH_FOP: TIBBCDField;
+    DBGrid3SCH_FOP: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -376,7 +404,9 @@ begin
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
+var kk:Currency;
 begin
+
   IBdatabase.Connected:=true;
   IBTransaction1.Active:=true;
   data.Open;
@@ -892,7 +922,7 @@ end;
 
 procedure TMainForm.DBGrid1WIDPropertiesChange(Sender: TObject);
 begin
-  hvd.Post;
+//  hvd.Post;
 end;
 
 procedure TMainForm.ActionPrintTotalExecute(Sender: TObject);
@@ -958,6 +988,9 @@ procedure TMainForm.dxBarButton6Click(Sender: TObject);
 var kl:integer;
   kk:double;
 begin
+
+
+
    kl:=hvdKL.Value;
   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
   IBtransaction1.CommitRetaining;
@@ -974,6 +1007,8 @@ begin
     hvd.EnableControls;
     hvd.Close;
     hvd.Open;
+    grp.Close;
+    grp.Open;
     hvd.Locate('kl',kl,[]);
     Enabled:=true;
   end;

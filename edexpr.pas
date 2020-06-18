@@ -13,7 +13,7 @@ uses
   fs_ijs, dxBar, StdCtrls, fs_idbrtti, dxBarExtItems, cxImageComboBox,
   DBTables, cxCalc, dxDockControl, dxDockPanel, cxTL, cxMaskEdit,
   cxInplaceContainer, cxDBTL, cxTLData, cxPropertiesStore, ExtCtrls,
-  IBQuery;
+  IBQuery,math;
 
 type
   TFormEdExpr = class(TForm)
@@ -91,6 +91,21 @@ type
     hvd_repWID: TSmallintField;
     hvd_repYEARMON: TIntegerField;
     dom: TIBDataSet;
+    hvd_repN_SCH: TIBStringField;
+    hvd_repRASCH_KUB: TIBBCDField;
+    hvd_repKOLI_P0: TIntegerField;
+    hvd_repKOLI_P1: TIntegerField;
+    hvd_repRASCH_NOR: TIBBCDField;
+    hvd_repPERE_DAY: TIntegerField;
+    hvd_repPERE_RAZN: TIBBCDField;
+    hvd_repID_KONTR: TSmallintField;
+    hvd_repUL: TIBStringField;
+    hvd_repN_DOM: TIBStringField;
+    hvd_repKV: TIBStringField;
+    hvd_repNOTE: TIBStringField;
+    hvd_repKOLI_F: TLargeintField;
+    hvd_repPOD: TIntegerField;
+    qry2: TIBQuery;
     procedure FormShow(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure dxBarButton1Click(Sender: TObject);
@@ -113,6 +128,7 @@ type
     procedure hvd_repBeforeOpen(DataSet: TDataSet);
     procedure domBeforeOpen(DataSet: TDataSet);
     procedure dxBarButton4Click(Sender: TObject);
+    procedure qry2BeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
     procedure Compile(s:String);
@@ -238,21 +254,33 @@ begin
       else if UpperCase(Params[0])='HVD' then
       begin
         hvd.Active:=false;
-        hvd.ParamByName('sch0').AsString:=Params[1];
-        hvd.ParamByName('sch1').AsString:=Params[2];
-        if hvd.ParamByName('sch1').AsString='' then
-          if Params[1]='' then hvd.ParamByName('sch1').AsString:='€€€€€€€€€€'
-          else hvd.ParamByName('sch1').AsString:=Params[1];
+        hvd.ParamByName('dom').AsString:=Params[1];
+        if (hvd.ParamByName('dom').AsString='') then
+            hvd.ParamByName('all').AsInteger:=1
+        else hvd.ParamByName('all').AsInteger:=0;
+        hvd.SelectSQL.Text;
         hvd.Open;
         hvd.FetchAll;
+
         result:=integer(hvd);
+      end
+      else if UpperCase(Params[0])='QRY' then
+      begin
+        qry2.close;
+        qry2.SQL.Text:=Params[1];
+
+        if Params[2]<>'' then
+        qry2.ParamByName('pr2').AsString:=Params[2];
+        qry2.Open;
+        qry2.FetchAll;
+
+        result:=integer(qry2);
       end
       else
         raise Exception.Create('ѕопытка открыть неизвестную таблицу '+UpperCase(Params[0]));
     end
     else if MethodName='GETPROP' then
     begin
-
       i:=Params[0];
       s:=Params[1];
       qry.Close;
@@ -262,6 +290,12 @@ begin
       if qry.RecordCount=0 then result:=0
       else result:=qry.Fields[0].AsFloat;
       qry.Close;
+    end
+    else if MethodName='ROUND2' then
+    begin
+      i:=Params[1];
+      d:=Params[0];
+      result:=RoundTo(Params[0],Params[1]);
     end
     else if MethodName='CURYEARMON' then
     begin
@@ -300,12 +334,12 @@ begin
     else if MethodName='INITCALC' then
     begin
       qry.SQL.Clear;
-      qry.SQL.Add(format('update h_voda set nor_razn=0,grp_razn=0 where yearmon=%d',[MainForm.curYM]));
+      qry.SQL.Add(format('update h_voda set nor_razn=0,grp_razn=0, RASCH_NOR=0, RASCH_KUB=0 where yearmon=%d',[MainForm.curYM]));
       qry.ExecSQL;
 
-      qry.SQL.Clear;
-      qry.SQL.Add(format('update h_voda set wid=2 where wid=3 and yearmon=%d',[MainForm.curYM]));
-      qry.ExecSQL;
+    //  qry.SQL.Clear;
+    //  qry.SQL.Add(format('update h_voda set wid=2 where wid=3 and yearmon=%d',[MainForm.curYM]));
+   //   qry.ExecSQL;
 
       qry.SQL.Clear;
       qry.SQL.Add(format('update h_voda set note=null where yearmon=%d',[MainForm.curYM]));
@@ -420,6 +454,11 @@ begin
     prop.ParamByName('all').AsInteger:=0;
 end;
 
+procedure TFormEdExpr.qry2BeforeOpen(DataSet: TDataSet);
+begin
+  qry2.ParamByName('yearmon').AsInteger:=MainForm.curYM;
+end;
+
 procedure TFormEdExpr.dxBarButton2Click(Sender: TObject);
 begin
   close;
@@ -527,6 +566,7 @@ begin
     AddMethod('function CurDaysInMon:integer',CallMethod);
     AddMethod('function PrevYearMon:integer',CallMethod);
     AddMethod('function PrevDaysInMon:integer',CallMethod);
+    AddMethod('function Round2(p:double;i:integer):double',CallMethod);
     AddMethod('function Progress(p:double;s:string=''''):boolean',CallMethod);
     AddMethod('procedure InitCalc',CallMethod);
 
@@ -552,4 +592,5 @@ end;
 end.
 
 
+//--where (H_VODA.schet>=:sch0) and (H_VODA.schet<=:sch1) and (H_VODA.yearmon=:yearmon)
 

@@ -151,7 +151,8 @@ object FormEdExpr: TFormEdExpr
             ShowFooter = True
             ShowGutter = True
             OnChange = fsSyntaxMemo1Change
-            ExplicitHeight = 368
+            ExplicitLeft = -1
+            ExplicitTop = -1
           end
         end
       end
@@ -593,45 +594,73 @@ object FormEdExpr: TFormEdExpr
     Transaction = IBTransactionScript
     BeforeOpen = hvdBeforeOpen
     DeleteSQL.Strings = (
-      'delete from h_voda'
+      'delete from H_VODA'
       'where'
       '  KL = :OLD_KL')
     InsertSQL.Strings = (
-      'insert into h_voda'
+      'insert into H_VODA'
       
-        '  (GRP_RAZN, KL, KOLI_P, NOR_RAZN, PLOMB, SCH_CUR, SCH_OLD, SCHE' +
-        'T, '
-      'WID, '
-      '   YEARMON, KOLI_P0, KOLI_P1, PERE_DAY, PERE_RAZN,NOTE,KOLI_F)'
+        '  (FIO, GRP_RAZN, ID_KONTR, KL, KOLI_F, KOLI_P, KV, N_DOM, N_SCH' +
+        ', '
+      
+        '   NOR_RAZN, NOTE, PERE_DAY, PERE_RAZN, PLOMB, POD, RASCH_KUB, S' +
+        'CH_CUR, '
+      '   SCH_OLD, SCHET, UL, WID, YEARMON,RASCH_NOR,RASCH_NOTE)'
       'values'
       
-        '  (:GRP_RAZN, :KL, :KOLI_P, :NOR_RAZN, :PLOMB, :SCH_CUR, :SCH_OL' +
-        'D, '
-      ':SCHET, '
+        '  (:FIO, :GRP_RAZN, :ID_KONTR, :KL, :KOLI_F, :KOLI_P, :KV, :N_DO' +
+        'M, '
       
-        '   :WID, :YEARMON, :KOLI_P0, :KOLI_P1, :PERE_DAY, :PERE_RAZN,:NO' +
-        'TE,:KOLI_F)')
+        '   :N_SCH, :NOR_RAZN, :NOTE, :PERE_DAY, :PERE_RAZN, :PLOMB, :POD' +
+        ', :RASCH_KUB, '
+      '   :SCH_CUR, :SCH_OLD, :SCHET,'
+      '   :UL, :WID, :YEARMON,:RASCH_NOR,:RASCH_NOTE)')
     RefreshSQL.Strings = (
-      'Select GRP_RAZN, KL, KOLI_P, NOR_RAZN, PLOMB, SCH_CUR, SCH_OLD, '
-      'SCHET, '
-      'WID, '
-      '   YEARMON, KOLI_P0, KOLI_P1, PERE_DAY, PERE_RAZN, NOTE,KOLI_F'
-      'from h_voda '
+      'Select '
+      '  DOM,'
+      '  POD,'
+      '  RASCH_KUB,'
+      '  GRP_RAZN,'
+      '  KL,'
+      '  KOLI_P,'
+      '  KOLI_F,'
+      '  NOR_RAZN,'
+      '  SCH_CUR,'
+      '  SCH_OLD,'
+      '  SCH_RAZN,'
+      '  SCHET,'
+      '  KVART,'
+      '  PLOMB,'
+      '  FIO,'
+      '  WID,'
+      '  YEARMON,'
+      '  PERE_DAY,'
+      '  PERE_RAZN,'
+      '  N_SCH,'
+      '  UL,'
+      '  N_DOM,'
+      '  KV,'
+      '  ID_KONTR,'
+      '  NOTE,'
+      '  RASCH_NOR,'
+      '  RASCH_NOTE'
+      'from H_VODA '
       'where'
       '  KL = :KL')
     SelectSQL.Strings = (
       
-        'SELECT H_VODA.DOM, H_VODA.GRP_RAZN, H_VODA.KL, H_VODA.KOLI_P,H_V' +
-        'ODA.KOLI_F, H_VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD, H_V' +
-        'ODA.SCH_RAZN, H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_voda.F' +
-        'IO, h_voda.WID,  h_voda.yearmon, H_VODA.PERE_DAY, H_VODA.PERE_RA' +
-        'ZN, H_VODA.n_sch, H_VODA.UL,H_VODA.N_DOM,H_VODA.KV,H_VODA.ID_KON' +
-        'TR'
+        'SELECT H_VODA.DOM, H_VODA.POD,H_VODA.RASCH_NOTE, H_VODA.RASCH_KU' +
+        'B,H_VODA.RASCH_NOR, H_VODA.GRP_RAZN, H_VODA.KL, H_VODA.KOLI_P,H_' +
+        'VODA.KOLI_F, H_VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD, H_' +
+        'VODA.SCH_RAZN, H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_voda.' +
+        'FIO, h_voda.WID,  h_voda.yearmon, H_VODA.PERE_DAY, H_VODA.PERE_R' +
+        'AZN, H_VODA.n_sch, H_VODA.UL,H_VODA.N_DOM,H_VODA.KV,H_VODA.ID_KO' +
+        'NTR'
       
-        ', r3.srazn3,r3.snorm3,r12.srazn12, round(r12.srazn12/12,0) sred,' +
+        ', r3.srazn3,r3.snorm3,r12.srazn12, round(r12.srazn12/12,2) sred,' +
         ' r12.kol,'
       'case when (r12.kol > 0) and (r12.srazn12>0) then'
-      'round(r12.srazn12/r12.kol,0)'
+      'round(r12.srazn12/r12.kol,2)'
       'else 0'
       'end sredkol,note'
       'FROM H_VODA'
@@ -667,28 +696,36 @@ object FormEdExpr: TFormEdExpr
       'order by schet'
       ') r12 on (r12.schet = H_VODA.schet)'
       
-        'where (H_VODA.schet>=:sch0) and (H_VODA.schet<=:sch1) and (H_VOD' +
-        'A.yearmon=:yearmon)'
+        'where ((H_VODA.dom=:dom) or (:all=1))  and (H_VODA.yearmon=:year' +
+        'mon)'
       'order by H_VODA.SCHET')
     ModifySQL.Strings = (
-      'update h_voda'
+      'update H_VODA'
       'set'
+      '  FIO = :FIO,'
       '  GRP_RAZN = :GRP_RAZN,'
+      '  ID_KONTR = :ID_KONTR,'
       '  KL = :KL,'
+      '  KOLI_F = :KOLI_F,'
       '  KOLI_P = :KOLI_P,'
+      '  KV = :KV,'
+      '  N_DOM = :N_DOM,'
+      '  N_SCH = :N_SCH,'
       '  NOR_RAZN = :NOR_RAZN,'
+      '  NOTE = :NOTE,'
+      '  PERE_DAY = :PERE_DAY,'
+      '  PERE_RAZN = :PERE_RAZN,'
       '  PLOMB = :PLOMB,'
+      '  POD = :POD,'
+      '  RASCH_KUB = :RASCH_KUB,'
       '  SCH_CUR = :SCH_CUR,'
       '  SCH_OLD = :SCH_OLD,'
       '  SCHET = :SCHET,'
+      '  UL = :UL,'
       '  WID = :WID,'
       '  YEARMON = :YEARMON,'
-      '  KOLI_P0 = :KOLI_P0,'
-      '  KOLI_P1 = :KOLI_P1,'
-      '  PERE_DAY = :PERE_DAY,'
-      '  PERE_RAZN = :PERE_RAZN,'
-      '  NOTE = :NOTE,'
-      '  KOLI_F = :KOLI_F'
+      '  RASCH_NOR = :RASCH_NOR,'
+      '  RASCH_NOTE = :RASCH_NOTE'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'
@@ -707,28 +744,58 @@ object FormEdExpr: TFormEdExpr
       '  KL = :OLD_KL')
     InsertSQL.Strings = (
       'insert into HVGRP'
-      '  (NORMA)'
+      
+        '  (DOM, KL, NORMA, NORMA_BL, NOTE, POD, RAZN, SCH_CUR, SCH_FACT,' +
+        ' SCH_FOP, '
+      '   SCH_OLD, SCH_RAZN, SCH0, SCH1, YEARMON)'
       'values'
-      '  (:NORMA)')
+      
+        '  (:DOM, :KL, :NORMA, :NORMA_BL, :NOTE, :POD, :RAZN, :SCH_CUR, :' +
+        'SCH_FACT, '
+      '   :SCH_FOP, :SCH_OLD, :SCH_RAZN, :SCH0, :SCH1, :YEARMON)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
       '  YEARMON,'
+      '  DOM,'
+      '  POD,'
       '  SCH0,'
       '  SCH1,'
+      '  SCH_OLD,'
+      '  SCH_CUR,'
+      '  SCH_FACT,'
+      '  NORMA,'
       '  RAZN,'
-      '  NORMA'
+      '  NOTE,'
+      '  SCH_KUB,'
+      '  SCH_RAZN,'
+      '  NORMA_BL,'
+      '  SCH_FOP'
       'from HVGRP '
       'where'
       '  KL = :KL')
     SelectSQL.Strings = (
-      'select KL, RAZN, SCH0, SCH1, YEARMON, NORMA from HVGRP'
+      'select * from HVGRP'
       'where yearmon=:yearmon'
-      'order by sch0')
+      'order by dom')
     ModifySQL.Strings = (
       'update HVGRP'
       'set'
-      '  NORMA = :NORMA'
+      '  DOM = :DOM,'
+      '  KL = :KL,'
+      '  NORMA = :NORMA,'
+      '  NORMA_BL = :NORMA_BL,'
+      '  NOTE = :NOTE,'
+      '  POD = :POD,'
+      '  RAZN = :RAZN,'
+      '  SCH_CUR = :SCH_CUR,'
+      '  SCH_FACT = :SCH_FACT,'
+      '  SCH_FOP = :SCH_FOP,'
+      '  SCH_OLD = :SCH_OLD,'
+      '  SCH_RAZN = :SCH_RAZN,'
+      '  SCH0 = :SCH0,'
+      '  SCH1 = :SCH1,'
+      '  YEARMON = :YEARMON'
       'where'
       '  KL = :OLD_KL')
     Left = 456
@@ -789,7 +856,7 @@ object FormEdExpr: TFormEdExpr
   end
   object helpSource: TDataSource
     DataSet = help
-    Left = 64
+    Left = 72
     Top = 177
   end
   object dxDockingManager1: TdxDockingManager
@@ -849,64 +916,91 @@ object FormEdExpr: TFormEdExpr
     InsertSQL.Strings = (
       'insert into H_VODA'
       
-        '  (GRP_RAZN, KL, KOLI_P, NOR_RAZN, SCH_CUR, SCH_OLD, SCHET, PLOM' +
-        'B, '
-      'FIO, '
-      '   WID, YEARMON, PERE_DAY, PERE_RAZN)'
+        '  (FIO, GRP_RAZN, ID_KONTR, KL, KOLI_F, KOLI_P, KOLI_P0, KOLI_P1' +
+        ', KV, N_DOM, '
+      
+        '   N_SCH, NOR_RAZN, NOTE, PERE_DAY, PERE_RAZN, PLOMB, POD, RASCH' +
+        '_KUB, RASCH_NOR, '
+      '   RASCH_NOTE, SCH_CUR, SCH_OLD, SCHET, UL, WID, YEARMON)'
       'values'
       
-        '  (:GRP_RAZN, :KL, :KOLI_P, :NOR_RAZN, :SCH_CUR, :SCH_OLD, :SCHE' +
-        'T, '
-      ':PLOMB, '
-      '   :FIO, :WID, :YEARMON, :PERE_DAY, :PERE_RAZN)')
+        '  (:FIO, :GRP_RAZN, :ID_KONTR, :KL, :KOLI_F, :KOLI_P, :KOLI_P0, ' +
+        ':KOLI_P1, '
+      
+        '   :KV, :N_DOM, :N_SCH, :NOR_RAZN, :NOTE, :PERE_DAY, :PERE_RAZN,' +
+        ' :PLOMB, '
+      
+        '   :POD, :RASCH_KUB, :RASCH_NOR, :RASCH_NOTE, :SCH_CUR, :SCH_OLD' +
+        ', :SCHET, '
+      '   :UL, :WID, :YEARMON)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
       '  YEARMON,'
       '  PLOMB,'
       '  FIO,'
+      '  WID,'
       '  DOM,'
       '  KVART,'
-      '  WID,'
       '  SCHET,'
+      '  N_SCH,'
       '  SCH_OLD,'
       '  SCH_CUR,'
       '  SCH_RAZN,'
+      '  RASCH_KUB,'
       '  KOLI_P,'
       '  KOLI_P0,'
       '  KOLI_P1,'
       '  NOR_RAZN,'
+      '  RASCH_NOR,'
       '  GRP_RAZN,'
       '  PERE_DAY,'
-      '  PERE_RAZN'
+      '  PERE_RAZN,'
+      '  ID_KONTR,'
+      '  UL,'
+      '  N_DOM,'
+      '  KV,'
+      '  NOTE,'
+      '  KOLI_F,'
+      '  POD,'
+      '  RASCH_NOTE'
       'from H_VODA '
       'where'
       '  KL = :KL')
     SelectSQL.Strings = (
-      
-        'SELECT H_VODA.DOM, H_VODA.GRP_RAZN, H_VODA.KL, H_VODA.KOLI_P, H_' +
-        'VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD, H_VODA.SCH_RAZN, ' +
-        'H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_voda.FIO, h_voda.WID' +
-        ',  h_voda.yearmon, PERE_DAY, PERE_RAZN'
+      'SELECT *'
       'FROM H_VODA'
       'where h_voda.yearmon=:yearmon '
       'ORDER BY H_VODA.SCHET')
     ModifySQL.Strings = (
       'update H_VODA'
       'set'
+      '  FIO = :FIO,'
       '  GRP_RAZN = :GRP_RAZN,'
+      '  ID_KONTR = :ID_KONTR,'
       '  KL = :KL,'
+      '  KOLI_F = :KOLI_F,'
       '  KOLI_P = :KOLI_P,'
+      '  KOLI_P0 = :KOLI_P0,'
+      '  KOLI_P1 = :KOLI_P1,'
+      '  KV = :KV,'
+      '  N_DOM = :N_DOM,'
+      '  N_SCH = :N_SCH,'
       '  NOR_RAZN = :NOR_RAZN,'
+      '  NOTE = :NOTE,'
+      '  PERE_DAY = :PERE_DAY,'
+      '  PERE_RAZN = :PERE_RAZN,'
+      '  PLOMB = :PLOMB,'
+      '  POD = :POD,'
+      '  RASCH_KUB = :RASCH_KUB,'
+      '  RASCH_NOR = :RASCH_NOR,'
+      '  RASCH_NOTE = :RASCH_NOTE,'
       '  SCH_CUR = :SCH_CUR,'
       '  SCH_OLD = :SCH_OLD,'
       '  SCHET = :SCHET,'
-      '  PLOMB = :PLOMB,'
-      '  FIO = :FIO,'
+      '  UL = :UL,'
       '  WID = :WID,'
-      '  YEARMON = :YEARMON,'
-      '  PERE_DAY = :PERE_DAY,'
-      '  PERE_RAZN = :PERE_RAZN'
+      '  YEARMON = :YEARMON'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'
@@ -995,6 +1089,73 @@ object FormEdExpr: TFormEdExpr
       Origin = 'H_VODA.YEARMON'
       Required = True
     end
+    object hvd_repN_SCH: TIBStringField
+      FieldName = 'N_SCH'
+      Origin = '"H_VODA"."N_SCH"'
+      Size = 16
+    end
+    object hvd_repRASCH_KUB: TIBBCDField
+      FieldName = 'RASCH_KUB'
+      Origin = '"H_VODA"."RASCH_KUB"'
+      Precision = 18
+      Size = 4
+    end
+    object hvd_repKOLI_P0: TIntegerField
+      FieldName = 'KOLI_P0'
+      Origin = '"H_VODA"."KOLI_P0"'
+    end
+    object hvd_repKOLI_P1: TIntegerField
+      FieldName = 'KOLI_P1'
+      Origin = '"H_VODA"."KOLI_P1"'
+    end
+    object hvd_repRASCH_NOR: TIBBCDField
+      FieldName = 'RASCH_NOR'
+      Origin = '"H_VODA"."RASCH_NOR"'
+      Precision = 18
+      Size = 4
+    end
+    object hvd_repPERE_DAY: TIntegerField
+      FieldName = 'PERE_DAY'
+      Origin = '"H_VODA"."PERE_DAY"'
+    end
+    object hvd_repPERE_RAZN: TIBBCDField
+      FieldName = 'PERE_RAZN'
+      Origin = '"H_VODA"."PERE_RAZN"'
+      Precision = 18
+      Size = 4
+    end
+    object hvd_repID_KONTR: TSmallintField
+      FieldName = 'ID_KONTR'
+      Origin = '"H_VODA"."ID_KONTR"'
+    end
+    object hvd_repUL: TIBStringField
+      FieldName = 'UL'
+      Origin = '"H_VODA"."UL"'
+      Size = 70
+    end
+    object hvd_repN_DOM: TIBStringField
+      FieldName = 'N_DOM'
+      Origin = '"H_VODA"."N_DOM"'
+      Size = 10
+    end
+    object hvd_repKV: TIBStringField
+      FieldName = 'KV'
+      Origin = '"H_VODA"."KV"'
+      Size = 10
+    end
+    object hvd_repNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"H_VODA"."NOTE"'
+      Size = 50
+    end
+    object hvd_repKOLI_F: TLargeintField
+      FieldName = 'KOLI_F'
+      Origin = '"H_VODA"."KOLI_F"'
+    end
+    object hvd_repPOD: TIntegerField
+      FieldName = 'POD'
+      Origin = '"H_VODA"."POD"'
+    end
   end
   object dom: TIBDataSet
     Database = MainForm.IBDatabase
@@ -1031,5 +1192,12 @@ object FormEdExpr: TFormEdExpr
       '  KL = :OLD_KL')
     Left = 576
     Top = 336
+  end
+  object qry2: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = IBTransactionScript
+    BeforeOpen = qry2BeforeOpen
+    Left = 160
+    Top = 274
   end
 end
