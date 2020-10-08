@@ -13,7 +13,10 @@ uses
   edplomb in 'edplomb.pas' {FormEdPlomb},
   kart in 'kart.pas' {Form2},
   lichall in 'lichall.pas' {Form3},
-  iimport in 'iimport.pas' {Form4};
+  iimport in 'iimport.pas' {Form4},
+  addkart in 'addkart.pas' {FormAddkart},
+  delkart in 'delkart.pas' {FormDelkart},
+  sprzn in 'sprzn.pas' {SPR_ZN};
 
 {$R *.res}
 
@@ -29,5 +32,8 @@ begin
   Application.CreateForm(TForm2, Form2);
   Application.CreateForm(TForm3, Form3);
   Application.CreateForm(TForm4, Form4);
+  Application.CreateForm(TFormAddkart, FormAddkart);
+  Application.CreateForm(TFormDelkart, FormDelkart);
+  Application.CreateForm(TSPR_ZN, SPR_ZN);
   Application.Run;
 end.

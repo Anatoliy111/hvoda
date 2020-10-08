@@ -22,7 +22,7 @@ object MainForm: TMainForm
     Top = 77
     Width = 744
     Height = 489
-    ActivePage = cxTabSheet3
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 0
     OnPageChanging = cxPageControl1PageChanging
@@ -919,6 +919,26 @@ object MainForm: TMainForm
         end
         item
           Visible = True
+          ItemName = 'dxBarButton14'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton15'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton16'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton17'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton18'
+        end
+        item
+          Visible = True
           ItemName = 'dxBarButton11'
         end
         item
@@ -1304,6 +1324,41 @@ object MainForm: TMainForm
       Visible = ivAlways
       OnClick = dxBarButton13Click
     end
+    object dxBarButton14: TdxBarButton
+      Caption = #1055#1088#1080#1095#1080#1085#1072' '#1079#1085#1103#1090#1090#1103' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072
+      Category = 0
+      Hint = #1055#1088#1080#1095#1080#1085#1072' '#1079#1085#1103#1090#1090#1103' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072
+      Visible = ivAlways
+      OnClick = dxBarButton14Click
+    end
+    object dxBarButton15: TdxBarButton
+      Caption = #1055#1088#1080#1095#1080#1085#1072' '#1079#1085#1103#1090#1090#1103' '#1087#1083#1086#1084#1073#1080
+      Category = 0
+      Hint = #1055#1088#1080#1095#1080#1085#1072' '#1079#1085#1103#1090#1090#1103' '#1087#1083#1086#1084#1073#1080
+      Visible = ivAlways
+      OnClick = dxBarButton15Click
+    end
+    object dxBarButton16: TdxBarButton
+      Caption = #1055#1088#1080#1095#1080#1085#1072' '#1074#1080#1076#1072#1083#1077#1085#1085#1103' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+      Category = 0
+      Hint = #1055#1088#1080#1095#1080#1085#1072' '#1074#1080#1076#1072#1083#1077#1085#1085#1103' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+      Visible = ivAlways
+      OnClick = dxBarButton16Click
+    end
+    object dxBarButton17: TdxBarButton
+      Caption = #1042#1080#1076' '#1085#1072#1076#1093#1086#1076#1078#1077#1085#1085#1103' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+      Category = 0
+      Hint = #1042#1080#1076' '#1085#1072#1076#1093#1086#1076#1078#1077#1085#1085#1103' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+      Visible = ivAlways
+      OnClick = dxBarButton17Click
+    end
+    object dxBarButton18: TdxBarButton
+      Caption = #1042#1080#1076' '#1087#1083#1086#1084#1073#1080
+      Category = 0
+      Hint = #1042#1080#1076' '#1087#1083#1086#1084#1073#1080
+      Visible = ivAlways
+      OnClick = dxBarButton18Click
+    end
     object dxBarButton1: TdxBarButton
       Action = ActionEdCalcs
       Category = 1
@@ -1349,7 +1404,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E0040006C0014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000700014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3878,7 +3933,7 @@ object MainForm: TMainForm
   end
   object IBDatabase: TIBDatabase
     Connected = True
-    DatabaseName = 'D:\hvd\hvoda\GKU.FDB'
+    DatabaseName = 'D:\work\KPCENTR\hvoda\GKU.FDB'
     Params.Strings = (
       'user_name=sysdba'
       'password=masterkey'
@@ -3918,7 +3973,9 @@ object MainForm: TMainForm
       
         '   NOR_RAZN, NOTE, PERE_DAY, PERE_RAZN, PLOMB, POD, SCH_CUR, SCH' +
         '_OLD, SCHET, '
-      '    UL, WID, YEARMON,RASCH_KUB,RASCH_NOR,RASCH_NOTE)'
+      
+        '    UL, WID, YEARMON,RASCH_KUB,RASCH_NOR,RASCH_NOTE,DATE_POK,VID' +
+        '_POK)'
       'values'
       
         '  (:FIO, :GRP_RAZN, :ID_KONTR, :KL, :KOLI_F, :KOLI_P, :KV, :N_DO' +
@@ -3927,7 +3984,9 @@ object MainForm: TMainForm
         '   :N_SCH, :NOR_RAZN, :NOTE, :PERE_DAY, :PERE_RAZN, :PLOMB, :POD' +
         ', :SCH_CUR, '
       '   :SCH_OLD, :SCHET,:UL, '
-      '   :WID, :YEARMON,:RASCH_KUB,:RASCH_NOR,:RASCH_NOTE)')
+      
+        '   :WID, :YEARMON,:RASCH_KUB,:RASCH_NOR,:RASCH_NOTE,:DATE_POK,:V' +
+        'ID_POK)')
     RefreshSQL.Strings = (
       'Select '
       '  DOM,'
@@ -3956,7 +4015,9 @@ object MainForm: TMainForm
       '  RASCH_KUB,'
       '  RASCH_NOR,'
       '  NOTE,'
-      '  RASCH_NOTE'
+      '  RASCH_NOTE,'
+      '  DATE_POK,'
+      '  VID_POK'
       'from H_VODA '
       'where'
       '  KL = :KL')
@@ -3968,7 +4029,7 @@ object MainForm: TMainForm
         ', H_VODA.SCH_RAZN, H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_v' +
         'oda.FIO, h_voda.WID,  h_voda.yearmon, H_VODA.PERE_DAY, H_VODA.PE' +
         'RE_RAZN, H_VODA.n_sch, H_VODA.UL,H_VODA.N_DOM,H_VODA.KV,H_VODA.I' +
-        'D_KONTR'
+        'D_KONTR, H_VODA.DATE_POK, H_VODA.VID_POK'
       
         ', r3.srazn3,r3.snorm3,r12.srazn12, round(r12.srazn12/12,2) sred,' +
         ' r12.kol,'
@@ -4039,7 +4100,9 @@ object MainForm: TMainForm
       '  YEARMON = :YEARMON,'
       '  RASCH_KUB = :RASCH_KUB,'
       '  RASCH_NOR = :RASCH_NOR,'
-      '  RASCH_NOTE = :RASCH_NOTE'
+      '  RASCH_NOTE = :RASCH_NOTE,'
+      '  DATE_POK = :DATE_POK,'
+      '  VID_POK = :VID_POK'
       'where'
       '  KL = :OLD_KL ')
     GeneratorField.Field = 'KL'
@@ -4264,6 +4327,14 @@ object MainForm: TMainForm
       FieldName = 'RASCH_NOTE'
       Origin = '"H_VODA"."RASCH_NOTE"'
       Size = 50
+    end
+    object hvdDATE_POK: TDateField
+      FieldName = 'DATE_POK'
+      Origin = '"H_VODA"."DATE_POK"'
+    end
+    object hvdVID_POK: TIntegerField
+      FieldName = 'VID_POK'
+      Origin = '"H_VODA"."VID_POK"'
     end
   end
   object hvdSource: TDataSource
@@ -5875,6 +5946,7 @@ object MainForm: TMainForm
       '  NAIM = :NAIM'
       'where'
       '  KL = :OLD_KL')
+    Active = True
     Left = 352
     Top = 352
     object plombKL: TIntegerField
@@ -5888,109 +5960,6 @@ object MainForm: TMainForm
       Origin = 'PLOMB.NAIM'
       Size = 25
     end
-  end
-  object lich: TIBDataSet
-    Database = IBDatabase
-    Transaction = IBTransaction1
-    OnNewRecord = lichNewRecord
-    DeleteSQL.Strings = (
-      'delete from LICH'
-      'where'
-      '  ID = :OLD_ID')
-    InsertSQL.Strings = (
-      'insert into LICH'
-      
-        '  (DATA_INP, DATA_MGP, DATA_POV, DATA_VIP, ID, N_INPLOMB, N_LICH' +
-        ', N_MGPLOMB, '
-      '   SCHET, TIP)'
-      'values'
-      
-        '  (:DATA_INP, :DATA_MGP, :DATA_POV, :DATA_VIP, :ID, :N_INPLOMB, ' +
-        ':N_LICH, '
-      '   :N_MGPLOMB, :SCHET, :TIP)')
-    RefreshSQL.Strings = (
-      'Select '
-      '  ID,'
-      '  SCHET,'
-      '  TIP,'
-      '  N_LICH,'
-      '  DATA_VIP,'
-      '  DATA_POV,'
-      '  N_INPLOMB,'
-      '  N_MGPLOMB,'
-      '  DATA_INP,'
-      '  DATA_MGP'
-      'from LICH '
-      'where'
-      '  ID = :ID')
-    SelectSQL.Strings = (
-      'select * from LICH')
-    ModifySQL.Strings = (
-      'update LICH'
-      'set'
-      '  DATA_INP = :DATA_INP,'
-      '  DATA_MGP = :DATA_MGP,'
-      '  DATA_POV = :DATA_POV,'
-      '  DATA_VIP = :DATA_VIP,'
-      '  ID = :ID,'
-      '  N_INPLOMB = :N_INPLOMB,'
-      '  N_LICH = :N_LICH,'
-      '  N_MGPLOMB = :N_MGPLOMB,'
-      '  SCHET = :SCHET,'
-      '  TIP = :TIP'
-      'where'
-      '  ID = :OLD_ID')
-    GeneratorField.Field = 'ID'
-    GeneratorField.Generator = 'GEN_LICH_ID'
-    Left = 392
-    Top = 352
-    object lichID: TIntegerField
-      FieldName = 'ID'
-      Origin = '"LICH"."ID"'
-      Required = True
-    end
-    object lichSCHET: TIBStringField
-      FieldName = 'SCHET'
-      Origin = '"LICH"."SCHET"'
-      Size = 10
-    end
-    object lichTIP: TIBStringField
-      FieldName = 'TIP'
-      Origin = '"LICH"."TIP"'
-    end
-    object lichN_LICH: TIBStringField
-      FieldName = 'N_LICH'
-      Origin = '"LICH"."N_LICH"'
-    end
-    object lichDATA_VIP: TDateField
-      FieldName = 'DATA_VIP'
-      Origin = '"LICH"."DATA_VIP"'
-    end
-    object lichDATA_POV: TDateField
-      FieldName = 'DATA_POV'
-      Origin = '"LICH"."DATA_POV"'
-    end
-    object lichN_INPLOMB: TIBStringField
-      FieldName = 'N_INPLOMB'
-      Origin = '"LICH"."N_INPLOMB"'
-    end
-    object lichN_MGPLOMB: TIBStringField
-      FieldName = 'N_MGPLOMB'
-      Origin = '"LICH"."N_MGPLOMB"'
-    end
-    object lichDATA_INP: TDateField
-      FieldName = 'DATA_INP'
-      Origin = '"LICH"."DATA_INP"'
-    end
-    object lichDATA_MGP: TDateField
-      FieldName = 'DATA_MGP'
-      Origin = '"LICH"."DATA_MGP"'
-    end
-  end
-  object lichSource: TDataSource
-    DataSet = lich
-    Left = 392
-    Top = 384
   end
   object hvdall: TIBDataSet
     Database = IBDatabase
@@ -6551,5 +6520,517 @@ object MainForm: TMainForm
     DataSet = hvd12
     Left = 520
     Top = 384
+  end
+  object pokaznSource: TDataSource
+    DataSet = pokazn
+    Left = 352
+    Top = 464
+  end
+  object pokazn: TIBDataSet
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    DeleteSQL.Strings = (
+      'delete from POKAZN'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into POKAZN'
+      
+        '  (DATE_POK, DATE_ZN, ID, N_DOC, POKAZN, SCHET, VID_POK, VID_ZN,' +
+        ' YEARMON)'
+      'values'
+      
+        '  (:DATE_POK, :DATE_ZN, :ID, :N_DOC, :POKAZN, :SCHET, :VID_POK, ' +
+        ':VID_ZN, '
+      '   :YEARMON)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  YEARMON,'
+      '  POKAZN,'
+      '  DATE_POK,'
+      '  VID_POK,'
+      '  N_DOC,'
+      '  DATE_ZN,'
+      '  VID_ZN,'
+      '  SCHET'
+      'from POKAZN '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from POKAZN')
+    ModifySQL.Strings = (
+      'update POKAZN'
+      'set'
+      '  DATE_POK = :DATE_POK,'
+      '  DATE_ZN = :DATE_ZN,'
+      '  ID = :ID,'
+      '  N_DOC = :N_DOC,'
+      '  POKAZN = :POKAZN,'
+      '  SCHET = :SCHET,'
+      '  VID_POK = :VID_POK,'
+      '  VID_ZN = :VID_ZN,'
+      '  YEARMON = :YEARMON'
+      'where'
+      '  ID = :OLD_ID')
+    Left = 352
+    Top = 432
+    object pokaznID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"POKAZN"."ID"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object pokaznYEARMON: TIntegerField
+      FieldName = 'YEARMON'
+      Origin = '"POKAZN"."YEARMON"'
+    end
+    object pokaznPOKAZN: TIBBCDField
+      FieldName = 'POKAZN'
+      Origin = '"POKAZN"."POKAZN"'
+      Precision = 18
+      Size = 4
+    end
+    object pokaznDATE_POK: TDateField
+      FieldName = 'DATE_POK'
+      Origin = '"POKAZN"."DATE_POK"'
+    end
+    object pokaznVID_POK: TIntegerField
+      FieldName = 'VID_POK'
+      Origin = '"POKAZN"."VID_POK"'
+    end
+    object pokaznN_DOC: TIntegerField
+      FieldName = 'N_DOC'
+      Origin = '"POKAZN"."N_DOC"'
+    end
+    object pokaznDATE_ZN: TDateField
+      FieldName = 'DATE_ZN'
+      Origin = '"POKAZN"."DATE_ZN"'
+    end
+    object pokaznVID_ZN: TIntegerField
+      FieldName = 'VID_ZN'
+      Origin = '"POKAZN"."VID_ZN"'
+    end
+    object pokaznSCHET: TIBStringField
+      FieldName = 'SCHET'
+      Origin = '"POKAZN"."SCHET"'
+      Size = 10
+    end
+  end
+  object lichznDataSource: TDataSource
+    DataSet = lichzn
+    Left = 312
+    Top = 464
+  end
+  object lichzn: TIBDataSet
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    OnNewRecord = lichNewRecord
+    DeleteSQL.Strings = (
+      'delete from LICH'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into LICH'
+      
+        '  (DATA_INP, DATA_MGP, DATA_POV, DATA_VIG, DATA_VIP, DATA_ZN, ID' +
+        ', N_INPLOMB, '
+      '   N_LICH, N_MGPLOMB, NOTE, SCHET, TIP, VID_ZN)'
+      'values'
+      
+        '  (:DATA_INP, :DATA_MGP, :DATA_POV, :DATA_VIG, :DATA_VIP, :DATA_' +
+        'ZN, :ID, '
+      
+        '   :N_INPLOMB, :N_LICH, :N_MGPLOMB, :NOTE, :SCHET, :TIP, :VID_ZN' +
+        ')')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  SCHET,'
+      '  TIP,'
+      '  N_LICH,'
+      '  DATA_VIP,'
+      '  DATA_POV,'
+      '  N_INPLOMB,'
+      '  N_MGPLOMB,'
+      '  DATA_INP,'
+      '  DATA_MGP,'
+      '  DATA_ZN,'
+      '  NOTE,'
+      '  VID_ZN,'
+      '  DATA_VIG'
+      'from LICH '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from LICH where DATA_ZN is not null')
+    ModifySQL.Strings = (
+      'update LICH'
+      'set'
+      '  DATA_INP = :DATA_INP,'
+      '  DATA_MGP = :DATA_MGP,'
+      '  DATA_POV = :DATA_POV,'
+      '  DATA_VIG = :DATA_VIG,'
+      '  DATA_VIP = :DATA_VIP,'
+      '  DATA_ZN = :DATA_ZN,'
+      '  ID = :ID,'
+      '  N_INPLOMB = :N_INPLOMB,'
+      '  N_LICH = :N_LICH,'
+      '  N_MGPLOMB = :N_MGPLOMB,'
+      '  NOTE = :NOTE,'
+      '  SCHET = :SCHET,'
+      '  TIP = :TIP,'
+      '  VID_ZN = :VID_ZN'
+      'where'
+      '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_LICH_ID'
+    Left = 312
+    Top = 432
+    object IntegerField2: TIntegerField
+      FieldName = 'ID'
+      Origin = '"LICH"."ID"'
+      Required = True
+    end
+    object IBStringField5: TIBStringField
+      FieldName = 'SCHET'
+      Origin = '"LICH"."SCHET"'
+      Size = 10
+    end
+    object IBStringField6: TIBStringField
+      FieldName = 'TIP'
+      Origin = '"LICH"."TIP"'
+    end
+    object IBStringField7: TIBStringField
+      FieldName = 'N_LICH'
+      Origin = '"LICH"."N_LICH"'
+    end
+    object DateField3: TDateField
+      FieldName = 'DATA_VIP'
+      Origin = '"LICH"."DATA_VIP"'
+    end
+    object DateField4: TDateField
+      FieldName = 'DATA_POV'
+      Origin = '"LICH"."DATA_POV"'
+    end
+    object lichznDATA_ZN: TDateField
+      FieldName = 'DATA_ZN'
+      Origin = '"LICH"."DATA_ZN"'
+    end
+    object lichznN_INPLOMB: TIBStringField
+      FieldName = 'N_INPLOMB'
+      Origin = '"LICH"."N_INPLOMB"'
+    end
+    object lichznN_MGPLOMB: TIBStringField
+      FieldName = 'N_MGPLOMB'
+      Origin = '"LICH"."N_MGPLOMB"'
+    end
+    object lichznDATA_INP: TDateField
+      FieldName = 'DATA_INP'
+      Origin = '"LICH"."DATA_INP"'
+    end
+    object lichznDATA_MGP: TDateField
+      FieldName = 'DATA_MGP'
+      Origin = '"LICH"."DATA_MGP"'
+    end
+    object lichznNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"LICH"."NOTE"'
+      Size = 50
+    end
+    object lichznVID_ZN: TIntegerField
+      FieldName = 'VID_ZN'
+      Origin = '"LICH"."VID_ZN"'
+    end
+    object lichznDATA_VIG: TDateField
+      FieldName = 'DATA_VIG'
+      Origin = '"LICH"."DATA_VIG"'
+    end
+  end
+  object lichDataSource: TDataSource
+    DataSet = lich
+    Left = 280
+    Top = 464
+  end
+  object lich: TIBDataSet
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    OnNewRecord = lichNewRecord
+    DeleteSQL.Strings = (
+      'delete from LICH'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into LICH'
+      
+        '  (DATA_INP, DATA_MGP, DATA_POV, DATA_VIG, DATA_VIP, DATA_ZN, ID' +
+        ', N_INPLOMB, '
+      '   N_LICH, N_MGPLOMB, NOTE, SCHET, TIP, VID_ZN)'
+      'values'
+      
+        '  (:DATA_INP, :DATA_MGP, :DATA_POV, :DATA_VIG, :DATA_VIP, :DATA_' +
+        'ZN, :ID, '
+      
+        '   :N_INPLOMB, :N_LICH, :N_MGPLOMB, :NOTE, :SCHET, :TIP, :VID_ZN' +
+        ')')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  SCHET,'
+      '  TIP,'
+      '  N_LICH,'
+      '  DATA_VIP,'
+      '  DATA_POV,'
+      '  N_INPLOMB,'
+      '  N_MGPLOMB,'
+      '  DATA_INP,'
+      '  DATA_MGP,'
+      '  DATA_ZN,'
+      '  NOTE,'
+      '  VID_ZN,'
+      '  DATA_VIG'
+      'from LICH '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from LICH where DATA_ZN is null')
+    ModifySQL.Strings = (
+      'update LICH'
+      'set'
+      '  DATA_INP = :DATA_INP,'
+      '  DATA_MGP = :DATA_MGP,'
+      '  DATA_POV = :DATA_POV,'
+      '  DATA_VIG = :DATA_VIG,'
+      '  DATA_VIP = :DATA_VIP,'
+      '  DATA_ZN = :DATA_ZN,'
+      '  ID = :ID,'
+      '  N_INPLOMB = :N_INPLOMB,'
+      '  N_LICH = :N_LICH,'
+      '  N_MGPLOMB = :N_MGPLOMB,'
+      '  NOTE = :NOTE,'
+      '  SCHET = :SCHET,'
+      '  TIP = :TIP,'
+      '  VID_ZN = :VID_ZN'
+      'where'
+      '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_LICH_ID'
+    Left = 280
+    Top = 432
+    object lichID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"LICH"."ID"'
+      Required = True
+    end
+    object lichSCHET: TIBStringField
+      FieldName = 'SCHET'
+      Origin = '"LICH"."SCHET"'
+      Size = 10
+    end
+    object lichTIP: TIBStringField
+      FieldName = 'TIP'
+      Origin = '"LICH"."TIP"'
+    end
+    object lichN_LICH: TIBStringField
+      FieldName = 'N_LICH'
+      Origin = '"LICH"."N_LICH"'
+    end
+    object lichDATA_VIP: TDateField
+      FieldName = 'DATA_VIP'
+      Origin = '"LICH"."DATA_VIP"'
+    end
+    object lichDATA_POV: TDateField
+      FieldName = 'DATA_POV'
+      Origin = '"LICH"."DATA_POV"'
+    end
+    object lichN_INPLOMB: TIBStringField
+      FieldName = 'N_INPLOMB'
+      Origin = '"LICH"."N_INPLOMB"'
+    end
+    object lichN_MGPLOMB: TIBStringField
+      FieldName = 'N_MGPLOMB'
+      Origin = '"LICH"."N_MGPLOMB"'
+    end
+    object lichDATA_INP: TDateField
+      FieldName = 'DATA_INP'
+      Origin = '"LICH"."DATA_INP"'
+    end
+    object lichDATA_MGP: TDateField
+      FieldName = 'DATA_MGP'
+      Origin = '"LICH"."DATA_MGP"'
+    end
+    object lichDATA_ZN: TDateField
+      FieldName = 'DATA_ZN'
+      Origin = '"LICH"."DATA_ZN"'
+    end
+    object lichNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"LICH"."NOTE"'
+      Size = 50
+    end
+    object lichVID_ZN: TIntegerField
+      FieldName = 'VID_ZN'
+      Origin = '"LICH"."VID_ZN"'
+    end
+    object lichDATA_VIG: TDateField
+      FieldName = 'DATA_VIG'
+      Origin = '"LICH"."DATA_VIG"'
+    end
+  end
+  object plombsznDataSource: TDataSource
+    DataSet = plombszn
+    Left = 240
+    Top = 464
+  end
+  object plombszn: TIBDataSet
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    DeleteSQL.Strings = (
+      'delete from PLOMBS'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into PLOMBS'
+      '  (DATE_VS, DATE_ZN, ID, N_PLOMB, NOTE, SCHET, VID_PLOMB)'
+      'values'
+      '  (:DATE_VS, :DATE_ZN, :ID, :N_PLOMB, :NOTE, :SCHET, :VID_PLOMB)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  SCHET,'
+      '  VID_PLOMB,'
+      '  DATE_VS,'
+      '  DATE_ZN,'
+      '  NOTE,'
+      '  N_PLOMB'
+      'from PLOMBS '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from PLOMBS where DATE_ZN is not null')
+    ModifySQL.Strings = (
+      'update PLOMBS'
+      'set'
+      '  DATE_VS = :DATE_VS,'
+      '  DATE_ZN = :DATE_ZN,'
+      '  ID = :ID,'
+      '  N_PLOMB = :N_PLOMB,'
+      '  NOTE = :NOTE,'
+      '  SCHET = :SCHET,'
+      '  VID_PLOMB = :VID_PLOMB'
+      'where'
+      '  ID = :OLD_ID')
+    Left = 240
+    Top = 432
+    object IntegerField3: TIntegerField
+      FieldName = 'ID'
+      Origin = '"PLOMBS"."ID"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object IBStringField17: TIBStringField
+      FieldName = 'SCHET'
+      Origin = '"PLOMBS"."SCHET"'
+      Size = 10
+    end
+    object IBStringField18: TIBStringField
+      FieldName = 'VID_PLOMB'
+      Origin = '"PLOMBS"."VID_PLOMB"'
+    end
+    object DateField7: TDateField
+      FieldName = 'DATE_VS'
+      Origin = '"PLOMBS"."DATE_VS"'
+    end
+    object DateField8: TDateField
+      FieldName = 'DATE_ZN'
+      Origin = '"PLOMBS"."DATE_ZN"'
+    end
+    object IBStringField19: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"PLOMBS"."NOTE"'
+      Size = 50
+    end
+    object IBStringField20: TIBStringField
+      FieldName = 'N_PLOMB'
+      Origin = '"PLOMBS"."N_PLOMB"'
+    end
+  end
+  object plombsDataSource: TDataSource
+    DataSet = plombs
+    Left = 200
+    Top = 464
+  end
+  object plombs: TIBDataSet
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    DeleteSQL.Strings = (
+      'delete from PLOMBS'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into PLOMBS'
+      '  (DATE_VS, DATE_ZN, ID, N_PLOMB, NOTE, SCHET, VID_PLOMB)'
+      'values'
+      '  (:DATE_VS, :DATE_ZN, :ID, :N_PLOMB, :NOTE, :SCHET, :VID_PLOMB)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  SCHET,'
+      '  VID_PLOMB,'
+      '  DATE_VS,'
+      '  DATE_ZN,'
+      '  NOTE,'
+      '  N_PLOMB'
+      'from PLOMBS '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from PLOMBS where DATE_ZN is null')
+    ModifySQL.Strings = (
+      'update PLOMBS'
+      'set'
+      '  DATE_VS = :DATE_VS,'
+      '  DATE_ZN = :DATE_ZN,'
+      '  ID = :ID,'
+      '  N_PLOMB = :N_PLOMB,'
+      '  NOTE = :NOTE,'
+      '  SCHET = :SCHET,'
+      '  VID_PLOMB = :VID_PLOMB'
+      'where'
+      '  ID = :OLD_ID')
+    Left = 200
+    Top = 432
+    object plombsID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"PLOMBS"."ID"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object plombsSCHET: TIBStringField
+      FieldName = 'SCHET'
+      Origin = '"PLOMBS"."SCHET"'
+      Size = 10
+    end
+    object plombsVID_PLOMB: TIBStringField
+      FieldName = 'VID_PLOMB'
+      Origin = '"PLOMBS"."VID_PLOMB"'
+    end
+    object plombsDATE_VS: TDateField
+      FieldName = 'DATE_VS'
+      Origin = '"PLOMBS"."DATE_VS"'
+    end
+    object plombsDATE_ZN: TDateField
+      FieldName = 'DATE_ZN'
+      Origin = '"PLOMBS"."DATE_ZN"'
+    end
+    object plombsNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"PLOMBS"."NOTE"'
+      Size = 50
+    end
+    object plombsN_PLOMB: TIBStringField
+      FieldName = 'N_PLOMB'
+      Origin = '"PLOMBS"."N_PLOMB"'
+    end
   end
 end

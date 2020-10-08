@@ -48,50 +48,6 @@
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       <Excluded_Packages Name="$(BDS)\bin\bcboffice2k100.bpl">CodeGear C++Builder Office 2000 Servers Package</Excluded_Packages>
       <Excluded_Packages Name="$(BDS)\bin\bcbofficexp100.bpl">CodeGear C++Builder Office XP Servers Package</Excluded_Packages>
       <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
@@ -107,6 +63,9 @@
       <Form>MyForm</Form>
     </DCCReference>
     <DCCReference Include="..\common\mytools.pas" />
+    <DCCReference Include="addkart.pas">
+      <Form>FormAddkart</Form>
+    </DCCReference>
     <DCCReference Include="common\myform.pas">
       <Form>MyForm</Form>
     </DCCReference>
@@ -119,6 +78,9 @@
       <Form>MyForm</Form>
     </DCCReference>
     <DCCReference Include="D:\mytools.pas" />
+    <DCCReference Include="delkart.pas">
+      <Form>FormDelkart</Form>
+    </DCCReference>
     <DCCReference Include="edexpr.pas">
       <Form>FormEdExpr</Form>
     </DCCReference>
@@ -172,6 +134,9 @@
     <DCCReference Include="on\mytools.pas" />
     <DCCReference Include="progress.pas">
       <Form>FormProgress</Form>
+    </DCCReference>
+    <DCCReference Include="sprzn.pas">
+      <Form>SPR_ZN</Form>
     </DCCReference>
   </ItemGroup>
 </Project>

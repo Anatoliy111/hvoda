@@ -168,16 +168,6 @@ type
     DBGrid1n_sch: TcxGridDBBandedColumn;
     dxBarButton12: TdxBarButton;
     DBGrid1Column1: TcxGridDBBandedColumn;
-    lich: TIBDataSet;
-    lichSource: TDataSource;
-    lichID: TIntegerField;
-    lichSCHET: TIBStringField;
-    lichTIP: TIBStringField;
-    lichN_LICH: TIBStringField;
-    lichDATA_VIP: TDateField;
-    lichDATA_POV: TDateField;
-    lichN_INPLOMB: TIBStringField;
-    lichN_MGPLOMB: TIBStringField;
     hvdUL: TIBStringField;
     hvdN_DOM: TIBStringField;
     hvdKV: TIBStringField;
@@ -213,8 +203,6 @@ type
     DBGrid1N_DOM: TcxGridDBBandedColumn;
     DBGrid1KV: TcxGridDBBandedColumn;
     frxDBDataset2: TfrxDBDataset;
-    lichDATA_INP: TDateField;
-    lichDATA_MGP: TDateField;
     hvd3: TIBDataSet;
     hvd3Source: TDataSource;
     hvd12: TIBDataSet;
@@ -300,6 +288,74 @@ type
     DBGrid1SRED: TcxGridDBBandedColumn;
     grpSCH_FOP: TIBBCDField;
     DBGrid3SCH_FOP: TcxGridDBColumn;
+    pokaznSource: TDataSource;
+    pokazn: TIBDataSet;
+    pokaznID: TIntegerField;
+    pokaznYEARMON: TIntegerField;
+    pokaznPOKAZN: TIBBCDField;
+    pokaznDATE_POK: TDateField;
+    pokaznVID_POK: TIntegerField;
+    pokaznN_DOC: TIntegerField;
+    pokaznDATE_ZN: TDateField;
+    pokaznVID_ZN: TIntegerField;
+    pokaznSCHET: TIBStringField;
+    lichznDataSource: TDataSource;
+    lichzn: TIBDataSet;
+    IntegerField2: TIntegerField;
+    IBStringField5: TIBStringField;
+    IBStringField6: TIBStringField;
+    IBStringField7: TIBStringField;
+    DateField3: TDateField;
+    DateField4: TDateField;
+    lichznDATA_ZN: TDateField;
+    lichznN_INPLOMB: TIBStringField;
+    lichznN_MGPLOMB: TIBStringField;
+    lichznDATA_INP: TDateField;
+    lichznDATA_MGP: TDateField;
+    lichznNOTE: TIBStringField;
+    lichznVID_ZN: TIntegerField;
+    lichznDATA_VIG: TDateField;
+    lichDataSource: TDataSource;
+    lich: TIBDataSet;
+    plombsznDataSource: TDataSource;
+    plombszn: TIBDataSet;
+    IntegerField3: TIntegerField;
+    IBStringField17: TIBStringField;
+    IBStringField18: TIBStringField;
+    DateField7: TDateField;
+    DateField8: TDateField;
+    IBStringField19: TIBStringField;
+    IBStringField20: TIBStringField;
+    plombsDataSource: TDataSource;
+    plombs: TIBDataSet;
+    plombsID: TIntegerField;
+    plombsSCHET: TIBStringField;
+    plombsVID_PLOMB: TIBStringField;
+    plombsDATE_VS: TDateField;
+    plombsDATE_ZN: TDateField;
+    plombsNOTE: TIBStringField;
+    plombsN_PLOMB: TIBStringField;
+    dxBarButton14: TdxBarButton;
+    dxBarButton15: TdxBarButton;
+    dxBarButton16: TdxBarButton;
+    dxBarButton17: TdxBarButton;
+    dxBarButton18: TdxBarButton;
+    lichID: TIntegerField;
+    lichSCHET: TIBStringField;
+    lichTIP: TIBStringField;
+    lichN_LICH: TIBStringField;
+    lichDATA_VIP: TDateField;
+    lichDATA_POV: TDateField;
+    lichN_INPLOMB: TIBStringField;
+    lichN_MGPLOMB: TIBStringField;
+    lichDATA_INP: TDateField;
+    lichDATA_MGP: TDateField;
+    lichDATA_ZN: TDateField;
+    lichNOTE: TIBStringField;
+    lichVID_ZN: TIntegerField;
+    lichDATA_VIG: TDateField;
+    hvdDATE_POK: TDateField;
+    hvdVID_POK: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -360,15 +416,21 @@ type
     procedure hvd3BeforeOpen(DataSet: TDataSet);
     procedure hvd12BeforeOpen(DataSet: TDataSet);
     procedure DBGrid1WIDPropertiesChange(Sender: TObject);
+    procedure dxBarButton14Click(Sender: TObject);
+    procedure dxBarButton15Click(Sender: TObject);
+    procedure dxBarButton16Click(Sender: TObject);
+    procedure dxBarButton17Click(Sender: TObject);
+    procedure dxBarButton18Click(Sender: TObject);
   private
     { Private declarations }
     schet:string;
     procedure execSql(s:string);
   public
     { Public declarations }
-    lchSQL:string;
+    lchSQL,lchznSQL,plSQL,plznSQL:string;
     PathKvart:string;
     iniFile:TIniFile;
+    period:integer;
     function curYM:integer;
     function isArchive:boolean;
     procedure ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
@@ -382,7 +444,7 @@ var
 implementation
 
 uses inpedpro, edexpr, import, mytools, itoghvd,ComObj,dbf,dbf_lang,
-  edplomb, kart, lichall, iimport;
+  edplomb, kart, lichall, iimport, sprzn;
 
 {$R *.dfm}
 
@@ -412,13 +474,22 @@ begin
   data.Open;
   lich.Open;
   lchSQL:=lich.SelectSQL.Text;
+  lichzn.Open;
+  lchznSQL:=lichzn.SelectSQL.Text;
   dom.Open;
   dxBarLookupCombo1.KeyValue:=domDOM.AsString;
 
   hvd.Open;
   prop.Open;
   grp.Open;
+  plombs.Open;
+  pokazn.Open;
 //  dbgrid1.DataController.Groups.FullExpand;
+
+  plSQL:=plombs.SelectSQL.Text;
+  plombszn.Open;
+  plznSQL:=plombszn.SelectSQL.Text;
+  period:=dataYEARMON.Value;
 
   cxPageControl1.ActivePage:=cxTabSheet1;
   ActiveControl:=cxGrid2;
@@ -1090,6 +1161,41 @@ end;
 procedure TMainForm.dxBarButton13Click(Sender: TObject);
 begin
 Form3.Show;
+end;
+
+procedure TMainForm.dxBarButton14Click(Sender: TObject);
+begin
+spr_zn.vidspr:=1;
+spr_zn.Caption:=dxBarButton14.Caption;
+spr_zn.Show;
+end;
+
+procedure TMainForm.dxBarButton15Click(Sender: TObject);
+begin
+spr_zn.vidspr:=2;
+spr_zn.Caption:=dxBarButton15.Caption;
+spr_zn.Show;
+end;
+
+procedure TMainForm.dxBarButton16Click(Sender: TObject);
+begin
+spr_zn.vidspr:=3;
+spr_zn.Caption:=dxBarButton16.Caption;
+spr_zn.Show;
+end;
+
+procedure TMainForm.dxBarButton17Click(Sender: TObject);
+begin
+spr_zn.vidspr:=5;
+spr_zn.Caption:=dxBarButton17.Caption;
+spr_zn.Show;
+end;
+
+procedure TMainForm.dxBarButton18Click(Sender: TObject);
+begin
+spr_zn.vidspr:=4;
+spr_zn.Caption:=dxBarButton18.Caption;
+spr_zn.Show;
 end;
 
 procedure TMainForm.hvdPERE_DAYValidate(Sender: TField);
