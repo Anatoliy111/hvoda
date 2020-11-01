@@ -24,6 +24,7 @@ type
     IBVIDZNVID_OB: TIntegerField;
     IBVIDZNVID_ZN: TIBStringField;
     cxGridDBTableView3VID_ZN: TcxGridDBColumn;
+    IBVIDZNVID_SP: TIBStringField;
     procedure cxButton8Click(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -32,7 +33,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    vidspr:integer;
+    vidspr:string;
   end;
 
 var
@@ -47,7 +48,7 @@ uses main;
 procedure TSPR_ZN.cxButton1Click(Sender: TObject);
 begin
 // зняття лычильника
-if IBVIDZNVID_OB.Value=1 then
+if IBVIDZNVID_SP.Value='dellich' then
   begin
   IBQuery1.Close;
   IBQuery1.SQL.Text:='select * from lich where vid_zn=:idvid';
@@ -56,7 +57,7 @@ if IBVIDZNVID_OB.Value=1 then
   end;
 
   //зняття пломби
-if IBVIDZNVID_OB.Value=2 then
+if IBVIDZNVID_SP.Value='delpl' then
   begin
   IBQuery1.Close;
   IBQuery1.SQL.Text:='select * from plombs where vid_zn=:idvid';
@@ -65,7 +66,7 @@ if IBVIDZNVID_OB.Value=2 then
   end;
 
   //вид пломби
-if IBVIDZNVID_OB.Value=4 then
+if IBVIDZNVID_SP.Value='pl' then
   begin
   IBQuery1.Close;
   IBQuery1.SQL.Text:='select * from plombs where vid_pl=:idvid';
@@ -74,7 +75,7 @@ if IBVIDZNVID_OB.Value=4 then
   end;
 
   //видалення показника
-if IBVIDZNVID_OB.Value=3 then
+if IBVIDZNVID_SP.Value='pelpk' then
   begin
   IBQuery1.Close;
   IBQuery1.SQL.Text:='select * from pokazn where vid_zn=:idvid';
@@ -83,7 +84,7 @@ if IBVIDZNVID_OB.Value=3 then
   end;
 
   //вид показника
-if IBVIDZNVID_OB.Value=5 then
+if IBVIDZNVID_SP.Value='addpk' then
   begin
   IBQuery1.Close;
   IBQuery1.SQL.Text:='select * from pokazn where vid_pok=:idvid';
@@ -101,7 +102,7 @@ procedure TSPR_ZN.cxButton8Click(Sender: TObject);
 begin
 IBVIDZN.Append;
 //MainForm.IBVIDZN.Edit;
-IBVIDZNVID_OB.Value:=vidspr;
+IBVIDZNVID_SP.Value:=vidspr;
 IBVIDZN.Post;
 end;
 

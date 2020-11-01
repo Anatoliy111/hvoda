@@ -11,6 +11,8 @@ object FormDelkart: TFormDelkart
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -19,21 +21,15 @@ object FormDelkart: TFormDelkart
     Top = 0
     Width = 434
     Height = 314
-    ActivePage = cxTabSheet3
+    ActivePage = cxTabSheet2
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 438
-    ExplicitHeight = 304
     ClientRectBottom = 314
     ClientRectRight = 434
     ClientRectTop = 24
     object cxTabSheet1: TcxTabSheet
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
-      ExplicitLeft = 24
-      ExplicitTop = 40
-      ExplicitWidth = 438
-      ExplicitHeight = 280
       object cxTextEdit1: TcxTextEdit
         Left = 24
         Top = 123
@@ -42,7 +38,7 @@ object FormDelkart: TFormDelkart
         Width = 169
       end
       object cxLabel1: TcxLabel
-        Left = 80
+        Left = 101
         Top = 26
         Caption = #1055#1077#1088#1077#1076' '#1079#1085#1103#1090#1090#1103#1084' '#1086#1073#1077#1088#1110#1090#1100' '#1087#1088#1080#1095#1080#1085#1091'.'
       end
@@ -78,7 +74,7 @@ object FormDelkart: TFormDelkart
       object cxDateEdit1: TcxDateEdit
         Left = 240
         Top = 72
-        Properties.ReadOnly = True
+        Style.Color = clMoneyGreen
         TabOrder = 7
         Width = 121
       end
@@ -90,6 +86,7 @@ object FormDelkart: TFormDelkart
       object cxDateEdit2: TcxDateEdit
         Left = 24
         Top = 253
+        Properties.ReadOnly = True
         TabOrder = 9
         Width = 121
       end
@@ -122,6 +119,7 @@ object FormDelkart: TFormDelkart
             FieldName = 'VID_ZN'
           end>
         Properties.ListSource = VIDZNSource
+        Style.Color = clMoneyGreen
         TabOrder = 14
         Width = 191
       end
@@ -129,8 +127,6 @@ object FormDelkart: TFormDelkart
     object cxTabSheet2: TcxTabSheet
       Caption = #1055#1083#1086#1084#1073#1080
       ImageIndex = 1
-      ExplicitWidth = 438
-      ExplicitHeight = 280
       object cxLabel8: TcxLabel
         Left = 16
         Top = 96
@@ -151,6 +147,7 @@ object FormDelkart: TFormDelkart
       object cxTextEdit6: TcxTextEdit
         Left = 16
         Top = 152
+        Properties.ReadOnly = False
         TabOrder = 3
         Width = 169
       end
@@ -162,6 +159,7 @@ object FormDelkart: TFormDelkart
       object cxTextEdit7: TcxTextEdit
         Left = 16
         Top = 192
+        Properties.ReadOnly = False
         TabOrder = 5
         Width = 169
       end
@@ -173,6 +171,7 @@ object FormDelkart: TFormDelkart
       object cxDateEdit4: TcxDateEdit
         Left = 16
         Top = 242
+        Properties.ReadOnly = False
         TabOrder = 7
         Width = 121
       end
@@ -199,7 +198,7 @@ object FormDelkart: TFormDelkart
       object cxDateEdit3: TcxDateEdit
         Left = 232
         Top = 68
-        Properties.ReadOnly = True
+        Style.Color = clMoneyGreen
         TabOrder = 12
         Width = 121
       end
@@ -217,6 +216,7 @@ object FormDelkart: TFormDelkart
             FieldName = 'VID_ZN'
           end>
         Properties.ListSource = VIDZNSource
+        Style.Color = clMoneyGreen
         TabOrder = 14
         Width = 191
       end
@@ -224,8 +224,6 @@ object FormDelkart: TFormDelkart
     object cxTabSheet3: TcxTabSheet
       Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
       ImageIndex = 2
-      ExplicitWidth = 438
-      ExplicitHeight = 280
       object cxLabel13: TcxLabel
         Left = 40
         Top = 189
@@ -260,23 +258,10 @@ object FormDelkart: TFormDelkart
         Top = 139
         Caption = #1042#1080#1076#1072#1083#1077#1085#1080#1081' '#1087#1086#1082#1072#1079#1085#1080#1082
       end
-      object cxTextEdit10: TcxTextEdit
-        Left = 215
-        Top = 208
-        TabOrder = 6
-        Width = 121
-      end
       object cxLabel19: TcxLabel
         Left = 215
         Top = 189
         Caption = #1055#1086#1087#1077#1088#1077#1076#1085#1110#1081' '#1087#1086#1082#1072#1079#1085#1080#1082
-      end
-      object cxTextEdit11: TcxTextEdit
-        Left = 215
-        Top = 162
-        Properties.ReadOnly = True
-        TabOrder = 8
-        Width = 121
       end
       object cxLabel20: TcxLabel
         Left = 40
@@ -286,7 +271,8 @@ object FormDelkart: TFormDelkart
       object cxDateEdit6: TcxDateEdit
         Left = 40
         Top = 208
-        TabOrder = 10
+        Properties.ReadOnly = False
+        TabOrder = 8
         Width = 121
       end
       object cxLabel26: TcxLabel
@@ -304,13 +290,6 @@ object FormDelkart: TFormDelkart
         Top = 50
         Caption = #1055#1088#1080#1095#1080#1085#1072' '#1074#1080#1076#1072#1083#1077#1085#1085#1103
       end
-      object cxDateEdit7: TcxDateEdit
-        Left = 256
-        Top = 68
-        Properties.ReadOnly = True
-        TabOrder = 14
-        Width = 121
-      end
       object cxLabel29: TcxLabel
         Left = 256
         Top = 50
@@ -325,8 +304,35 @@ object FormDelkart: TFormDelkart
             FieldName = 'VID_ZN'
           end>
         Properties.ListSource = VIDZNSource
-        TabOrder = 16
+        Style.Color = clMoneyGreen
+        TabOrder = 13
         Width = 191
+      end
+      object cxCalcEdit3: TcxCalcEdit
+        Left = 215
+        Top = 162
+        EditValue = 0.000000000000000000
+        Properties.ReadOnly = True
+        Style.Color = clWindow
+        TabOrder = 14
+        Width = 121
+      end
+      object cxCalcEdit1: TcxCalcEdit
+        Left = 215
+        Top = 208
+        EditValue = 0.000000000000000000
+        Properties.ReadOnly = True
+        Style.Color = clWindow
+        TabOrder = 15
+        Width = 121
+      end
+      object cxDateEdit7: TcxDateEdit
+        Left = 256
+        Top = 68
+        Properties.ShowTime = False
+        Style.Color = clMoneyGreen
+        TabOrder = 16
+        Width = 121
       end
     end
   end
@@ -337,8 +343,6 @@ object FormDelkart: TFormDelkart
     Height = 35
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 304
-    ExplicitWidth = 438
     object cxButton3: TcxButton
       Left = 207
       Top = 6
@@ -346,6 +350,7 @@ object FormDelkart: TFormDelkart
       Height = 25
       Caption = 'OK'
       TabOrder = 0
+      OnClick = cxButton3Click
       LookAndFeel.Kind = lfUltraFlat
     end
     object cxButton1: TcxButton
@@ -355,6 +360,7 @@ object FormDelkart: TFormDelkart
       Height = 25
       Caption = #1042#1110#1076#1084#1110#1085#1072
       TabOrder = 1
+      OnClick = cxButton1Click
       LookAndFeel.Kind = lfUltraFlat
     end
   end
@@ -367,24 +373,26 @@ object FormDelkart: TFormDelkart
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into SPR_ZN'
-      '  (ID, VID_OB, VID_ZN)'
+      '  (ID, VID_OB, VID_SP, VID_ZN)'
       'values'
-      '  (:ID, :VID_OB, :VID_ZN)')
+      '  (:ID, :VID_OB, :VID_SP, :VID_ZN)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  VID_ZN,'
-      '  VID_OB'
+      '  VID_OB,'
+      '  VID_SP'
       'from SPR_ZN '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'select * from SPR_ZN where vid_ob=:vid')
+      'select * from SPR_ZN')
     ModifySQL.Strings = (
       'update SPR_ZN'
       'set'
       '  ID = :ID,'
       '  VID_OB = :VID_OB,'
+      '  VID_SP = :VID_SP,'
       '  VID_ZN = :VID_ZN'
       'where'
       '  ID = :OLD_ID')
@@ -405,6 +413,11 @@ object FormDelkart: TFormDelkart
     object IBVIDZNVID_OB: TIntegerField
       FieldName = 'VID_OB'
       Origin = '"SPR_ZN"."VID_OB"'
+    end
+    object IBVIDZNVID_SP: TIBStringField
+      FieldName = 'VID_SP'
+      Origin = '"SPR_ZN"."VID_SP"'
+      Size = 10
     end
   end
   object VIDZNSource: TDataSource

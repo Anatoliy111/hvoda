@@ -301,20 +301,6 @@ type
     pokaznSCHET: TIBStringField;
     lichznDataSource: TDataSource;
     lichzn: TIBDataSet;
-    IntegerField2: TIntegerField;
-    IBStringField5: TIBStringField;
-    IBStringField6: TIBStringField;
-    IBStringField7: TIBStringField;
-    DateField3: TDateField;
-    DateField4: TDateField;
-    lichznDATA_ZN: TDateField;
-    lichznN_INPLOMB: TIBStringField;
-    lichznN_MGPLOMB: TIBStringField;
-    lichznDATA_INP: TDateField;
-    lichznDATA_MGP: TDateField;
-    lichznNOTE: TIBStringField;
-    lichznVID_ZN: TIntegerField;
-    lichznDATA_VIG: TDateField;
     lichDataSource: TDataSource;
     lich: TIBDataSet;
     plombsznDataSource: TDataSource;
@@ -356,6 +342,32 @@ type
     lichDATA_VIG: TDateField;
     hvdDATE_POK: TDateField;
     hvdVID_POK: TIntegerField;
+    pokaznID_LICH: TIntegerField;
+    plombsVID_ZN: TIntegerField;
+    plombsVID_PL: TIntegerField;
+    plombsPL: TIBStringField;
+    plombsZN2: TIBStringField;
+    plombsznVID_ZN: TIntegerField;
+    plombsznVID_PL: TIntegerField;
+    plombsznPL: TIBStringField;
+    plombsznZN: TIBStringField;
+    pokaznPK: TIBStringField;
+    pokaznZN: TIBStringField;
+    lichznID: TIntegerField;
+    lichznSCHET: TIBStringField;
+    lichznTIP: TIBStringField;
+    lichznN_LICH: TIBStringField;
+    lichznDATA_VIP: TDateField;
+    lichznDATA_POV: TDateField;
+    lichznN_INPLOMB: TIBStringField;
+    lichznN_MGPLOMB: TIBStringField;
+    lichznDATA_INP: TDateField;
+    lichznDATA_MGP: TDateField;
+    lichznDATA_ZN: TDateField;
+    lichznNOTE: TIBStringField;
+    lichznVID_ZN: TIntegerField;
+    lichznDATA_VIG: TDateField;
+    lichznZN: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -427,7 +439,7 @@ type
     procedure execSql(s:string);
   public
     { Public declarations }
-    lchSQL,lchznSQL,plSQL,plznSQL:string;
+    lchSQL,lchznSQL,plSQL,plznSQL,pokSQL:string;
     PathKvart:string;
     iniFile:TIniFile;
     period:integer;
@@ -487,6 +499,7 @@ begin
 //  dbgrid1.DataController.Groups.FullExpand;
 
   plSQL:=plombs.SelectSQL.Text;
+  pokSQL:=pokazn.SelectSQL.Text;
   plombszn.Open;
   plznSQL:=plombszn.SelectSQL.Text;
   period:=dataYEARMON.Value;
@@ -907,9 +920,6 @@ end;
 
 procedure TMainForm.hvdSCH_CURValidate(Sender: TField);
 begin
-  if (hvdSCH_CUR.Value<hvdSCH_OLD.Value) or
-     (hvdSCH_CUR.Value-hvdSCH_OLD.Value>150) then
-  ShowMessage('Перевірте правильність введених даних');
 
  // if (hvdPLOMB.Value=1) and (hvdSCH_CUR.Value<>hvdSCH_OLD.Value) then
 //  begin
@@ -1165,35 +1175,35 @@ end;
 
 procedure TMainForm.dxBarButton14Click(Sender: TObject);
 begin
-spr_zn.vidspr:=1;
+spr_zn.vidspr:='dellich';
 spr_zn.Caption:=dxBarButton14.Caption;
 spr_zn.Show;
 end;
 
 procedure TMainForm.dxBarButton15Click(Sender: TObject);
 begin
-spr_zn.vidspr:=2;
+spr_zn.vidspr:='delpl';
 spr_zn.Caption:=dxBarButton15.Caption;
 spr_zn.Show;
 end;
 
 procedure TMainForm.dxBarButton16Click(Sender: TObject);
 begin
-spr_zn.vidspr:=3;
+spr_zn.vidspr:='delpk';
 spr_zn.Caption:=dxBarButton16.Caption;
 spr_zn.Show;
 end;
 
 procedure TMainForm.dxBarButton17Click(Sender: TObject);
 begin
-spr_zn.vidspr:=5;
+spr_zn.vidspr:='addpk';
 spr_zn.Caption:=dxBarButton17.Caption;
 spr_zn.Show;
 end;
 
 procedure TMainForm.dxBarButton18Click(Sender: TObject);
 begin
-spr_zn.vidspr:=4;
+spr_zn.vidspr:='pl';
 spr_zn.Caption:=dxBarButton18.Caption;
 spr_zn.Show;
 end;

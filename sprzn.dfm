@@ -22,7 +22,6 @@ object SPR_ZN: TSPR_ZN
     Height = 25
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 251
     object cxButton8: TcxButton
       Left = 0
       Top = 0
@@ -51,7 +50,6 @@ object SPR_ZN: TSPR_ZN
     Height = 361
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 251
     object cxGridDBTableView3: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = VIDZNSource
@@ -90,24 +88,26 @@ object SPR_ZN: TSPR_ZN
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into SPR_ZN'
-      '  (ID, VID_OB, VID_ZN)'
+      '  (ID, VID_OB, VID_SP, VID_ZN)'
       'values'
-      '  (:ID, :VID_OB, :VID_ZN)')
+      '  (:ID, :VID_OB, :VID_SP, :VID_ZN)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  VID_ZN,'
-      '  VID_OB'
+      '  VID_OB,'
+      '  VID_SP'
       'from SPR_ZN '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'select * from SPR_ZN where vid_ob=:vid order by id')
+      'select * from SPR_ZN where vid_sp=:vid order by id')
     ModifySQL.Strings = (
       'update SPR_ZN'
       'set'
       '  ID = :ID,'
       '  VID_OB = :VID_OB,'
+      '  VID_SP = :VID_SP,'
       '  VID_ZN = :VID_ZN'
       'where'
       '  ID = :OLD_ID')
@@ -129,6 +129,11 @@ object SPR_ZN: TSPR_ZN
       FieldName = 'VID_ZN'
       Origin = '"SPR_ZN"."VID_ZN"'
       Size = 50
+    end
+    object IBVIDZNVID_SP: TIBStringField
+      FieldName = 'VID_SP'
+      Origin = '"SPR_ZN"."VID_SP"'
+      Size = 10
     end
   end
 end

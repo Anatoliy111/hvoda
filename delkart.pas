@@ -7,7 +7,7 @@ uses
   Dialogs, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons, ExtCtrls, cxPC,
   cxControls, cxMaskEdit, cxDropDownEdit, cxCalendar, cxLabel, cxContainer,
   cxEdit, cxTextEdit, cxGraphics, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox, DB, IBCustomDataSet;
+  cxDBLookupComboBox, DB, IBCustomDataSet, cxCalc;
 
 type
   TFormDelkart = class(TForm)
@@ -44,9 +44,7 @@ type
     cxLabel16: TcxLabel;
     cxLabel17: TcxLabel;
     cxLabel18: TcxLabel;
-    cxTextEdit10: TcxTextEdit;
     cxLabel19: TcxLabel;
-    cxTextEdit11: TcxTextEdit;
     cxLabel20: TcxLabel;
     cxDateEdit6: TcxDateEdit;
     cxLabel4: TcxLabel;
@@ -61,7 +59,6 @@ type
     cxLabel26: TcxLabel;
     cxLabel27: TcxLabel;
     cxLabel28: TcxLabel;
-    cxDateEdit7: TcxDateEdit;
     cxLabel29: TcxLabel;
     IBVIDZN: TIBDataSet;
     IBVIDZNID: TIntegerField;
@@ -70,7 +67,15 @@ type
     VIDZNSource: TDataSource;
     cxLookupComboBox2: TcxLookupComboBox;
     cxLookupComboBox3: TcxLookupComboBox;
+    cxCalcEdit3: TcxCalcEdit;
+    cxCalcEdit1: TcxCalcEdit;
+    cxDateEdit7: TcxDateEdit;
+    IBVIDZNVID_SP: TIBStringField;
     procedure FormShow(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cxButton3Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -80,15 +85,121 @@ type
 
 var
   FormDelkart: TFormDelkart;
+  spvidSQL:string;
 
 implementation
 
+uses main;
+
 {$R *.dfm}
+
+procedure TFormDelkart.cxButton1Click(Sender: TObject);
+begin
+close;
+end;
+
+procedure TFormDelkart.cxButton3Click(Sender: TObject);
+begin
+if cxTabSheet1.TabVisible then
+begin
+  if (cxLookupComboBox1.EditValue<>null)
+   and (cxDateEdit1.EditValue<>null)
+  then
+  begin
+      MainForm.lich.Edit;
+      MainForm.lichVID_ZN.Value:=cxLookupComboBox1.EditValue;
+      MainForm.lichDATA_ZN.Value:=cxDateEdit1.EditValue;
+      MainForm.lich.Post;
+      MainForm.lich.Close;
+      MainForm.lich.Open;
+      MainForm.lichzn.Close;
+      MainForm.lichzn.Open;
+
+  end
+  else
+  begin
+    ShowMessage('Заповніть всі поля, виділені зеленим кольором');
+    exit;
+  end;
+end;
+
+if cxTabSheet2.TabVisible then
+begin
+  if (cxLookupComboBox2.EditValue<>null)
+   and (cxDateEdit3.EditValue<>null)
+  then
+  begin
+      MainForm.plombs.Edit;
+      MainForm.plombsVID_ZN.Value:=cxLookupComboBox2.EditValue;
+      MainForm.plombsDATE_ZN.Value:=cxDateEdit3.EditValue;
+      MainForm.plombs.Post;
+      MainForm.plombs.Close;
+      MainForm.plombs.Open;
+      MainForm.plombszn.Close;
+      MainForm.plombszn.Open;
+
+  end
+  else
+  begin
+    ShowMessage('Заповніть всі поля, виділені зеленим кольором');
+    exit;
+  end;
+end;
+
+if cxTabSheet3.TabVisible then
+begin
+  if (cxLookupComboBox2.EditValue<>null)
+   and (cxDateEdit3.EditValue<>null)
+  then
+  begin
+      MainForm.plombs.Edit;
+      MainForm.plombsVID_ZN.Value:=cxLookupComboBox2.EditValue;
+      MainForm.plombsDATE_ZN.Value:=cxDateEdit3.EditValue;
+      MainForm.plombs.Post;
+      MainForm.plombs.Close;
+      MainForm.plombs.Open;
+      MainForm.plombszn.Close;
+      MainForm.plombszn.Open;
+
+  end
+  else
+  begin
+    ShowMessage('Заповніть всі поля, виділені зеленим кольором');
+    exit;
+  end;
+end;
+
+close;
+
+end;
+
+procedure TFormDelkart.FormClose(Sender: TObject; var Action: TCloseAction);
+var i:integer;
+begin
+for i := 0 to ComponentCount - 1 do
+begin
+   if Components[i] is TcxTextEdit then
+      (Components[i] as TcxTextEdit).Text:='';
+   if Components[i] is TcxdateEdit then
+      (Components[i] as TcxdateEdit).EditValue:=null;
+   if Components[i] is TcxCalcEdit then
+      (Components[i] as TcxCalcEdit).EditValue:=null;
+   if Components[i] is TcxLookupComboBox then
+      (Components[i] as TcxLookupComboBox).EditValue:=null;
+end;
+end;
+
+procedure TFormDelkart.FormCreate(Sender: TObject);
+begin
+spvidSQL:=IBVIDZN.SelectSQL.Text;
+end;
 
 procedure TFormDelkart.FormShow(Sender: TObject);
 begin
+
   IBVIDZN.Close;
-  IBVIDZN.ParamByName('vid').Value:=vidspr;
+  if cxTabSheet1.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''dellich''';
+  if cxTabSheet2.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''delpl''';
   IBVIDZN.Open;
 end;
 

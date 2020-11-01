@@ -12,6 +12,7 @@ object FormAddkart: TFormAddkart
   Font.Style = []
   OldCreateOrder = False
   OnClose = FormClose
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -20,7 +21,7 @@ object FormAddkart: TFormAddkart
     Top = 0
     Width = 438
     Height = 304
-    ActivePage = cxTabSheet3
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 0
     ClientRectBottom = 304
@@ -49,7 +50,7 @@ object FormAddkart: TFormAddkart
       object cxTextEdit2: TcxTextEdit
         Left = 24
         Top = 72
-        Style.Color = cl3DLight
+        Style.Color = clMoneyGreen
         TabOrder = 3
         Width = 169
       end
@@ -61,7 +62,7 @@ object FormAddkart: TFormAddkart
       object cxTextEdit3: TcxTextEdit
         Left = 24
         Top = 112
-        Style.Color = cl3DLight
+        Style.Color = clMoneyGreen
         TabOrder = 5
         Width = 169
       end
@@ -85,7 +86,7 @@ object FormAddkart: TFormAddkart
         Left = 24
         Top = 162
         Properties.ShowTime = False
-        Style.Color = cl3DLight
+        Style.Color = clMoneyGreen
         TabOrder = 9
         Width = 121
       end
@@ -99,7 +100,7 @@ object FormAddkart: TFormAddkart
         Top = 210
         Properties.ShowTime = False
         Properties.OnChange = cxDateEdit2PropertiesChange
-        Style.Color = cl3DLight
+        Style.Color = clMoneyGreen
         TabOrder = 11
         Width = 121
       end
@@ -123,17 +124,45 @@ object FormAddkart: TFormAddkart
         Top = 33
         Caption = 'fio'
       end
-      object cxTextEdit13: TcxTextEdit
-        Left = 278
+      object cxCalcEdit4: TcxCalcEdit
+        Left = 304
         Top = 210
-        Style.Color = cl3DLight
+        EditValue = 0.000000000000000000
+        Properties.OnEditValueChanged = cxCalcEdit1PropertiesEditValueChanged
+        Style.Color = clMoneyGreen
         TabOrder = 15
         Width = 121
       end
       object cxLabel22: TcxLabel
-        Left = 278
+        Left = 304
         Top = 187
         Caption = #1053#1086#1074#1080#1081' '#1087#1086#1082#1072#1079#1085#1080#1082
+      end
+      object cxLabel24: TcxLabel
+        Left = 151
+        Top = 137
+        Caption = #1044#1072#1090#1072' '#1086#1089#1090#1072#1085#1085#1100#1086#1075#1086' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+      end
+      object cxDateEdit7: TcxDateEdit
+        Left = 151
+        Top = 160
+        Properties.ReadOnly = True
+        Properties.SaveTime = False
+        TabOrder = 18
+        Width = 121
+      end
+      object cxLabel25: TcxLabel
+        Left = 304
+        Top = 137
+        Caption = #1054#1089#1090#1072#1085#1085#1110#1081' '#1087#1086#1082#1072#1079#1085#1080#1082
+      end
+      object cxCalcEdit5: TcxCalcEdit
+        Left = 304
+        Top = 160
+        EditValue = 0.000000000000000000
+        Properties.ReadOnly = True
+        TabOrder = 20
+        Width = 121
       end
     end
     object cxTabSheet2: TcxTabSheet
@@ -164,7 +193,7 @@ object FormAddkart: TFormAddkart
       object cxTextEdit7: TcxTextEdit
         Left = 24
         Top = 112
-        Style.Color = cl3DLight
+        Style.Color = clMoneyGreen
         TabOrder = 4
         Width = 169
       end
@@ -177,7 +206,7 @@ object FormAddkart: TFormAddkart
         Left = 24
         Top = 162
         Properties.ShowTime = False
-        Style.Color = cl3DLight
+        Style.Color = clMoneyGreen
         TabOrder = 6
         Width = 121
       end
@@ -206,7 +235,7 @@ object FormAddkart: TFormAddkart
             FieldName = 'VID_ZN'
           end>
         Properties.ListSource = VIDZNSource
-        Style.Color = cl3DLight
+        Style.Color = clMoneyGreen
         TabOrder = 10
         Width = 191
       end
@@ -263,7 +292,7 @@ object FormAddkart: TFormAddkart
         Left = 24
         Top = 132
         Properties.SaveTime = False
-        Style.Color = cl3DLight
+        Style.Color = clMoneyGreen
         TabOrder = 8
         Width = 121
       end
@@ -281,7 +310,7 @@ object FormAddkart: TFormAddkart
             FieldName = 'VID_ZN'
           end>
         Properties.ListSource = VIDZNSource
-        Style.Color = cl3DLight
+        Style.Color = clMoneyGreen
         TabOrder = 10
         Width = 169
       end
@@ -303,9 +332,17 @@ object FormAddkart: TFormAddkart
         Top = 178
         EditValue = 0.000000000000000000
         Properties.ReadOnly = True
-        Properties.OnChange = cxCalcEdit1PropertiesChange
-        Style.Color = cl3DLight
+        Style.Color = clWindow
         TabOrder = 13
+        Width = 121
+      end
+      object cxCalcEdit1: TcxCalcEdit
+        Left = 199
+        Top = 132
+        EditValue = 0.000000000000000000
+        Properties.OnEditValueChanged = cxCalcEdit1PropertiesEditValueChanged
+        Style.Color = clMoneyGreen
+        TabOrder = 14
         Width = 121
       end
     end
@@ -345,15 +382,6 @@ object FormAddkart: TFormAddkart
       LookAndFeel.Kind = lfUltraFlat
     end
   end
-  object cxCalcEdit1: TcxCalcEdit
-    Left = 199
-    Top = 152
-    EditValue = 0.000000000000000000
-    Properties.OnChange = cxCalcEdit1PropertiesChange
-    Style.Color = cl3DLight
-    TabOrder = 2
-    Width = 121
-  end
   object IBVIDZN: TIBDataSet
     Database = MainForm.IBDatabase
     Transaction = MainForm.IBTransaction1
@@ -363,50 +391,58 @@ object FormAddkart: TFormAddkart
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into SPR_ZN'
-      '  (ID, VID_OB, VID_ZN)'
+      '  (ID, VID_OB, VID_SP, VID_ZN)'
       'values'
-      '  (:ID, :VID_OB, :VID_ZN)')
+      '  (:ID, :VID_OB, :VID_SP, :VID_ZN)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  VID_ZN,'
-      '  VID_OB'
+      '  VID_OB,'
+      '  VID_SP'
       'from SPR_ZN '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'select * from SPR_ZN where vid_ob=:4')
+      'select * from SPR_ZN')
     ModifySQL.Strings = (
       'update SPR_ZN'
       'set'
       '  ID = :ID,'
       '  VID_OB = :VID_OB,'
+      '  VID_SP = :VID_SP,'
       '  VID_ZN = :VID_ZN'
       'where'
       '  ID = :OLD_ID')
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_SPR_ZN_ID'
-    Left = 376
-    Top = 120
+    Left = 336
+    Top = 40
     object IBVIDZNID: TIntegerField
       FieldName = 'ID'
       Origin = '"SPR_ZN"."ID"'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object IBVIDZNVID_ZN: TIBStringField
-      FieldName = 'VID_ZN'
-      Origin = '"SPR_ZN"."VID_ZN"'
-    end
     object IBVIDZNVID_OB: TIntegerField
       FieldName = 'VID_OB'
       Origin = '"SPR_ZN"."VID_OB"'
     end
+    object IBVIDZNVID_ZN: TIBStringField
+      FieldName = 'VID_ZN'
+      Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
+    end
+    object IBVIDZNVID_SP: TIBStringField
+      FieldName = 'VID_SP'
+      Origin = '"SPR_ZN"."VID_SP"'
+      Size = 10
+    end
   end
   object VIDZNSource: TDataSource
     DataSet = IBVIDZN
-    Left = 376
-    Top = 152
+    Left = 336
+    Top = 80
   end
   object IBQuery1: TIBQuery
     Database = MainForm.IBDatabase
@@ -416,7 +452,7 @@ object FormAddkart: TFormAddkart
         'select first 1 *  from POKAZN where schet=:sch and date_zn is nu' +
         'll order by DATE_POK desc')
     Left = 376
-    Top = 80
+    Top = 40
     ParamData = <
       item
         DataType = ftUnknown

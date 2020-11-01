@@ -1404,7 +1404,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E004000700014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000780014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5946,7 +5946,6 @@ object MainForm: TMainForm
       '  NAIM = :NAIM'
       'where'
       '  KL = :OLD_KL')
-    Active = True
     Left = 352
     Top = 352
     object plombKL: TIntegerField
@@ -6059,7 +6058,7 @@ object MainForm: TMainForm
     GeneratorField.Field = 'KL'
     GeneratorField.Generator = 'GEN_H_VODA_ID'
     GeneratorField.ApplyEvent = gamOnPost
-    Left = 440
+    Left = 448
     Top = 352
     object hvdallKL: TIntegerField
       FieldName = 'KL'
@@ -6536,13 +6535,14 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into POKAZN'
       
-        '  (DATE_POK, DATE_ZN, ID, N_DOC, POKAZN, SCHET, VID_POK, VID_ZN,' +
-        ' YEARMON)'
+        '  (DATE_POK, DATE_ZN, ID, ID_LICH, N_DOC, POKAZN, SCHET, VID_POK' +
+        ', VID_ZN, '
+      '   YEARMON)'
       'values'
       
-        '  (:DATE_POK, :DATE_ZN, :ID, :N_DOC, :POKAZN, :SCHET, :VID_POK, ' +
-        ':VID_ZN, '
-      '   :YEARMON)')
+        '  (:DATE_POK, :DATE_ZN, :ID, :ID_LICH, :N_DOC, :POKAZN, :SCHET, ' +
+        ':VID_POK, '
+      '   :VID_ZN, :YEARMON)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -6553,18 +6553,24 @@ object MainForm: TMainForm
       '  N_DOC,'
       '  DATE_ZN,'
       '  VID_ZN,'
-      '  SCHET'
+      '  SCHET,'
+      '  ID_LICH'
       'from POKAZN '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'select * from POKAZN')
+      'select POKAZN.*, sp1.vid_zn pk,sp2.vid_zn zn  from POKAZN'
+      'left join spr_zn sp1 on sp1.id=POKAZN.vid_pok'
+      'left join spr_zn sp2 on sp2.id=POKAZN.vid_zn'
+      ''
+      '')
     ModifySQL.Strings = (
       'update POKAZN'
       'set'
       '  DATE_POK = :DATE_POK,'
       '  DATE_ZN = :DATE_ZN,'
       '  ID = :ID,'
+      '  ID_LICH = :ID_LICH,'
       '  N_DOC = :N_DOC,'
       '  POKAZN = :POKAZN,'
       '  SCHET = :SCHET,'
@@ -6573,6 +6579,8 @@ object MainForm: TMainForm
       '  YEARMON = :YEARMON'
       'where'
       '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_POKAZN_ID'
     Left = 352
     Top = 432
     object pokaznID: TIntegerField
@@ -6615,6 +6623,20 @@ object MainForm: TMainForm
       FieldName = 'SCHET'
       Origin = '"POKAZN"."SCHET"'
       Size = 10
+    end
+    object pokaznID_LICH: TIntegerField
+      FieldName = 'ID_LICH'
+      Origin = '"POKAZN"."ID_LICH"'
+    end
+    object pokaznPK: TIBStringField
+      FieldName = 'PK'
+      Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
+    end
+    object pokaznZN: TIBStringField
+      FieldName = 'ZN'
+      Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
     end
   end
   object lichznDataSource: TDataSource
@@ -6663,7 +6685,9 @@ object MainForm: TMainForm
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'select * from LICH where DATA_ZN is not null')
+      'select LICH.*, sp.vid_zn zn  from LICH '
+      'left join spr_zn sp on sp.id=lich.vid_zn'
+      'where DATA_ZN is not null')
     ModifySQL.Strings = (
       'update LICH'
       'set'
@@ -6687,35 +6711,31 @@ object MainForm: TMainForm
     GeneratorField.Generator = 'GEN_LICH_ID'
     Left = 312
     Top = 432
-    object IntegerField2: TIntegerField
+    object lichznID: TIntegerField
       FieldName = 'ID'
       Origin = '"LICH"."ID"'
       Required = True
     end
-    object IBStringField5: TIBStringField
+    object lichznSCHET: TIBStringField
       FieldName = 'SCHET'
       Origin = '"LICH"."SCHET"'
       Size = 10
     end
-    object IBStringField6: TIBStringField
+    object lichznTIP: TIBStringField
       FieldName = 'TIP'
       Origin = '"LICH"."TIP"'
     end
-    object IBStringField7: TIBStringField
+    object lichznN_LICH: TIBStringField
       FieldName = 'N_LICH'
       Origin = '"LICH"."N_LICH"'
     end
-    object DateField3: TDateField
+    object lichznDATA_VIP: TDateField
       FieldName = 'DATA_VIP'
       Origin = '"LICH"."DATA_VIP"'
     end
-    object DateField4: TDateField
+    object lichznDATA_POV: TDateField
       FieldName = 'DATA_POV'
       Origin = '"LICH"."DATA_POV"'
-    end
-    object lichznDATA_ZN: TDateField
-      FieldName = 'DATA_ZN'
-      Origin = '"LICH"."DATA_ZN"'
     end
     object lichznN_INPLOMB: TIBStringField
       FieldName = 'N_INPLOMB'
@@ -6733,6 +6753,10 @@ object MainForm: TMainForm
       FieldName = 'DATA_MGP'
       Origin = '"LICH"."DATA_MGP"'
     end
+    object lichznDATA_ZN: TDateField
+      FieldName = 'DATA_ZN'
+      Origin = '"LICH"."DATA_ZN"'
+    end
     object lichznNOTE: TIBStringField
       FieldName = 'NOTE'
       Origin = '"LICH"."NOTE"'
@@ -6745,6 +6769,11 @@ object MainForm: TMainForm
     object lichznDATA_VIG: TDateField
       FieldName = 'DATA_VIG'
       Origin = '"LICH"."DATA_VIG"'
+    end
+    object lichznZN: TIBStringField
+      FieldName = 'ZN'
+      Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
     end
   end
   object lichDataSource: TDataSource
@@ -6891,9 +6920,14 @@ object MainForm: TMainForm
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into PLOMBS'
-      '  (DATE_VS, DATE_ZN, ID, N_PLOMB, NOTE, SCHET, VID_PLOMB)'
+      
+        '  (DATE_VS, DATE_ZN, ID, N_PLOMB, NOTE, SCHET, VID_PL, VID_PLOMB' +
+        ', VID_ZN)'
       'values'
-      '  (:DATE_VS, :DATE_ZN, :ID, :N_PLOMB, :NOTE, :SCHET, :VID_PLOMB)')
+      
+        '  (:DATE_VS, :DATE_ZN, :ID, :N_PLOMB, :NOTE, :SCHET, :VID_PL, :V' +
+        'ID_PLOMB, '
+      '   :VID_ZN)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -6902,12 +6936,17 @@ object MainForm: TMainForm
       '  DATE_VS,'
       '  DATE_ZN,'
       '  NOTE,'
-      '  N_PLOMB'
+      '  N_PLOMB,'
+      '  VID_ZN,'
+      '  VID_PL'
       'from PLOMBS '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'select * from PLOMBS where DATE_ZN is not null')
+      'select plombs.*, sp1.vid_zn pl,sp2.vid_zn zn  from PLOMBS'
+      'left join spr_zn sp1 on sp1.id=plombs.vid_pl'
+      'left join spr_zn sp2 on sp2.id=plombs.vid_zn'
+      'where DATE_ZN is not null')
     ModifySQL.Strings = (
       'update PLOMBS'
       'set'
@@ -6917,9 +6956,13 @@ object MainForm: TMainForm
       '  N_PLOMB = :N_PLOMB,'
       '  NOTE = :NOTE,'
       '  SCHET = :SCHET,'
-      '  VID_PLOMB = :VID_PLOMB'
+      '  VID_PL = :VID_PL,'
+      '  VID_PLOMB = :VID_PLOMB,'
+      '  VID_ZN = :VID_ZN'
       'where'
       '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_PLOMBS_ID'
     Left = 240
     Top = 432
     object IntegerField3: TIntegerField
@@ -6954,6 +6997,24 @@ object MainForm: TMainForm
       FieldName = 'N_PLOMB'
       Origin = '"PLOMBS"."N_PLOMB"'
     end
+    object plombsznVID_ZN: TIntegerField
+      FieldName = 'VID_ZN'
+      Origin = '"PLOMBS"."VID_ZN"'
+    end
+    object plombsznVID_PL: TIntegerField
+      FieldName = 'VID_PL'
+      Origin = '"PLOMBS"."VID_PL"'
+    end
+    object plombsznPL: TIBStringField
+      FieldName = 'PL'
+      Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
+    end
+    object plombsznZN: TIBStringField
+      FieldName = 'ZN'
+      Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
+    end
   end
   object plombsDataSource: TDataSource
     DataSet = plombs
@@ -6969,9 +7030,14 @@ object MainForm: TMainForm
       '  ID = :OLD_ID')
     InsertSQL.Strings = (
       'insert into PLOMBS'
-      '  (DATE_VS, DATE_ZN, ID, N_PLOMB, NOTE, SCHET, VID_PLOMB)'
+      
+        '  (DATE_VS, DATE_ZN, ID, N_PLOMB, NOTE, SCHET, VID_PL, VID_PLOMB' +
+        ', VID_ZN)'
       'values'
-      '  (:DATE_VS, :DATE_ZN, :ID, :N_PLOMB, :NOTE, :SCHET, :VID_PLOMB)')
+      
+        '  (:DATE_VS, :DATE_ZN, :ID, :N_PLOMB, :NOTE, :SCHET, :VID_PL, :V' +
+        'ID_PLOMB, '
+      '   :VID_ZN)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -6980,12 +7046,17 @@ object MainForm: TMainForm
       '  DATE_VS,'
       '  DATE_ZN,'
       '  NOTE,'
-      '  N_PLOMB'
+      '  N_PLOMB,'
+      '  VID_ZN,'
+      '  VID_PL'
       'from PLOMBS '
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'select * from PLOMBS where DATE_ZN is null')
+      'select plombs.*, sp1.vid_zn pl,sp2.vid_zn zn  from PLOMBS'
+      'left join spr_zn sp1 on sp1.id=plombs.vid_pl'
+      'left join spr_zn sp2 on sp2.id=plombs.vid_zn'
+      'where DATE_ZN is null')
     ModifySQL.Strings = (
       'update PLOMBS'
       'set'
@@ -6995,9 +7066,13 @@ object MainForm: TMainForm
       '  N_PLOMB = :N_PLOMB,'
       '  NOTE = :NOTE,'
       '  SCHET = :SCHET,'
-      '  VID_PLOMB = :VID_PLOMB'
+      '  VID_PL = :VID_PL,'
+      '  VID_PLOMB = :VID_PLOMB,'
+      '  VID_ZN = :VID_ZN'
       'where'
       '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_PLOMBS_ID'
     Left = 200
     Top = 432
     object plombsID: TIntegerField
@@ -7031,6 +7106,24 @@ object MainForm: TMainForm
     object plombsN_PLOMB: TIBStringField
       FieldName = 'N_PLOMB'
       Origin = '"PLOMBS"."N_PLOMB"'
+    end
+    object plombsVID_ZN: TIntegerField
+      FieldName = 'VID_ZN'
+      Origin = '"PLOMBS"."VID_ZN"'
+    end
+    object plombsVID_PL: TIntegerField
+      FieldName = 'VID_PL'
+      Origin = '"PLOMBS"."VID_PL"'
+    end
+    object plombsPL: TIBStringField
+      FieldName = 'PL'
+      Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
+    end
+    object plombsZN2: TIBStringField
+      FieldName = 'ZN'
+      Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
     end
   end
 end
