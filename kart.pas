@@ -107,6 +107,8 @@ type
     cxGrid3DBTableView1DATE_VS: TcxGridDBColumn;
     cxGrid3DBTableView1NOTE: TcxGridDBColumn;
     cxGrid3Level1: TcxGridLevel;
+    cxDBTextEdit4: TcxDBTextEdit;
+    Label3: TLabel;
     procedure cxButton1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -136,6 +138,12 @@ uses main, addkart, delkart;
 
 procedure TForm2.cxButton1Click(Sender: TObject);
 begin
+if MainForm.lich.RecordCount>=2 then
+begin
+    ShowMessage('Можливо додати максимум два лічильники');
+    exit;
+end;
+
 if MainForm.lichzn.RecordCount<>0 then
 begin
 if MainForm.lich.Lookup('schet;n_lich',VarArrayOf([MainForm.lichznSCHET.Value,MainForm.lichznN_LICH.Value]),'schet')<>null then
@@ -166,6 +174,11 @@ end;
 
 procedure TForm2.cxButton3Click(Sender: TObject);
 begin
+if MainForm.lich.RecordCount>=2 then
+begin
+    ShowMessage('Можливо додати максимум два лічильники');
+    exit;
+end;
 
 FormAddkart.cxTabSheet1.TabVisible:=true;
 FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet1;
@@ -173,6 +186,7 @@ FormAddkart.cxTabSheet2.TabVisible:=false;
 FormAddkart.cxTabSheet3.TabVisible:=false;
 FormAddkart.cxTextEdit1.Text:=MainForm.hvdSCHET.Value;
 FormAddkart.cxLabel17.Caption:=MainForm.hvdFIO.Value;
+
 FormAddkart.Show;
 if FormAddkart.IBQuery1.RecordCount<>0 then
 begin
@@ -249,9 +263,17 @@ end;
 
 procedure TForm2.cxButton9Click(Sender: TObject);
 begin
-  if application.MessageBox('Ви дійсно бажаєте видалити показник?','Підтвердження',MB_YESNO)<>IDYES then
+  if (MainForm.pokaznYEARMON.Value<>MainForm.period) then
   begin
+    ShowMessage('Неможливо видалити показник попереднього періоду');
+    exit;
+  end;
+
+  if application.MessageBox('Ви дійсно бажаєте видалити показник?','Підтвердження',MB_YESNO)=IDYES then
+  begin
+  if (MainForm.pokazn.RecordCount<>0) then
      MainForm.pokazn.Delete;
+     FormAddkart.calcpok;
   end;
 end;
 

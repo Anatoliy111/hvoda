@@ -167,7 +167,7 @@ object MainForm: TMainForm
           object DBGrid1DOM: TcxGridDBBandedColumn
             DataBinding.FieldName = 'DOM'
             Options.Editing = False
-            Width = 26
+            Width = 22
             Position.BandIndex = 0
             Position.ColIndex = 0
             Position.RowIndex = 0
@@ -175,7 +175,7 @@ object MainForm: TMainForm
           object DBGrid1KVART: TcxGridDBBandedColumn
             DataBinding.FieldName = 'KVART'
             Options.Editing = False
-            Width = 39
+            Width = 33
             Position.BandIndex = 0
             Position.ColIndex = 1
             Position.RowIndex = 0
@@ -183,7 +183,7 @@ object MainForm: TMainForm
           object DBGrid1SCHET: TcxGridDBBandedColumn
             DataBinding.FieldName = 'SCHET'
             Options.Editing = False
-            Width = 48
+            Width = 40
             Position.BandIndex = 0
             Position.ColIndex = 2
             Position.RowIndex = 0
@@ -192,7 +192,7 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'FIO'
             Options.Editing = False
             Options.Filtering = False
-            Width = 117
+            Width = 99
             Position.BandIndex = 0
             Position.ColIndex = 3
             Position.RowIndex = 0
@@ -247,10 +247,38 @@ object MainForm: TMainForm
             Position.ColIndex = 2
             Position.RowIndex = 0
           end
+          object DBGrid1DATE_POK: TcxGridDBBandedColumn
+            Caption = #1044#1072#1090#1072' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+            DataBinding.FieldName = 'DATE_POK'
+            Width = 76
+            Position.BandIndex = 0
+            Position.ColIndex = 16
+            Position.RowIndex = 0
+          end
+          object DBGrid1Column2: TcxGridDBBandedColumn
+            Caption = '...'
+            PropertiesClassName = 'TcxButtonEditProperties'
+            Properties.Buttons = <
+              item
+                Default = True
+                Kind = bkEllipsis
+              end>
+            Properties.OnButtonClick = DBGrid1Column2PropertiesButtonClick
+            Options.Filtering = False
+            Options.ShowEditButtons = isebAlways
+            Options.Grouping = False
+            Options.Sorting = False
+            Width = 20
+            Position.BandIndex = 0
+            Position.ColIndex = 17
+            Position.RowIndex = 0
+          end
           object DBGrid1SCH_CUR: TcxGridDBBandedColumn
+            Caption = #1055#1086#1082#1072#1079#1085#1080#1082
             DataBinding.FieldName = 'SCH_CUR'
             PropertiesClassName = 'TcxCalcEditProperties'
-            Width = 63
+            Options.Editing = False
+            Width = 55
             Position.BandIndex = 1
             Position.ColIndex = 0
             Position.RowIndex = 0
@@ -258,17 +286,20 @@ object MainForm: TMainForm
           object DBGrid1SCH_OLD: TcxGridDBBandedColumn
             DataBinding.FieldName = 'SCH_OLD'
             PropertiesClassName = 'TcxCalcEditProperties'
+            Visible = False
+            Options.Editing = False
             Width = 60
             Position.BandIndex = 1
             Position.ColIndex = 1
             Position.RowIndex = 0
           end
           object DBGrid1SCH_RAZN: TcxGridDBBandedColumn
+            Caption = #1050#1091#1073#1080' '#1079#1072' '#1084#1110#1089'.'
             DataBinding.FieldName = 'SCH_RAZN'
             PropertiesClassName = 'TcxCalcEditProperties'
             Properties.ReadOnly = True
             Options.Editing = False
-            Width = 63
+            Width = 72
             Position.BandIndex = 1
             Position.ColIndex = 2
             Position.RowIndex = 0
@@ -276,7 +307,7 @@ object MainForm: TMainForm
           object DBGrid1POD: TcxGridDBBandedColumn
             Caption = #8470' '#1087#1110#1076#1111#1079#1076#1091
             DataBinding.FieldName = 'POD'
-            Width = 61
+            Width = 51
             Position.BandIndex = 0
             Position.ColIndex = 13
             Position.RowIndex = 0
@@ -322,7 +353,7 @@ object MainForm: TMainForm
                 Value = '5'
               end>
             Properties.OnChange = DBGrid1WIDPropertiesChange
-            Width = 76
+            Width = 64
             Position.BandIndex = 0
             Position.ColIndex = 14
             Position.RowIndex = 0
@@ -390,7 +421,7 @@ object MainForm: TMainForm
             Options.ShowEditButtons = isebAlways
             Options.Grouping = False
             Options.Sorting = False
-            Width = 27
+            Width = 22
             Position.BandIndex = 0
             Position.ColIndex = 4
             Position.RowIndex = 0
@@ -398,7 +429,7 @@ object MainForm: TMainForm
           object DBGrid1UL: TcxGridDBBandedColumn
             Caption = #1042#1091#1083#1080#1094#1103
             DataBinding.FieldName = 'UL'
-            Width = 103
+            Width = 87
             Position.BandIndex = 0
             Position.ColIndex = 10
             Position.RowIndex = 0
@@ -406,7 +437,7 @@ object MainForm: TMainForm
           object DBGrid1N_DOM: TcxGridDBBandedColumn
             Caption = #1041#1091#1076#1080#1085#1086#1082
             DataBinding.FieldName = 'N_DOM'
-            Width = 56
+            Width = 47
             Position.BandIndex = 0
             Position.ColIndex = 11
             Position.RowIndex = 0
@@ -414,7 +445,7 @@ object MainForm: TMainForm
           object DBGrid1KV: TcxGridDBBandedColumn
             Caption = #1050#1074#1072#1088#1090#1080#1088#1072
             DataBinding.FieldName = 'KV'
-            Width = 36
+            Width = 31
             Position.BandIndex = 0
             Position.ColIndex = 12
             Position.RowIndex = 0
@@ -450,7 +481,7 @@ object MainForm: TMainForm
             Caption = #1055#1088#1080#1084#1110#1090#1082#1072' '#1085#1072#1088#1072#1093#1091#1074#1072#1085#1100
             DataBinding.FieldName = 'RASCH_NOTE'
             Options.Editing = False
-            Width = 93
+            Width = 90
             Position.BandIndex = 0
             Position.ColIndex = 15
             Position.RowIndex = 0
@@ -459,7 +490,7 @@ object MainForm: TMainForm
             Caption = #1050#1091#1073#1080' '#1088#1086#1079#1088#1072#1093#1091#1085#1086#1082
             DataBinding.FieldName = 'RASCH_KUB'
             Options.Editing = False
-            Width = 85
+            Width = 94
             Position.BandIndex = 1
             Position.ColIndex = 3
             Position.RowIndex = 0
@@ -1404,7 +1435,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E004000780014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000880014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3972,7 +4003,7 @@ object MainForm: TMainForm
         ', '
       
         '   NOR_RAZN, NOTE, PERE_DAY, PERE_RAZN, PLOMB, POD, SCH_CUR, SCH' +
-        '_OLD, SCHET, '
+        '_OLD, SCH_RAZN, SCHET, '
       
         '    UL, WID, YEARMON,RASCH_KUB,RASCH_NOR,RASCH_NOTE,DATE_POK,VID' +
         '_POK)'
@@ -3983,7 +4014,7 @@ object MainForm: TMainForm
       
         '   :N_SCH, :NOR_RAZN, :NOTE, :PERE_DAY, :PERE_RAZN, :PLOMB, :POD' +
         ', :SCH_CUR, '
-      '   :SCH_OLD, :SCHET,:UL, '
+      '   :SCH_OLD, :SCH_RAZN ,:SCHET,:UL, '
       
         '   :WID, :YEARMON,:RASCH_KUB,:RASCH_NOR,:RASCH_NOTE,:DATE_POK,:V' +
         'ID_POK)')
@@ -4094,6 +4125,7 @@ object MainForm: TMainForm
       '  POD = :POD,'
       '  SCH_CUR = :SCH_CUR,'
       '  SCH_OLD = :SCH_OLD,'
+      '  SCH_RAZN = :SCH_RAZN,'
       '  SCHET = :SCHET,'
       '  UL = :UL,'
       '  WID = :WID,'
@@ -4145,16 +4177,6 @@ object MainForm: TMainForm
       DisplayWidth = 10
       FieldName = 'SCH_CUR'
       Origin = 'H_VODA.SCH_CUR'
-      OnChange = hvdSCH_CURChange
-      OnValidate = hvdSCH_CURValidate
-      Precision = 18
-      Size = 4
-    end
-    object hvdSCH_OLD: TIBBCDField
-      DisplayLabel = #1052#1080#1085#1091#1083
-      DisplayWidth = 10
-      FieldName = 'SCH_OLD'
-      Origin = 'H_VODA.SCH_OLD'
       OnChange = hvdSCH_CURChange
       OnValidate = hvdSCH_CURValidate
       Precision = 18

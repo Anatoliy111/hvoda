@@ -36,18 +36,6 @@
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       <Excluded_Packages Name="$(BDS)\bin\bcboffice2k100.bpl">CodeGear C++Builder Office 2000 Servers Package</Excluded_Packages>
       <Excluded_Packages Name="$(BDS)\bin\bcbofficexp100.bpl">CodeGear C++Builder Office XP Servers Package</Excluded_Packages>
       <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
@@ -134,6 +122,9 @@
     <DCCReference Include="on\mytools.pas" />
     <DCCReference Include="progress.pas">
       <Form>FormProgress</Form>
+    </DCCReference>
+    <DCCReference Include="splash.pas">
+      <Form>SplashForm</Form>
     </DCCReference>
     <DCCReference Include="sprzn.pas">
       <Form>SPR_ZN</Form>

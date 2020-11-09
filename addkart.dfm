@@ -30,6 +30,7 @@ object FormAddkart: TFormAddkart
     object cxTabSheet1: TcxTabSheet
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
+      ExplicitTop = 18
       object cxTextEdit1: TcxTextEdit
         Left = 24
         Top = 32
@@ -163,6 +164,19 @@ object FormAddkart: TFormAddkart
         Properties.ReadOnly = True
         TabOrder = 20
         Width = 121
+      end
+      object cxCheckBox1: TcxCheckBox
+        Left = 221
+        Top = 87
+        Caption = #1044#1086#1076#1072#1090#1080' '#1085#1086#1074#1080#1081' '#1087#1086#1082#1072#1079#1085#1080#1082
+        Properties.OnChange = cxCheckBox1PropertiesChange
+        TabOrder = 21
+        Width = 201
+      end
+      object cxLabel26: TcxLabel
+        Left = 207
+        Top = 114
+        Caption = #1076#1086#1076#1072#1108#1090#1100#1089#1103' '#1087#1088#1080' '#1074#1089#1090'.'#1085#1086#1074#1086#1075#1086' '#1072#1073#1086' '#1087#1110#1089#1083#1103' '#1087#1086#1074#1110#1088#1082#1080
       end
     end
     object cxTabSheet2: TcxTabSheet
@@ -453,6 +467,22 @@ object FormAddkart: TFormAddkart
         'll order by DATE_POK desc')
     Left = 376
     Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'sch'
+        ParamType = ptUnknown
+      end>
+  end
+  object IBQuery2: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      
+        'select first 1 *  from POKAZN where schet=:sch and date_zn is nu' +
+        'll order by DATE_POK desc')
+    Left = 376
+    Top = 80
     ParamData = <
       item
         DataType = ftUnknown

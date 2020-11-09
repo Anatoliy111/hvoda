@@ -16,11 +16,15 @@ uses
   iimport in 'iimport.pas' {Form4},
   addkart in 'addkart.pas' {FormAddkart},
   delkart in 'delkart.pas' {FormDelkart},
-  sprzn in 'sprzn.pas' {SPR_ZN};
+  sprzn in 'sprzn.pas' {SPR_ZN},
+  splash in 'splash.pas' {SplashForm};
 
 {$R *.res}
 
 begin
+  SplashForm := TSplashForm.Create(Application);
+  SplashForm.Show;
+
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TFormInplaces, FormInplaces);
@@ -35,5 +39,9 @@ begin
   Application.CreateForm(TFormAddkart, FormAddkart);
   Application.CreateForm(TFormDelkart, FormDelkart);
   Application.CreateForm(TSPR_ZN, SPR_ZN);
+ // Application.CreateForm(TSplashForm, SplashForm);
+    SplashForm.Hide;
+  SplashForm.Free;
+
   Application.Run;
 end.

@@ -7,7 +7,7 @@ uses
   Dialogs, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons, ExtCtrls, cxPC,
   cxControls, cxMaskEdit, cxDropDownEdit, cxCalendar, cxLabel, cxContainer,
   cxEdit, cxTextEdit, cxGraphics, DB, IBCustomDataSet, cxLookupEdit,
-  cxDBLookupEdit, cxDBLookupComboBox,DateUtils, IBQuery, cxCalc;
+  cxDBLookupEdit, cxDBLookupComboBox,DateUtils, IBQuery, cxCalc, cxCheckBox;
 
 type
   TFormAddkart = class(TForm)
@@ -73,6 +73,9 @@ type
     cxLabel25: TcxLabel;
     cxCalcEdit5: TcxCalcEdit;
     IBVIDZNVID_SP: TIBStringField;
+    IBQuery2: TIBQuery;
+    cxCheckBox1: TcxCheckBox;
+    cxLabel26: TcxLabel;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxDateEdit2PropertiesChange(Sender: TObject);
@@ -80,13 +83,14 @@ type
     procedure cxButton3Click(Sender: TObject);
     procedure cxCalcEdit1PropertiesEditValueChanged(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure cxCheckBox1PropertiesChange(Sender: TObject);
   private
     { Private declarations }
   public
-    addznlich:boolean;
+    addznlich,reglich:boolean;
     { Public declarations }
     function AddPokaz(sch:string;data:TDateTime;vid:integer;pok:double):boolean;
-
+    procedure calcpok;
   end;
 
 var
@@ -97,13 +101,13 @@ var
 
 implementation
 
-uses delkart, main, mytools;
+uses delkart, main, mytools, kart;
 
 {$R *.dfm}
 
 function TFormAddkart.AddPokaz(sch:string;data:TDateTime;vid:integer;pok:double):boolean;
 begin
-
+   result:=false;
 //  IBQuery1.Close;
 //  IBQuery1.SQL.Text:='select * pokaz where yearmon=:per and schet=:sch and date_pok=:data';
   MainForm.pokazn.First;
@@ -128,6 +132,66 @@ begin
   result:=true;
 end;
 
+procedure TFormAddkart.calcpok;
+var kol,lastpokazn,endpokazn:integer;
+begin
+  IBQuery2.Close;
+  IBQuery2.SQL.Text:='select first 1 * from pokazn where yearmon<>:per and schet=:sch order by date_pok desc';
+  IBQuery2.ParamByName('per').Value:=MainForm.period;
+  IBQuery2.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+  IBQuery2.Open;
+
+  if IBQuery2.RecordCount<>0 then
+     lastpokazn:=IBQuery2.FieldByName('POKAZN').Value
+  else
+     lastpokazn:=0;
+
+
+  IBQuery2.Close;
+  IBQuery2.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch order by date_pok';
+  IBQuery2.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+  IBQuery2.ParamByName('per').Value:=MainForm.period;
+  IBQuery2.Open;
+  kol:=0;
+  while not IBQuery2.eof do
+  begin
+  if (IBQuery2.FieldByName('VID_POK').Value=17) or (lastpokazn=0) then
+     lastpokazn:=IBQuery2.FieldByName('POKAZN').Value
+  else
+     kol:=kol+IBQuery2.FieldByName('POKAZN').Value-lastpokazn;
+
+  lastpokazn:=IBQuery2.FieldByName('POKAZN').Value;
+  IBQuery2.Next;
+  end;
+
+  if MainForm.pokazn.RecordCount<>0 then
+  begin
+
+    MainForm.hvd.Edit;
+  MainForm.hvdWID.Value:=1;
+  MainForm.hvdSCH_CUR.Value:=IBQuery2.FieldByName('POKAZN').Value;
+  //MainForm.hvdSCH_OLD.Value:=cxCalcEdit2.Value;
+  MainForm.hvdSCH_RAZN.Value:=kol;
+  MainForm.hvdDATE_POK.Value:=IBQuery2.FieldByName('DATE_POK').Value;
+  MainForm.hvdVID_POK.Value:=IBQuery2.FieldByName('VID_POK').Value;
+  MainForm.hvd.Post;
+  end
+  else
+  begin
+    MainForm.hvd.Edit;
+  MainForm.hvdSCH_CUR.Value:=0;
+  //MainForm.hvdSCH_OLD.Value:=cxCalcEdit2.Value;
+  MainForm.hvdSCH_RAZN.Value:=0;
+  MainForm.hvdDATE_POK.IsNull;
+  MainForm.hvdVID_POK.Value:=0;
+  MainForm.hvd.Post;
+
+  end;
+
+
+
+end;
+
 procedure TFormAddkart.cxButton1Click(Sender: TObject);
 begin
 close;
@@ -142,11 +206,20 @@ begin
    and (cxTextEdit3.Text<>'')
    and (cxDateEdit1.EditValue<>null)
    and (cxDateEdit2.EditValue<>null)
-   and (cxCalcEdit4.EditValue<>0)
   then
   begin
 
+  if (cxCheckBox1.Checked) and (cxCalcEdit4.EditValue<>0) then
+  begin
+    ShowMessage('¬вед≥ть новий показник');
+    exit;
+  end;
+
+   if cxCheckBox1.Checked then
+  begin
   if not AddPokaz(trim(cxTextEdit1.Text),cxDateEdit2.EditValue,17,cxCalcEdit4.EditValue) then exit;
+
+  end;
 
   MainForm.lich.Append;
   MainForm.lich.Edit;
@@ -159,6 +232,10 @@ begin
   MainForm.lichNOTE.Value:=cxTextEdit4.Text;
   MainForm.lich.Post;
 
+  if cxCheckBox1.Checked then
+  begin
+ // if not AddPokaz(trim(cxTextEdit1.Text),cxDateEdit2.EditValue,17,cxCalcEdit4.EditValue) then exit;
+
   MainForm.pokazn.Edit;
   MainForm.pokaznID_LICH.Value:=MainForm.lichID.Value;
   MainForm.pokazn.Post;
@@ -166,14 +243,15 @@ begin
   MainForm.pokazn.Close;
   MainForm.pokazn.Open;
 
-
-  MainForm.hvd.Edit;
-  MainForm.hvdSCH_CUR.Value:=cxCalcEdit4.EditValue;
-  MainForm.hvdSCH_OLD.Value:=cxCalcEdit4.EditValue;
-  MainForm.hvdSCH_RAZN.Value:=0;
-  MainForm.hvdDATE_POK.Value:=cxDateEdit2.EditValue;
-  MainForm.hvdVID_POK.Value:=17;
-  MainForm.hvd.Post;
+  FormAddkart.calcpok;
+  end;
+//  MainForm.hvd.Edit;
+//  MainForm.hvdSCH_CUR.Value:=cxCalcEdit4.EditValue;
+ // MainForm.hvdSCH_OLD.Value:=cxCalcEdit4.EditValue;
+//  MainForm.hvdSCH_RAZN.Value:=0;
+//  MainForm.hvdDATE_POK.Value:=cxDateEdit2.EditValue;
+//  MainForm.hvdVID_POK.Value:=17;
+//  MainForm.hvd.Post;
 
 
 
@@ -240,13 +318,9 @@ begin
 
   if not AddPokaz(trim(cxTextEdit9.Text),cxDateEdit6.EditValue,cxLookupComboBox2.EditValue,cxCalcEdit1.Value) then exit;
 
-  MainForm.hvd.Edit;
-  MainForm.hvdSCH_CUR.Value:=cxCalcEdit1.Value;
-  MainForm.hvdSCH_OLD.Value:=cxCalcEdit2.Value;
-  MainForm.hvdSCH_RAZN.Value:=cxCalcEdit1.Value-cxCalcEdit2.Value;
-  MainForm.hvdDATE_POK.Value:=cxDateEdit6.EditValue;
-  MainForm.hvdVID_POK.Value:=cxLookupComboBox2.EditValue;
-  MainForm.hvd.Post;
+
+  calcpok;
+
 
   MainForm.pokazn.Close;
   MainForm.pokazn.Open
@@ -259,6 +333,7 @@ begin
   end;
 end;
 
+  MainForm.IBTransaction1.CommitRetaining;
 close;
 
 end;
@@ -266,6 +341,28 @@ end;
 procedure TFormAddkart.cxCalcEdit1PropertiesEditValueChanged(Sender: TObject);
 begin
 cxCalcEdit3.EditValue:=cxCalcEdit1.EditValue-cxCalcEdit2.EditValue;
+end;
+
+procedure TFormAddkart.cxCheckBox1PropertiesChange(Sender: TObject);
+begin
+if cxCheckBox1.Checked then
+begin
+    FormAddkart.cxDateEdit7.Visible:=true;
+  FormAddkart.cxCalcEdit5.Visible:=true;
+  FormAddkart.cxCalcEdit4.Visible:=true;
+  FormAddkart.cxLabel22.Visible:=true;
+  FormAddkart.cxLabel24.Visible:=true;
+  FormAddkart.cxLabel25.Visible:=true;
+end
+else
+begin
+  FormAddkart.cxDateEdit7.Visible:=false;
+  FormAddkart.cxCalcEdit5.Visible:=false;
+  FormAddkart.cxCalcEdit4.Visible:=false;
+  FormAddkart.cxLabel22.Visible:=false;
+  FormAddkart.cxLabel24.Visible:=false;
+  FormAddkart.cxLabel25.Visible:=false;
+end;
 end;
 
 procedure TFormAddkart.cxDateEdit2PropertiesChange(Sender: TObject);
@@ -295,6 +392,15 @@ end;
 
 
 
+if addznlich=true then
+begin
+  form2.cxPageControl2.ActivePage:=form2.cxTabSheet4;
+end;
+addznlich:=false;
+
+
+
+
 end;
 
 
@@ -314,6 +420,10 @@ begin
   FormAddkart.IBQuery1.Close;
   FormAddkart.IBQuery1.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
   FormAddkart.IBQuery1.open;
+
+  FormAddkart.cxCheckBox1.Checked:=false;
+FormAddkart.cxCheckBox1PropertiesChange(FormAddkart.cxCheckBox1);
+
 
 end;
 

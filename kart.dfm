@@ -188,7 +188,7 @@ object Form2: TForm2
     Top = 153
     Width = 688
     Height = 388
-    ActivePage = cxTabSheet3
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 2
     ClientRectBottom = 388
@@ -218,6 +218,7 @@ object Form2: TForm2
             Height = 41
             Align = alTop
             TabOrder = 0
+            ExplicitTop = -6
             object cxButton3: TcxButton
               Left = 15
               Top = 8
@@ -230,7 +231,7 @@ object Form2: TForm2
             end
             object cxButton4: TcxButton
               Left = 127
-              Top = 8
+              Top = 9
               Width = 98
               Height = 25
               Caption = #1047#1085#1103#1090#1080' '#1083#1110#1095#1080#1083#1100#1085#1080#1082
@@ -546,6 +547,14 @@ object Form2: TForm2
           Height = 13
           Alignment = taCenter
         end
+        object Label3: TLabel
+          Left = 261
+          Top = 3
+          Width = 124
+          Height = 13
+          Alignment = taCenter
+          Caption = #1050#1091#1073#1080' '#1079#1072' '#1087#1086#1090#1086#1095#1085#1080#1081' '#1084#1110#1089#1103#1094#1100
+        end
         object cxButton8: TcxButton
           Left = 15
           Top = 16
@@ -565,6 +574,14 @@ object Form2: TForm2
           TabOrder = 1
           OnClick = cxButton9Click
           LookAndFeel.Kind = lfUltraFlat
+        end
+        object cxDBTextEdit4: TcxDBTextEdit
+          Left = 264
+          Top = 22
+          DataBinding.DataField = 'SCH_RAZN'
+          DataBinding.DataSource = MainForm.hvdSource
+          TabOrder = 2
+          Width = 121
         end
       end
       object cxGrid6: TcxGrid

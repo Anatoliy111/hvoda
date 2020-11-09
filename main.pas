@@ -31,7 +31,6 @@ type
     hvdKOLI_P: TIBBCDField;
     hvdNOR_RAZN: TIBBCDField;
     hvdSCH_CUR: TIBBCDField;
-    hvdSCH_OLD: TIBBCDField;
     hvdSCH_RAZN: TIBBCDField;
     hvdSCHET: TIBStringField;
     hvdKVART: TIBStringField;
@@ -368,6 +367,8 @@ type
     lichznVID_ZN: TIntegerField;
     lichznDATA_VIG: TDateField;
     lichznZN: TIBStringField;
+    DBGrid1DATE_POK: TcxGridDBBandedColumn;
+    DBGrid1Column2: TcxGridDBBandedColumn;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -433,6 +434,8 @@ type
     procedure dxBarButton16Click(Sender: TObject);
     procedure dxBarButton17Click(Sender: TObject);
     procedure dxBarButton18Click(Sender: TObject);
+    procedure DBGrid1Column2PropertiesButtonClick(Sender: TObject;
+      AButtonIndex: Integer);
   private
     { Private declarations }
     schet:string;
@@ -456,7 +459,7 @@ var
 implementation
 
 uses inpedpro, edexpr, import, mytools, itoghvd,ComObj,dbf,dbf_lang,
-  edplomb, kart, lichall, iimport, sprzn;
+  edplomb, kart, lichall, iimport, sprzn, addkart;
 
 {$R *.dfm}
 
@@ -483,6 +486,8 @@ begin
 
   IBdatabase.Connected:=true;
   IBTransaction1.Active:=true;
+  //DataSource.Enabled:=false;
+  //hvdSource.Enabled:=false;
   data.Open;
   lich.Open;
   lchSQL:=lich.SelectSQL.Text;
@@ -491,7 +496,7 @@ begin
   dom.Open;
   dxBarLookupCombo1.KeyValue:=domDOM.AsString;
 
-  hvd.Open;
+  //hvd.Open;
   prop.Open;
   grp.Open;
   plombs.Open;
@@ -503,6 +508,8 @@ begin
   plombszn.Open;
   plznSQL:=plombszn.SelectSQL.Text;
   period:=dataYEARMON.Value;
+  //DataSource.Enabled:=true;
+  //hvdSource.Enabled:=true;
 
   cxPageControl1.ActivePage:=cxTabSheet1;
   ActiveControl:=cxGrid2;
@@ -573,6 +580,27 @@ procedure TMainForm.DBGrid1Column1PropertiesButtonClick(Sender: TObject;
 begin
      Form2.Find();
      Form2.Show;
+end;
+
+procedure TMainForm.DBGrid1Column2PropertiesButtonClick(Sender: TObject;
+  AButtonIndex: Integer);
+begin
+//     Form2.Find();
+//     Form2.Show;
+//     Form2.cxPageControl1.ActivePage:=Form2.cxTabSheet3;
+FormAddkart.cxTabSheet1.TabVisible:=false;
+FormAddkart.cxTabSheet2.TabVisible:=false;
+FormAddkart.cxTabSheet3.TabVisible:=true;
+FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet3;
+FormAddkart.cxTextEdit9.Text:=MainForm.hvdSCHET.Value;
+FormAddkart.cxLabel15.Caption:=MainForm.hvdFIO.Value;
+FormAddkart.Show;
+if FormAddkart.IBQuery1.RecordCount<>0 then
+begin
+  FormAddkart.cxDateEdit5.EditValue:=FormAddkart.IBQuery1.FieldByName('date_pok').Value;
+  FormAddkart.cxCalcEdit2.Text:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
+end;
+
 end;
 
 procedure TMainForm.DBGrid1CustomDrawCell(Sender: TcxCustomGridTableView;
@@ -909,13 +937,13 @@ end;
 
 procedure TMainForm.hvdSCH_CURChange(Sender: TField);
 begin
-  if (hvdWID.Value<>1) then
-  begin
-    ShowMessage('«Ï≥Ì≥Ú¸ ‚Ë‰ Ì‡ À≤◊»À‹Õ»  !!!');
+//  if (hvdWID.Value<>1) then
+//  begin
+ //   ShowMessage('«Ï≥Ì≥Ú¸ ‚Ë‰ Ì‡ À≤◊»À‹Õ»  !!!');
 //    hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
 
-    hvd.Cancel;
-  end;
+ //   hvd.Cancel;
+ // end;
 end;
 
 procedure TMainForm.hvdSCH_CURValidate(Sender: TField);
@@ -1136,6 +1164,7 @@ begin
     if not ibtransaction1.InTransaction then ibtransaction1.StartTransaction;
     data.Close;
     data.Open;
+    period:=dataYEARMON.Value;
     Form4.ImKart;
     timer1.Enabled:=true;
   end;
