@@ -155,7 +155,9 @@ begin
   kol:=0;
   while not IBQuery2.eof do
   begin
-  if (IBQuery2.FieldByName('VID_POK').Value=17) or (lastpokazn=0) then
+//  if (IBQuery2.FieldByName('VID_POK').Value=17) or (lastpokazn=0) then
+
+  if (IBQuery2.FieldByName('VID_POK').Value=17) then
      lastpokazn:=IBQuery2.FieldByName('POKAZN').Value
   else
      kol:=kol+IBQuery2.FieldByName('POKAZN').Value-lastpokazn;
@@ -206,14 +208,15 @@ begin
    and (cxTextEdit3.Text<>'')
    and (cxDateEdit1.EditValue<>null)
    and (cxDateEdit2.EditValue<>null)
+   and (cxCalcEdit4.EditValue<>null)
   then
   begin
 
-  if (cxCheckBox1.Checked) and (cxCalcEdit4.EditValue<>0) then
-  begin
-    ShowMessage('¬вед≥ть новий показник');
-    exit;
-  end;
+//  if (cxCheckBox1.Checked) and (cxCalcEdit4.EditValue<>0) then
+//  begin
+//    ShowMessage('¬вед≥ть новий показник');
+//    exit;
+//  end;
 
    if cxCheckBox1.Checked then
   begin

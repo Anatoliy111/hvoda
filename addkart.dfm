@@ -30,7 +30,6 @@ object FormAddkart: TFormAddkart
     object cxTabSheet1: TcxTabSheet
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
-      ExplicitTop = 18
       object cxTextEdit1: TcxTextEdit
         Left = 24
         Top = 32

@@ -188,7 +188,7 @@ object Form2: TForm2
     Top = 153
     Width = 688
     Height = 388
-    ActivePage = cxTabSheet1
+    ActivePage = cxTabSheet3
     Align = alClient
     TabOrder = 2
     ClientRectBottom = 388
@@ -218,7 +218,6 @@ object Form2: TForm2
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitTop = -6
             object cxButton3: TcxButton
               Left = 15
               Top = 8
@@ -257,6 +256,9 @@ object Form2: TForm2
               OptionsData.Editing = False
               OptionsView.GroupByBox = False
               OptionsView.Indicator = True
+              object cxGridDBTableView1ID: TcxGridDBColumn
+                DataBinding.FieldName = 'ID'
+              end
               object cxGridDBTableView1SCHET: TcxGridDBColumn
                 Caption = #1054#1089'.'#1088#1072#1093#1091#1085#1086#1082
                 DataBinding.FieldName = 'SCHET'
@@ -616,23 +618,15 @@ object Form2: TForm2
             Caption = #1055#1086#1082#1072#1079#1085#1080#1082
             DataBinding.FieldName = 'POKAZN'
           end
-          object cxGridDBTableView3PK: TcxGridDBColumn
-            Caption = #1042#1080#1076' '#1085#1072#1076#1093#1086#1076#1078#1077#1085#1085#1103
-            DataBinding.FieldName = 'PK'
+          object cxGridDBTableView3PKZ: TcxGridDBColumn
+            Caption = #1042#1080#1076' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+            DataBinding.FieldName = 'PKZ'
+            Width = 193
           end
-          object cxGridDBTableView3N_DOC: TcxGridDBColumn
-            DataBinding.FieldName = 'N_DOC'
-            Visible = False
-          end
-          object cxGridDBTableView3DATE_ZN: TcxGridDBColumn
-            Caption = #1044#1072#1090#1072' '#1074#1080#1076#1072#1083#1077#1085#1085#1103
-            DataBinding.FieldName = 'DATE_ZN'
-            Width = 110
-          end
-          object cxGridDBTableView3VID_ZN: TcxGridDBColumn
-            Caption = #1055#1088#1080#1095#1080#1085#1072' '#1074#1080#1076#1072#1083#1077#1085#1085#1103
-            DataBinding.FieldName = 'VID_ZN'
-            Width = 129
+          object cxGridDBTableView3LICH: TcxGridDBColumn
+            Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
+            DataBinding.FieldName = 'LICH'
+            Width = 172
           end
         end
         object cxGridLevel3: TcxGridLevel
@@ -640,5 +634,21 @@ object Form2: TForm2
         end
       end
     end
+  end
+  object IBQuery1: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      
+        'select first 1 *  from POKAZN where schet=:sch and date_zn is nu' +
+        'll order by DATE_POK desc')
+    Left = 512
+    Top = 88
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'sch'
+        ParamType = ptUnknown
+      end>
   end
 end

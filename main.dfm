@@ -1397,8 +1397,8 @@ object MainForm: TMainForm
   end
   object ActionList1: TActionList
     Images = ImageList1
-    Left = 672
-    Top = 192
+    Left = 680
+    Top = 216
     object ActionEdCalcs: TAction
       Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1082#1080
       ImageIndex = 40
@@ -1435,7 +1435,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E004000880014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E0040008C0014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3963,7 +3963,6 @@ object MainForm: TMainForm
       000000000000}
   end
   object IBDatabase: TIBDatabase
-    Connected = True
     DatabaseName = 'D:\work\KPCENTR\hvoda\GKU.FDB'
     Params.Strings = (
       'user_name=sysdba'
@@ -3976,7 +3975,6 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'
@@ -6558,13 +6556,11 @@ object MainForm: TMainForm
       'insert into POKAZN'
       
         '  (DATE_POK, DATE_ZN, ID, ID_LICH, N_DOC, POKAZN, SCHET, VID_POK' +
-        ', VID_ZN, '
-      '   YEARMON)'
+        ', '
+      '   VID_ZN, YEARMON)'
       'values'
-      
-        '  (:DATE_POK, :DATE_ZN, :ID, :ID_LICH, :N_DOC, :POKAZN, :SCHET, ' +
-        ':VID_POK, '
-      '   :VID_ZN, :YEARMON)')
+      '  (:DATE_POK, :DATE_ZN, :ID, :ID_LICH, :N_DOC, :POKAZN, :SCHET, '
+      '   :VID_POK, :VID_ZN, :YEARMON)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -6581,9 +6577,12 @@ object MainForm: TMainForm
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'select POKAZN.*, sp1.vid_zn pk,sp2.vid_zn zn  from POKAZN'
+      
+        'select POKAZN.*,sp1.vid_zn pkz, '#39#1090#1080#1087' '#39' || l1.tip || '#39' '#8470#39' || l1.n' +
+        '_lich as lich from POKAZN'
+      'left join lich l1 on l1.id=POKAZN.id_lich'
       'left join spr_zn sp1 on sp1.id=POKAZN.vid_pok'
-      'left join spr_zn sp2 on sp2.id=POKAZN.vid_zn'
+      ''
       ''
       '')
     ModifySQL.Strings = (
@@ -6650,15 +6649,15 @@ object MainForm: TMainForm
       FieldName = 'ID_LICH'
       Origin = '"POKAZN"."ID_LICH"'
     end
-    object pokaznPK: TIBStringField
-      FieldName = 'PK'
+    object pokaznPKZ: TIBStringField
+      FieldName = 'PKZ'
       Origin = '"SPR_ZN"."VID_ZN"'
       Size = 50
     end
-    object pokaznZN: TIBStringField
-      FieldName = 'ZN'
-      Origin = '"SPR_ZN"."VID_ZN"'
-      Size = 50
+    object pokaznLICH: TIBStringField
+      FieldName = 'LICH'
+      ProviderFlags = []
+      Size = 46
     end
   end
   object lichznDataSource: TDataSource

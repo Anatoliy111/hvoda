@@ -21,7 +21,7 @@ object FormDelkart: TFormDelkart
     Top = 0
     Width = 434
     Height = 314
-    ActivePage = cxTabSheet2
+    ActivePage = cxTabSheet3
     Align = alClient
     TabOrder = 0
     ClientRectBottom = 314

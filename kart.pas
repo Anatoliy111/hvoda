@@ -8,7 +8,7 @@ uses
   DB, cxDBData, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
   cxClasses, cxGridCustomView, cxGrid, cxDBEdit, ExtCtrls, cxStyles, cxEdit,
-  cxControls, cxContainer, cxTextEdit, cxPC;
+  cxControls, cxContainer, cxTextEdit, cxPC, IBCustomDataSet, IBQuery;
 
 type
   TForm2 = class(TForm)
@@ -92,13 +92,9 @@ type
     cxGridDBTableView3YEARMON: TcxGridDBColumn;
     cxGridDBTableView3POKAZN: TcxGridDBColumn;
     cxGridDBTableView3DATE_POK: TcxGridDBColumn;
-    cxGridDBTableView3N_DOC: TcxGridDBColumn;
-    cxGridDBTableView3DATE_ZN: TcxGridDBColumn;
-    cxGridDBTableView3VID_ZN: TcxGridDBColumn;
     cxGridDBTableView2ZN: TcxGridDBColumn;
     cxGrid2DBTableView1PL: TcxGridDBColumn;
     cxGrid2DBTableView1ZN: TcxGridDBColumn;
-    cxGridDBTableView3PK: TcxGridDBColumn;
     cxGrid3: TcxGrid;
     cxGrid3DBTableView1: TcxGridDBTableView;
     cxGrid3DBTableView1SCHET: TcxGridDBColumn;
@@ -109,6 +105,10 @@ type
     cxGrid3Level1: TcxGridLevel;
     cxDBTextEdit4: TcxDBTextEdit;
     Label3: TLabel;
+    IBQuery1: TIBQuery;
+    cxGridDBTableView3PKZ: TcxGridDBColumn;
+    cxGridDBTableView3LICH: TcxGridDBColumn;
+    cxGridDBTableView1ID: TcxGridDBColumn;
     procedure cxButton1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -269,6 +269,39 @@ begin
     exit;
   end;
 
+
+   if (MainForm.pokaznID_LICH.Value<>0) then
+  begin
+  IBQuery1.Close;
+  IBQuery1.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch and id>=:id order by date_pok';
+  IBQuery1.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+  IBQuery1.ParamByName('per').Value:=MainForm.period;
+  IBQuery1.ParamByName('id').Value:=MainForm.pokaznID.Value;
+  IBQuery1.Open;
+  IBQuery1.last;
+    if IBQuery1.RecordCount>1 then
+    begin
+      ShowMessage('Неможливо видалити показник, бо існують показники після показника встановлення ');
+      exit;
+    end;
+  end;
+
+  if (MainForm.pokaznID_LICH.Value<>0) then
+  begin
+  IBQuery1.Close;
+  IBQuery1.SQL.Text:='select * from lich where schet=:sch and id=:id and DATA_ZN is null';
+  IBQuery1.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+  IBQuery1.ParamByName('id').Value:=MainForm.pokaznID_LICH.Value;
+  IBQuery1.Open;
+
+    if IBQuery1.RecordCount<>0 then
+    begin
+      ShowMessage('Видаліть спочатку лічильник цього показника - тип '+IBQuery1.FieldByName('tip').Value+' №'+IBQuery1.FieldByName('n_lich').Value+' id'+IntToStr(IBQuery1.FieldByName('id').Value));
+      exit;
+    end;
+  end;
+
+
   if application.MessageBox('Ви дійсно бажаєте видалити показник?','Підтвердження',MB_YESNO)=IDYES then
   begin
   if (MainForm.pokazn.RecordCount<>0) then
@@ -299,7 +332,7 @@ begin
     MainForm.plombszn.Close;
     MainForm.plombszn.open;
 
-    MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where schet=:sch order by date_pok desc';
+    MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch order by date_pok desc';
     MainForm.pokazn.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
     MainForm.pokazn.Close;
     MainForm.pokazn.open;
