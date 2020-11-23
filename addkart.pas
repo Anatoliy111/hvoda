@@ -300,11 +300,18 @@ begin
 //    ShowMessage('Дата нового показника не може бути меньшою за дату останнього показника');
 //    exit;
 //  end;
+//  if cxCalcEdit1.EditValue<cxCalcEdit2.EditValue then
+//  begin
+//    ShowMessage('Новий показник не може бути меньшим за останній показник');
+//    exit;
+//  end;
+
   if cxCalcEdit1.EditValue<cxCalcEdit2.EditValue then
   begin
-    ShowMessage('Новий показник не може бути меньшим за останній показник');
+    if application.MessageBox('Увага!!! Новий показник меньший за останній. Продовжити?','Підтвердження',MB_YESNO)=IDNO then
     exit;
   end;
+
   if cxCalcEdit1.EditValue-cxCalcEdit2.EditValue>150 then
   begin
     ShowMessage('Перевірте правильність введених даних');

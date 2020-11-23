@@ -550,8 +550,8 @@ object Form2: TForm2
           Alignment = taCenter
         end
         object Label3: TLabel
-          Left = 261
-          Top = 3
+          Left = 432
+          Top = 5
           Width = 124
           Height = 13
           Alignment = taCenter
@@ -578,7 +578,7 @@ object Form2: TForm2
           LookAndFeel.Kind = lfUltraFlat
         end
         object cxDBTextEdit4: TcxDBTextEdit
-          Left = 264
+          Left = 432
           Top = 22
           DataBinding.DataField = 'SCH_RAZN'
           DataBinding.DataSource = MainForm.hvdSource

@@ -21,7 +21,7 @@ object FormAddkart: TFormAddkart
     Top = 0
     Width = 438
     Height = 304
-    ActivePage = cxTabSheet1
+    ActivePage = cxTabSheet3
     Align = alClient
     TabOrder = 0
     ClientRectBottom = 304
