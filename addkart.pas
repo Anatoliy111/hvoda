@@ -208,7 +208,7 @@ begin
    and (cxTextEdit3.Text<>'')
    and (cxDateEdit1.EditValue<>null)
    and (cxDateEdit2.EditValue<>null)
-   and (cxCalcEdit4.EditValue<>null)
+
   then
   begin
 
@@ -217,6 +217,13 @@ begin
 //    ShowMessage('¬вед≥ть новий показник');
 //    exit;
 //  end;
+  if (cxCheckBox1.Checked) and (cxCalcEdit4.EditValue=null) then
+  begin
+    ShowMessage('¬вед≥ть новий показник');
+    exit;
+  end;
+
+
 
    if cxCheckBox1.Checked then
   begin

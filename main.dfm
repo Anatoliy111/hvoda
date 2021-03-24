@@ -15,6 +15,7 @@ object MainForm: TMainForm
   ShowHint = True
   WindowState = wsMaximized
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object cxPageControl1: TcxPageControl
@@ -35,6 +36,12 @@ object MainForm: TMainForm
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
       ExplicitHeight = 536
+      object Image1: TImage
+        Left = 608
+        Top = 232
+        Width = 105
+        Height = 105
+      end
       object dxBarDockControl1: TdxBarDockControl
         Left = 0
         Top = 0
@@ -827,6 +834,14 @@ object MainForm: TMainForm
         end
         item
           Visible = True
+          ItemName = 'dxBarButton19'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton20'
+        end
+        item
+          Visible = True
           ItemName = 'dxBarButtonExit'
         end>
       OldName = 'Custom 1'
@@ -1390,6 +1405,20 @@ object MainForm: TMainForm
       Visible = ivAlways
       OnClick = dxBarButton18Click
     end
+    object dxBarButton19: TdxBarButton
+      Caption = 'Viber '#1087#1086#1082#1072#1079#1085#1080#1082#1080
+      Category = 0
+      Hint = 'Viber '#1087#1086#1082#1072#1079#1085#1080#1082#1080
+      Visible = ivAlways
+      OnClick = dxBarButton19Click
+    end
+    object dxBarButton20: TdxBarButton
+      Caption = 'Viber '#1087#1086#1074#1110#1076#1086#1084'.'
+      Category = 0
+      Hint = 'Viber '#1087#1086#1074#1110#1076#1086#1084'.'
+      Visible = ivAlways
+      OnClick = dxBarButton20Click
+    end
     object dxBarButton1: TdxBarButton
       Action = ActionEdCalcs
       Category = 1
@@ -1435,7 +1464,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E0040008C0014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000A00014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3963,6 +3992,7 @@ object MainForm: TMainForm
       000000000000}
   end
   object IBDatabase: TIBDatabase
+    Connected = True
     DatabaseName = 'D:\work\KPCENTR\hvoda\GKU.FDB'
     Params.Strings = (
       'user_name=sysdba'
@@ -3975,6 +4005,7 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'
@@ -7146,5 +7177,256 @@ object MainForm: TMainForm
       Origin = '"SPR_ZN"."VID_ZN"'
       Size = 50
     end
+  end
+  object viber_task: TIBDataSet
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    DeleteSQL.Strings = (
+      'delete from VIBER_TASK'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into VIBER_TASK'
+      '  (ACCESSPOKAZN, ALLPOKAZN, DATA, ERR, ID, YEARMON)'
+      'values'
+      '  (:ACCESSPOKAZN, :ALLPOKAZN, :DATA, :ERR, :ID, :YEARMON)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  DATA,'
+      '  YEARMON,'
+      '  ALLPOKAZN,'
+      '  ACCESSPOKAZN,'
+      '  ERR'
+      'from VIBER_TASK '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from VIBER_TASK where yearmon=:yearmon')
+    ModifySQL.Strings = (
+      'update VIBER_TASK'
+      'set'
+      '  ACCESSPOKAZN = :ACCESSPOKAZN,'
+      '  ALLPOKAZN = :ALLPOKAZN,'
+      '  DATA = :DATA,'
+      '  ERR = :ERR,'
+      '  ID = :ID,'
+      '  YEARMON = :YEARMON'
+      'where'
+      '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_VIBER_TASK_ID'
+    Left = 288
+    Top = 8
+    object viber_taskID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"VIBER_TASK"."ID"'
+      Required = True
+    end
+    object viber_taskDATA: TDateTimeField
+      FieldName = 'DATA'
+      Origin = '"VIBER_TASK"."DATA"'
+    end
+    object viber_taskYEARMON: TIntegerField
+      FieldName = 'YEARMON'
+      Origin = '"VIBER_TASK"."YEARMON"'
+    end
+    object viber_taskALLPOKAZN: TIntegerField
+      FieldName = 'ALLPOKAZN'
+      Origin = '"VIBER_TASK"."ALLPOKAZN"'
+    end
+    object viber_taskACCESSPOKAZN: TIntegerField
+      FieldName = 'ACCESSPOKAZN'
+      Origin = '"VIBER_TASK"."ACCESSPOKAZN"'
+    end
+    object viber_taskERR: TSmallintField
+      FieldName = 'ERR'
+      Origin = '"VIBER_TASK"."ERR"'
+    end
+  end
+  object viber_taskDataSource: TDataSource
+    DataSet = viber_task
+    Left = 288
+    Top = 40
+  end
+  object viber_pokazn: TIBDataSet
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    DeleteSQL.Strings = (
+      'delete from VIBER_POKAZN'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into VIBER_POKAZN'
+      
+        '  (DATA, DATE_INS, ERR, ID, ID_TASK, ID_VIBER, POKAZN, SCHET, ST' +
+        'ATUS, VIBER_NAME)'
+      'values'
+      
+        '  (:DATA, :DATE_INS, :ERR, :ID, :ID_TASK, :ID_VIBER, :POKAZN, :S' +
+        'CHET, :STATUS, '
+      '   :VIBER_NAME)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  ID_VIBER,'
+      '  DATE_INS,'
+      '  DATA,'
+      '  SCHET,'
+      '  POKAZN,'
+      '  VIBER_NAME,'
+      '  STATUS,'
+      '  ID_TASK,'
+      '  ERR'
+      'from VIBER_POKAZN '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from VIBER_POKAZN where ID_TASK=:id_task')
+    ModifySQL.Strings = (
+      'update VIBER_POKAZN'
+      'set'
+      '  DATA = :DATA,'
+      '  DATE_INS = :DATE_INS,'
+      '  ERR = :ERR,'
+      '  ID = :ID,'
+      '  ID_TASK = :ID_TASK,'
+      '  ID_VIBER = :ID_VIBER,'
+      '  POKAZN = :POKAZN,'
+      '  SCHET = :SCHET,'
+      '  STATUS = :STATUS,'
+      '  VIBER_NAME = :VIBER_NAME'
+      'where'
+      '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_VIBER_POKAZN_ID'
+    Left = 336
+    Top = 8
+    object viber_pokaznID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"VIBER_POKAZN"."ID"'
+      Required = True
+    end
+    object viber_pokaznID_VIBER: TIntegerField
+      FieldName = 'ID_VIBER'
+      Origin = '"VIBER_POKAZN"."ID_VIBER"'
+      Required = True
+    end
+    object viber_pokaznDATE_INS: TDateTimeField
+      FieldName = 'DATE_INS'
+      Origin = '"VIBER_POKAZN"."DATE_INS"'
+    end
+    object viber_pokaznDATA: TDateField
+      FieldName = 'DATA'
+      Origin = '"VIBER_POKAZN"."DATA"'
+    end
+    object viber_pokaznSCHET: TIBStringField
+      FieldName = 'SCHET'
+      Origin = '"VIBER_POKAZN"."SCHET"'
+      Size = 10
+    end
+    object viber_pokaznPOKAZN: TIntegerField
+      FieldName = 'POKAZN'
+      Origin = '"VIBER_POKAZN"."POKAZN"'
+    end
+    object viber_pokaznVIBER_NAME: TIBStringField
+      FieldName = 'VIBER_NAME'
+      Origin = '"VIBER_POKAZN"."VIBER_NAME"'
+      Size = 64
+    end
+    object viber_pokaznSTATUS: TIBStringField
+      FieldName = 'STATUS'
+      Origin = '"VIBER_POKAZN"."STATUS"'
+      Size = 64
+    end
+    object viber_pokaznID_TASK: TIntegerField
+      FieldName = 'ID_TASK'
+      Origin = '"VIBER_POKAZN"."ID_TASK"'
+      Required = True
+    end
+    object viber_pokaznERR: TIntegerField
+      FieldName = 'ERR'
+      Origin = '"VIBER_POKAZN"."ERR"'
+    end
+  end
+  object viber_pokaznDataSource: TDataSource
+    DataSet = viber_pokazn
+    Left = 336
+    Top = 40
+  end
+  object viber_send: TIBDataSet
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    DeleteSQL.Strings = (
+      'delete from VIBER_SEND'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into VIBER_SEND'
+      '  (DATA, DATE_SEND, ID, KOLSEND, SMALLTEXT, TEXT)'
+      'values'
+      '  (:DATA, :DATE_SEND, :ID, :KOLSEND, :SMALLTEXT, :TEXT)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  DATA,'
+      '  DATE_SEND,'
+      '  KOLSEND,'
+      '  TEXT,'
+      '  SMALLTEXT'
+      'from VIBER_SEND '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select *  from VIBER_SEND order by ID desc')
+    ModifySQL.Strings = (
+      'update VIBER_SEND'
+      'set'
+      '  DATA = :DATA,'
+      '  DATE_SEND = :DATE_SEND,'
+      '  ID = :ID,'
+      '  KOLSEND = :KOLSEND,'
+      '  SMALLTEXT = :SMALLTEXT,'
+      '  TEXT = :TEXT'
+      'where'
+      '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_VIBER_SEND_ID'
+    Left = 376
+    Top = 8
+    object viber_sendID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"VIBER_SEND"."ID"'
+      Required = True
+    end
+    object viber_sendDATE_SEND: TDateTimeField
+      FieldName = 'DATE_SEND'
+      Origin = '"VIBER_SEND"."DATE_SEND"'
+    end
+    object viber_sendKOLSEND: TIntegerField
+      FieldName = 'KOLSEND'
+      Origin = '"VIBER_SEND"."KOLSEND"'
+    end
+    object viber_sendTEXT: TMemoField
+      FieldName = 'TEXT'
+      Origin = '"VIBER_SEND"."TEXT"'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+      Size = 8
+    end
+    object viber_sendSMALLTEXT: TIBStringField
+      FieldName = 'SMALLTEXT'
+      Origin = '"VIBER_SEND"."SMALLTEXT"'
+      Size = 50
+    end
+    object viber_sendDATA: TDateTimeField
+      FieldName = 'DATA'
+      Origin = '"VIBER_SEND"."DATA"'
+    end
+  end
+  object viber_sendDataSource: TDataSource
+    DataSet = viber_send
+    Left = 376
+    Top = 40
   end
 end

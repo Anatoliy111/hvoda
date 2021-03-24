@@ -158,10 +158,12 @@ object Form3: TForm3
       '    h_voda.ul,'
       '    h_voda.n_dom,'
       '    h_voda.kv'
-      'from lich'
-      '   inner join h_voda on (lich.schet = h_voda.schet)'
-      'where h_voda.yearmon=:yearmon'
-      'ORDER BY lich.SCHET')
+      'from h_voda'
+      
+        '   left join lich on (lich.schet = h_voda.schet and lich.DATA_ZN' +
+        ' is null)'
+      'where h_voda.yearmon=:yearmonm '
+      'ORDER BY h_voda.SCHET')
     ModifySQL.Strings = (
       'update lich'
       'set'

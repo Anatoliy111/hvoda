@@ -369,6 +369,37 @@ type
     pokaznID_LICH: TIntegerField;
     pokaznPKZ: TIBStringField;
     pokaznLICH: TIBStringField;
+    Image1: TImage;
+    dxBarButton19: TdxBarButton;
+    dxBarButton20: TdxBarButton;
+    viber_task: TIBDataSet;
+    viber_taskID: TIntegerField;
+    viber_taskDATA: TDateTimeField;
+    viber_taskYEARMON: TIntegerField;
+    viber_taskALLPOKAZN: TIntegerField;
+    viber_taskACCESSPOKAZN: TIntegerField;
+    viber_taskERR: TSmallintField;
+    viber_taskDataSource: TDataSource;
+    viber_pokazn: TIBDataSet;
+    viber_pokaznDataSource: TDataSource;
+    viber_pokaznID: TIntegerField;
+    viber_pokaznID_VIBER: TIntegerField;
+    viber_pokaznDATE_INS: TDateTimeField;
+    viber_pokaznDATA: TDateField;
+    viber_pokaznSCHET: TIBStringField;
+    viber_pokaznPOKAZN: TIntegerField;
+    viber_pokaznVIBER_NAME: TIBStringField;
+    viber_pokaznSTATUS: TIBStringField;
+    viber_pokaznID_TASK: TIntegerField;
+    viber_pokaznERR: TIntegerField;
+    viber_send: TIBDataSet;
+    viber_sendDataSource: TDataSource;
+    viber_sendID: TIntegerField;
+    viber_sendDATE_SEND: TDateTimeField;
+    viber_sendKOLSEND: TIntegerField;
+    viber_sendTEXT: TMemoField;
+    viber_sendSMALLTEXT: TIBStringField;
+    viber_sendDATA: TDateTimeField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -436,13 +467,16 @@ type
     procedure dxBarButton18Click(Sender: TObject);
     procedure DBGrid1Column2PropertiesButtonClick(Sender: TObject;
       AButtonIndex: Integer);
+    procedure dxBarButton19Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure dxBarButton20Click(Sender: TObject);
   private
     { Private declarations }
     schet:string;
     procedure execSql(s:string);
   public
     { Public declarations }
-    lchSQL,lchznSQL,plSQL,plznSQL,pokSQL:string;
+    lchSQL,lchznSQL,plSQL,plznSQL,pokSQL,url,urlsend,startimport:string;
     PathKvart:string;
     iniFile:TIniFile;
     period:integer;
@@ -459,7 +493,8 @@ var
 implementation
 
 uses inpedpro, edexpr, import, mytools, itoghvd,ComObj,dbf,dbf_lang,
-  edplomb, kart, lichall, iimport, sprzn, addkart;
+  edplomb, kart, lichall, iimport, sprzn, addkart, ViberTask, ViberPok,
+  ViberSendOrders;
 
 {$R *.dfm}
 
@@ -508,11 +543,28 @@ begin
  // plombszn.Open;
   plznSQL:=plombszn.SelectSQL.Text;
   period:=dataYEARMON.Value;
+
+
+//viber_task.ParamByName('yearmon').Value:=period;
+viber_task.Open;
+viber_pokazn.Open;
+viber_send.Open;
   //DataSource.Enabled:=true;
   //hvdSource.Enabled:=true;
 
   cxPageControl1.ActivePage:=cxTabSheet1;
   ActiveControl:=cxGrid2;
+end;
+
+procedure TMainForm.FormShow(Sender: TObject);
+begin
+  if startimport='1' then
+  begin
+
+    FormViberTask.cxButton8.Click;
+
+
+  end;
 end;
 
 procedure TMainForm.ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
@@ -570,6 +622,11 @@ begin
   if InputBox('пароль', '', '')=IniFile.ReadString('Security', 'EdCalcs', #0) then FormEdExpr.ShowModal;
 end;
 
+procedure TMainForm.dxBarButton20Click(Sender: TObject);
+begin
+FormViberSendOrders.Show;
+end;
+
 procedure TMainForm.dxBarButton2Click(Sender: TObject);
 begin
     if InputBox('пароль', '', '')=IniFile.ReadString('Security', 'Import', #0) then Form1.showmodal;
@@ -585,7 +642,10 @@ end;
 procedure TMainForm.DBGrid1Column2PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
-//     Form2.Find();
+    MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch order by date_pok desc';
+    MainForm.pokazn.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+    MainForm.pokazn.Close;
+    MainForm.pokazn.open;
 //     Form2.Show;
 //     Form2.cxPageControl1.ActivePage:=Form2.cxTabSheet3;
 FormAddkart.cxTabSheet1.TabVisible:=false;
@@ -704,45 +764,49 @@ end;
 
 procedure TMainForm.dxBarLookupCombo2KeyValueChange(Sender: TObject);
 begin
-  if hvd.State in [dsInsert,dsEdit] then hvd.Post;
-  if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
-  else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
-  else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
-
-
-  if cxPageControl1.ActivePage=cxTabSheet1 then hvd.open
-  else if cxPageControl1.ActivePage=cxTabSheet2 then prop.open
-  else if cxPageControl1.ActivePage=cxTabSheet3 then grp.open;
-
-  if isArchive then
+  if (data.Active and dom.Active)then
   begin
-    dxBarButton6.Enabled:=false;
-    DBGrid1.OptionsData.Deleting:=false;
-    DBGrid1.OptionsData.Editing:=false;
-    DBGrid1.OptionsData.Inserting:=false;
 
-    DBGrid2.OptionsData.Deleting:=false;
-    DBGrid2.OptionsData.Editing:=false;
-    DBGrid2.OptionsData.Inserting:=false;
+   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
+   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
+   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
+   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
 
-    DBGrid3.OptionsData.Deleting:=false;
-    DBGrid3.OptionsData.Editing:=false;
-    DBGrid3.OptionsData.Inserting:=false;
-  end
-  else
-  begin
-    dxBarButton6.Enabled:=true;
-    DBGrid1.OptionsData.Deleting:=true;
-    DBGrid1.OptionsData.Editing:=true;
-    DBGrid1.OptionsData.Inserting:=true;
 
-    DBGrid2.OptionsData.Deleting:=true;
-    DBGrid2.OptionsData.Editing:=true;
-    DBGrid2.OptionsData.Inserting:=true;
+   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.open
+   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.open
+   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.open;
 
-    DBGrid3.OptionsData.Deleting:=true;
-    DBGrid3.OptionsData.Editing:=true;
-    DBGrid3.OptionsData.Inserting:=true;
+   if isArchive then
+   begin
+     dxBarButton6.Enabled:=false;
+     DBGrid1.OptionsData.Deleting:=false;
+     DBGrid1.OptionsData.Editing:=false;
+     DBGrid1.OptionsData.Inserting:=false;
+
+     DBGrid2.OptionsData.Deleting:=false;
+     DBGrid2.OptionsData.Editing:=false;
+     DBGrid2.OptionsData.Inserting:=false;
+
+     DBGrid3.OptionsData.Deleting:=false;
+     DBGrid3.OptionsData.Editing:=false;
+     DBGrid3.OptionsData.Inserting:=false;
+   end
+   else
+   begin
+     dxBarButton6.Enabled:=true;
+     DBGrid1.OptionsData.Deleting:=true;
+     DBGrid1.OptionsData.Editing:=true;
+     DBGrid1.OptionsData.Inserting:=true;
+
+     DBGrid2.OptionsData.Deleting:=true;
+     DBGrid2.OptionsData.Editing:=true;
+     DBGrid2.OptionsData.Inserting:=true;
+
+     DBGrid3.OptionsData.Deleting:=true;
+     DBGrid3.OptionsData.Editing:=true;
+     DBGrid3.OptionsData.Inserting:=true;
+    end;
   end;
 end;
 
@@ -771,6 +835,9 @@ begin
     s:=copy(s,1,length(s)-4);
     IniFile:=TIniFile.Create(ExtractFilePath(ParamStr(0))+s+'.ini');
     PathKvart:=iniFile.ReadString('DBF','base',extractfilepath(paramstr(0)));
+    url:=iniFile.ReadString('site','url','');
+    urlsend:=iniFile.ReadString('site','urlsend','');
+    startimport:=iniFile.ReadString('viber','startimport','');
 
     IBDatabase.DatabaseName:=IniFile.ReadString('Login', 'Database', ExtractFilePath(ParamStr(0))+'\gku.fdb');
     IBDatabase.Params.Clear;
@@ -816,6 +883,8 @@ begin
         Application.Terminate;
       end;
   end;
+
+
 
 
 end;
@@ -1235,6 +1304,15 @@ begin
 spr_zn.vidspr:='pl';
 spr_zn.Caption:=dxBarButton18.Caption;
 spr_zn.Show;
+end;
+
+procedure TMainForm.dxBarButton19Click(Sender: TObject);
+begin
+viber_task.Close;
+viber_task.ParamByName('yearmon').Value:=period;
+viber_task.Open;
+FormViberTask.cxLabel1.Caption:='';
+FormViberTask.Show;
 end;
 
 procedure TMainForm.hvdPERE_DAYValidate(Sender: TField);

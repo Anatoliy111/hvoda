@@ -17,17 +17,30 @@ uses
   addkart in 'addkart.pas' {FormAddkart},
   delkart in 'delkart.pas' {FormDelkart},
   sprzn in 'sprzn.pas' {SPR_ZN},
-  splash in 'splash.pas' {SplashForm};
+  splash in 'splash.pas' {SplashForm},
+  ViberPok in 'ViberPok.pas' {FormViberPok},
+  ViberSend in 'ViberSend.pas' {FormViberSend},
+  ViberTask in 'ViberTask.pas' {FormViberTask},
+  ViberSendOrders in 'ViberSendOrders.pas' {FormViberSendOrders},
+  uLkJSON in 'uLkJSON.pas';
 
 {$R *.res}
 
 begin
+
   SplashForm := TSplashForm.Create(Application);
   SplashForm.Show;
+  Application.ProcessMessages;
 
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(TFormViberPok, FormViberPok);
+  Application.CreateForm(TFormViberSend, FormViberSend);
+  Application.CreateForm(TFormViberTask, FormViberTask);
+  Application.CreateForm(TFormViberSendOrders, FormViberSendOrders);
+  Application.ProcessMessages;
   Application.CreateForm(TFormInplaces, FormInplaces);
+  Application.ProcessMessages;
   Application.CreateForm(TFormEdExpr, FormEdExpr);
   Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TFormProgress, FormProgress);
