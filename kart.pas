@@ -208,7 +208,7 @@ FormDelkart.Show;
 
 FormDelkart.cxTextEdit2.Text:=MainForm.lichTIP.Value;
 FormDelkart.cxTextEdit3.Text:=MainForm.lichN_LICH.Value;
-FormDelkart.cxDateEdit2.EditValue:=MainForm.lichDATA_VIG.Value;
+FormDelkart.cxDateEdit2.EditValue:=MainForm.lichDATA_INP.Value;
 
 end;
 
@@ -306,7 +306,7 @@ begin
   begin
   if (MainForm.pokazn.RecordCount<>0) then
      MainForm.pokazn.Delete;
-     FormAddkart.calcpok;
+     FormAddkart.calcpok(MainForm.hvdSCHET.Value);
   end;
 end;
 

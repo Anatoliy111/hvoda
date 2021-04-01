@@ -51,7 +51,7 @@ uses main, addkart,mytools;
 {$R *.dfm}
 
 procedure TFormViberPok.cxButton8Click(Sender: TObject);
-var err:integer;
+var err,errone:integer;
 
 begin
 MainForm.viber_pokazn.First;
@@ -62,6 +62,8 @@ while not MainForm.viber_pokazn.Eof do
 begin
 
 
+
+  errone:=0;
   IBQuery2.Close;
   IBQuery2.ParamByName('sch').Value:=MainForm.viber_pokaznSCHET.Value;
   IBQuery2.ParamByName('vid').Value:=21;
@@ -73,9 +75,13 @@ begin
   begin
     MainForm.viber_pokazn.Edit;
     MainForm.viber_pokaznSTATUS.Value:='Показник додано успішно!!!';
+    MainForm.viber_pokaznERR.Value:=0;
     MainForm.viber_pokazn.Post;
-    MainForm.viber_pokazn.Next;
-  end;
+//    MainForm.viber_pokazn.Next;
+
+  end
+  else
+  begin
 
 
   IBQuery1.Close;
@@ -89,6 +95,7 @@ begin
     MainForm.viber_pokaznSTATUS.Value:='Показник меньший за останній показник';
     MainForm.viber_pokaznERR.Value:=1;
     MainForm.viber_pokazn.Post;
+    errone:=1;
 
   end;
 
@@ -98,10 +105,10 @@ begin
     MainForm.viber_pokaznSTATUS.Value:='Дата меньша за останній показник';
     MainForm.viber_pokaznERR.Value:=1;
     MainForm.viber_pokazn.Post;
-
+    errone:=1;
   end;
 
-  if MainForm.viber_pokaznERR.Value=1 then err:=err+1
+  if errone=1 then err:=err+1
   else
   begin
     MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch order by date_pok desc';
@@ -117,11 +124,13 @@ begin
   MainForm.pokaznVID_POK.Value:=21;
   MainForm.pokazn.Post;
 
-  FormAddkart.calcpok;
+  FormAddkart.calcpok(MainForm.viber_pokaznSCHET.Value);
 
     MainForm.viber_pokazn.Edit;
     MainForm.viber_pokaznSTATUS.Value:='Показник додано успішно!!!';
+    MainForm.viber_pokaznERR.Value:=0;
     MainForm.viber_pokazn.Post;
+  end;
   end;
 
 
@@ -133,7 +142,15 @@ end;
   MainForm.viber_taskACCESSPOKAZN.Value:=MainForm.viber_taskALLPOKAZN.Value-err;
   MainForm.viber_task.Post;
 
+  if MainForm.viber_pokazn.RecordCount<>0 then
+  begin
+    MainForm.hvd.Close;
+    MainForm.hvd.Open;
+  end;
+  
   StopWait;
+
+
 
   ShowMessage('Обробка показників завершена! Прийнято показників '+int2str(MainForm.viber_taskACCESSPOKAZN.Value)+'. Відхилено показників '+int2str(err));
 

@@ -400,6 +400,9 @@ type
     viber_sendTEXT: TMemoField;
     viber_sendSMALLTEXT: TIBStringField;
     viber_sendDATA: TDateTimeField;
+    hvdallDATE_POK: TDateField;
+    hvdallVID_POK: TIntegerField;
+    hvdallKUB_MES: TIBBCDField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;

@@ -1416,7 +1416,7 @@ object MainForm: TMainForm
       Caption = 'Viber '#1087#1086#1074#1110#1076#1086#1084'.'
       Category = 0
       Hint = 'Viber '#1087#1086#1074#1110#1076#1086#1084'.'
-      Visible = ivAlways
+      Visible = ivNever
       OnClick = dxBarButton20Click
     end
     object dxBarButton1: TdxBarButton
@@ -1464,7 +1464,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E004000A00014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000A40014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6022,23 +6022,26 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into H_VODA'
       
-        '  (FIO, GRP_RAZN, ID_KONTR, KL, KOLI_F, KOLI_P, KOLI_P0, KOLI_P1' +
-        ', KV, N_DOM, '
+        '  (DATE_POK, FIO, GRP_RAZN, ID_KONTR, KL, KOLI_F, KOLI_P, KOLI_P' +
+        '0, KOLI_P1, '
       
-        '   N_SCH, NOR_RAZN, NOTE, PERE_DAY, PERE_RAZN, PLOMB, POD, RASCH' +
-        '_KUB, RASCH_NOR, '
-      '   RASCH_NOTE, SCH_CUR, SCH_OLD, SCHET, UL, WID, YEARMON)'
+        '   KUB_MES, KV, N_DOM, N_SCH, NOR_RAZN, NOTE, PERE_DAY, PERE_RAZ' +
+        'N, PLOMB, '
+      
+        '   POD, RASCH_KUB, RASCH_NOR, RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_' +
+        'RAZN, SCHET, '
+      '   UL, VID_POK, WID, YEARMON)'
       'values'
       
-        '  (:FIO, :GRP_RAZN, :ID_KONTR, :KL, :KOLI_F, :KOLI_P, :KOLI_P0, ' +
-        ':KOLI_P1, '
+        '  (:DATE_POK, :FIO, :GRP_RAZN, :ID_KONTR, :KL, :KOLI_F, :KOLI_P,' +
+        ' :KOLI_P0, '
       
-        '   :KV, :N_DOM, :N_SCH, :NOR_RAZN, :NOTE, :PERE_DAY, :PERE_RAZN,' +
-        ' :PLOMB, '
+        '   :KOLI_P1, :KUB_MES, :KV, :N_DOM, :N_SCH, :NOR_RAZN, :NOTE, :P' +
+        'ERE_DAY, '
       
-        '   :POD, :RASCH_KUB, :RASCH_NOR, :RASCH_NOTE, :SCH_CUR, :SCH_OLD' +
-        ', :SCHET, '
-      '   :UL, :WID, :YEARMON)')
+        '   :PERE_RAZN, :PLOMB, :POD, :RASCH_KUB, :RASCH_NOR, :RASCH_NOTE' +
+        ', :SCH_CUR, '
+      '   :SCH_OLD, :SCH_RAZN, :SCHET, :UL, :VID_POK, :WID, :YEARMON)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -6053,12 +6056,10 @@ object MainForm: TMainForm
       '  SCH_OLD,'
       '  SCH_CUR,'
       '  SCH_RAZN,'
-      '  RASCH_KUB,'
       '  KOLI_P,'
       '  KOLI_P0,'
       '  KOLI_P1,'
       '  NOR_RAZN,'
-      '  RASCH_NOR,'
       '  GRP_RAZN,'
       '  PERE_DAY,'
       '  PERE_RAZN,'
@@ -6068,8 +6069,13 @@ object MainForm: TMainForm
       '  KV,'
       '  NOTE,'
       '  KOLI_F,'
+      '  RASCH_KUB,'
+      '  RASCH_NOR,'
       '  POD,'
-      '  RASCH_NOTE'
+      '  RASCH_NOTE,'
+      '  DATE_POK,'
+      '  VID_POK,'
+      '  KUB_MES'
       'from H_VODA '
       'where'
       '  KL = :KL')
@@ -6078,6 +6084,7 @@ object MainForm: TMainForm
     ModifySQL.Strings = (
       'update H_VODA'
       'set'
+      '  DATE_POK = :DATE_POK,'
       '  FIO = :FIO,'
       '  GRP_RAZN = :GRP_RAZN,'
       '  ID_KONTR = :ID_KONTR,'
@@ -6086,6 +6093,7 @@ object MainForm: TMainForm
       '  KOLI_P = :KOLI_P,'
       '  KOLI_P0 = :KOLI_P0,'
       '  KOLI_P1 = :KOLI_P1,'
+      '  KUB_MES = :KUB_MES,'
       '  KV = :KV,'
       '  N_DOM = :N_DOM,'
       '  N_SCH = :N_SCH,'
@@ -6100,8 +6108,10 @@ object MainForm: TMainForm
       '  RASCH_NOTE = :RASCH_NOTE,'
       '  SCH_CUR = :SCH_CUR,'
       '  SCH_OLD = :SCH_OLD,'
+      '  SCH_RAZN = :SCH_RAZN,'
       '  SCHET = :SCHET,'
       '  UL = :UL,'
+      '  VID_POK = :VID_POK,'
       '  WID = :WID,'
       '  YEARMON = :YEARMON'
       'where'
@@ -6266,6 +6276,20 @@ object MainForm: TMainForm
       FieldName = 'RASCH_NOTE'
       Origin = '"H_VODA"."RASCH_NOTE"'
       Size = 50
+    end
+    object hvdallDATE_POK: TDateField
+      FieldName = 'DATE_POK'
+      Origin = '"H_VODA"."DATE_POK"'
+    end
+    object hvdallVID_POK: TIntegerField
+      FieldName = 'VID_POK'
+      Origin = '"H_VODA"."VID_POK"'
+    end
+    object hvdallKUB_MES: TIBBCDField
+      FieldName = 'KUB_MES'
+      Origin = '"H_VODA"."KUB_MES"'
+      Precision = 18
+      Size = 4
     end
   end
   object hvdallSource: TDataSource
@@ -7202,7 +7226,7 @@ object MainForm: TMainForm
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'select * from VIBER_TASK where yearmon=:yearmon')
+      'select * from VIBER_TASK where yearmon=:yearmon order by id desc')
     ModifySQL.Strings = (
       'update VIBER_TASK'
       'set'

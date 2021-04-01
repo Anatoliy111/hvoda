@@ -20,7 +20,6 @@ object FormViberPok: TFormViberPok
     Height = 49
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 559
     object cxButton8: TcxButton
       Left = 15
       Top = 13
@@ -67,7 +66,6 @@ object FormViberPok: TFormViberPok
     Height = 397
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 559
     object cxGridDBTableView3: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       OnCustomDrawCell = cxGridDBTableView3CustomDrawCell

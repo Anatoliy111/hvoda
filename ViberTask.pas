@@ -126,6 +126,8 @@ begin
 
         cxLabel1.Caption:='Завантажено '+IntToStr(i)+' показників';
         FormViberPok.cxButton8.Click;
+        MainForm.viber_task.Close;
+        MainForm.viber_task.Open;
 
       end
       else cxLabel1.Caption:='Нових показників немає!!!';

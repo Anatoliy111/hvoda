@@ -21,7 +21,7 @@ object FormAddkart: TFormAddkart
     Top = 0
     Width = 438
     Height = 304
-    ActivePage = cxTabSheet3
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 0
     ClientRectBottom = 304
@@ -102,6 +102,8 @@ object FormAddkart: TFormAddkart
         Properties.OnChange = cxDateEdit2PropertiesChange
         Style.Color = clMoneyGreen
         TabOrder = 11
+        OnEditing = cxDateEdit2Editing
+        OnExit = cxDateEdit2Exit
         Width = 121
       end
       object cxLabel7: TcxLabel

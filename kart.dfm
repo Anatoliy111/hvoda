@@ -188,7 +188,7 @@ object Form2: TForm2
     Top = 153
     Width = 688
     Height = 388
-    ActivePage = cxTabSheet3
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 2
     ClientRectBottom = 388

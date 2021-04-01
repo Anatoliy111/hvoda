@@ -84,13 +84,15 @@ type
     procedure cxCalcEdit1PropertiesEditValueChanged(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cxCheckBox1PropertiesChange(Sender: TObject);
+    procedure cxDateEdit2Editing(Sender: TObject; var CanEdit: Boolean);
+    procedure cxDateEdit2Exit(Sender: TObject);
   private
     { Private declarations }
   public
     addznlich,reglich:boolean;
     { Public declarations }
     function AddPokaz(sch:string;data:TDateTime;vid:integer;pok:double):boolean;
-    procedure calcpok;
+    procedure calcpok(sch:string);
   end;
 
 var
@@ -132,13 +134,13 @@ begin
   result:=true;
 end;
 
-procedure TFormAddkart.calcpok;
+procedure TFormAddkart.calcpok(sch:string);
 var kol,lastpokazn,endpokazn:integer;
 begin
   IBQuery2.Close;
   IBQuery2.SQL.Text:='select first 1 * from pokazn where yearmon<>:per and schet=:sch order by date_pok desc';
   IBQuery2.ParamByName('per').Value:=MainForm.period;
-  IBQuery2.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+  IBQuery2.ParamByName('sch').Value:=sch;
   IBQuery2.Open;
 
   if IBQuery2.RecordCount<>0 then
@@ -149,7 +151,7 @@ begin
 
   IBQuery2.Close;
   IBQuery2.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch order by date_pok';
-  IBQuery2.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+  IBQuery2.ParamByName('sch').Value:=sch;
   IBQuery2.ParamByName('per').Value:=MainForm.period;
   IBQuery2.Open;
   kol:=0;
@@ -166,27 +168,51 @@ begin
   IBQuery2.Next;
   end;
 
-  if MainForm.pokazn.RecordCount<>0 then
-  begin
 
-    MainForm.hvd.Edit;
-  MainForm.hvdWID.Value:=1;
-  MainForm.hvdSCH_CUR.Value:=IBQuery2.FieldByName('POKAZN').Value;
+  if MainForm.hvdSCHET.Value=sch then
+  begin
+    if MainForm.pokazn.RecordCount<>0 then
+    begin
+
+
+
+       MainForm.hvd.Edit;
+       MainForm.hvdWID.Value:=1;
+       MainForm.hvdSCH_CUR.Value:=IBQuery2.FieldByName('POKAZN').Value;
   //MainForm.hvdSCH_OLD.Value:=cxCalcEdit2.Value;
-  MainForm.hvdSCH_RAZN.Value:=kol;
-  MainForm.hvdDATE_POK.Value:=IBQuery2.FieldByName('DATE_POK').Value;
-  MainForm.hvdVID_POK.Value:=IBQuery2.FieldByName('VID_POK').Value;
-  MainForm.hvd.Post;
+       MainForm.hvdSCH_RAZN.Value:=kol;
+       MainForm.hvdDATE_POK.Value:=IBQuery2.FieldByName('DATE_POK').Value;
+       MainForm.hvdVID_POK.Value:=IBQuery2.FieldByName('VID_POK').Value;
+       MainForm.hvd.Post;
+    end
+    else
+    begin
+      MainForm.hvd.Edit;
+      MainForm.hvdSCH_CUR.Value:=0;
+  //MainForm.hvdSCH_OLD.Value:=cxCalcEdit2.Value;
+      MainForm.hvdSCH_RAZN.Value:=0;
+      MainForm.hvdDATE_POK.IsNull;
+      MainForm.hvdVID_POK.Value:=0;
+      MainForm.hvd.Post;
+
+    end;
   end
   else
   begin
-    MainForm.hvd.Edit;
-  MainForm.hvdSCH_CUR.Value:=0;
+       if not MainForm.hvdall.Active then  MainForm.hvdall.Open;
+       MainForm.hvdall.First;
+       if MainForm.hvdall.Locate('schet',sch,[]) then
+       begin
+
+       MainForm.hvdall.Edit;
+       MainForm.hvdallWID.Value:=1;
+       MainForm.hvdallSCH_CUR.Value:=IBQuery2.FieldByName('POKAZN').Value;
   //MainForm.hvdSCH_OLD.Value:=cxCalcEdit2.Value;
-  MainForm.hvdSCH_RAZN.Value:=0;
-  MainForm.hvdDATE_POK.IsNull;
-  MainForm.hvdVID_POK.Value:=0;
-  MainForm.hvd.Post;
+       MainForm.hvdallSCH_RAZN.Value:=kol;
+       MainForm.hvdallDATE_POK.Value:=IBQuery2.FieldByName('DATE_POK').Value;
+       MainForm.hvdallVID_POK.Value:=IBQuery2.FieldByName('VID_POK').Value;
+       MainForm.hvdall.Post;
+       end;
 
   end;
 
@@ -253,7 +279,7 @@ begin
   MainForm.pokazn.Close;
   MainForm.pokazn.Open;
 
-  FormAddkart.calcpok;
+  FormAddkart.calcpok(trim(cxTextEdit1.Text));
   end;
 //  MainForm.hvd.Edit;
 //  MainForm.hvdSCH_CUR.Value:=cxCalcEdit4.EditValue;
@@ -336,7 +362,7 @@ begin
   if not AddPokaz(trim(cxTextEdit9.Text),cxDateEdit6.EditValue,cxLookupComboBox2.EditValue,cxCalcEdit1.Value) then exit;
 
 
-  calcpok;
+  calcpok(trim(cxTextEdit9.Text));
 
 
   MainForm.pokazn.Close;
@@ -382,12 +408,27 @@ begin
 end;
 end;
 
-procedure TFormAddkart.cxDateEdit2PropertiesChange(Sender: TObject);
+procedure TFormAddkart.cxDateEdit2Editing(Sender: TObject;
+  var CanEdit: Boolean);
 begin
+//if cxDateEdit2.EditValue<>null then
+//   cxDateEdit3.EditValue:=IncYear(cxDateEdit2.EditValue,4)
+//else cxDateEdit3.EditValue:=null;
+end;
 
+procedure TFormAddkart.cxDateEdit2Exit(Sender: TObject);
+begin
 if cxDateEdit2.EditValue<>null then
    cxDateEdit3.EditValue:=IncYear(cxDateEdit2.EditValue,4)
 else cxDateEdit3.EditValue:=null;
+end;
+
+procedure TFormAddkart.cxDateEdit2PropertiesChange(Sender: TObject);
+begin
+
+//if cxDateEdit2.EditValue<>null then
+//   cxDateEdit3.EditValue:=IncYear(cxDateEdit2.EditValue,4)
+//else cxDateEdit3.EditValue:=null;
 
 end;
 
