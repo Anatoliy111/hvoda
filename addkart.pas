@@ -472,7 +472,7 @@ procedure TFormAddkart.FormShow(Sender: TObject);
 begin
   IBVIDZN.Close;
   if cxTabSheet2.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''pl''';
-  if cxTabSheet3.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''addpk'' and id<>17 and id<>20';
+  if cxTabSheet3.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''addpk'' and id<>17 and id<>20 and id<>21';
   IBVIDZN.Open;
 
   FormAddkart.IBQuery1.Close;
