@@ -45,7 +45,7 @@ var HTTP1 :TIdHttp;
 begin
 
        js := TlkJSONobject.Create;
-       js.Add('org','kpcentr');
+       js.Add('org','dmkg');
        js.Add('mess',cxMemo1.Text);
 //       js.Add('mess','testtest');
        s:=TlkJSON.GenerateText(js);
