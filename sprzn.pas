@@ -75,7 +75,7 @@ if IBVIDZNVID_SP.Value='pl' then
   end;
 
   //видалення показника
-if IBVIDZNVID_SP.Value='pelpk' then
+if IBVIDZNVID_SP.Value='delpk' then
   begin
   IBQuery1.Close;
   IBQuery1.SQL.Text:='select * from pokazn where vid_zn=:idvid';
@@ -88,6 +88,14 @@ if IBVIDZNVID_SP.Value='addpk' then
   begin
   IBQuery1.Close;
   IBQuery1.SQL.Text:='select * from pokazn where vid_pok=:idvid';
+  IBQuery1.ParamByName('idvid').Value:=IBVIDZNID.Value;
+  IBQuery1.Open;
+  end;
+
+if IBVIDZNVID_SP.Value='addrn' then
+  begin
+  IBQuery1.Close;
+  IBQuery1.SQL.Text:='select * from h_voda where vid_rn=:idvid';
   IBQuery1.ParamByName('idvid').Value:=IBVIDZNID.Value;
   IBQuery1.Open;
   end;
@@ -110,6 +118,14 @@ procedure TSPR_ZN.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 if IBVIDZN.State in [dsEdit,dsInsert] then
    IBVIDZN.Post;
+
+   MainForm.vid_rn.Close;
+   MainForm.vid_rn.Open;
+
+   MainForm.vid_rn.Close;
+   MainForm.vid_rn.Open;
+
+
 end;
 
 procedure TSPR_ZN.FormShow(Sender: TObject);

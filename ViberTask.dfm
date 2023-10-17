@@ -31,9 +31,11 @@ object FormViberTask: TFormViberTask
       LookAndFeel.Kind = lfUltraFlat
     end
     object cxLabel1: TcxLabel
-      Left = 224
-      Top = 16
+      Left = 176
+      Top = 13
       Caption = 'cxLabel1'
+      Properties.WordWrap = True
+      Width = 337
     end
   end
   object cxGrid6: TcxGrid
@@ -78,6 +80,11 @@ object FormViberTask: TFormViberTask
         DataBinding.FieldName = 'ERR'
         Width = 123
       end
+      object cxGridDBTableView3VID: TcxGridDBColumn
+        Caption = #1042#1080#1076
+        DataBinding.FieldName = 'VID'
+        Width = 69
+      end
     end
     object cxGridLevel3: TcxGridLevel
       GridView = cxGridDBTableView3
@@ -89,6 +96,14 @@ object FormViberTask: TFormViberTask
     SQL.Strings = (
       'select first 1 ID_VIBER from VIBER_POKAZN order by ID_VIBER desc')
     Left = 400
+    Top = 8
+  end
+  object IBQuery2: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      'select first 1 ID_SITE from SITE_POKAZN order by ID_SITE desc')
+    Left = 440
     Top = 8
   end
 end

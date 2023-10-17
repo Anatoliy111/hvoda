@@ -11,7 +11,7 @@ uses
   cxImageComboBox;
 
 type
-  TFormEdPlomb = class(TMyForm)
+  TFormEdPlomb = class(TForm)
     cxGrid1: TcxGrid;
     cxGrid1DBTableView1: TcxGridDBTableView;
     cxGrid1Level1: TcxGridLevel;

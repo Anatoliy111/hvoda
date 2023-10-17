@@ -5,13 +5,25 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, cxControls, cxContainer, cxEdit,
-  cxProgressBar;
+  cxProgressBar, DB, IBCustomDataSet;
 
 type
   TForm4 = class(TForm)
     cxProgressBar1: TcxProgressBar;
     Timer1: TTimer;
     Label2: TLabel;
+    IBPokazn: TIBDataSet;
+    DSPokazn: TDataSource;
+    IBPokaznID: TIntegerField;
+    IBPokaznYEARMON: TIntegerField;
+    IBPokaznPOKAZN: TIBBCDField;
+    IBPokaznDATE_POK: TDateField;
+    IBPokaznVID_POK: TIntegerField;
+    IBPokaznN_DOC: TIntegerField;
+    IBPokaznDATE_ZN: TDateField;
+    IBPokaznVID_ZN: TIntegerField;
+    IBPokaznSCHET: TIBStringField;
+    IBPokaznID_LICH: TIntegerField;
     procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
@@ -20,6 +32,7 @@ type
     { Public declarations }
         procedure ImKart;
     procedure ImPokaz;
+    procedure DelKart;
   end;
 
 var
@@ -27,8 +40,8 @@ var
 
 implementation
 
-uses main,dbf,dbf_lang,mytools, kart;
-var hh,kk,oo,oo1:TDbf;
+uses main,dbf,dbf_lang,mytools, kart, addkart;
+var hh,kk,oo,oo1,hvd1:TDbf;
 
 {$R *.dfm}
 
@@ -38,9 +51,14 @@ ImKart;
 end;
 
 procedure TForm4.ImKart;
+var pok:integer;                        
+    sch,sss:string;
 begin
  MainForm.hvdall.Close;
+ MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
  MainForm.hvdall.Open;
+ IBPokazn.Open;
+
  Form4.Show;
  MainForm.Enabled:=false;
  Timer1.Enabled:=false;
@@ -51,20 +69,50 @@ begin
      oo1.TableName:=main.MainForm.PathKvart+'obor.dbf';
      oo1.Open;
 
+     hvd1:=TDbf.Create(self);
+     hvd1.TableName:=main.MainForm.PathKvart+'h_voda.dbf';
+     hvd1.Open;
+
+
     Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
     oo1.First;
+    sss:= MainForm.hvdall.SelectSQL.Text;
     while not oo1.Eof do
     begin
        if oo1.fieldbyname('wid').AsString='hv' then
        begin
+       sch:=dos2win(trim(oo1.fieldbyname('schet').AsString));
+
        MainForm.hvdall.First;
-       if not MainForm.hvdall.Locate('schet',dos2win(oo1.fieldbyname('schet').AsString),[]) then
+       if not MainForm.hvdall.Locate('schet',sch,[loCaseInsensitive, loPartialKey]) then
        begin
           MainForm.hvdall.Insert;
           MainForm.hvdall.edit;
-          MainForm.hvdallSCHET.Value:=dos2win(oo1.fieldbyname('schet').AsString);
+          MainForm.hvdallSCHET.Value:=sch;
           MainForm.hvdallYEARMON.Value:=main.MainForm.dataYEARMON.Value;
+          MainForm.hvdallORG.Value:=0;
           MainForm.hvdall.post;
+          hvd1.first;
+          pok:=0;
+          while (not hvd1.Eof) and (pok=0) do
+          begin
+             if (hvd1.fieldbyname('schet').AsString=sch) and (hvd1.fieldbyname('fl').AsString<>'n') then
+             begin
+               IBPokazn.Append;
+               IBPokazn.Edit;
+               IBPokaznYEARMON.Value:=MainForm.period;
+               IBPokaznSCHET.Value:=MainForm.hvdallSCHET.Value;
+               IBPokaznPOKAZN.Value:=hvd1.fieldbyname('new').Value;
+               IBPokaznDATE_POK.Value:=YearMon2Date(mainform.dataYEARMON.Value);
+               IBPokaznVID_POK.Value:=26;
+               IBPokazn.Post;
+
+               FormAddkart.calcpok(MainForm.hvdallSCHET.Value);
+               pok:=1;
+             end;
+             hvd1.Next;
+          end;
+ //         if hvd1.Locate('fl;schet',VarArrayOf([null,MainForm.hvdallSCHET.Value]),[]) then
        end;
        end;
       oo1.Next;
@@ -73,8 +121,8 @@ begin
     end;
 
      oo1.Free;
-
-
+     hvd1.Free;
+     IBPokazn.Close;
 
      kk:=TDbf.Create(self);
      kk.TableName:=main.MainForm.PathKvart+'kart.dbf';
@@ -85,7 +133,7 @@ begin
     while not kk.Eof do
     begin
        MainForm.hvdall.First;
-       if MainForm.hvdall.Locate('schet',dos2win(kk.fieldbyname('schet').AsString),[]) then
+       if MainForm.hvdall.Locate('schet',dos2win(kk.fieldbyname('schet').AsString),[loCaseInsensitive, loPartialKey]) then
        begin
           MainForm.hvdall.edit;
           MainForm.hvdallFIO.Value:=dos2win(kk.fieldbyname('fio').AsString+' '+kk.fieldbyname('im').AsString+' '+kk.fieldbyname('ot').AsString);
@@ -104,8 +152,14 @@ begin
 
     kk.Free;
 //    MessageDlg('Імпорт виконано', mtConfirmation, [mbOK], 0);
+    MainForm.execSQL('execute procedure new_dom');
+    MainForm.dom.Close;
+    MainForm.dom.Open;
+
     MainForm.hvd.Close;
     MainForm.hvd.Open;
+
+
 
 
   except
@@ -155,6 +209,95 @@ begin
 //    MessageDlg('Імпорт виконано', mtConfirmation, [mbOK], 0);
     MainForm.hvd.Close;
     MainForm.hvd.Open;
+
+
+  except
+   on E : Exception do
+   begin
+    messagedlg('Помилка при підключенні до бази даних!!! - '+E.Message,mtError,[mbCancel],0);
+    Application.Terminate;
+   end;
+
+
+  end;
+  Form4.Close;
+   MainForm.Enabled:=true;
+end;
+
+
+procedure TForm4.DelKart;
+var pok:integer;
+begin
+
+
+
+ Form4.Show;
+ MainForm.Enabled:=false;
+ Timer1.Enabled:=false;
+ Form4.Label2.Caption:='Перевірка підключення до бази даних.Зачекайте...';
+   try
+
+     kk:=TDbf.Create(self);
+     kk.TableName:=main.MainForm.PathKvart+'kart.dbf';
+     kk.Open;
+
+    Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
+    MainForm.hvdall.First;
+    while not MainForm.hvdall.Eof do
+    begin
+       kk.First;
+       if not kk.Locate('schet',win2dos(MainForm.hvdall.fieldbyname('schet').AsString),[]) then
+       begin
+          MainForm.hvdall.delete;
+       end
+       else
+          MainForm.hvdall.Next;
+      cxProgressBar1.Position:=MainForm.hvdall.RecNo/MainForm.hvdall.RecordCount*100;
+      application.ProcessMessages;
+    end;
+    MainForm.IBTransaction1.CommitRetaining;
+
+
+    MainForm.hvdall.Close;
+    MainForm.hvdall.Open;
+
+    Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
+    kk.First;
+    while not kk.Eof do
+    begin
+       MainForm.hvdall.First;
+       if MainForm.hvdall.Locate('schet',dos2win(kk.fieldbyname('schet').AsString),[]) then
+       begin
+          MainForm.hvdall.edit;
+          MainForm.hvdallFIO.Value:=dos2win(kk.fieldbyname('fio').AsString+' '+kk.fieldbyname('im').AsString+' '+kk.fieldbyname('ot').AsString);
+          MainForm.hvdallKOLI_P.Value:=kk.fieldbyname('koli_p').AsInteger;
+          MainForm.hvdallKOLI_F.Value:=kk.fieldbyname('koli_pf').AsInteger;
+          MainForm.hvdallUL.Value:=dos2win(kk.fieldbyname('ULNAIM').AsString);
+          MainForm.hvdallN_DOM.Value:=dos2win(kk.fieldbyname('NOMDOM').AsString);
+          MainForm.hvdallKV.Value:=dos2win(kk.fieldbyname('NOMKV').AsString);
+          MainForm.hvdall.post;
+       end;
+      kk.Next;
+      cxProgressBar1.Position:=kk.RecNo/kk.RecordCount*100;
+      application.ProcessMessages;
+    end;
+    MainForm.IBTransaction1.CommitRetaining;
+
+
+    kk.Free;
+
+
+
+
+//    MessageDlg('Імпорт виконано', mtConfirmation, [mbOK], 0);
+    MainForm.execSQL('execute procedure new_dom');
+    MainForm.dom.Close;
+    MainForm.dom.Open;
+
+    MainForm.hvd.Close;
+    MainForm.hvd.Open;
+
+
 
 
   except

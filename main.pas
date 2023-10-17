@@ -3,7 +3,7 @@ unit main;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, DateUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxStyles, cxCustomData, cxGraphics, cxFilter, cxData,
   cxDataStorage, cxEdit, DB, cxDBData, IBCustomDataSet, IBDatabase,
   cxGridLevel, cxClasses, cxControls, cxGridCustomView,
@@ -14,7 +14,8 @@ uses
   cxImageComboBox, dxBarExtDBItems, inifiles, IBServices,cxGridExportLink,
   cxCalc, frxClass, frxDBSet, IBQuery, ExtCtrls, frxDMPExport, frxDesgn,cxNavigator,
   cxPC, frxExportPDF, frxExportRTF, frxExportXML, cxSplitter,
-  cxLookAndFeelPainters, dxSkinsCore, cxButtonEdit, cxDBLookupComboBox;
+  cxLookAndFeelPainters, dxSkinsCore, cxButtonEdit, cxDBLookupComboBox,
+  cxTextEdit, cxBarEditItem, cxLabel, Menus, StdCtrls, cxButtons;
 
 type
   TMainForm = class(TForm)
@@ -26,16 +27,6 @@ type
     IBTransaction1: TIBTransaction;
     hvd: TIBDataSet;
     hvdSource: TDataSource;
-    hvdDOM: TIBStringField;
-    hvdKL: TIntegerField;
-    hvdKOLI_P: TIBBCDField;
-    hvdNOR_RAZN: TIBBCDField;
-    hvdSCH_CUR: TIBBCDField;
-    hvdSCH_RAZN: TIBBCDField;
-    hvdSCHET: TIBStringField;
-    hvdKVART: TIBStringField;
-    hvdPLOMB: TSmallintField;
-    hvdFIO: TIBStringField;
     cxPropertiesStore1: TcxPropertiesStore;
     cxLookAndFeelController1: TcxLookAndFeelController;
     dxBarButton1: TdxBarButton;
@@ -43,7 +34,6 @@ type
     dxBarSubItem2: TdxBarSubItem;
     ActionEdCalcs: TAction;
     dxBarButton2: TdxBarButton;
-    hvdWID: TSmallintField;
     dom: TIBDataSet;
     domSource: TDataSource;
     IBBackupService1: TIBBackupService;
@@ -63,7 +53,6 @@ type
     propYEARMON: TIntegerField;
     ActionCalc: TAction;
     domYEARMON: TIntegerField;
-    hvdYEARMON: TIntegerField;
     frxDBDataset1: TfrxDBDataset;
     grp: TIBDataSet;
     grpSource: TDataSource;
@@ -93,19 +82,14 @@ type
     DBGrid3: TcxGridDBTableView;
     cxGridLevel9: TcxGridLevel;
     DBGrid1DOM: TcxGridDBBandedColumn;
-    DBGrid1GRP_RAZN: TcxGridDBBandedColumn;
-    DBGrid1KL: TcxGridDBBandedColumn;
     DBGrid1KOLI_P: TcxGridDBBandedColumn;
     DBGrid1NOR_RAZN: TcxGridDBBandedColumn;
     DBGrid1SCH_CUR: TcxGridDBBandedColumn;
     DBGrid1SCH_OLD: TcxGridDBBandedColumn;
     DBGrid1SCH_RAZN: TcxGridDBBandedColumn;
     DBGrid1SCHET: TcxGridDBBandedColumn;
-    DBGrid1KVART: TcxGridDBBandedColumn;
-    DBGrid1PLOMB: TcxGridDBBandedColumn;
     DBGrid1FIO: TcxGridDBBandedColumn;
     DBGrid1WID: TcxGridDBBandedColumn;
-    DBGrid1YEARMON: TcxGridDBBandedColumn;
     dxBarButton6: TdxBarButton;
     dxBarButton3: TdxBarButton;
     dxBarButton7: TdxBarButton;
@@ -147,61 +131,24 @@ type
     hvd_repWID: TSmallintField;
     hvd_repYEARMON: TIntegerField;
     Panel1: TPanel;
-    hvdGRP_RAZN: TIBBCDField;
     plombSource: TDataSource;
     plomb: TIBDataSet;
     plombKL: TIntegerField;
     plombNAIM: TIBStringField;
-    hvdnplomb: TStringField;
-    DBGrid1NPLOMB: TcxGridDBBandedColumn;
     dxBarButton11: TdxBarButton;
     frxReport2: TfrxReport;
-    hvdPERE_DAY: TIntegerField;
-    hvdPERE_RAZN: TIBBCDField;
-    DBGrid1PERE_DAY: TcxGridDBBandedColumn;
-    DBGrid1PERE_RAZN: TcxGridDBBandedColumn;
     frxReport1: TfrxReport;
     hvd_repPERE_DAY: TIntegerField;
     hvd_repPERE_RAZN: TIBBCDField;
-    hvdN_SCH: TIBStringField;
-    DBGrid1n_sch: TcxGridDBBandedColumn;
     dxBarButton12: TdxBarButton;
     DBGrid1Column1: TcxGridDBBandedColumn;
-    hvdUL: TIBStringField;
-    hvdN_DOM: TIBStringField;
-    hvdKV: TIBStringField;
-    hvdID_KONTR: TSmallintField;
     dxBarSubItem4: TdxBarSubItem;
     dxBarButton13: TdxBarButton;
     hvdall: TIBDataSet;
     hvdallSource: TDataSource;
-    hvdallKL: TIntegerField;
-    hvdallYEARMON: TIntegerField;
-    hvdallPLOMB: TSmallintField;
-    hvdallFIO: TIBStringField;
-    hvdallWID: TSmallintField;
-    hvdallDOM: TIBStringField;
-    hvdallKVART: TIBStringField;
-    hvdallSCHET: TIBStringField;
-    hvdallN_SCH: TIBStringField;
-    hvdallSCH_OLD: TIBBCDField;
-    hvdallSCH_CUR: TIBBCDField;
-    hvdallSCH_RAZN: TIBBCDField;
-    hvdallKOLI_P: TIBBCDField;
-    hvdallKOLI_P0: TIntegerField;
-    hvdallKOLI_P1: TIntegerField;
-    hvdallNOR_RAZN: TIBBCDField;
-    hvdallGRP_RAZN: TIBBCDField;
-    hvdallPERE_DAY: TIntegerField;
-    hvdallPERE_RAZN: TIBBCDField;
-    hvdallID_KONTR: TSmallintField;
-    hvdallUL: TIBStringField;
-    hvdallN_DOM: TIBStringField;
-    hvdallKV: TIBStringField;
     DBGrid1UL: TcxGridDBBandedColumn;
     DBGrid1N_DOM: TcxGridDBBandedColumn;
     DBGrid1KV: TcxGridDBBandedColumn;
-    frxDBDataset2: TfrxDBDataset;
     hvd3: TIBDataSet;
     hvd3Source: TDataSource;
     hvd12: TIBDataSet;
@@ -232,37 +179,15 @@ type
     hvd3SCHET: TIBStringField;
     hvd3SRAZN: TIBBCDField;
     hvd3SNORM: TIBBCDField;
-    hvdSRAZN3: TIBBCDField;
-    hvdSNORM3: TIBBCDField;
-    hvdSRAZN12: TIBBCDField;
-    hvdSRED: TIBBCDField;
-    hvdKOL: TLargeintField;
-    hvdSREDKOL: TIBBCDField;
-    DBGrid1SRAZN3: TcxGridDBBandedColumn;
-    DBGrid1SRAZN12: TcxGridDBBandedColumn;
-    DBGrid1SREDKOL: TcxGridDBBandedColumn;
-    hvdNOTE: TIBStringField;
     DBGrid1NOTE: TcxGridDBBandedColumn;
-    hvdallNOTE: TIBStringField;
-    hvdallKOLI_F: TLargeintField;
     DBGrid1KOLI_F: TcxGridDBBandedColumn;
-    hvdKOLI_F: TLargeintField;
     hvd_repKOLI_F: TLargeintField;
     DBGrid3DOM: TcxGridDBColumn;
     DBGrid3POD: TcxGridDBColumn;
     DBGrid3SCH_OLD: TcxGridDBColumn;
     DBGrid3SCH_CUR: TcxGridDBColumn;
     DBGrid3SCH_RAZN: TcxGridDBColumn;
-    hvdPOD: TIntegerField;
-    hvdRASCH_KUB: TIBBCDField;
-    DBGrid1POD: TcxGridDBBandedColumn;
-    DBGrid1RASCH_KUB: TcxGridDBBandedColumn;
     DBGrid3NORMA: TcxGridDBColumn;
-    hvdRASCH_NOR: TIBBCDField;
-    DBGrid1RASCH_NOR: TcxGridDBBandedColumn;
-    hvdallRASCH_KUB: TIBBCDField;
-    hvdallRASCH_NOR: TIBBCDField;
-    hvdallPOD: TIntegerField;
     DBGrid3SCH_KUB: TcxGridDBColumn;
     DBGrid3SCH_FACT: TcxGridDBColumn;
     grpKL: TIntegerField;
@@ -281,10 +206,6 @@ type
     grpSCH_RAZN: TIBBCDField;
     grpNORMA_BL: TIBBCDField;
     DBGrid3NORMA_BL: TcxGridDBColumn;
-    hvdRASCH_NOTE: TIBStringField;
-    hvdallRASCH_NOTE: TIBStringField;
-    DBGrid1RASCH_NOTE: TcxGridDBBandedColumn;
-    DBGrid1SRED: TcxGridDBBandedColumn;
     grpSCH_FOP: TIBBCDField;
     DBGrid3SCH_FOP: TcxGridDBColumn;
     pokaznSource: TDataSource;
@@ -330,8 +251,6 @@ type
     lichNOTE: TIBStringField;
     lichVID_ZN: TIntegerField;
     lichDATA_VIG: TDateField;
-    hvdDATE_POK: TDateField;
-    hvdVID_POK: TIntegerField;
     plombsVID_ZN: TIntegerField;
     plombsVID_PL: TIntegerField;
     plombsPL: TIBStringField;
@@ -359,7 +278,6 @@ type
     DBGrid1Column2: TcxGridDBBandedColumn;
     pokaznID: TIntegerField;
     pokaznYEARMON: TIntegerField;
-    pokaznPOKAZN: TIBBCDField;
     pokaznDATE_POK: TDateField;
     pokaznVID_POK: TIntegerField;
     pokaznN_DOC: TIntegerField;
@@ -400,9 +318,266 @@ type
     viber_sendTEXT: TMemoField;
     viber_sendSMALLTEXT: TIBStringField;
     viber_sendDATA: TDateTimeField;
+    lichDATA_STPOV: TDateField;
+    DBGrid1LICH_POV: TcxGridDBBandedColumn;
+    cxTabSheet4: TcxTabSheet;
+    Image2: TImage;
+    dxBarDockControl4: TdxBarDockControl;
+    cxGrid1: TcxGrid;
+    cxGridDBBandedTableView1: TcxGridDBBandedTableView;
+    cxGridDBBandedColumn2: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn3: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn4: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn5: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn6: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn7: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn8: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn9: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn10: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn11: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn12: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn13: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn14: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn15: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn16: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn17: TcxGridDBBandedColumn;
+    cxGridDBBandedColumn18: TcxGridDBBandedColumn;
+    cxGridLevel2: TcxGridLevel;
+    BarManagerBar6: TdxBar;
+    dxBarButton21: TdxBarButton;
+    dxBarButton22: TdxBarButton;
+    org: TIBDataSet;
+    orgSource: TDataSource;
+    hvd12NOTE: TIBStringField;
+    hvd12KOLI_F: TLargeintField;
+    hvd12RASCH_KUB: TIBBCDField;
+    hvd12RASCH_NOR: TIBBCDField;
+    hvd12POD: TIntegerField;
+    hvd12RASCH_NOTE: TIBStringField;
+    hvd12DATE_POK: TDateField;
+    hvd12VID_POK: TIntegerField;
+    hvd12KUB_MES: TIBBCDField;
+    hvd12LICH_POV: TDateField;
+    hvd12ORG: TIntegerField;
+    orgKL: TIntegerField;
+    orgYEARMON: TIntegerField;
+    orgPLOMB: TSmallintField;
+    orgFIO: TIBStringField;
+    orgWID: TSmallintField;
+    orgDOM: TIBStringField;
+    orgKVART: TIBStringField;
+    orgSCHET: TIBStringField;
+    orgN_SCH: TIBStringField;
+    orgSCH_OLD: TIBBCDField;
+    orgSCH_CUR: TIBBCDField;
+    orgSCH_RAZN: TIBBCDField;
+    orgKOLI_P: TIBBCDField;
+    orgKOLI_P0: TIntegerField;
+    orgKOLI_P1: TIntegerField;
+    orgNOR_RAZN: TIBBCDField;
+    orgGRP_RAZN: TIBBCDField;
+    orgPERE_DAY: TIntegerField;
+    orgPERE_RAZN: TIBBCDField;
+    orgID_KONTR: TSmallintField;
+    orgUL: TIBStringField;
+    orgN_DOM: TIBStringField;
+    orgKV: TIBStringField;
+    orgNOTE: TIBStringField;
+    orgKOLI_F: TLargeintField;
+    orgRASCH_KUB: TIBBCDField;
+    orgRASCH_NOR: TIBBCDField;
+    orgPOD: TIntegerField;
+    orgRASCH_NOTE: TIBStringField;
+    orgDATE_POK: TDateField;
+    orgVID_POK: TIntegerField;
+    orgKUB_MES: TIBBCDField;
+    orgLICH_POV: TDateField;
+    orgORG: TIntegerField;
+    dxBarButton23: TdxBarButton;
+    vid_rn: TIBDataSet;
+    vid_rnSource: TDataSource;
+    vid_rnID: TIntegerField;
+    vid_rnVID_ZN: TIBStringField;
+    vid_rnVID_OB: TIntegerField;
+    vid_rnVID_SP: TIBStringField;
+    orgVID_RN: TIntegerField;
+    ul: TIBDataSet;
+    ulSource: TDataSource;
+    ulUL: TIBStringField;
+    dxBarButton24: TdxBarButton;
+    dxBarButton25: TdxBarButton;
+    dxBarButton26: TdxBarButton;
+    DBGrid1VID_RN: TcxGridDBBandedColumn;
+    dxBarButton27: TdxBarButton;
+    dxBarButton28: TdxBarButton;
+    IBQueryRep: TIBQuery;
+    frxReport4: TfrxReport;
+    IBQueryRep2: TIBQuery;
+    frxDBDataset3: TfrxDBDataset;
+    impDataSource: TDataSource;
+    imp: TIBDataSet;
+    impKL: TIntegerField;
+    impIMPLASTDATE: TDateField;
+    impIMPALLOW: TIntegerField;
+    impIMPLASTDAY: TIntegerField;
+    hvd12VID_RN: TIntegerField;
+    hvd12FILTR: TIntegerField;
+    hvd12POMPA: TIntegerField;
+    DBGrid1FILTR: TcxGridDBBandedColumn;
+    DBGrid1POMPA: TcxGridDBBandedColumn;
+    dxBarButton29: TdxBarButton;
+    dxBarSubItem5: TdxBarSubItem;
+    dxBarButton30: TdxBarButton;
+    dxBarButton31: TdxBarButton;
+    site_pokazn: TIBDataSet;
+    site_pokaznDataSource: TDataSource;
+    site_pokaznID: TIntegerField;
+    site_pokaznID_SITE: TIntegerField;
+    site_pokaznDATE_INS: TDateTimeField;
+    site_pokaznDATA: TDateField;
+    site_pokaznSCHET: TIBStringField;
+    site_pokaznPOKAZN: TIntegerField;
+    site_pokaznNAME: TIBStringField;
+    site_pokaznSTATUS: TIBStringField;
+    site_pokaznID_TASK: TIntegerField;
+    site_pokaznERR: TIntegerField;
+    site_pokaznVID: TIBStringField;
+    viber_taskVID: TIBStringField;
+    pokaznPOKAZN: TIBBCDField;
+    hvdallKL: TIntegerField;
+    hvdallYEARMON: TIntegerField;
+    hvdallPLOMB: TSmallintField;
+    hvdallFIO: TIBStringField;
+    hvdallWID: TSmallintField;
+    hvdallDOM: TIBStringField;
+    hvdallKVART: TIBStringField;
+    hvdallSCHET: TIBStringField;
+    hvdallN_SCH: TIBStringField;
+    hvdallSCH_OLD: TIBBCDField;
+    hvdallSCH_CUR: TIBBCDField;
+    hvdallSCH_RAZN: TIBBCDField;
+    hvdallKOLI_P: TIBBCDField;
+    hvdallKOLI_P0: TIntegerField;
+    hvdallKOLI_P1: TIntegerField;
+    hvdallNOR_RAZN: TIBBCDField;
+    hvdallGRP_RAZN: TIBBCDField;
+    hvdallPERE_DAY: TIntegerField;
+    hvdallPERE_RAZN: TIBBCDField;
+    hvdallID_KONTR: TSmallintField;
+    hvdallUL: TIBStringField;
+    hvdallN_DOM: TIBStringField;
+    hvdallKV: TIBStringField;
+    hvdallNOTE: TIBStringField;
+    hvdallKOLI_F: TLargeintField;
+    hvdallRASCH_KUB: TIBBCDField;
+    hvdallRASCH_NOR: TIBBCDField;
+    hvdallPOD: TIntegerField;
+    hvdallRASCH_NOTE: TIBStringField;
     hvdallDATE_POK: TDateField;
     hvdallVID_POK: TIntegerField;
     hvdallKUB_MES: TIBBCDField;
+    hvdallLICH_POV: TDateField;
+    hvdallORG: TIntegerField;
+    hvdallVID_RN: TIntegerField;
+    hvdallFILTR: TIntegerField;
+    hvdallPOMPA: TIntegerField;
+    hvdallZN_LICH: TIntegerField;
+    hvdallZNOLD_LICH: TIntegerField;
+    DBGrid1PERE_DAY: TcxGridDBBandedColumn;
+    hvdKL: TIntegerField;
+    hvdYEARMON: TIntegerField;
+    hvdPLOMB: TSmallintField;
+    hvdFIO: TIBStringField;
+    hvdWID: TSmallintField;
+    hvdDOM: TIBStringField;
+    hvdKVART: TIBStringField;
+    hvdSCHET: TIBStringField;
+    hvdN_SCH: TIBStringField;
+    hvdSCH_OLD: TIBBCDField;
+    hvdSCH_CUR: TIBBCDField;
+    hvdSCH_RAZN: TIBBCDField;
+    hvdKOLI_P: TIBBCDField;
+    hvdKOLI_P0: TIntegerField;
+    hvdKOLI_P1: TIntegerField;
+    hvdNOR_RAZN: TIBBCDField;
+    hvdGRP_RAZN: TIBBCDField;
+    hvdPERE_DAY: TIntegerField;
+    hvdPERE_RAZN: TIBBCDField;
+    hvdID_KONTR: TSmallintField;
+    hvdUL: TIBStringField;
+    hvdN_DOM: TIBStringField;
+    hvdKV: TIBStringField;
+    hvdNOTE: TIBStringField;
+    hvdKOLI_F: TLargeintField;
+    hvdRASCH_KUB: TIBBCDField;
+    hvdRASCH_NOR: TIBBCDField;
+    hvdPOD: TIntegerField;
+    hvdRASCH_NOTE: TIBStringField;
+    hvdDATE_POK: TDateField;
+    hvdVID_POK: TIntegerField;
+    hvdKUB_MES: TIBBCDField;
+    hvdLICH_POV: TDateField;
+    hvdORG: TIntegerField;
+    hvdVID_RN: TIntegerField;
+    hvdFILTR: TIntegerField;
+    hvdPOMPA: TIntegerField;
+    hvdZN_LICH: TIntegerField;
+    hvdZNOLD_LICH: TIntegerField;
+    hvdDATE_ZN: TDateField;
+    hvdLICH_TO: TIntegerField;
+    hvdallDATE_ZN: TDateField;
+    hvdallLICH_TO: TIntegerField;
+    hvdallLICHUPD: TIntegerField;
+    lichznDATA_STPOV: TDateField;
+    lichznRASCH_DAY: TIntegerField;
+    hvdlichupd: TIBDataSet;
+    IntegerField1: TIntegerField;
+    IntegerField2: TIntegerField;
+    SmallintField1: TSmallintField;
+    IBStringField1: TIBStringField;
+    SmallintField2: TSmallintField;
+    IBStringField2: TIBStringField;
+    IBStringField3: TIBStringField;
+    IBStringField4: TIBStringField;
+    IBStringField5: TIBStringField;
+    IBBCDField1: TIBBCDField;
+    IBBCDField2: TIBBCDField;
+    IBBCDField3: TIBBCDField;
+    IBBCDField4: TIBBCDField;
+    IntegerField4: TIntegerField;
+    IntegerField5: TIntegerField;
+    IBBCDField5: TIBBCDField;
+    IBBCDField6: TIBBCDField;
+    IntegerField11: TIntegerField;
+    IBBCDField7: TIBBCDField;
+    SmallintField3: TSmallintField;
+    IBStringField6: TIBStringField;
+    IBStringField7: TIBStringField;
+    IBStringField8: TIBStringField;
+    IBStringField21: TIBStringField;
+    LargeintField1: TLargeintField;
+    IBBCDField15: TIBBCDField;
+    IBBCDField16: TIBBCDField;
+    IntegerField12: TIntegerField;
+    IBStringField22: TIBStringField;
+    DateField1: TDateField;
+    IntegerField13: TIntegerField;
+    IBBCDField17: TIBBCDField;
+    DateField2: TDateField;
+    IntegerField14: TIntegerField;
+    IntegerField15: TIntegerField;
+    IntegerField16: TIntegerField;
+    IntegerField17: TIntegerField;
+    IntegerField18: TIntegerField;
+    IntegerField19: TIntegerField;
+    DateField3: TDateField;
+    IntegerField20: TIntegerField;
+    IntegerField21: TIntegerField;
+    hvdlichupdSource: TDataSource;
+    cxBarEditItem1: TcxBarEditItem;
+    cxBarEditItem2: TcxBarEditItem;
+    Panel2: TPanel;
+    cxButton1: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -449,7 +624,7 @@ type
     procedure dxBarButton9Click(Sender: TObject);
     procedure dxBarButton10Click(Sender: TObject);
     procedure dxBarButton11Click(Sender: TObject);
-    procedure hvdPERE_DAYValidate(Sender: TField);
+//    procedure hvdPERE_DAYValidate(Sender: TField);
     procedure DBGrid1Column1PropertiesButtonClick(Sender: TObject;
       AButtonIndex: Integer);
     procedure lichNewRecord(DataSet: TDataSet);
@@ -462,7 +637,6 @@ type
     procedure hvdWIDValidate(Sender: TField);
     procedure hvd3BeforeOpen(DataSet: TDataSet);
     procedure hvd12BeforeOpen(DataSet: TDataSet);
-    procedure DBGrid1WIDPropertiesChange(Sender: TObject);
     procedure dxBarButton14Click(Sender: TObject);
     procedure dxBarButton15Click(Sender: TObject);
     procedure dxBarButton16Click(Sender: TObject);
@@ -473,19 +647,52 @@ type
     procedure dxBarButton19Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dxBarButton20Click(Sender: TObject);
+    procedure lichBeforePost(DataSet: TDataSet);
+    procedure DBGrid1WIDPropertiesEditValueChanged(Sender: TObject);
+    procedure DBGrid1NOR_RAZNPropertiesChange(Sender: TObject);
+    procedure orgBeforeOpen(DataSet: TDataSet);
+    procedure orgBeforePost(DataSet: TDataSet);
+    procedure orgNewRecord(DataSet: TDataSet);
+    procedure cxGridDBBandedTableView1EditKeyDown(
+      Sender: TcxCustomGridTableView; AItem: TcxCustomGridTableItem;
+      AEdit: TcxCustomEdit; var Key: Word; Shift: TShiftState);
+    procedure cxGridDBBandedTableView1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure dxBarButton21Click(Sender: TObject);
+    procedure dxBarButton23Click(Sender: TObject);
+    procedure cxGridDBBandedColumn13PropertiesButtonClick(Sender: TObject;
+      AButtonIndex: Integer);
+    procedure cxTabSheet4Show(Sender: TObject);
+    procedure cxTabSheet1Show(Sender: TObject);
+    procedure dxBarButton25Click(Sender: TObject);
+    procedure dxBarButton26Click(Sender: TObject);
+    procedure dxBarButton27Click(Sender: TObject);
+    procedure dataAfterScroll(DataSet: TDataSet);
+    procedure dataAfterClose(DataSet: TDataSet);
+    procedure dxBarButton30Click(Sender: TObject);
+    procedure dxBarButton31Click(Sender: TObject);
+    procedure cxBarEditItem1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cxBarEditItem1Exit(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
+
   private
     { Private declarations }
     schet:string;
-    procedure execSql(s:string);
+    procedure AddFilter(column:TcxGridDBBandedColumn;text:string);
+    procedure DelFilter(col:TcxGridDBBandedColumn;s:string);
+
   public
     { Public declarations }
-    lchSQL,lchznSQL,plSQL,plznSQL,pokSQL,url,urlsend,startimport:string;
+    lchSQL,lchznSQL,plSQL,plznSQL,pokSQL,url,urlsend,startimport,sendmessbefoimp:string;
     PathKvart:string;
     iniFile:TIniFile;
     period:integer;
     function curYM:integer;
     function isArchive:boolean;
     procedure ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
+    procedure execSql(s:string);
+    procedure allcalclich;
 
   end;
 
@@ -497,13 +704,51 @@ implementation
 
 uses inpedpro, edexpr, import, mytools, itoghvd,ComObj,dbf,dbf_lang,
   edplomb, kart, lichall, iimport, sprzn, addkart, ViberTask, ViberPok,
-  ViberSendOrders;
+  ViberSendOrders, LichPlomb;
 
 {$R *.dfm}
+
+procedure TMainForm.allcalclich;
+begin
+     Form4.Show;
+     MainForm.Enabled:=false;
+     Form4.Label2.Caption:='Розрахунок.Зачекайте...';
+     Form4.cxProgressBar1.Properties.Min:=0;
+     application.ProcessMessages;
+
+ MainForm.hvdall.Close;
+ MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
+ MainForm.hvdall.Open;
+ MainForm.hvdall.FetchAll;
+ Form4.cxProgressBar1.Properties.Max:=MainForm.hvdall.RecordCount-1;
+
+    Form4.cxProgressBar1.Position:=0;
+    while not hvdall.eof do
+    begin
+    Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
+    application.ProcessMessages;
+  //    if (hvdallZNOLD_LICH.Value>0) or (hvdallLICHUPD.Value>0) then
+         Form2.calclich(hvdall);
+
+      hvdall.Next;
+    end;
+
+  hvd.close;
+  hvd.open;
+
+  Form4.Close;
+   MainForm.Enabled:=true;
+
+end;
 
 function TMainForm.isArchive:boolean;
 begin
   result := data.RecNo<>1;  
+end;
+
+procedure TMainForm.lichBeforePost(DataSet: TDataSet);
+begin
+Form2.LichPost:=true;
 end;
 
 procedure TMainForm.lichNewRecord(DataSet: TDataSet);
@@ -513,8 +758,30 @@ begin
  lich.post;
 end;
 
+procedure TMainForm.orgBeforeOpen(DataSet: TDataSet);
+begin
+  org.ParamByName('yearmon').AsInteger:=CurYM;
+end;
+
+procedure TMainForm.orgBeforePost(DataSet: TDataSet);
+begin
+    if orgYEARMON.Value=0 then orgYEARMON.Value:=CurYM;
+end;
+
+procedure TMainForm.orgNewRecord(DataSet: TDataSet);
+begin
+       orgYEARMON.Value:=CurYM;
+  orgWID.Value:=1;    // счетчик по умолчанию
+
+    DBGrid1SCHET.Options.Editing:=true;
+    DBGrid1FIO.Options.Editing:=true;
+    //DBGrid1n_sch.Options.Editing:=true;
+    DBGrid1SCHET.Focused:=true;
+end;
+
 function TMainForm.curYM:integer;
 begin
+ // data.First;
   result:=dataYEARMON.Value;
 end;
 
@@ -532,11 +799,13 @@ begin
   //lichzn.Open;
   lchznSQL:=lichzn.SelectSQL.Text;
   dom.Open;
+  dxBarLookupCombo1.Enabled:=false;
   dxBarLookupCombo1.KeyValue:=domDOM.AsString;
 
   //hvd.Open;
   prop.Open;
   grp.Open;
+  imp.open;
   //plombs.Open;
   //pokazn.Open;
 //  dbgrid1.DataController.Groups.FullExpand;
@@ -546,25 +815,62 @@ begin
  // plombszn.Open;
   plznSQL:=plombszn.SelectSQL.Text;
   period:=dataYEARMON.Value;
+  ul.ParamByName('yearmon').AsInteger:=dataYEARMON.Value;
+  ul.open;
 
-
+org.Open;
+vid_rn.Open;
 //viber_task.ParamByName('yearmon').Value:=period;
 viber_task.Open;
 viber_pokazn.Open;
+site_pokazn.Open;
 viber_send.Open;
+
   //DataSource.Enabled:=true;
   //hvdSource.Enabled:=true;
-
+//
+ //dxBarLookupCombo1.Enabled:=false;
   cxPageControl1.ActivePage:=cxTabSheet1;
-  ActiveControl:=cxGrid2;
+ // ActiveControl:=cxGrid2;
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
+var dd:integer;
+    dt:TDate;
 begin
+cxButton1.Click;
+//  dxBarLookupCombo1.Enabled:=true;
+
+  imp.Close;
+  imp.Open;
+
   if startimport='1' then
   begin
 
-    FormViberTask.cxButton8.Click;
+//    if (impIMPALLOW.Value=1) then
+//    begin
+//       dd := DayOf(Now);
+//       if dd>impIMPLASTDAY.Value then
+//       begin
+//          imp.edit;
+//          impIMPALLOW.Value:=0;
+//          imp.post;
+//          IBTransaction1.CommitRetaining;
+//       end;
+//    end;
+
+//    if (impIMPALLOW.Value=1) and (impIMPLASTDATE.Value<Now) then
+    dt:=trunc(Now);
+    if (impIMPLASTDATE.Value<dt) then
+    begin
+          imp.edit;
+          impIMPLASTDATE.Value:=dt;
+          imp.post;
+          IBTransaction1.CommitRetaining;
+          FormViberTask.cxButton8.Click;
+          IBTransaction1.CommitRetaining;
+
+    end;
 
 
   end;
@@ -630,21 +936,104 @@ begin
 FormViberSendOrders.Show;
 end;
 
+procedure TMainForm.dxBarButton21Click(Sender: TObject);
+begin
+FormAddkart.cxTabSheet1.TabVisible:=false;
+FormAddkart.cxTabSheet2.TabVisible:=false;
+FormAddkart.cxTabSheet3.TabVisible:=true;
+FormAddkart.cxTabSheet4.TabVisible:=false;
+FormAddkart.Show;
+end;
+
+procedure TMainForm.dxBarButton23Click(Sender: TObject);
+begin
+spr_zn.vidspr:='addrn';
+spr_zn.Caption:=dxBarButton23.Caption;
+spr_zn.Show;
+end;
+
+procedure TMainForm.dxBarButton25Click(Sender: TObject);
+begin
+IBTransaction1.CommitRetaining;
+
+hvd.Close;
+hvd.Open;
+
+org.Close;
+org.Open;
+end;
+
+procedure TMainForm.dxBarButton26Click(Sender: TObject);
+begin
+IBTransaction1.CommitRetaining;
+
+hvd.Close;
+hvd.Open;
+
+org.Close;
+org.Open;
+end;        
+procedure TMainForm.dxBarButton27Click(Sender: TObject);
+begin
+  IBQueryRep.Close;
+  IBQueryRep2.Close;
+
+  IBQueryRep.SQL.Text:='SELECT h_voda.* , sp1.vid_zn from H_VODA left join spr_zn sp1 on sp1.id=h_voda.vid_rn where h_voda.yearmon=:yearmon ORDER BY H_VODA.org, h_voda.vid_rn';
+  IBQueryRep.ParamByName('yearmon').AsInteger := CurYM;
+  IBQueryRep.Open;
+  IBQueryRep2.SQL.Text:='SELECT h_voda.* , sp1.vid_zn from H_VODA left join spr_zn sp1 on sp1.id=h_voda.vid_rn where h_voda.yearmon=:yearmon ORDER BY h_voda.vid_rn';
+  IBQueryRep2.ParamByName('yearmon').AsInteger := CurYM;
+  IBQueryRep2.Open;
+
+  frxDBDataset1.Close;
+  frxDBDataset1.Open;
+ // frxDBDataset2.Close;
+//  frxDBDataset2.Open;
+  frxDBDataset3.Close;
+  frxDBDataset3.Open;
+
+
+  if fileexists(ExtractFilePath(ParamStr(0))+'hvd_rn.fr3') then
+    frxReport4.LoadFromFile(ExtractFilePath(ParamStr(0))+'hvd_rn.fr3')
+  else
+    frxReport4.SaveToFile(ExtractFilePath(ParamStr(0))+'hvd_rn.fr3');
+
+  frxReport4.ShowReport;
+  IBQueryRep.Close;
+  IBQueryRep2.Close;
+
+  end;
+
 procedure TMainForm.dxBarButton2Click(Sender: TObject);
 begin
     if InputBox('пароль', '', '')=IniFile.ReadString('Security', 'Import', #0) then Form1.showmodal;
 end;
 
+procedure TMainForm.dxBarButton30Click(Sender: TObject);
+begin
+Form3.Caption:= dxBarButton30.Caption;
+Form3.Show;
+end;
+
+procedure TMainForm.dxBarButton31Click(Sender: TObject);
+begin
+FormLichPlomb.Caption:= dxBarButton31.Caption;
+FormLichPlomb.Show;
+end;
+
 procedure TMainForm.DBGrid1Column1PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
-     Form2.Find();
+     Form2.Find(MainForm.hvdSCHET.Value);
      Form2.Show;
 end;
 
 procedure TMainForm.DBGrid1Column2PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
+   if isArchive then
+      exit;
+
     MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch order by date_pok desc';
     MainForm.pokazn.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
     MainForm.pokazn.Close;
@@ -654,6 +1043,7 @@ begin
 FormAddkart.cxTabSheet1.TabVisible:=false;
 FormAddkart.cxTabSheet2.TabVisible:=false;
 FormAddkart.cxTabSheet3.TabVisible:=true;
+FormAddkart.cxTabSheet4.TabVisible:=false;
 FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet3;
 FormAddkart.cxTextEdit9.Text:=MainForm.hvdSCHET.Value;
 FormAddkart.cxLabel15.Caption:=MainForm.hvdFIO.Value;
@@ -661,7 +1051,10 @@ FormAddkart.Show;
 if FormAddkart.IBQuery1.RecordCount<>0 then
 begin
   FormAddkart.cxDateEdit5.EditValue:=FormAddkart.IBQuery1.FieldByName('date_pok').Value;
-  FormAddkart.cxCalcEdit2.Text:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
+  if FormAddkart.IBQuery1.FieldByName('pokazn').IsNull then
+    FormAddkart.cxCalcEdit2.Text:='0'
+  else
+    FormAddkart.cxCalcEdit2.Text:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
 end;
 
 end;
@@ -713,6 +1106,10 @@ begin
     ACanvas.Canvas.Brush.Style := bsSolid;
     ACanvas.Canvas.Brush.Color := clGray;//  $00F7EAD9;
   end;}
+
+
+       if (AViewInfo.GridRecord.Values[DBGrid1LICH_POV.Index] < now()) then
+    ACanvas.Brush.Color := clScrollBar;
 end;
 
 procedure TMainForm.DBGrid1Editing(Sender: TcxCustomGridTableView;
@@ -763,65 +1160,67 @@ begin
     AAllow:=false;
   end;
 }
+
+
 end;
 
 procedure TMainForm.dxBarLookupCombo2KeyValueChange(Sender: TObject);
 begin
-  if (data.Active and dom.Active)then
-  begin
-
-   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
-   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
-   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
-   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
-
-
-   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.open
-   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.open
-   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.open;
-
-   if isArchive then
-   begin
-     dxBarButton6.Enabled:=false;
-     DBGrid1.OptionsData.Deleting:=false;
-     DBGrid1.OptionsData.Editing:=false;
-     DBGrid1.OptionsData.Inserting:=false;
-
-     DBGrid2.OptionsData.Deleting:=false;
-     DBGrid2.OptionsData.Editing:=false;
-     DBGrid2.OptionsData.Inserting:=false;
-
-     DBGrid3.OptionsData.Deleting:=false;
-     DBGrid3.OptionsData.Editing:=false;
-     DBGrid3.OptionsData.Inserting:=false;
-   end
-   else
-   begin
-     dxBarButton6.Enabled:=true;
-     DBGrid1.OptionsData.Deleting:=true;
-     DBGrid1.OptionsData.Editing:=true;
-     DBGrid1.OptionsData.Inserting:=true;
-
-     DBGrid2.OptionsData.Deleting:=true;
-     DBGrid2.OptionsData.Editing:=true;
-     DBGrid2.OptionsData.Inserting:=true;
-
-     DBGrid3.OptionsData.Deleting:=true;
-     DBGrid3.OptionsData.Editing:=true;
-     DBGrid3.OptionsData.Inserting:=true;
-    end;
-  end;
+//  if (data.Active and dom.Active)then
+//  begin
+//
+//   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
+//   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
+//   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
+//   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
+//
+//
+//   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.open
+//   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.open
+//   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.open;
+//
+//   if isArchive then
+//   begin
+//     dxBarButton6.Enabled:=false;
+//     DBGrid1.OptionsData.Deleting:=false;
+//     DBGrid1.OptionsData.Editing:=false;
+//     DBGrid1.OptionsData.Inserting:=false;
+//
+//     DBGrid2.OptionsData.Deleting:=false;
+//     DBGrid2.OptionsData.Editing:=false;
+//     DBGrid2.OptionsData.Inserting:=false;
+//
+//     DBGrid3.OptionsData.Deleting:=false;
+//     DBGrid3.OptionsData.Editing:=false;
+//     DBGrid3.OptionsData.Inserting:=false;
+//   end
+//   else
+//   begin
+//     dxBarButton6.Enabled:=true;
+//     DBGrid1.OptionsData.Deleting:=true;
+//     DBGrid1.OptionsData.Editing:=true;
+//     DBGrid1.OptionsData.Inserting:=true;
+//
+//     DBGrid2.OptionsData.Deleting:=true;
+//     DBGrid2.OptionsData.Editing:=true;
+//     DBGrid2.OptionsData.Inserting:=true;
+//
+//     DBGrid3.OptionsData.Deleting:=true;
+//     DBGrid3.OptionsData.Editing:=true;
+//     DBGrid3.OptionsData.Inserting:=true;
+//    end;
+//  end;
 end;
 
 procedure TMainForm.hvdBeforeOpen(DataSet: TDataSet);
 begin
   hvd.ParamByName('yearmon').AsInteger:=CurYM;
-  hvd.ParamByName('dom').AsString:=dxBarLookupCombo1.Text;
-
-  if dxBarLookupCombo1.Enabled then
-    hvd.ParamByName('all').asInteger:=0
-  else
-    hvd.ParamByName('all').asInteger:=1;
+//  hvd.ParamByName('dom').AsString:=dxBarLookupCombo1.Text;
+//
+//  if dxBarLookupCombo1.Enabled then
+//    hvd.ParamByName('all').asInteger:=0
+//  else
+//    hvd.ParamByName('all').asInteger:=1;
 end;
 
 procedure TMainForm.IBDatabaseBeforeConnect(Sender: TObject);
@@ -841,6 +1240,7 @@ begin
     url:=iniFile.ReadString('site','url','');
     urlsend:=iniFile.ReadString('site','urlsend','');
     startimport:=iniFile.ReadString('viber','startimport','');
+    sendmessbefoimp:=iniFile.ReadString('viber','sendmessbefoimp','');
 
     IBDatabase.DatabaseName:=IniFile.ReadString('Login', 'Database', ExtractFilePath(ParamStr(0))+'\gku.fdb');
     IBDatabase.Params.Clear;
@@ -896,7 +1296,9 @@ procedure TMainForm.ActionExportExecute(Sender: TObject);
 begin
   if cxPageControl1.ActivePage=cxTabSheet1 then self.ExportGrid(cxGrid2)
   else if cxPageControl1.ActivePage=cxTabSheet2 then self.ExportGrid(cxGrid3)
-  else if cxPageControl1.ActivePage=cxTabSheet3 then self.ExportGrid(cxGrid4);
+  else if cxPageControl1.ActivePage=cxTabSheet3 then self.ExportGrid(cxGrid4)
+  else if cxPageControl1.ActivePage=cxTabSheet4 then self.ExportGrid(cxGrid1);
+
 end;
 
 procedure TMainForm.ActionExitExecute(Sender: TObject);
@@ -944,7 +1346,7 @@ begin
 
     DBGrid1SCHET.Options.Editing:=true;
     DBGrid1FIO.Options.Editing:=true;
-    DBGrid1n_sch.Options.Editing:=true;
+    //DBGrid1n_sch.Options.Editing:=true;
     DBGrid1SCHET.Focused:=true;
 end;
 
@@ -996,7 +1398,10 @@ end;
 
 procedure TMainForm.ActionPrintExecute(Sender: TObject);
 begin
-  hvd_rep.Open;
+//  hvd_rep.Open;
+  IBQueryRep.SQL.Text:='SELECT * FROM H_VODA where h_voda.yearmon=:yearmon and (h_voda.org=0) ORDER BY H_VODA.SCHET';
+  IBQueryRep.ParamByName('yearmon').AsInteger := CurYM;
+  IBQueryRep.Open;
 
   if fileexists(ExtractFilePath(ParamStr(0))+'hvd_dm.fr3') then
     frxReport1.LoadFromFile(ExtractFilePath(ParamStr(0))+'hvd_dm.fr3')
@@ -1004,7 +1409,8 @@ begin
     frxReport1.SaveToFile(ExtractFilePath(ParamStr(0))+'hvd_dm.fr3');
 
   frxReport1.ShowReport;
-  hvd_rep.Close;
+  IBQueryRep.Close;
+ // hvd_rep.Close;
 end;
 
 procedure TMainForm.hvdSCH_CURChange(Sender: TField);
@@ -1088,7 +1494,7 @@ begin
   begin
     DBGrid1SCHET.Options.Editing:=true;
     DBGrid1FIO.Options.Editing:=true;
-    DBGrid1n_sch.Options.Editing:=true;
+    //DBGrid1n_sch.Options.Editing:=true;
     DBGrid1SCHET.Focused:=true;
 //    ADone:=true;
   end;
@@ -1096,19 +1502,39 @@ begin
   begin
     DBGrid1SCHET.Options.Editing:=true;
     DBGrid1FIO.Options.Editing:=true;
-    DBGrid1n_sch.Options.Editing:=true;
+  //  DBGrid1n_sch.Options.Editing:=true;
 //    ADone:=true;
   end;
 end;
 
-procedure TMainForm.DBGrid1WIDPropertiesChange(Sender: TObject);
+procedure TMainForm.DBGrid1NOR_RAZNPropertiesChange(Sender: TObject);
 begin
-//  hvd.Post;
+ if hvdWID.Value<>6 then
+    hvd.Cancel;
+
+
+end;
+
+procedure TMainForm.DBGrid1WIDPropertiesEditValueChanged(Sender: TObject);
+begin
+//    if Sender.Items[DBGrid1WID.Index].EditValue=6 then
+//    begin
+//      DBGrid1NOR_RAZN.Options.Editing:=true;
+//      DBGrid1NOR_RAZN.Properties.ReadOnly:=false;
+//    end
+//    else
+//    begin
+//      DBGrid1NOR_RAZN.Options.Editing:=false;
+//      DBGrid1NOR_RAZN.Properties.ReadOnly:=true;
+//    end;
 end;
 
 procedure TMainForm.ActionPrintTotalExecute(Sender: TObject);
 begin
-  hvd_rep.Open;
+  //hvd_rep.Open;
+  IBQueryRep.SQL.Text:='SELECT * FROM H_VODA where h_voda.yearmon=:yearmon and (h_voda.org=0) ORDER BY SCHET';
+  IBQueryRep.ParamByName('yearmon').AsInteger := CurYM;
+  IBQueryRep.Open;
 
   if fileexists(ExtractFilePath(ParamStr(0))+'hvd_tot_dm.fr3') then
     frxReport2.LoadFromFile(ExtractFilePath(ParamStr(0))+'hvd_tot_dm.fr3')
@@ -1116,7 +1542,8 @@ begin
     frxReport2.SaveToFile(ExtractFilePath(ParamStr(0))+'hvd_tot_dm.fr3');
 
   frxReport2.ShowReport;
-  hvd_rep.Close;
+   IBQueryRep.Close;
+  //hvd_rep.Close;
 end;
 
 procedure TMainForm.hvd_repBeforeOpen(DataSet: TDataSet);
@@ -1137,7 +1564,7 @@ end;
 procedure TMainForm.hvdAfterPost(DataSet: TDataSet);
 begin
   DBGrid1SCHET.Options.Editing:=false;
-//  DBGrid1FIO.Options.Editing:=false;
+  DBGrid1FIO.Options.Editing:=false;
 
 end;
 
@@ -1146,12 +1573,192 @@ begin
   hvdall.ParamByName('yearmon').AsInteger:=CurYM;
 end;
 
+procedure TMainForm.AddFilter(column:TcxGridDBBandedColumn;text:string);
+var    I:integer;
+begin
+
+  DBGrid1.DataController.Filter.Active := true;
+
+  if (Text<>'') then
+  begin
+      DBGrid1.DataController.Filter.BeginUpdate;
+      try
+//          if (column=cxGrid1DBTableView1PR_DOM) or (column=cxGrid1DBTableView1PR_KV)then
+//             cxGrid1DBTableView1.DataController.Filter.Root.AddItem(column, foEqual, Text, Text)
+//          else
+//          if (column=cxGrid1DBTableView1MN_DATA) then
+//          begin
+//             if cxComboBox1.Text='=' then cxGrid1DBTableView1.DataController.Filter.Root.AddItem(column, foEqual, Text, Text);
+//             if cxComboBox1.Text='<>' then cxGrid1DBTableView1.DataController.Filter.Root.AddItem(column, foNotEqual, Text, Text);
+//             if cxComboBox1.Text='>=' then cxGrid1DBTableView1.DataController.Filter.Root.AddItem(column, foGreaterEqual, Text, Text);
+//             if cxComboBox1.Text='<=' then cxGrid1DBTableView1.DataController.Filter.Root.AddItem(column, foLessEqual, Text, Text);
+//          end
+//             else
+                DBGrid1.DataController.Filter.Root.AddItem(column, foLike, '%'+Text+'%', Text);
+      finally
+      DBGrid1.DataController.Filter.EndUpdate;
+      end;
+//      cxGrid1DBTableView1.DataController.Filter.Active := true;
+//
+
+  end;
+
+end;
+
+procedure TMainForm.DelFilter(col:TcxGridDBBandedColumn;s:string);
+var I:integer;
+begin
+
+with DBGrid1.DataController do
+  begin
+    try
+      Filter.BeginUpdate;
+//      cxGrid1DBTableView1.DataController.Filter.Root.AddItem(cxGrid1DBTableView1FAM, foLike, '%'+cxTextEdit1.Text+'%', cxTextEdit1.Text);
+      for I := Filter.Root.Count - 1 downto 0 do
+        if (not Filter.Root.Items[I].IsItemList) then
+        begin
+//          if (col=cxGrid1DBTableView1PR_DOM) or (col=cxGrid1DBTableView1PR_KV)then
+//          begin
+//          if ((Filter.Root.Items[I] as TcxGridDBDataFilterCriteriaItem).Value = s) and
+//             ((Filter.Root.Items[I] as TcxGridDBDataFilterCriteriaItem).ItemLink = col) then
+//              Filter.Root.Items[I].free;
+//          end
+//          else
+//            if (col=cxGrid1DBTableView1MN_DATA)then
+//            begin
+//            if ((Filter.Root.Items[I] as TcxGridDBDataFilterCriteriaItem).ItemLink = col) then
+//                Filter.Root.Items[I].free;
+//            end
+//            else
+//               if ((Filter.Root.Items[I] as TcxGridDBDataFilterCriteriaItem).Value = '%'+s+'%') and
+//                  ((Filter.Root.Items[I] as TcxGridDBDataFilterCriteriaItem).ItemLink = col) then
+                  Filter.Root.Items[I].free
+
+        end;
+    finally
+      Filter.EndUpdate;
+    end;
+  end;
+  DBGrid1.DataController.Filter.Active := true;
+
+
+
+end;
+
+procedure TMainForm.cxBarEditItem1Exit(Sender: TObject);
+begin
+   DelFilter(DBGrid1SCHET,cxBarEditItem1.EditValue);
+   AddFilter(DBGrid1SCHET,cxBarEditItem1.EditValue);
+end;
+
+procedure TMainForm.cxBarEditItem1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+//DelFilter(DBGrid1SCHET,cxBarEditItem1.EditValue);
+end;
+
+procedure TMainForm.cxButton1Click(Sender: TObject);
+begin
+if hvd.State in [dsInsert,dsEdit] then hvd.Post;
+if org.State in [dsInsert,dsEdit] then org.Post;
+IBTransaction1.CommitRetaining;
+
+  if (data.Active and dom.Active)then
+  begin
+    StartWait;
+  org.Close;
+  org.Open;
+
+//   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
+   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
+   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
+   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
+
+
+   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.open
+   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.open
+   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.open;
+
+   if isArchive then
+   begin
+     dxBarButton6.Enabled:=false;
+     DBGrid1.OptionsData.Deleting:=false;
+     DBGrid1WID.Properties.ReadOnly:=true;
+     DBGrid1NOR_RAZN.Properties.ReadOnly:=true;
+     Form2.Panel1.Enabled:=false;
+     Form2.Panel5.Enabled:=false;
+     Form2.Panel3.Enabled:=false;
+     Form2.Panel4.Enabled:=false;
+     Form2.Panel2.Enabled:=false;
+
+//     DBGrid1.OptionsData.Editing:=false;
+     DBGrid1.OptionsData.Inserting:=false;
+
+     DBGrid2.OptionsData.Deleting:=false;
+     DBGrid2.OptionsData.Editing:=false;
+     DBGrid2.OptionsData.Inserting:=false;
+
+     DBGrid3.OptionsData.Deleting:=false;
+     DBGrid3.OptionsData.Editing:=false;
+     DBGrid3.OptionsData.Inserting:=false;
+   end
+   else
+   begin
+     dxBarButton6.Enabled:=true;
+     DBGrid1.OptionsData.Deleting:=true;
+     DBGrid1WID.Properties.ReadOnly:=false;
+     DBGrid1NOR_RAZN.Properties.ReadOnly:=false;
+//     DBGrid1.OptionsData.Editing:=true;
+     Form2.Panel1.Enabled:=true;
+     Form2.Panel5.Enabled:=true;
+     Form2.Panel3.Enabled:=true;
+     Form2.Panel4.Enabled:=true;
+     Form2.Panel2.Enabled:=true;
+
+     DBGrid1.OptionsData.Inserting:=true;
+
+     DBGrid2.OptionsData.Deleting:=true;
+     DBGrid2.OptionsData.Editing:=true;
+     DBGrid2.OptionsData.Inserting:=true;
+
+     DBGrid3.OptionsData.Deleting:=true;
+     DBGrid3.OptionsData.Editing:=true;
+     DBGrid3.OptionsData.Inserting:=true;
+    end;
+
+    StopWait;
+  end;
+end;
+
+procedure TMainForm.cxGridDBBandedColumn13PropertiesButtonClick(Sender: TObject;
+  AButtonIndex: Integer);
+begin
+     Form2.Find(MainForm.orgSCHET.Value);
+     Form2.Show;
+
+end;
+
+procedure TMainForm.cxGridDBBandedTableView1EditKeyDown(
+  Sender: TcxCustomGridTableView; AItem: TcxCustomGridTableItem;
+  AEdit: TcxCustomEdit; var Key: Word; Shift: TShiftState);
+begin
+      if Key=VK_RETURN then
+    if not cxGridDBBandedTableView1.DataController.DataSet.Eof then Key:=VK_DOWN;
+end;
+
+procedure TMainForm.cxGridDBBandedTableView1KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+ if Key=VK_INSERT then abort;
+end;
+
 procedure TMainForm.cxPageControl1PageChanging(Sender: TObject;
   NewPage: TcxTabSheet; var AllowChange: Boolean);
 begin
   if prop.State in [dsInsert,dsEdit] then prop.Post;
   if grp.State in [dsInsert,dsEdit] then grp.Post;
   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
+  if org.State in [dsInsert,dsEdit] then org.Post;
 
   if cxPageControl1.ActivePage=cxTabSheet1 then //hvd.Close
   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
@@ -1159,9 +1766,41 @@ begin
 
   IBtransaction1.CommitRetaining;
 
-  if NewPage=cxTabSheet1 then hvd.Open
-  else if NewPage=cxTabSheet2 then prop.Open
-  else if NewPage=cxTabSheet3 then grp.Open;
+//  if NewPage=cxTabSheet1 then hvd.Open
+//  else if NewPage=cxTabSheet2 then prop.Open
+//  else if NewPage=cxTabSheet3 then grp.Open
+//  else if NewPage=cxTabSheet4 then org.Open;
+
+end;
+
+procedure TMainForm.cxTabSheet1Show(Sender: TObject);
+begin
+     Form2.cxDBCheckBox1.DataBinding.DataSource:=MainForm.hvdSource;
+     Form2.cxDBLookupComboBox1.DataBinding.DataSource:=MainForm.hvdSource;
+
+
+     Form2.cxDBTextEdit1.DataBinding.DataSource:=MainForm.hvdSource;
+     Form2.cxDBTextEdit3.DataBinding.DataSource:=MainForm.hvdSource;
+     Form2.cxDBTextEdit6.DataBinding.DataSource:=MainForm.hvdSource;
+     Form2.cxDBTextEdit2.DataBinding.DataSource:=MainForm.hvdSource;
+     Form2.cxDBTextEdit5.DataBinding.DataSource:=MainForm.hvdSource;
+     Form2.cxDBTextEdit4.DataBinding.DataSource:=MainForm.hvdSource;
+     Form2.cxDBTextEdit10.DataBinding.DataSource:=MainForm.hvdSource;
+
+end;
+
+procedure TMainForm.cxTabSheet4Show(Sender: TObject);
+begin
+     Form2.cxDBCheckBox1.DataBinding.DataSource:=MainForm.orgSource;
+     Form2.cxDBLookupComboBox1.DataBinding.DataSource:=MainForm.orgSource;
+    // Form2.cxDBLookupComboBox2.DataBinding.DataSource:=MainForm.orgSource;
+     Form2.cxDBTextEdit1.DataBinding.DataSource:=MainForm.orgSource;
+     Form2.cxDBTextEdit3.DataBinding.DataSource:=MainForm.orgSource;
+     Form2.cxDBTextEdit6.DataBinding.DataSource:=MainForm.orgSource;
+     Form2.cxDBTextEdit2.DataBinding.DataSource:=MainForm.orgSource;
+     Form2.cxDBTextEdit5.DataBinding.DataSource:=MainForm.orgSource;
+     Form2.cxDBTextEdit4.DataBinding.DataSource:=MainForm.orgSource;
+     Form2.cxDBTextEdit10.DataBinding.DataSource:=MainForm.orgSource;
 
 end;
 
@@ -1172,27 +1811,30 @@ begin
 
 
 
-   kl:=hvdKL.Value;
-  if hvd.State in [dsInsert,dsEdit] then hvd.Post;
-  IBtransaction1.CommitRetaining;
-  StartWait;
-  prop.Open;
-  prop.First;
+//   kl:=hvdKL.Value;
+//  if hvd.State in [dsInsert,dsEdit] then hvd.Post;
+//  if org.State in [dsInsert,dsEdit] then org.Post;
+//  IBtransaction1.CommitRetaining;
+//  StartWait;
+//  prop.Open;
+//  prop.First;
+//
+//  hvd.DisableControls;
+//  Enabled:=false;
+//  try
+//    FormEdExpr.Exec('Calcs');
+//  finally
+//    StopWait;
+//    hvd.EnableControls;
+//    hvd.Close;
+//    hvd.Open;
+//    grp.Close;
+//    grp.Open;
+//    hvd.Locate('kl',kl,[]);
+//    Enabled:=true;
+//  end;
 
-  hvd.DisableControls;
-  Enabled:=false;
-  try
-    FormEdExpr.Exec('Calcs');
-  finally
-    StopWait;
-    hvd.EnableControls;
-    hvd.Close;
-    hvd.Open;
-    grp.Close;
-    grp.Open;
-    hvd.Locate('kl',kl,[]);
-    Enabled:=true;
-  end;
+    allcalclich;
 
 end;
 
@@ -1206,12 +1848,24 @@ begin
   dataym.Value:=Date2Str(YearMon2Date(dataYearMon.Value),'yyyy MMMM');
 end;
 
+procedure TMainForm.dataAfterClose(DataSet: TDataSet);
+var ss:string;
+begin
+   ss:='qqq';
+end;
+
 procedure TMainForm.dataAfterOpen(DataSet: TDataSet);
 begin
   data.FetchAll;
   data.First;
   dxBarLookupCombo2.KeyValue:=dataYEARMON.Value;
 
+end;
+
+procedure TMainForm.dataAfterScroll(DataSet: TDataSet);
+var ss:string;
+begin
+   ss:='qqq';
 end;
 
 procedure TMainForm.dxBarButton8Click(Sender: TObject);
@@ -1227,8 +1881,25 @@ begin
   timer1.Enabled:=false;
   try
     try
+     Form4.Show;
+     MainForm.Enabled:=false;
+     Timer1.Enabled:=false;
+     Form4.Label2.Caption:='Закриття місяця.Зачекайте...';
+     application.ProcessMessages;
+
       execSQL('execute procedure proc_newmon');
+        Form4.cxProgressBar1.Position:=25;
+        application.ProcessMessages;
       ibtransaction1.Commit;
+        Form4.cxProgressBar1.Position:=50;
+        application.ProcessMessages;
+      execSQL('execute procedure lich_pov');
+        Form4.cxProgressBar1.Position:=75;
+        application.ProcessMessages;
+      ibtransaction1.Commit;
+        Form4.cxProgressBar1.Position:=85;
+        application.ProcessMessages;
+
     except
       ibtransaction1.Rollback;
     end;
@@ -1238,7 +1909,12 @@ begin
     data.Open;
     period:=dataYEARMON.Value;
     Form4.ImKart;
+    allcalclich;
     timer1.Enabled:=true;
+     Form4.Label2.Caption:='Закриття місяця.Зачекайте...';
+     Form4.cxProgressBar1.Position:=100;
+        application.ProcessMessages;
+    MainForm.FormShow(Sender);
   end;
 end;
 
@@ -1312,25 +1988,25 @@ end;
 procedure TMainForm.dxBarButton19Click(Sender: TObject);
 begin
 viber_task.Close;
-viber_task.ParamByName('yearmon').Value:=period;
+viber_task.ParamByName('yearmon').Value:=CurYM;
 viber_task.Open;
 FormViberTask.cxLabel1.Caption:='';
 FormViberTask.Show;
 end;
 
-procedure TMainForm.hvdPERE_DAYValidate(Sender: TField);
-var val:double;
-begin
-  if hvd.State in [dsEdit,dsInsert] then
-  begin
-    if hvdPERE_DAY.IsNull then hvdPERE_RAZN.Clear
-    else
-    begin
-      val:=0;
-      val:=FormEdExpr.getCalcRes('Wozw',VarArrayOf([hvdSCHET.Value,hvdPERE_DAY.Value]));
-      hvdPERE_RAZN.Value := val;
-    end;
-  end;
-end;
+//procedure TMainForm.hvdPERE_DAYValidate(Sender: TField);
+//var val:double;
+//begin
+//  if hvd.State in [dsEdit,dsInsert] then
+//  begin
+//    if hvdPERE_DAY.IsNull then hvdPERE_RAZN.Clear
+//    else
+//    begin
+//      val:=0;
+//      val:=FormEdExpr.getCalcRes('Wozw',VarArrayOf([hvdSCHET.Value,hvdPERE_DAY.Value]));
+//      hvdPERE_RAZN.Value := val;
+//    end;
+//  end;
+//end;
 
 end.

@@ -152,7 +152,7 @@ object FormEdExpr: TFormEdExpr
             ShowGutter = True
             OnChange = fsSyntaxMemo1Change
             ExplicitLeft = -1
-            ExplicitTop = -1
+            ExplicitTop = 6
           end
         end
       end
@@ -580,7 +580,6 @@ object FormEdExpr: TFormEdExpr
     Top = 336
   end
   object IBTransactionScript: TIBTransaction
-    Active = True
     DefaultDatabase = MainForm.IBDatabase
     Params.Strings = (
       'read_committed'
@@ -649,20 +648,21 @@ object FormEdExpr: TFormEdExpr
       '  KL = :KL')
     SelectSQL.Strings = (
       
-        'SELECT H_VODA.DOM, H_VODA.POD,H_VODA.RASCH_NOTE, H_VODA.RASCH_KU' +
-        'B,H_VODA.RASCH_NOR, H_VODA.GRP_RAZN, H_VODA.KL, H_VODA.KOLI_P,H_' +
-        'VODA.KOLI_F, H_VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD, H_' +
-        'VODA.SCH_RAZN, H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_voda.' +
-        'FIO, h_voda.WID,  h_voda.yearmon, H_VODA.PERE_DAY, H_VODA.PERE_R' +
-        'AZN, H_VODA.n_sch, H_VODA.UL,H_VODA.N_DOM,H_VODA.KV,H_VODA.ID_KO' +
-        'NTR'
+        'SELECT H_VODA.DOM, H_VODA.RASCH_NOTE, H_VODA.POD, H_VODA.RASCH_K' +
+        'UB,  H_VODA.RASCH_NOR, H_VODA.GRP_RAZN, H_VODA.KL, H_VODA.KOLI_P' +
+        ', H_VODA.KOLI_F, H_VODA.NOR_RAZN, H_VODA.SCH_CUR, H_VODA.SCH_OLD' +
+        ', H_VODA.SCH_RAZN, H_VODA.SCHET, H_VODA.KVART, H_VODA.PLOMB, h_v' +
+        'oda.FIO, h_voda.WID,  h_voda.yearmon, H_VODA.PERE_DAY, H_VODA.PE' +
+        'RE_RAZN, H_VODA.n_sch, H_VODA.UL,H_VODA.N_DOM,H_VODA.KV,H_VODA.I' +
+        'D_KONTR, H_VODA.DATE_POK, H_VODA.VID_POK'
       
         ', r3.srazn3,r3.snorm3,r12.srazn12, round(r12.srazn12/12,2) sred,' +
         ' r12.kol,'
       'case when (r12.kol > 0) and (r12.srazn12>0) then'
       'round(r12.srazn12/r12.kol,2)'
       'else 0'
-      'end sredkol,note'
+      'end sredkol,'
+      'note'
       'FROM H_VODA'
       'left join ('
       
@@ -696,9 +696,9 @@ object FormEdExpr: TFormEdExpr
       'order by schet'
       ') r12 on (r12.schet = H_VODA.schet)'
       
-        'where ((H_VODA.dom=:dom) or (:all=1))  and (H_VODA.yearmon=:year' +
-        'mon)'
-      'order by H_VODA.SCHET')
+        'where h_voda.yearmon=:yearmon and ((h_voda.dom=:dom) or (:all=1)' +
+        ')'
+      'ORDER BY H_VODA.SCHET')
     ModifySQL.Strings = (
       'update H_VODA'
       'set'
@@ -970,7 +970,7 @@ object FormEdExpr: TFormEdExpr
     SelectSQL.Strings = (
       'SELECT *'
       'FROM H_VODA'
-      'where h_voda.yearmon=:yearmon '
+      'where h_voda.yearmon=:yearmon and h_voda.org=0'
       'ORDER BY H_VODA.SCHET')
     ModifySQL.Strings = (
       'update H_VODA'
@@ -1199,5 +1199,135 @@ object FormEdExpr: TFormEdExpr
     BeforeOpen = qry2BeforeOpen
     Left = 160
     Top = 274
+  end
+  object lich: TIBDataSet
+    Database = MainForm.IBDatabase
+    Transaction = IBTransactionScript
+    BeforeOpen = propBeforeOpen
+    DeleteSQL.Strings = (
+      'delete from LICH'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into LICH'
+      
+        '  (DATA_INP, DATA_MGP, DATA_POV, DATA_STPOV, DATA_VIG, DATA_VIP,' +
+        ' DATA_ZN, '
+      '   ID, N_INPLOMB, N_LICH, N_MGPLOMB, NOTE, SCHET, TIP, VID_ZN)'
+      'values'
+      
+        '  (:DATA_INP, :DATA_MGP, :DATA_POV, :DATA_STPOV, :DATA_VIG, :DAT' +
+        'A_VIP, '
+      
+        '   :DATA_ZN, :ID, :N_INPLOMB, :N_LICH, :N_MGPLOMB, :NOTE, :SCHET' +
+        ', :TIP, '
+      '   :VID_ZN)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  SCHET,'
+      '  TIP,'
+      '  N_LICH,'
+      '  DATA_VIP,'
+      '  DATA_POV,'
+      '  N_INPLOMB,'
+      '  N_MGPLOMB,'
+      '  DATA_INP,'
+      '  DATA_MGP,'
+      '  DATA_ZN,'
+      '  NOTE,'
+      '  VID_ZN,'
+      '  DATA_VIG,'
+      '  DATA_STPOV'
+      'from LICH '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select * from LICH where schet=:sch and DATA_ZN is null ')
+    ModifySQL.Strings = (
+      'update LICH'
+      'set'
+      '  DATA_INP = :DATA_INP,'
+      '  DATA_MGP = :DATA_MGP,'
+      '  DATA_POV = :DATA_POV,'
+      '  DATA_STPOV = :DATA_STPOV,'
+      '  DATA_VIG = :DATA_VIG,'
+      '  DATA_VIP = :DATA_VIP,'
+      '  DATA_ZN = :DATA_ZN,'
+      '  ID = :ID,'
+      '  N_INPLOMB = :N_INPLOMB,'
+      '  N_LICH = :N_LICH,'
+      '  N_MGPLOMB = :N_MGPLOMB,'
+      '  NOTE = :NOTE,'
+      '  SCHET = :SCHET,'
+      '  TIP = :TIP,'
+      '  VID_ZN = :VID_ZN'
+      'where'
+      '  ID = :OLD_ID')
+    Left = 616
+    Top = 336
+    object lichID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"LICH"."ID"'
+      Required = True
+    end
+    object lichSCHET: TIBStringField
+      FieldName = 'SCHET'
+      Origin = '"LICH"."SCHET"'
+      Size = 10
+    end
+    object lichTIP: TIBStringField
+      FieldName = 'TIP'
+      Origin = '"LICH"."TIP"'
+    end
+    object lichN_LICH: TIBStringField
+      FieldName = 'N_LICH'
+      Origin = '"LICH"."N_LICH"'
+    end
+    object lichDATA_VIP: TDateField
+      FieldName = 'DATA_VIP'
+      Origin = '"LICH"."DATA_VIP"'
+    end
+    object lichDATA_POV: TDateField
+      FieldName = 'DATA_POV'
+      Origin = '"LICH"."DATA_POV"'
+    end
+    object lichN_INPLOMB: TIBStringField
+      FieldName = 'N_INPLOMB'
+      Origin = '"LICH"."N_INPLOMB"'
+    end
+    object lichN_MGPLOMB: TIBStringField
+      FieldName = 'N_MGPLOMB'
+      Origin = '"LICH"."N_MGPLOMB"'
+    end
+    object lichDATA_INP: TDateField
+      FieldName = 'DATA_INP'
+      Origin = '"LICH"."DATA_INP"'
+    end
+    object lichDATA_MGP: TDateField
+      FieldName = 'DATA_MGP'
+      Origin = '"LICH"."DATA_MGP"'
+    end
+    object lichDATA_ZN: TDateField
+      FieldName = 'DATA_ZN'
+      Origin = '"LICH"."DATA_ZN"'
+    end
+    object lichNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"LICH"."NOTE"'
+      Size = 50
+    end
+    object lichVID_ZN: TIntegerField
+      FieldName = 'VID_ZN'
+      Origin = '"LICH"."VID_ZN"'
+    end
+    object lichDATA_VIG: TDateField
+      FieldName = 'DATA_VIG'
+      Origin = '"LICH"."DATA_VIG"'
+    end
+    object lichDATA_STPOV: TDateField
+      FieldName = 'DATA_STPOV'
+      Origin = '"LICH"."DATA_STPOV"'
+    end
   end
 end

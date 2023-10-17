@@ -547,6 +547,13 @@ begin
                 @ret,
                 255);
 
+//  GetDateFormat(LOCALE_uk_UA,
+//                LOCALE_USE_CP_ACP,
+//                @tt,
+//                pchar(fmt),
+//                @ret,
+//                255);
+
   result:=pchar(@ret);
 end;
 

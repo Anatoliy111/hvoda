@@ -7,7 +7,7 @@ uses
   Dialogs, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons, ExtCtrls, cxPC,
   cxControls, cxMaskEdit, cxDropDownEdit, cxCalendar, cxLabel, cxContainer,
   cxEdit, cxTextEdit, cxGraphics, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox, DB, IBCustomDataSet, cxCalc;
+  cxDBLookupComboBox, DB, IBCustomDataSet, cxCalc, IBQuery;
 
 type
   TFormDelkart = class(TForm)
@@ -61,15 +61,16 @@ type
     cxLabel28: TcxLabel;
     cxLabel29: TcxLabel;
     IBVIDZN: TIBDataSet;
-    IBVIDZNID: TIntegerField;
-    IBVIDZNVID_ZN: TIBStringField;
-    IBVIDZNVID_OB: TIntegerField;
     VIDZNSource: TDataSource;
     cxLookupComboBox2: TcxLookupComboBox;
     cxLookupComboBox3: TcxLookupComboBox;
     cxCalcEdit3: TcxCalcEdit;
     cxCalcEdit1: TcxCalcEdit;
     cxDateEdit7: TcxDateEdit;
+    IBQuery4: TIBQuery;
+    IBVIDZNID: TIntegerField;
+    IBVIDZNVID_ZN: TIBStringField;
+    IBVIDZNVID_OB: TIntegerField;
     IBVIDZNVID_SP: TIBStringField;
     procedure FormShow(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
@@ -89,7 +90,7 @@ var
 
 implementation
 
-uses main;
+uses main, mytools, kart;
 
 {$R *.dfm}
 
@@ -106,6 +107,26 @@ begin
    and (cxDateEdit1.EditValue<>null)
   then
   begin
+
+
+      if Date2YearMon(cxDateEdit1.EditValue)< MainForm.period  then
+      begin
+         ShowMessage('Місяць зняття лічильника не може бути меньше ніж обліковий період!');
+         exit;
+      end;
+
+      if Date2YearMon(cxDateEdit1.EditValue)> MainForm.period  then
+      begin
+         ShowMessage('Місяць зняття лічильника не може бути більше ніж обліковий період!');
+         exit;
+      end;
+
+      if cxDateEdit1.EditValue < MainForm.lichDATA_VIP.Value  then
+      begin
+         ShowMessage('Дата зняття лічильника не може бути меньша ніж дата встановлення!');
+         exit;
+      end;
+
       MainForm.lich.Edit;
       MainForm.lichVID_ZN.Value:=cxLookupComboBox1.EditValue;
       MainForm.lichDATA_ZN.Value:=cxDateEdit1.EditValue;
@@ -114,6 +135,37 @@ begin
       MainForm.lich.Open;
       MainForm.lichzn.Close;
       MainForm.lichzn.Open;
+
+      if cxLookupComboBox1.EditValue=39 then
+      begin
+        MainForm.hvd.Edit;
+        MainForm.hvdLICH_TO.Value:=MainForm.hvdLICH_TO.Value-1;
+        MainForm.hvd.Post;
+      end;
+      
+
+      MainForm.IBTransaction1.CommitRetaining;
+      Form2.calclich(MainForm.hvd);
+
+  IBQuery4.Close;
+  IBQuery4.SQL.Text:='select first 1 * from h_voda where schet=:sch and yearmon=:ym order by kl desc';
+  IBQuery4.ParamByName('sch').Value:=cxTextEdit1.Text;
+  IBQuery4.ParamByName('ym').Value:=MainForm.period;
+  IBQuery4.Open;
+
+      if MainForm.hvdSCHET.Value<>cxTextEdit1.Text then
+      begin
+        MainForm.hvd.First;
+        MainForm.hvd.Locate('schet',cxTextEdit1.Text,[]);
+      end;
+      if MainForm.hvdSCHET.Value=cxTextEdit1.Text then
+      begin
+         MainForm.hvd.Edit;
+         MainForm.hvdWID.Value:=3;
+         MainForm.hvd.Post;
+      end;
+
+
 
   end
   else
@@ -169,6 +221,7 @@ begin
   end;
 end;
 
+  MainForm.IBTransaction1.CommitRetaining;
 close;
 
 end;

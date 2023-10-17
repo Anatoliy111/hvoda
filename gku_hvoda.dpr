@@ -22,7 +22,10 @@ uses
   ViberSend in 'ViberSend.pas' {FormViberSend},
   ViberTask in 'ViberTask.pas' {FormViberTask},
   ViberSendOrders in 'ViberSendOrders.pas' {FormViberSendOrders},
-  uLkJSON in 'uLkJSON.pas';
+  uLkJSON in 'uLkJSON.pas',
+  EditNormaForm in 'EditNormaForm.pas' {EditNorma},
+  LichPlomb in 'LichPlomb.pas' {FormLichPlomb},
+  ViberPokDmkg in 'ViberPokDmkg.pas' {FormViberPokDmkg};
 
 {$R *.res}
 
@@ -38,9 +41,7 @@ begin
   Application.CreateForm(TFormViberSend, FormViberSend);
   Application.CreateForm(TFormViberTask, FormViberTask);
   Application.CreateForm(TFormViberSendOrders, FormViberSendOrders);
-  Application.ProcessMessages;
   Application.CreateForm(TFormInplaces, FormInplaces);
-  Application.ProcessMessages;
   Application.CreateForm(TFormEdExpr, FormEdExpr);
   Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TFormProgress, FormProgress);
@@ -52,7 +53,10 @@ begin
   Application.CreateForm(TFormAddkart, FormAddkart);
   Application.CreateForm(TFormDelkart, FormDelkart);
   Application.CreateForm(TSPR_ZN, SPR_ZN);
- // Application.CreateForm(TSplashForm, SplashForm);
+  Application.CreateForm(TEditNorma, EditNorma);
+  Application.CreateForm(TFormLichPlomb, FormLichPlomb);
+  Application.CreateForm(TFormViberPokDmkg, FormViberPokDmkg);
+  // Application.CreateForm(TSplashForm, SplashForm);
     SplashForm.Hide;
   SplashForm.Free;
 

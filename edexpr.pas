@@ -106,6 +106,22 @@ type
     hvd_repKOLI_F: TLargeintField;
     hvd_repPOD: TIntegerField;
     qry2: TIBQuery;
+    lich: TIBDataSet;
+    lichID: TIntegerField;
+    lichSCHET: TIBStringField;
+    lichTIP: TIBStringField;
+    lichN_LICH: TIBStringField;
+    lichDATA_VIP: TDateField;
+    lichDATA_POV: TDateField;
+    lichN_INPLOMB: TIBStringField;
+    lichN_MGPLOMB: TIBStringField;
+    lichDATA_INP: TDateField;
+    lichDATA_MGP: TDateField;
+    lichDATA_ZN: TDateField;
+    lichNOTE: TIBStringField;
+    lichVID_ZN: TIntegerField;
+    lichDATA_VIG: TDateField;
+    lichDATA_STPOV: TDateField;
     procedure FormShow(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure dxBarButton1Click(Sender: TObject);
@@ -264,6 +280,19 @@ begin
 
         result:=integer(hvd);
       end
+      else if UpperCase(Params[0])='LICH' then
+      begin
+        lich.Active:=false;
+        lich.ParamByName('sch').AsString:=Params[1];
+//        if (hvd.ParamByName('dom').AsString='') then
+//            hvd.ParamByName('all').AsInteger:=1
+//        else hvd.ParamByName('all').AsInteger:=0;
+        lich.SelectSQL.Text;
+        lich.Open;
+        lich.FetchAll;
+
+        result:=integer(lich);
+      end
       else if UpperCase(Params[0])='QRY' then
       begin
         qry2.close;
@@ -334,7 +363,11 @@ begin
     else if MethodName='INITCALC' then
     begin
       qry.SQL.Clear;
-      qry.SQL.Add(format('update h_voda set nor_razn=0,grp_razn=0, RASCH_NOR=0, RASCH_KUB=0 where yearmon=%d',[MainForm.curYM]));
+      qry.SQL.Add(format('update h_voda set grp_razn=0, RASCH_NOR=0, RASCH_KUB=0 where yearmon=%d',[MainForm.curYM]));
+      qry.ExecSQL;
+
+      qry.SQL.Clear;
+      qry.SQL.Add(format('update h_voda set nor_razn=0 where wid<>6 and yearmon=%d',[MainForm.curYM]));
       qry.ExecSQL;
 
     //  qry.SQL.Clear;

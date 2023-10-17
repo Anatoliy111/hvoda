@@ -1,8 +1,9 @@
 object FormAddkart: TFormAddkart
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
   Caption = #1044#1086#1076#1072#1090#1080
-  ClientHeight = 339
+  ClientHeight = 426
   ClientWidth = 438
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,11 +21,11 @@ object FormAddkart: TFormAddkart
     Left = 0
     Top = 0
     Width = 438
-    Height = 304
-    ActivePage = cxTabSheet3
+    Height = 391
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 0
-    ClientRectBottom = 304
+    ClientRectBottom = 391
     ClientRectRight = 438
     ClientRectTop = 24
     object cxTabSheet1: TcxTabSheet
@@ -68,12 +69,12 @@ object FormAddkart: TFormAddkart
       end
       object cxLabel4: TcxLabel
         Left = 24
-        Top = 237
+        Top = 301
         Caption = #1055#1088#1080#1084#1110#1090#1082#1072
       end
       object cxTextEdit4: TcxTextEdit
         Left = 24
-        Top = 253
+        Top = 317
         TabOrder = 7
         Width = 401
       end
@@ -102,18 +103,16 @@ object FormAddkart: TFormAddkart
         Properties.OnChange = cxDateEdit2PropertiesChange
         Style.Color = clMoneyGreen
         TabOrder = 11
-        OnEditing = cxDateEdit2Editing
-        OnExit = cxDateEdit2Exit
         Width = 121
       end
       object cxLabel7: TcxLabel
-        Left = 151
-        Top = 187
+        Left = 167
+        Top = 237
         Caption = #1044#1072#1090#1072' '#1087#1086#1074#1110#1088#1082#1080
       end
       object cxDateEdit3: TcxDateEdit
-        Left = 151
-        Top = 210
+        Left = 167
+        Top = 260
         Enabled = False
         Properties.ReadOnly = True
         Properties.ShowTime = False
@@ -178,6 +177,21 @@ object FormAddkart: TFormAddkart
         Left = 207
         Top = 114
         Caption = #1076#1086#1076#1072#1108#1090#1100#1089#1103' '#1087#1088#1080' '#1074#1089#1090'.'#1085#1086#1074#1086#1075#1086' '#1072#1073#1086' '#1087#1110#1089#1083#1103' '#1087#1086#1074#1110#1088#1082#1080
+      end
+      object cxLabel27: TcxLabel
+        Left = 24
+        Top = 237
+        Caption = #1044#1072#1090#1072' '#1087#1086#1087#1077#1088'. '#1087#1086#1074#1110#1088#1082#1080
+      end
+      object cxDateEdit9: TcxDateEdit
+        Left = 24
+        Top = 260
+        Properties.ShowTime = False
+        Properties.OnChange = cxDateEdit2PropertiesChange
+        Style.Color = clMoneyGreen
+        TabOrder = 24
+        OnExit = cxDateEdit9Exit
+        Width = 121
       end
     end
     object cxTabSheet2: TcxTabSheet
@@ -361,10 +375,80 @@ object FormAddkart: TFormAddkart
         Width = 121
       end
     end
+    object cxTabSheet4: TcxTabSheet
+      Caption = #1054#1088#1075#1072#1085#1110#1079#1072#1094#1110#1111
+      ImageIndex = 3
+      object cxLabel28: TcxLabel
+        Left = 24
+        Top = 16
+        Caption = #1028#1044#1056#1055#1054#1059
+      end
+      object cxLabel29: TcxLabel
+        Left = 24
+        Top = 120
+        Caption = #1042#1091#1083#1080#1094#1103
+      end
+      object cxLookupComboBox3: TcxLookupComboBox
+        Left = 24
+        Top = 140
+        Properties.KeyFieldNames = 'UL'
+        Properties.ListColumns = <
+          item
+            FieldName = 'VID_ZN'
+          end>
+        Properties.ListSource = UlSource
+        Style.Color = clMoneyGreen
+        TabOrder = 2
+        Width = 191
+      end
+      object cxLabel30: TcxLabel
+        Left = 24
+        Top = 64
+        Caption = #1053#1072#1079#1074#1072
+      end
+      object cxTextEdit10: TcxTextEdit
+        Left = 24
+        Top = 87
+        Style.Color = clMoneyGreen
+        TabOrder = 4
+        Width = 169
+      end
+      object cxTextEdit6: TcxTextEdit
+        Left = 24
+        Top = 37
+        Style.Color = clMoneyGreen
+        TabOrder = 5
+        Width = 169
+      end
+      object cxTextEdit11: TcxTextEdit
+        Left = 24
+        Top = 191
+        Style.Color = clMoneyGreen
+        TabOrder = 6
+        Width = 47
+      end
+      object cxLabel31: TcxLabel
+        Left = 24
+        Top = 168
+        Caption = #1041#1091#1076#1080#1085#1086#1082
+      end
+      object cxLabel32: TcxLabel
+        Left = 88
+        Top = 168
+        Caption = #1050#1074#1072#1088#1090#1080#1088#1072
+      end
+      object cxTextEdit12: TcxTextEdit
+        Left = 88
+        Top = 191
+        Properties.ReadOnly = True
+        TabOrder = 9
+        Width = 47
+      end
+    end
   end
   object Panel1: TPanel
     Left = 0
-    Top = 304
+    Top = 391
     Width = 438
     Height = 35
     Align = alBottom
@@ -490,5 +574,47 @@ object FormAddkart: TFormAddkart
         Name = 'sch'
         ParamType = ptUnknown
       end>
+  end
+  object ULQuery: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      
+        'select h_voda.ul from h_voda where h_voda.yearmon=:yearmon group' +
+        ' by h_voda.ul')
+    Left = 296
+    Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'yearmon'
+        ParamType = ptUnknown
+      end>
+    object ULQueryUL: TIBStringField
+      FieldName = 'UL'
+      Origin = '"H_VODA"."UL"'
+      Size = 70
+    end
+  end
+  object UlSource: TDataSource
+    DataSet = ULQuery
+    Left = 296
+    Top = 80
+  end
+  object IBQuery3: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      '')
+    Left = 376
+    Top = 120
+  end
+  object IBQuery4: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      '')
+    Left = 376
+    Top = 160
   end
 end

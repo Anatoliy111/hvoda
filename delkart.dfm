@@ -74,6 +74,9 @@ object FormDelkart: TFormDelkart
       object cxDateEdit1: TcxDateEdit
         Left = 240
         Top = 72
+        Properties.ArrowsForYear = False
+        Properties.DateButtons = [btnClear, btnNow, btnToday]
+        Properties.YearsInMonthList = False
         Style.Color = clMoneyGreen
         TabOrder = 7
         Width = 121
@@ -409,6 +412,7 @@ object FormDelkart: TFormDelkart
     object IBVIDZNVID_ZN: TIBStringField
       FieldName = 'VID_ZN'
       Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
     end
     object IBVIDZNVID_OB: TIntegerField
       FieldName = 'VID_OB'
@@ -424,5 +428,13 @@ object FormDelkart: TFormDelkart
     DataSet = IBVIDZN
     Left = 352
     Top = 160
+  end
+  object IBQuery4: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      '')
+    Left = 352
+    Top = 200
   end
 end

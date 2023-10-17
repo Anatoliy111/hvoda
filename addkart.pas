@@ -76,6 +76,24 @@ type
     IBQuery2: TIBQuery;
     cxCheckBox1: TcxCheckBox;
     cxLabel26: TcxLabel;
+    cxLabel27: TcxLabel;
+    cxDateEdit9: TcxDateEdit;
+    cxTabSheet4: TcxTabSheet;
+    cxLabel28: TcxLabel;
+    cxLabel29: TcxLabel;
+    cxLookupComboBox3: TcxLookupComboBox;
+    cxLabel30: TcxLabel;
+    cxTextEdit10: TcxTextEdit;
+    cxTextEdit6: TcxTextEdit;
+    ULQuery: TIBQuery;
+    ULQueryUL: TIBStringField;
+    UlSource: TDataSource;
+    cxTextEdit11: TcxTextEdit;
+    cxLabel31: TcxLabel;
+    cxLabel32: TcxLabel;
+    cxTextEdit12: TcxTextEdit;
+    IBQuery3: TIBQuery;
+    IBQuery4: TIBQuery;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxDateEdit2PropertiesChange(Sender: TObject);
@@ -84,8 +102,7 @@ type
     procedure cxCalcEdit1PropertiesEditValueChanged(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cxCheckBox1PropertiesChange(Sender: TObject);
-    procedure cxDateEdit2Editing(Sender: TObject; var CanEdit: Boolean);
-    procedure cxDateEdit2Exit(Sender: TObject);
+    procedure cxDateEdit9Exit(Sender: TObject);
   private
     { Private declarations }
   public
@@ -93,6 +110,7 @@ type
     { Public declarations }
     function AddPokaz(sch:string;data:TDateTime;vid:integer;pok:double):boolean;
     procedure calcpok(sch:string);
+
   end;
 
 var
@@ -112,6 +130,9 @@ begin
    result:=false;
 //  IBQuery1.Close;
 //  IBQuery1.SQL.Text:='select * pokaz where yearmon=:per and schet=:sch and date_pok=:data';
+  FormAddkart.IBQuery1.close;
+  FormAddkart.IBQuery1.Open;
+
   MainForm.pokazn.First;
 //  if MainForm.pokazn.Lookup('date_pok',data,'date_pok')=null then
   if data<=FormAddkart.IBQuery1.FieldByName('date_pok').Value then
@@ -144,32 +165,48 @@ begin
   IBQuery2.Open;
 
   if IBQuery2.RecordCount<>0 then
-     lastpokazn:=IBQuery2.FieldByName('POKAZN').Value
+     if IBQuery2.FieldByName('POKAZN').IsNull then
+        lastpokazn:=0
+     else
+        lastpokazn:=IBQuery2.FieldByName('POKAZN').Value
   else
      lastpokazn:=0;
 
 
   IBQuery2.Close;
   IBQuery2.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch order by date_pok';
+//  IBQuery2.SQL.Text:='select * from pokazn where schet=:sch order by date_pok';
   IBQuery2.ParamByName('sch').Value:=sch;
   IBQuery2.ParamByName('per').Value:=MainForm.period;
   IBQuery2.Open;
-  kol:=0;
-  while not IBQuery2.eof do
+
+  if IBQuery2.RecordCount=0 then
   begin
+   IBQuery2.Close;
+   IBQuery2.SQL.Text:='select first 1 * from pokazn where yearmon<>:per and schet=:sch order by date_pok desc';
+   IBQuery2.ParamByName('per').Value:=MainForm.period;
+   IBQuery2.ParamByName('sch').Value:=sch;
+   IBQuery2.Open;
+  end
+  else
+  begin
+   kol:=0;
+   while not IBQuery2.eof do
+   begin
 //  if (IBQuery2.FieldByName('VID_POK').Value=17) or (lastpokazn=0) then
 
-  if (IBQuery2.FieldByName('VID_POK').Value=17) then
-     lastpokazn:=IBQuery2.FieldByName('POKAZN').Value
-  else
+   if (IBQuery2.FieldByName('VID_POK').Value=17) or (IBQuery2.FieldByName('VID_POK').Value=26) then
+      lastpokazn:=IBQuery2.FieldByName('POKAZN').Value
+   else
      kol:=kol+IBQuery2.FieldByName('POKAZN').Value-lastpokazn;
 
-  lastpokazn:=IBQuery2.FieldByName('POKAZN').Value;
-  IBQuery2.Next;
+   lastpokazn:=IBQuery2.FieldByName('POKAZN').Value;
+   IBQuery2.Next;
+   end;
   end;
 
 
-  if MainForm.hvdSCHET.Value=sch then
+  if trim(MainForm.hvdSCHET.Value)=trim(sch) then
   begin
     if MainForm.pokazn.RecordCount<>0 then
     begin
@@ -178,7 +215,11 @@ begin
 
        MainForm.hvd.Edit;
        MainForm.hvdWID.Value:=1;
-       MainForm.hvdSCH_CUR.Value:=IBQuery2.FieldByName('POKAZN').Value;
+       if IBQuery2.FieldByName('POKAZN').IsNull then
+          lastpokazn:=0
+       else
+          lastpokazn:=IBQuery2.FieldByName('POKAZN').Value;
+       MainForm.hvdSCH_CUR.Value:=lastpokazn;
   //MainForm.hvdSCH_OLD.Value:=cxCalcEdit2.Value;
        MainForm.hvdSCH_RAZN.Value:=kol;
        MainForm.hvdDATE_POK.Value:=IBQuery2.FieldByName('DATE_POK').Value;
@@ -201,7 +242,7 @@ begin
   begin
        if not MainForm.hvdall.Active then  MainForm.hvdall.Open;
        MainForm.hvdall.First;
-       if MainForm.hvdall.Locate('schet',sch,[]) then
+       if MainForm.hvdall.Locate('schet',sch,[loCaseInsensitive, loPartialKey]) then
        begin
 
        MainForm.hvdall.Edit;
@@ -220,6 +261,8 @@ begin
 
 end;
 
+
+
 procedure TFormAddkart.cxButton1Click(Sender: TObject);
 begin
 close;
@@ -233,21 +276,70 @@ begin
   if (cxTextEdit2.Text<>'')
    and (cxTextEdit3.Text<>'')
    and (cxDateEdit1.EditValue<>null)
-   and (cxDateEdit2.EditValue<>null)
-
+   and (cxDateEdit9.EditValue<>null)
   then
   begin
+
+  if (addznlich=true) then
+  begin
+     if (cxDateEdit2.EditValue=null) then
+     begin
+      ShowMessage('Заповніть всі поля, виділені зеленим кольором');
+      exit;
+     end;
+
+      if Date2YearMon(cxDateEdit2.EditValue)< MainForm.period  then
+      begin
+         ShowMessage('Місяць встановлення лічильника не може бути меньше ніж обліковий період');
+         exit;
+      end;
+
+      if Date2YearMon(cxDateEdit2.EditValue)> MainForm.period  then
+      begin
+         ShowMessage('Місяць встановлення лічильника не може бути більше ніж обліковий період');
+         exit;
+      end;
+
+  end;
+
+
 
 //  if (cxCheckBox1.Checked) and (cxCalcEdit4.EditValue<>0) then
 //  begin
 //    ShowMessage('Введіть новий показник');
 //    exit;
 //  end;
+
+
+
+
   if (cxCheckBox1.Checked) and (cxCalcEdit4.EditValue=null) then
   begin
     ShowMessage('Введіть новий показник');
     exit;
   end;
+
+  if FormAddkart.addznlich=true then
+  begin
+
+  IBQuery4.Close;
+//  IBQuery4.SQL.Text:='select first 1 * from lich where schet=:sch order by id desc';
+  IBQuery4.SQL.Text:='select first 1 * from lich where schet=:sch and vid_zn<>6 and vid_zn is not null order by data_zn desc';
+  IBQuery4.ParamByName('sch').Value:=cxTextEdit1.Text;
+  IBQuery4.Open;
+
+
+  if IBQuery4.RecordCount<>0 then
+    if IBQuery4.FieldByName('DATA_ZN').Value>cxDateEdit2.EditValue then
+    begin
+      ShowMessage('Дата встановлення не може бути меньша ніж дата останнього знятого лічильника-'+DateToStr(IBQuery4.FieldByName('DATA_ZN').Value));
+      exit;
+    end;
+
+  end;
+
+
+
 
 
 
@@ -257,16 +349,54 @@ begin
 
   end;
 
-  MainForm.lich.Append;
+  if addznlich=true then
+       MainForm.lich.Append;
+
   MainForm.lich.Edit;
   MainForm.lichSCHET.Value:=trim(cxTextEdit1.Text);
   MainForm.lichTIP.Value:=trim(cxTextEdit2.Text);
   MainForm.lichN_LICH.Value:=trim(cxTextEdit3.Text);
   MainForm.lichDATA_VIG.Value:=cxDateEdit1.EditValue;
-  MainForm.lichDATA_VIP.Value:=cxDateEdit2.EditValue;
+  if addznlich=true then MainForm.lichDATA_VIP.Value:=cxDateEdit2.EditValue;
   MainForm.lichDATA_POV.Value:=cxDateEdit3.EditValue;
+  MainForm.lichDATA_STPOV.Value:=cxDateEdit9.EditValue;
   MainForm.lichNOTE.Value:=cxTextEdit4.Text;
   MainForm.lich.Post;
+
+  if MainForm.lich.RecordCount>MainForm.hvdLICH_TO.Value then
+  begin
+    MainForm.hvd.Edit;
+    MainForm.hvdLICH_TO.Value:=MainForm.hvdLICH_TO.Value+1;
+    MainForm.hvd.Post;
+  end;
+
+  IBQuery4.Close;
+  IBQuery4.SQL.Text:='select first 1 h_voda.*, (select count(*) kol from lich where lich.schet=h_voda.schet and lich.vid_zn is null) lichkol from h_voda where schet=:sch and yearmon=:ym order by kl desc';
+  IBQuery4.ParamByName('sch').Value:=cxTextEdit1.Text;
+  IBQuery4.ParamByName('ym').Value:=MainForm.period;
+  IBQuery4.Open;
+
+  if IBQuery4.FieldByName('lichkol').Value=IBQuery4.FieldByName('lich_to').Value then
+  begin
+      if MainForm.hvdSCHET.Value<>cxTextEdit1.Text then
+      begin
+        MainForm.hvd.First;
+        MainForm.hvd.Locate('schet',cxTextEdit1.Text,[]);
+      end;
+      if MainForm.hvdSCHET.Value=cxTextEdit1.Text then
+      begin
+         if (MainForm.hvdWID.Value=3) then
+         begin
+           MainForm.hvd.Edit;
+           MainForm.hvdWID.Value:=1;
+           MainForm.hvd.Post;
+         end;
+      end;
+  end;
+
+  MainForm.IBTransaction1.CommitRetaining;
+  Form2.calclich(MainForm.hvd);
+
 
   if cxCheckBox1.Checked then
   begin
@@ -338,6 +468,19 @@ begin
 //    ShowMessage('Новий показник не може бути меньшим за останній показник');
 //    exit;
 //  end;
+  IBQuery4.Close;
+  IBQuery4.SQL.Text:='select first 1 h_voda.*, (select count(*) col from LICH where lich.schet=h_voda.schet and lich.data_zn is null) lich_vs from h_voda where schet=:sch and yearmon=:ym order by kl desc';
+  IBQuery4.ParamByName('sch').Value:=cxTextEdit1.Text;
+  IBQuery4.ParamByName('ym').Value:=MainForm.period;
+  IBQuery4.Open;
+
+  if IBQuery4.FieldByName('lich_to').AsInteger>IBQuery4.FieldByName('lich_vs').AsInteger then
+  begin
+    ShowMessage('По цьому рахунку є знятий лічильник і не встановлений новий! Введення показників закрито!');
+    exit;
+  end;
+
+
 
   if cxCalcEdit1.EditValue<cxCalcEdit2.EditValue then
   begin
@@ -367,6 +510,30 @@ begin
 
   MainForm.pokazn.Close;
   MainForm.pokazn.Open
+
+  end
+  else
+  begin
+    ShowMessage('Заповніть всі поля, виділені зеленим кольором');
+    exit;
+  end;
+end;
+
+if cxTabSheet4.TabVisible then
+begin
+  if (cxLookupComboBox3.EditValue<>null)
+   and (cxTextEdit6.Text<>'')
+   and (cxTextEdit10.Text<>'')
+   and (cxTextEdit11.Text<>'')
+  then
+  begin
+  MainForm.org.Append;
+  MainForm.orgSCHET.Value:=cxTextEdit6.Text;
+  MainForm.orgYEARMON.Value:=main.MainForm.dataYEARMON.Value;
+  MainForm.org.post;
+
+  MainForm.plombs.Close;
+  MainForm.plombs.Open;
 
   end
   else
@@ -408,21 +575,6 @@ begin
 end;
 end;
 
-procedure TFormAddkart.cxDateEdit2Editing(Sender: TObject;
-  var CanEdit: Boolean);
-begin
-//if cxDateEdit2.EditValue<>null then
-//   cxDateEdit3.EditValue:=IncYear(cxDateEdit2.EditValue,4)
-//else cxDateEdit3.EditValue:=null;
-end;
-
-procedure TFormAddkart.cxDateEdit2Exit(Sender: TObject);
-begin
-if cxDateEdit2.EditValue<>null then
-   cxDateEdit3.EditValue:=IncYear(cxDateEdit2.EditValue,4)
-else cxDateEdit3.EditValue:=null;
-end;
-
 procedure TFormAddkart.cxDateEdit2PropertiesChange(Sender: TObject);
 begin
 
@@ -432,10 +584,17 @@ begin
 
 end;
 
+procedure TFormAddkart.cxDateEdit9Exit(Sender: TObject);
+begin
+if cxDateEdit9.EditValue<>null then
+   cxDateEdit3.EditValue:=IncYear(cxDateEdit9.EditValue,4)
+else cxDateEdit3.EditValue:=null;
+end;
+
 procedure TFormAddkart.FormClose(Sender: TObject; var Action: TCloseAction);
 var i:integer;
 begin
-
+ Form2.Enabled:=true;
 for i := 0 to ComponentCount - 1 do
 begin
    if Components[i] is TcxTextEdit then
@@ -470,9 +629,11 @@ end;
 
 procedure TFormAddkart.FormShow(Sender: TObject);
 begin
+  Form2.Enabled:=false;
+
   IBVIDZN.Close;
   if cxTabSheet2.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''pl''';
-  if cxTabSheet3.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''addpk'' and id<>17 and id<>20 and id<>21';
+  if cxTabSheet3.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''addpk'' and id<>17 and id<>20 and id<>21 and id<>26 and id<>37';
   IBVIDZN.Open;
 
   FormAddkart.IBQuery1.Close;

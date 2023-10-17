@@ -1,6 +1,7 @@
 object Form2: TForm2
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
   Caption = #1050#1072#1088#1090#1082#1072' '#1072#1073#1086#1085#1077#1085#1090#1072
   ClientHeight = 541
   ClientWidth = 688
@@ -72,22 +73,13 @@ object Form2: TForm2
       Alignment = taCenter
       Caption = #1056#1072#1093#1091#1085#1086#1082
     end
-    object cxDBTextEdit1: TcxDBTextEdit
-      Left = 241
-      Top = 26
-      DataBinding.DataField = 'FIO'
-      DataBinding.DataSource = MainForm.hvdSource
-      Properties.ReadOnly = True
-      TabOrder = 0
-      Width = 289
-    end
     object cxDBTextEdit5: TcxDBTextEdit
       Left = 24
       Top = 118
       DataBinding.DataField = 'KOLI_P'
       DataBinding.DataSource = MainForm.hvdSource
       Properties.ReadOnly = True
-      TabOrder = 1
+      TabOrder = 0
       Width = 79
     end
     object cxDBTextEdit3: TcxDBTextEdit
@@ -96,7 +88,7 @@ object Form2: TForm2
       DataBinding.DataField = 'UL'
       DataBinding.DataSource = MainForm.hvdSource
       Properties.ReadOnly = True
-      TabOrder = 2
+      TabOrder = 1
       Width = 249
     end
     object cxDBTextEdit6: TcxDBTextEdit
@@ -105,7 +97,7 @@ object Form2: TForm2
       DataBinding.DataField = 'N_DOM'
       DataBinding.DataSource = MainForm.hvdSource
       Properties.ReadOnly = True
-      TabOrder = 3
+      TabOrder = 2
       Width = 49
     end
     object cxDBTextEdit10: TcxDBTextEdit
@@ -114,7 +106,7 @@ object Form2: TForm2
       DataBinding.DataField = 'SCHET'
       DataBinding.DataSource = MainForm.hvdSource
       Properties.ReadOnly = True
-      TabOrder = 4
+      TabOrder = 3
       Width = 201
     end
     object cxDBTextEdit2: TcxDBTextEdit
@@ -123,8 +115,66 @@ object Form2: TForm2
       DataBinding.DataField = 'KV'
       DataBinding.DataSource = MainForm.hvdSource
       Properties.ReadOnly = True
-      TabOrder = 5
+      TabOrder = 4
       Width = 49
+    end
+    object cxDBCheckBox1: TcxDBCheckBox
+      Left = 137
+      Top = 118
+      Caption = #1054#1088#1075#1072#1085#1110#1079#1072#1094#1110#1103
+      DataBinding.DataField = 'ORG'
+      DataBinding.DataSource = MainForm.hvdSource
+      Properties.ValueChecked = '1'
+      Properties.ValueUnchecked = '0'
+      TabOrder = 5
+      Width = 88
+    end
+    object cxDBLookupComboBox1: TcxDBLookupComboBox
+      Left = 231
+      Top = 118
+      DataBinding.DataField = 'VID_RN'
+      DataBinding.DataSource = MainForm.hvdSource
+      Properties.KeyFieldNames = 'ID'
+      Properties.ListColumns = <
+        item
+          FieldName = 'VID_ZN'
+        end>
+      Properties.ListSource = MainForm.vid_rnSource
+      TabOrder = 6
+      Width = 145
+    end
+    object cxDBTextEdit1: TcxDBTextEdit
+      Left = 241
+      Top = 26
+      DataBinding.DataField = 'FIO'
+      DataBinding.DataSource = MainForm.hvdSource
+      Properties.ReadOnly = True
+      TabOrder = 7
+      Width = 315
+    end
+    object cxDBCheckBox2: TcxDBCheckBox
+      Left = 382
+      Top = 118
+      Caption = #1060#1110#1083#1100#1090#1088
+      DataBinding.DataField = 'FILTR'
+      DataBinding.DataSource = MainForm.hvdSource
+      Properties.NullStyle = nssUnchecked
+      Properties.ValueChecked = '1'
+      Properties.ValueUnchecked = '0'
+      TabOrder = 8
+      Width = 59
+    end
+    object cxDBCheckBox3: TcxDBCheckBox
+      Left = 471
+      Top = 118
+      Caption = #1055#1086#1084#1087#1072
+      DataBinding.DataField = 'POMPA'
+      DataBinding.DataSource = MainForm.hvdSource
+      Properties.NullStyle = nssUnchecked
+      Properties.ValueChecked = '1'
+      Properties.ValueUnchecked = '0'
+      TabOrder = 9
+      Width = 58
     end
   end
   object cxGrid1: TcxGrid
@@ -215,12 +265,33 @@ object Form2: TForm2
             Left = 0
             Top = 0
             Width = 688
-            Height = 41
+            Height = 73
             Align = alTop
             TabOrder = 0
+            object Label8: TLabel
+              Left = 15
+              Top = 32
+              Width = 121
+              Height = 13
+              Caption = #1050#1110#1083#1100#1082#1110#1089#1090#1100' '#1090#1086#1095#1086#1082' '#1086#1073#1083#1110#1082#1091' :'
+            end
+            object Label11: TLabel
+              Left = 15
+              Top = 51
+              Width = 89
+              Height = 13
+              Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082' '#1079#1085#1103#1090#1080#1081
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clRed
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Visible = False
+            end
             object cxButton3: TcxButton
               Left = 15
-              Top = 8
+              Top = 3
               Width = 106
               Height = 25
               Caption = #1044#1086#1076#1072#1090#1080' '#1083#1110#1095#1080#1083#1100#1085#1080#1082
@@ -229,8 +300,8 @@ object Form2: TForm2
               LookAndFeel.Kind = lfUltraFlat
             end
             object cxButton4: TcxButton
-              Left = 127
-              Top = 9
+              Left = 375
+              Top = 3
               Width = 98
               Height = 25
               Caption = #1047#1085#1103#1090#1080' '#1083#1110#1095#1080#1083#1100#1085#1080#1082
@@ -238,12 +309,78 @@ object Form2: TForm2
               OnClick = cxButton4Click
               LookAndFeel.Kind = lfUltraFlat
             end
+            object cxButton2: TcxButton
+              Left = 127
+              Top = 3
+              Width = 131
+              Height = 25
+              Caption = #1056#1077#1076#1072#1075#1091#1074#1072#1090#1080' '#1083#1110#1095#1080#1083#1100#1085#1080#1082
+              TabOrder = 2
+              OnClick = cxButton2Click
+              LookAndFeel.Kind = lfUltraFlat
+            end
+            object cxGroupBox1: TcxGroupBox
+              Left = 175
+              Top = 28
+              Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1082#1086#1074#1077' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
+              TabOrder = 3
+              Height = 41
+              Width = 266
+              object Label9: TLabel
+                Left = 10
+                Top = 18
+                Width = 77
+                Height = 13
+                Caption = #1050#1110#1083#1100#1082#1110#1089#1090#1100' '#1076#1085#1110#1074' :'
+              end
+              object Label10: TLabel
+                Left = 118
+                Top = 18
+                Width = 82
+                Height = 13
+                Caption = #1050#1110#1083#1100#1082#1110#1089#1090#1100' '#1082#1091#1073#1110#1074' :'
+              end
+              object cxDBLabel2: TcxDBLabel
+                Left = 93
+                Top = 16
+                DataBinding.DataField = 'PERE_DAY'
+                DataBinding.DataSource = MainForm.hvdSource
+                Height = 21
+                Width = 19
+              end
+              object cxDBLabel3: TcxDBLabel
+                Left = 204
+                Top = 15
+                DataBinding.DataField = 'NOR_RAZN'
+                DataBinding.DataSource = MainForm.hvdSource
+                Height = 19
+                Width = 59
+              end
+            end
+            object cxDBLabel1: TcxDBLabel
+              Left = 137
+              Top = 30
+              DataBinding.DataField = 'LICH_TO'
+              DataBinding.DataSource = MainForm.hvdSource
+              Height = 21
+              Width = 19
+            end
+            object cxButton5: TcxButton
+              Left = 479
+              Top = 3
+              Width = 98
+              Height = 25
+              Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082
+              TabOrder = 5
+              OnClick = cxButton5Click
+              LookAndFeel.Kind = lfUltraFlat
+            end
           end
           object cxGrid4: TcxGrid
             Left = 0
-            Top = 41
+            Top = 73
             Width = 688
-            Height = 299
+            Height = 267
             Align = alClient
             TabOrder = 1
             object cxGridDBTableView1: TcxGridDBTableView
@@ -277,6 +414,11 @@ object Form2: TForm2
                 SortIndex = 0
                 SortOrder = soDescending
                 Width = 92
+              end
+              object cxGridDBTableView1DATA_STPOV: TcxGridDBColumn
+                Caption = #1044#1072#1090#1072' '#1087#1086#1087#1077#1088'. '#1087#1086#1074#1110#1088#1082#1080
+                DataBinding.FieldName = 'DATA_STPOV'
+                Width = 86
               end
               object cxGridDBTableView1DATA_POV: TcxGridDBColumn
                 Caption = #1044#1072#1090#1072' '#1087#1086#1074#1110#1088#1082#1080
@@ -353,6 +495,10 @@ object Form2: TForm2
                 Caption = #1055#1088#1080#1084#1110#1090#1082#1080
                 DataBinding.FieldName = 'NOTE'
               end
+              object cxGridDBTableView2RASCH_DAY: TcxGridDBColumn
+                Caption = #1056#1086#1079#1088#1072#1093'. '#1076#1085#1110
+                DataBinding.FieldName = 'RASCH_DAY'
+              end
             end
             object cxGridLevel2: TcxGridLevel
               GridView = cxGridDBTableView2
@@ -387,7 +533,7 @@ object Form2: TForm2
         Top = 0
         Width = 688
         Height = 364
-        ActivePage = cxTabSheet5
+        ActivePage = cxTabSheet7
         Align = alClient
         TabOrder = 0
         ClientRectBottom = 364
@@ -650,5 +796,97 @@ object Form2: TForm2
         Name = 'sch'
         ParamType = ptUnknown
       end>
+  end
+  object IBQuery2: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      
+        'select first 1 *  from POKAZN where schet=:sch and date_zn is nu' +
+        'll order by DATE_POK desc')
+    Left = 544
+    Top = 88
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'sch'
+        ParamType = ptUnknown
+      end>
+  end
+  object IBQuery3: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      'select id, schet, data_l, vid, vid_zn from'
+      
+        '(select a.id, a.schet, a.data_vip data_l, '#39'vs'#39' vid,COALESCE(vid_' +
+        'zn,0) vid_zn'
+      'from lich a where a.schet=:sch'
+      'union all'
+      
+        'select b.id, b.schet, data_zn data_l, '#39'zn'#39' vid,COALESCE(vid_zn,0' +
+        ') vid_zn'
+      
+        'from lich b where b.schet=:sch and data_zn is not null and vid_z' +
+        'n<>39)'
+      
+        'where extract(year from data_l)=:yy and extract(month from data_' +
+        'l)=:mm'
+      'order by data_l,id,vid')
+    Left = 576
+    Top = 88
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'sch'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'sch'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'yy'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'mm'
+        ParamType = ptUnknown
+      end>
+  end
+  object IBQuery4: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      
+        'select first 12 schet, yearmon, COALESCE(sch_razn,0) kub from h_' +
+        'voda where yearmon>202209 and yearmon<:ym and schet=:sch order b' +
+        'y yearmon desc'
+      '')
+    Left = 608
+    Top = 88
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ym'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'sch'
+        ParamType = ptUnknown
+      end>
+  end
+  object IBQuery5: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      ''
+      '')
+    Left = 640
+    Top = 88
   end
 end

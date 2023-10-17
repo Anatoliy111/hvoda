@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxLookAndFeelPainters, StdCtrls, cxButtons, cxLabel, cxControls,
-  cxContainer, cxEdit, cxProgressBar;
+  cxContainer, cxEdit, cxProgressBar, Menus;
 
 type
   TFormProgress = class(TForm)

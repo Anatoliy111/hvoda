@@ -19,17 +19,14 @@ object FormProgress: TFormProgress
   object cxProgressBar1: TcxProgressBar
     Left = 0
     Top = 26
-    Width = 568
-    Height = 21
     Align = alBottom
     Properties.PeakValue = 2.000000000000000000
     TabOrder = 0
+    Width = 568
   end
   object cxLabel1: TcxLabel
     Left = 80
     Top = 8
-    Width = 25
-    Height = 17
     Caption = '       '
   end
   object cxButton1: TcxButton
