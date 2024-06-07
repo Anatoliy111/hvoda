@@ -119,12 +119,19 @@ begin
 if IBVIDZN.State in [dsEdit,dsInsert] then
    IBVIDZN.Post;
 
-   MainForm.vid_rn.Close;
-   MainForm.vid_rn.Open;
+   MainForm.IBTransaction1.CommitRetaining;
 
    MainForm.vid_rn.Close;
    MainForm.vid_rn.Open;
 
+   MainForm.vid_nach.Close;
+   MainForm.vid_nach.Open;
+
+   MainForm.vid_nach46.Close;
+   MainForm.vid_nach46.Open;
+
+
+ MainForm.Enabled:=true;
 
 end;
 
@@ -133,6 +140,7 @@ begin
   IBVIDZN.Close;
   IBVIDZN.ParamByName('vid').Value:=vidspr;
   IBVIDZN.Open;
+  MainForm.Enabled:=false;
 end;
 
 end.

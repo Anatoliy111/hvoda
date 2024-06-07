@@ -6,19 +6,20 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Grids, DBGrids, DB, DBTables, IBCustomDataSet,
   IBQuery, IBDatabase, cxControls, cxContainer, cxEdit, cxProgressBar,
-  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,mytools;
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,mytools, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxDBData,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
+  cxClasses, cxGridCustomView, cxGrid, cxCheckBox, Menus, cxButtons;
 
 type
   TForm1 = class(TForm)
     hvd: TIBDataSet;
-    DBGrid1: TDBGrid;
     Button1: TButton;
     OpenDialog1: TOpenDialog;
     Label1: TLabel;
     Button2: TButton;
     IBTransaction1: TIBTransaction;
     qry: TIBQuery;
-    cxProgressBar1: TcxProgressBar;
     cxProgressBar2: TcxProgressBar;
     Label3: TLabel;
     hvdKL: TIntegerField;
@@ -34,6 +35,16 @@ type
     hvdKOLI_P1: TIntegerField;
     Button3: TButton;
     hvdKOLI_F: TLargeintField;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    cxGrid1DBTableView1ID: TcxGridDBColumn;
+    cxGrid1DBTableView1PW: TcxGridDBColumn;
+    cxGrid1DBTableView1ADDLICH: TcxGridDBColumn;
+    cxGrid1DBTableView1ADDPOKAZ: TcxGridDBColumn;
+    cxGrid1DBTableView1ADDPLOMB: TcxGridDBColumn;
+    cxGrid1DBTableView1ENDMES: TcxGridDBColumn;
+    cxGrid1DBTableView1USER_NAIM: TcxGridDBColumn;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -50,7 +61,7 @@ var
 implementation
 
 {$R *.dfm}
-uses dbf, main,FileCtrl, iimport;
+uses dbf, main,FileCtrl, iimport, addkart;
 var hh,kk,oo:TDbf;
 
 procedure TForm1.exec(s:string);
@@ -209,9 +220,99 @@ begin
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
+var pok:integer;                        
+    sch,sss,tarnam:string;
+    hh,kk,oo,oo1,hvd1,ntar:TDbf;
 begin
-Form4.ImKart;
-Form4.ImPokaz;
+ MainForm.hvdall.Close;
+ MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
+ MainForm.hvdall.Open;
+
+
+ Form4.Show;
+ Form4.Label1.Caption:='Start -'+DateTimeToStr(now());
+ MainForm.Enabled:=false;
+
+ Form4.Label2.Caption:='Перевірка підключення до бази даних.Зачекайте...';
+   try
+
+     oo1:=TDbf.Create(self);
+     oo1.TableName:=main.MainForm.PathKvart+'obor.dbf';
+     oo1.Open;
+
+
+
+    Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
+    oo1.First;
+    sss:= MainForm.hvdall.SelectSQL.Text;
+
+    while not MainForm.hvdall.Eof do
+    begin
+       if oo1.fieldbyname('wid').AsString='hv' then
+       begin
+       sch:=dos2win(trim(oo1.fieldbyname('schet').AsString));
+
+       MainForm.hvdall.First;
+       if not MainForm.hvdall.Locate('schet',sch,[loCaseInsensitive, loPartialKey]) then
+       begin
+          MainForm.hvdall.Insert;
+          MainForm.hvdall.edit;
+          MainForm.hvdallSCHET.Value:=sch;
+          MainForm.hvdallKLNTAR.Value:=oo1.fieldbyname('kl_ntar').AsInteger;
+          MainForm.hvdallYEARMON.Value:=main.MainForm.dataYEARMON.Value;
+          MainForm.hvdallORG.Value:=0;
+          MainForm.hvdall.post;
+          hvd1.first;
+          pok:=0;
+          while (not hvd1.Eof) and (pok=0) do
+          begin
+             if (hvd1.fieldbyname('schet').AsString=sch) and (hvd1.fieldbyname('fl').AsString<>'n') then
+             begin
+
+               FormAddkart.calcpok(MainForm.hvdallSCHET.Value);
+               pok:=1;
+             end;
+             hvd1.Next;
+          end;
+ //         if hvd1.Locate('fl;schet',VarArrayOf([null,MainForm.hvdallSCHET.Value]),[]) then
+       end
+       else
+            if (oo1.fieldbyname('kl_ntar').AsInteger<>MainForm.hvdallKLNTAR.Value) then
+            begin
+              MainForm.hvdall.edit;
+              MainForm.hvdallKLNTAR.Value:=oo1.fieldbyname('kl_ntar').AsInteger;
+              MainForm.hvdall.post;
+            end;
+       end;
+      oo1.Next;
+      Form4.cxProgressBar1.Position:=oo1.RecNo/oo1.RecordCount*100;
+      application.ProcessMessages;
+    end;
+
+     oo1.Free;
+
+     MainForm.IBTransaction1.CommitRetaining;
+
+        MainForm.hvd.close;
+    MainForm.hvd.open;
+
+
+
+
+  except
+   on E : Exception do
+   begin
+    messagedlg('Помилка при підключенні до бази даних!!! - '+E.Message,mtError,[mbCancel],0);
+    Application.Terminate;
+   end;
+
+
+  end;
+  Form4.Label1.Caption:=Form4.Label1.Caption+' End-'+DateTimeToStr(now());
+  Form4.Close;
+   MainForm.Enabled:=true;
+
+
 end;
 
 end.

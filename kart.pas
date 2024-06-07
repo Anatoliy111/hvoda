@@ -10,7 +10,7 @@ uses
   cxClasses, cxGridCustomView, cxGrid, cxDBEdit, ExtCtrls, cxStyles, cxEdit,
   cxControls, cxContainer, cxTextEdit, cxPC, IBCustomDataSet, IBQuery,
   cxCheckBox, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox,DateUtils, cxGroupBox, cxLabel, cxDBLabel;
+  cxDBLookupComboBox,DateUtils, cxGroupBox, cxLabel, cxDBLabel, cxMemo;
 
 type
   TForm2 = class(TForm)
@@ -112,7 +112,6 @@ type
     cxButton2: TcxButton;
     cxGridDBTableView1DATA_STPOV: TcxGridDBColumn;
     cxDBCheckBox1: TcxDBCheckBox;
-    cxDBLookupComboBox1: TcxDBLookupComboBox;
     IBQuery1: TIBQuery;
     cxDBTextEdit1: TcxDBTextEdit;
     IBQuery2: TIBQuery;
@@ -121,16 +120,45 @@ type
     IBQuery3: TIBQuery;
     IBQuery4: TIBQuery;
     Label8: TLabel;
-    cxGroupBox1: TcxGroupBox;
-    cxDBLabel2: TcxDBLabel;
-    Label9: TLabel;
-    cxDBLabel3: TcxDBLabel;
-    Label10: TLabel;
     cxDBLabel1: TcxDBLabel;
-    cxButton5: TcxButton;
     IBQuery5: TIBQuery;
     Label11: TLabel;
     cxGridDBTableView2RASCH_DAY: TcxGridDBColumn;
+    cxButton10: TcxButton;
+    Shape1: TShape;
+    Label13: TLabel;
+    cxTabSheet8: TcxTabSheet;
+    Panel6: TPanel;
+    Label14: TLabel;
+    cxButton11: TcxButton;
+    cxGrid7: TcxGrid;
+    cxGridDBTableView4: TcxGridDBTableView;
+    cxGridLevel4: TcxGridLevel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    cxLookupComboBox1: TcxLookupComboBox;
+    cxMemo1: TcxMemo;
+    Label16: TLabel;
+    cxDBLookupComboBox1: TcxDBLookupComboBox;
+    cxButton5: TcxButton;
+    cxGroupBox1: TcxGroupBox;
+    Label9: TLabel;
+    Label10: TLabel;
+    cxDBLabel2: TcxDBLabel;
+    cxDBLabel3: TcxDBLabel;
+    cxGroupBox2: TcxGroupBox;
+    Label12: TLabel;
+    Label20: TLabel;
+    cxDBLabel4: TcxDBLabel;
+    cxDBLabel5: TcxDBLabel;
+    cxGridDBTableView3DATE_USER: TcxGridDBColumn;
+    Label22: TLabel;
+    cxDBLabel6: TcxDBLabel;
+    Label23: TLabel;
+    cxDBLabel7: TcxDBLabel;
+    Label21: TLabel;
+    cxDBLabel8: TcxDBLabel;
     procedure cxButton1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -142,6 +170,11 @@ type
     procedure cxButton9Click(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
     procedure cxButton5Click(Sender: TObject);
+    procedure cxButton10Click(Sender: TObject);
+    procedure cxGridDBTableView2CustomDrawCell(Sender: TcxCustomGridTableView;
+      ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
+      var ADone: Boolean);
+    procedure cxButton11Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -166,21 +199,22 @@ uses main, addkart, delkart, mytools, math;
 
 procedure TForm2.calclich(DS:TIBDataSet);
 var date_zn,date_vs,date_stzn,lastdate_zn:TDate;
-    kol,vs,zn,daynorm,raschday,kolmes,lastmes,firstmes:integer;
+    kol,vs,zn,daynorm,raschday,kolmes,lastmes,firstmes,fl_adderr,newlich:integer;
     lastvid:string;
     startvs:boolean;
     kub12,kubavg,kubavgday:currency;
     LFactor: Double;
-begin
-  if DS.FieldByName('schet').value='0102031' then
-  begin
-    IBQuery3.Close;
-  end;
 
-  IBQuery5.Close;
-  IBQuery5.SQL.Text:='update lich set rasch_day=0 where schet=:sch';
-  IBQuery5.ParamByName('sch').Value:=DS.FieldByName('schet').value;
-  IBQuery5.ExecSQL;
+begin
+
+//if DS.FieldByName('schet').value='0024007' then
+  //   IBQuery5.Close;
+
+//  IBQuery5.Close;
+//  IBQuery5.SQL.Text:='select count(*) kol from lich where lich.schet=:sch and data_zn is null';
+//  IBQuery5.ParamByName('sch').Value:=DS.FieldByName('schet').value;
+////  IBQuery5.ParamByName('ym').Value:=MainForm.curYM;
+//  IBQuery5.Open;
 
   MainForm.lichzn.Close;
   MainForm.lichzn.Open;
@@ -198,10 +232,13 @@ begin
   date_stzn:=0;
   daynorm:=0;
   startvs:=true;
-  if DS.FieldByName('ZNOLD_LICH').Value>0 then
+  newlich:=0;
+
+  fl_adderr:=0;
+  if DS.FieldByName('znold_lich').AsInteger>0 then
   begin
      date_zn:=YearMon2Date(MainForm.period);
-     kol:=DS.FieldByName('ZNOLD_LICH').Value;
+     kol:=DS.FieldByName('znold_lich').AsInteger;
      date_stzn:=date_zn-1;
      lastdate_zn:=date_zn;
   end;
@@ -217,13 +254,21 @@ begin
 //       //kol:=0
 //    end;
 
+  //         DS.Edit;
+   //        DS.FieldByName('PERE_DAY').Value:=0;
+   //        DS.FieldByName('NOR_RAZN').Value:=0;
+   //        DS.FieldByName('WID').Value:=43;
+   //        DS.Post;
+    if (IBQuery3.FieldByName('vid_zn').Value=0) and (DS.FieldByName('lich_to').Value>0) and (DS.FieldByName('wid').Value<=46) then newlich:=1;
 
 
     if (IBQuery3.FieldByName('vid').Value='zn') then
     begin
-      lastdate_zn:=IBQuery3.FieldByName('data_l').Value;
+     // lastdate_zn:=IBQuery3.FieldByName('data_l').Value;
       if (IBQuery3.FieldByName('vid_zn').Value<>6) then
       begin
+        fl_adderr:=fl_adderr+1;
+        lastdate_zn:=IBQuery3.FieldByName('data_l').Value;
         kol:=kol+1;
         if date_zn<>0 then
         begin
@@ -246,7 +291,7 @@ begin
 
     if kol=0 then
     begin
-        if date_stzn>0 then daynorm:=daynorm+DaysBetween(date_stzn,date_vs)
+        if date_stzn>0 then daynorm:=DaysBetween(date_stzn,date_vs)
           else
              if DaysBetween(date_zn,date_vs)>0 then daynorm:=daynorm+DaysBetween(date_zn,date_vs);
 
@@ -262,6 +307,9 @@ begin
     IBQuery3.Next;
   end;
 
+
+
+
 //  and (IBQuery3.FieldByName('vid').Value='zn')
 
   IBQuery5.Close;
@@ -272,9 +320,9 @@ begin
 
   if IBQuery5.FieldByName('lichkol').Value<IBQuery5.FieldByName('lich_to').Value then
   begin
-           DS.Edit;
-           DS.FieldByName('ZN_LICH').Value:=IBQuery5.FieldByName('lich_to').Value-IBQuery5.FieldByName('lichkol').Value;
-           DS.Post;
+//           DS.Edit;
+//           DS.FieldByName('ZN_LICH').Value:=IBQuery5.FieldByName('lich_to').Value-IBQuery5.FieldByName('lichkol').Value;
+//           DS.Post;
            Label11.Visible:=true;
            kol:=IBQuery5.FieldByName('lich_to').Value-IBQuery5.FieldByName('lichkol').Value;
            date_zn:=lastdate_zn;
@@ -283,11 +331,10 @@ begin
 
 
 
-
   if (kol>0)  then
   begin
 //    StartOfTheMonth(date_vs)
-    if date_stzn>0 then daynorm:=daynorm+DaysBetween(date_stzn,EndOfTheMonth(date_zn))
+    if date_stzn>0 then daynorm:=DaysBetween(date_stzn,EndOfTheMonth(date_zn))
     else
       daynorm:=daynorm+DaysBetween(date_zn,EndOfTheMonth(date_zn));
 
@@ -303,13 +350,23 @@ begin
     date_zn:=0;
   end;
 
+  if (DS.FieldByName('wid').Value=42) and (daynorm>0) and (DS.FieldByName('lich_to').Value=0) then
+  begin
+     daynorm:=0;
+  end;
+
   if daynorm>0 then
   begin
 
 
            DS.Edit;
            DS.FieldByName('PERE_DAY').Value:=daynorm;
+   //        if IBQuery5.FieldByName('lichkol').Value=IBQuery5.FieldByName('lich_to').Value then
+         //     DS.FieldByName('wid').Value:=41
+        //   else
+              DS.FieldByName('wid').Value:=43;
            DS.Post;
+
            IBQuery4.Close;
            IBQuery4.ParamByName('sch').Value:=DS.FieldByName('schet').value;
            IBQuery4.ParamByName('ym').Value:=MainForm.period;
@@ -337,6 +394,16 @@ begin
              DS.Edit;
              DS.FieldByName('NOR_RAZN').Value:=kubavg;
              DS.Post;
+           end
+           else
+           begin
+             kub12:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+             raschday:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
+             kubavgday:=daynorm*(kub12/raschday);
+             kubavg:=SimpleRoundTo(kubavgday,-3);
+             DS.Edit;
+             DS.FieldByName('NOR_RAZN').Value:=kubavg;
+             DS.Post;
            end;
 
 
@@ -345,11 +412,60 @@ begin
   else
   begin
            DS.Edit;
+             if newlich=1 then
+             begin
+               DS.FieldByName('WID').Value:=41;
+               DS.FieldByName('NOR_RAZN').Value:=0;
+             end;
+
+
            DS.FieldByName('PERE_DAY').Value:=0;
-           DS.FieldByName('NOR_RAZN').Value:=0;
+
+        //   DS.FieldByName('NOR_RAZN').Value:=0;
+        //   DS.FieldByName('WID').Value:=41;
            DS.Post;
 
   end;
+
+  MainForm.IBTransaction1.CommitRetaining;
+
+end;
+
+procedure TForm2.cxButton10Click(Sender: TObject);
+begin
+    IBQuery5.close;
+    IBQuery5.SQL.Text:='execute procedure calc_pok :schet';
+    IBQuery5.ParamByName('schet').Value:=MainForm.hvdSCHET.Value;
+    IBQuery5.ExecSQL;
+    IBQuery5.close;
+    MainForm.hvd.close;
+    MainForm.hvd.open;
+
+end;
+
+procedure TForm2.cxButton11Click(Sender: TObject);
+begin
+if cxLookupComboBox1.EditValue=null then
+begin
+   ShowMessage('Виберіть вид нарахування!');
+   exit;
+end;
+
+if Length(trim(cxMemo1.Text))=0 then
+begin
+   ShowMessage('Введіть причину зміни!');
+   exit;
+end;
+
+    MainForm.hvd.Edit;
+    MainForm.hvdWID.Value:=cxLookupComboBox1.EditValue;
+    MainForm.hvd.Post;
+    cxLookupComboBox1.EditValue:=null;
+    cxMemo1.Clear;
+    FormAddkart.calcpok2(MainForm.hvd);
+
+ // if cxCalcEdit6.EditValue<>0 then
+    Form2.calclich(MainForm.hvd);
 
   MainForm.IBTransaction1.CommitRetaining;
 
@@ -392,6 +508,7 @@ FormAddkart.cxDateEdit2.Visible:=true;
 FormAddkart.cxTextEdit2.Text:=MainForm.lichznTIP.Value;
 FormAddkart.cxTextEdit3.Text:=MainForm.lichznN_LICH.Value;
 FormAddkart.cxDateEdit1.EditValue:=MainForm.lichznDATA_VIG.Value;
+FormAddkart.cxTextEdit4.Text:=MainForm.lichznNOTE.Value;
 
     if FormAddkart.IBQuery1.RecordCount<>0 then
     begin
@@ -484,7 +601,9 @@ end;
 
 procedure TForm2.cxButton5Click(Sender: TObject);
 begin
+FormAddkart.calcpok2(MainForm.hvd);
 Form2.calclich(MainForm.hvd);
+
 end;
 
 procedure TForm2.cxButton6Click(Sender: TObject);
@@ -529,11 +648,24 @@ FormAddkart.cxTabSheet4.TabVisible:=false;
 FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet3;
 FormAddkart.cxTextEdit9.Text:=MainForm.hvdSCHET.Value;
 FormAddkart.cxLabel15.Caption:=MainForm.hvdFIO.Value;
+FormAddkart.cxCalcEdit6.EditValue:=MainForm.hvdNOR_RAZN.Value;
+
+  if (FormAddkart.cxTabSheet3.Visible) and (MainForm.hvdLICH_TO.Value=0) then
+  begin
+    ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
+    exit;
+  end;
+
 FormAddkart.Show;
+
 if FormAddkart.IBQuery1.RecordCount<>0 then
 begin
   FormAddkart.cxDateEdit5.EditValue:=FormAddkart.IBQuery1.FieldByName('date_pok').Value;
-  FormAddkart.cxCalcEdit2.Text:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
+  if FormAddkart.IBQuery1.FieldByName('pokazn').IsNull then
+    FormAddkart.cxCalcEdit2.Text:='0'
+  else
+    FormAddkart.cxCalcEdit2.Text:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
+
 end;
 
 
@@ -542,7 +674,7 @@ end;
 
 procedure TForm2.cxButton9Click(Sender: TObject);
 begin
-  if (MainForm.pokaznYEARMON.Value<>MainForm.period) then
+  if (MainForm.pokaznYEARMON.Value<MainForm.period) then
   begin
     ShowMessage('Неможливо видалити показник попереднього періоду');
     exit;
@@ -585,8 +717,17 @@ begin
   begin
   if (MainForm.pokazn.RecordCount<>0) then
      MainForm.pokazn.Delete;
-     FormAddkart.calcpok(MainForm.hvdSCHET.Value);
+     FormAddkart.calcpok2(MainForm.hvd);
+     Form2.calclich(MainForm.hvd);
   end;
+end;
+
+procedure TForm2.cxGridDBTableView2CustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+begin
+       if (AViewInfo.GridRecord.Values[cxGridDBTableView2ZN.Index] = 'помилкове введення') then
+    ACanvas.Brush.Color := clRed;
 end;
 
 procedure TForm2.Find(sch:string);
@@ -643,7 +784,10 @@ begin
           if MainForm.hvdDATE_POK.Value<>IBQuery2.FieldByName('data_pov').Value then
           begin
           MainForm.hvd.Edit;
-          MainForm.hvdLICH_POV.Value:=IBQuery2.FieldByName('data_pov').Value;
+          if IBQuery2.FieldByName('data_pov').Value=null then
+             MainForm.hvdLICH_POV.Clear
+          else
+             MainForm.hvdLICH_POV.Value:=IBQuery2.FieldByName('data_pov').Value;
           MainForm.hvd.Post;
           end;
        end

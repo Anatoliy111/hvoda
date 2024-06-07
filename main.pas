@@ -15,7 +15,7 @@ uses
   cxCalc, frxClass, frxDBSet, IBQuery, ExtCtrls, frxDMPExport, frxDesgn,cxNavigator,
   cxPC, frxExportPDF, frxExportRTF, frxExportXML, cxSplitter,
   cxLookAndFeelPainters, dxSkinsCore, cxButtonEdit, cxDBLookupComboBox,
-  cxTextEdit, cxBarEditItem, cxLabel, Menus, StdCtrls, cxButtons;
+  cxTextEdit, cxBarEditItem, cxLabel, Menus, StdCtrls, cxButtons, cxContainer;
 
 type
   TMainForm = class(TForm)
@@ -25,8 +25,6 @@ type
     ImageList1: TImageList;
     IBDatabase: TIBDatabase;
     IBTransaction1: TIBTransaction;
-    hvd: TIBDataSet;
-    hvdSource: TDataSource;
     cxPropertiesStore1: TcxPropertiesStore;
     cxLookAndFeelController1: TcxLookAndFeelController;
     dxBarButton1: TdxBarButton;
@@ -180,7 +178,6 @@ type
     hvd3SRAZN: TIBBCDField;
     hvd3SNORM: TIBBCDField;
     DBGrid1NOTE: TcxGridDBBandedColumn;
-    DBGrid1KOLI_F: TcxGridDBBandedColumn;
     hvd_repKOLI_F: TLargeintField;
     DBGrid3DOM: TcxGridDBColumn;
     DBGrid3POD: TcxGridDBColumn;
@@ -407,7 +404,6 @@ type
     dxBarButton24: TdxBarButton;
     dxBarButton25: TdxBarButton;
     dxBarButton26: TdxBarButton;
-    DBGrid1VID_RN: TcxGridDBBandedColumn;
     dxBarButton27: TdxBarButton;
     dxBarButton28: TdxBarButton;
     IBQueryRep: TIBQuery;
@@ -484,47 +480,6 @@ type
     hvdallZN_LICH: TIntegerField;
     hvdallZNOLD_LICH: TIntegerField;
     DBGrid1PERE_DAY: TcxGridDBBandedColumn;
-    hvdKL: TIntegerField;
-    hvdYEARMON: TIntegerField;
-    hvdPLOMB: TSmallintField;
-    hvdFIO: TIBStringField;
-    hvdWID: TSmallintField;
-    hvdDOM: TIBStringField;
-    hvdKVART: TIBStringField;
-    hvdSCHET: TIBStringField;
-    hvdN_SCH: TIBStringField;
-    hvdSCH_OLD: TIBBCDField;
-    hvdSCH_CUR: TIBBCDField;
-    hvdSCH_RAZN: TIBBCDField;
-    hvdKOLI_P: TIBBCDField;
-    hvdKOLI_P0: TIntegerField;
-    hvdKOLI_P1: TIntegerField;
-    hvdNOR_RAZN: TIBBCDField;
-    hvdGRP_RAZN: TIBBCDField;
-    hvdPERE_DAY: TIntegerField;
-    hvdPERE_RAZN: TIBBCDField;
-    hvdID_KONTR: TSmallintField;
-    hvdUL: TIBStringField;
-    hvdN_DOM: TIBStringField;
-    hvdKV: TIBStringField;
-    hvdNOTE: TIBStringField;
-    hvdKOLI_F: TLargeintField;
-    hvdRASCH_KUB: TIBBCDField;
-    hvdRASCH_NOR: TIBBCDField;
-    hvdPOD: TIntegerField;
-    hvdRASCH_NOTE: TIBStringField;
-    hvdDATE_POK: TDateField;
-    hvdVID_POK: TIntegerField;
-    hvdKUB_MES: TIBBCDField;
-    hvdLICH_POV: TDateField;
-    hvdORG: TIntegerField;
-    hvdVID_RN: TIntegerField;
-    hvdFILTR: TIntegerField;
-    hvdPOMPA: TIntegerField;
-    hvdZN_LICH: TIntegerField;
-    hvdZNOLD_LICH: TIntegerField;
-    hvdDATE_ZN: TDateField;
-    hvdLICH_TO: TIntegerField;
     hvdallDATE_ZN: TDateField;
     hvdallLICH_TO: TIntegerField;
     hvdallLICHUPD: TIntegerField;
@@ -578,6 +533,104 @@ type
     cxBarEditItem2: TcxBarEditItem;
     Panel2: TPanel;
     cxButton1: TcxButton;
+    IBQuery1: TIBQuery;
+    hvdallKLNTAR: TIntegerField;
+    hvdallTARIF_NAME: TIBStringField;
+    hvdallNORMA: TFloatField;
+    DBGrid1TARIF_NAME: TcxGridDBBandedColumn;
+    DBGrid1NORMA: TcxGridDBBandedColumn;
+    impVPROG: TIBStringField;
+    users: TIBDataSet;
+    usersSource: TDataSource;
+    usersID: TIntegerField;
+    usersPW: TIBStringField;
+    usersADDLICH: TIntegerField;
+    usersADDPOKAZ: TIntegerField;
+    usersADDPLOMB: TIntegerField;
+    usersENDMES: TIntegerField;
+    usersDEL: TIntegerField;
+    usersUSER_NAIM: TIBStringField;
+    dxBarButton32: TdxBarButton;
+    vid_nach: TIBDataSet;
+    IntegerField22: TIntegerField;
+    IBStringField23: TIBStringField;
+    IntegerField23: TIntegerField;
+    IBStringField24: TIBStringField;
+    vid_nachSource: TDataSource;
+    vid_nach46IntegerField24: TIntegerField;
+    vid_nach46IBStringField25: TIBStringField;
+    vid_nach46IntegerField25: TIntegerField;
+    vid_nach46IBStringField26: TIBStringField;
+    vid_nach46Source: TDataSource;
+    vid_nach46: TIBDataSet;
+    dxBarButton33: TdxBarButton;
+    hvdallSCH_RAZN2: TIBBCDField;
+    hvdallDEL_NORM: TFloatField;
+    DBGrid1DEL_NORM: TcxGridDBBandedColumn;
+    DBGrid1SCH_RAZN2: TcxGridDBBandedColumn;
+    pokaznPPP: TIBBCDField;
+    pokaznFIO: TIBStringField;
+    pokaznFL_BIGPOK: TIntegerField;
+    pokaznUSER_NAIM: TIBStringField;
+    pokaznID_USER: TSmallintField;
+    pokaznDATE_USER: TDateTimeField;
+    pokaznNOTE: TIBStringField;
+    pokaznDEL: TIntegerField;
+    DBGrid1PREV_NORM: TcxGridDBBandedColumn;
+    hvdallPREV_NORM: TFloatField;
+    hvd: TIBDataSet;
+    hvdSource: TDataSource;
+    hvdKL: TIntegerField;
+    hvdYEARMON: TIntegerField;
+    hvdPLOMB: TSmallintField;
+    hvdFIO: TIBStringField;
+    hvdWID: TSmallintField;
+    hvdDOM: TIBStringField;
+    hvdKVART: TIBStringField;
+    hvdSCHET: TIBStringField;
+    hvdN_SCH: TIBStringField;
+    hvdSCH_OLD: TIBBCDField;
+    hvdSCH_CUR: TIBBCDField;
+    hvdSCH_RAZN: TIBBCDField;
+    hvdSCH_RAZN2: TIBBCDField;
+    hvdKOLI_P: TIBBCDField;
+    hvdKOLI_P0: TIntegerField;
+    hvdKOLI_P1: TIntegerField;
+    hvdNOR_RAZN: TIBBCDField;
+    hvdGRP_RAZN: TIBBCDField;
+    hvdPERE_DAY: TIntegerField;
+    hvdPERE_RAZN: TIBBCDField;
+    hvdID_KONTR: TSmallintField;
+    hvdUL: TIBStringField;
+    hvdN_DOM: TIBStringField;
+    hvdKV: TIBStringField;
+    hvdNOTE: TIBStringField;
+    hvdKOLI_F: TLargeintField;
+    hvdRASCH_KUB: TIBBCDField;
+    hvdRASCH_NOR: TIBBCDField;
+    hvdPOD: TIntegerField;
+    hvdRASCH_NOTE: TIBStringField;
+    hvdDATE_POK: TDateField;
+    hvdVID_POK: TIntegerField;
+    hvdKUB_MES: TIBBCDField;
+    hvdLICH_POV: TDateField;
+    hvdORG: TIntegerField;
+    hvdVID_RN: TIntegerField;
+    hvdFILTR: TIntegerField;
+    hvdPOMPA: TIntegerField;
+    hvdZN_LICH: TIntegerField;
+    hvdZNOLD_LICH: TIntegerField;
+    hvdDATE_ZN: TDateField;
+    hvdLICH_TO: TIntegerField;
+    hvdKLNTAR: TIntegerField;
+    hvdTARIF_NAME: TIBStringField;
+    hvdNORMA: TFloatField;
+    hvdOLD_NORM: TFloatField;
+    hvdDEL_NORM: TFloatField;
+    hvdPREV_NORM: TFloatField;
+    impLASTRASCH: TDateField;
+    impLASTEXP: TIntegerField;
+    cxLabel1: TcxLabel;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -675,6 +728,8 @@ type
       Shift: TShiftState);
     procedure cxBarEditItem1Exit(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
+    procedure dxBarButton32Click(Sender: TObject);
+    procedure dxBarButton33Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -690,9 +745,13 @@ type
     period:integer;
     function curYM:integer;
     function isArchive:boolean;
+    function GetAppVersionStr:string;
     procedure ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
     procedure execSql(s:string);
     procedure allcalclich;
+    procedure allcalclich2;
+    procedure allcalcnorm;
+    procedure update;
 
   end;
 
@@ -704,11 +763,141 @@ implementation
 
 uses inpedpro, edexpr, import, mytools, itoghvd,ComObj,dbf,dbf_lang,
   edplomb, kart, lichall, iimport, sprzn, addkart, ViberTask, ViberPok,
-  ViberSendOrders, LichPlomb;
+  ViberSendOrders, LichPlomb, splash;
 
 {$R *.dfm}
 
+function TMainForm.GetAppVersionStr: string;
+var
+  Exe: string;
+  Size, Handle: DWORD;
+  Buffer: TBytes;
+  FixedPtr: PVSFixedFileInfo;
+begin
+  Exe := ParamStr(0);
+  Size := GetFileVersionInfoSize(PChar(Exe), Handle);
+  if Size = 0 then
+    RaiseLastOSError;
+  SetLength(Buffer, Size);
+  if not GetFileVersionInfo(PChar(Exe), Handle, Size, Buffer) then
+    RaiseLastOSError;
+  if not VerQueryValue(Buffer, '\', Pointer(FixedPtr), Size) then
+    RaiseLastOSError;
+  // major
+  Result := Format('%d.%d.%d.%d', [LongRec(FixedPtr.dwFileVersionMS).Hi,
+    LongRec(FixedPtr.dwFileVersionMS).Lo, // minor
+    LongRec(FixedPtr.dwFileVersionLS).Hi, // release
+    LongRec(FixedPtr.dwFileVersionLS).Lo]) // build
+end;
+
 procedure TMainForm.allcalclich;
+begin
+     Form4.Show;
+     Form4.Label3.Caption:='Start -'+DateTimeToStr(now());
+
+     MainForm.Enabled:=false;
+     Form4.Label2.Caption:='Розрахунок.Зачекайте приблизно 40-50 хв.(Триває перерахунок всих даних)';
+     Form4.cxProgressBar1.Properties.Min:=0;
+     Form4.cxProgressBar1.Properties.Max:=0;
+     application.ProcessMessages;
+
+//    IBQuery1.close;
+//    IBQuery1.SQL.Text:='execute procedure calc_pok_all';
+//    IBQuery1.ExecSQL;
+//
+//    IBTransaction1.CommitRetaining;
+
+ //MainForm.hvdallSource.Enabled:=false;
+ MainForm.hvdall.Close;
+ MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
+ MainForm.hvdall.Open;
+ MainForm.hvdall.FetchAll;
+ Form4.cxProgressBar1.Properties.Max:=MainForm.hvdall.RecordCount-1;
+ //Form4.Label1.Caption:='allcalclich';
+
+
+    Form4.cxProgressBar1.Position:=0;
+    while not hvdall.eof do
+    begin
+    Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
+  //  Form4.Label2.Caption:=hvdallSCHET.Value;
+    application.ProcessMessages;
+
+         FormAddkart.calcpok2(hvdall);
+
+         Form2.calclich(hvdall);
+
+      hvdall.Next;
+    end;
+
+  IBTransaction1.CommitRetaining;
+  hvd.close;
+  hvd.open;
+
+   Form4.Label3.Caption:=Form4.Label3.Caption+' End-'+DateTimeToStr(now());
+
+  Form4.Close;
+   MainForm.Enabled:=true;
+
+end;
+
+procedure TMainForm.allcalclich2;
+begin
+     Form4.Show;
+     Form4.Label3.Caption:='Start -'+DateTimeToStr(now());
+
+     MainForm.Enabled:=false;
+     Form4.Label2.Caption:='Розрахунок.Зачекайте приблизно 40-50 хв.(Триває перерахунок всих даних)';
+     Form4.cxProgressBar1.Properties.Min:=0;
+     Form4.cxProgressBar1.Properties.Max:=0;
+     application.ProcessMessages;
+     Form4.Label1.Caption:='allcalclich2';
+
+
+//    IBQuery1.close;
+//    IBQuery1.SQL.Text:='execute procedure calc_pok_all';
+//    IBQuery1.ExecSQL;
+//
+//    IBTransaction1.CommitRetaining;
+
+ MainForm.hvdallSource.Enabled:=false;
+ MainForm.hvdall.Close;
+ MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
+ MainForm.hvdall.Open;
+ MainForm.hvdall.FetchAll;
+ Form4.cxProgressBar1.Properties.Max:=MainForm.hvdall.RecordCount-1;
+
+    IBQuery1.close;
+    IBQuery1.SQL.Text:='execute procedure calc_pok :schet';
+
+    Form4.cxProgressBar1.Position:=0;
+    while not hvdall.eof do
+    begin
+    Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
+    Form4.Label2.Caption:=hvdallSCHET.Value;
+    application.ProcessMessages;
+
+    IBQuery1.close;
+    IBQuery1.ParamByName('schet').Value:=hvdallSCHET.Value;
+    IBQuery1.ExecSQL;
+
+         Form2.calclich(hvdall);
+
+      hvdall.Next;
+    end;
+
+  IBTransaction1.CommitRetaining;
+  hvd.close;
+  hvd.open;
+
+   Form4.Label3.Caption:=Form4.Label3.Caption+' End-'+DateTimeToStr(now());
+
+  Form4.Close;
+   MainForm.Enabled:=true;
+
+end;
+
+procedure TMainForm.allcalcnorm;
 begin
      Form4.Show;
      MainForm.Enabled:=false;
@@ -722,16 +911,28 @@ begin
  MainForm.hvdall.FetchAll;
  Form4.cxProgressBar1.Properties.Max:=MainForm.hvdall.RecordCount-1;
 
+  //  IBQuery1.close;
+  //  IBQuery1.SQL.Text:='execute procedure calc_pok :schet';
     Form4.cxProgressBar1.Position:=0;
     while not hvdall.eof do
     begin
     Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
     application.ProcessMessages;
-  //    if (hvdallZNOLD_LICH.Value>0) or (hvdallLICHUPD.Value>0) then
-         Form2.calclich(hvdall);
+      if (hvdallSCH_RAZN.IsNull) or (hvdallSCH_RAZN.Value=0) then
+      begin
+     // execSQL('execute procedure calc_pok');
+//        IBQuery1.ParamByName('schet').Value:=hvdallSCHET.Value;
+  //      IBQuery1.ExecSQL;
+          hvdall.Edit;
+          hvdallNOR_RAZN.Value:=hvdallKOLI_P.Value*hvdallNORMA.Value;
+          hvdall.Post;
+      end;
+
 
       hvdall.Next;
     end;
+
+  IBTransaction1.CommitRetaining;  
 
   hvd.close;
   hvd.open;
@@ -787,13 +988,18 @@ end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 var kk:Currency;
+    ss:string;
 begin
 
   IBdatabase.Connected:=true;
   IBTransaction1.Active:=true;
   //DataSource.Enabled:=false;
   //hvdSource.Enabled:=false;
+
+
+
   data.Open;
+  users.open;
   //lich.Open;
   lchSQL:=lich.SelectSQL.Text;
   //lichzn.Open;
@@ -820,6 +1026,8 @@ begin
 
 org.Open;
 vid_rn.Open;
+vid_nach.Open;
+vid_nach46.Open;
 //viber_task.ParamByName('yearmon').Value:=period;
 viber_task.Open;
 viber_pokazn.Open;
@@ -837,12 +1045,37 @@ end;
 procedure TMainForm.FormShow(Sender: TObject);
 var dd:integer;
     dt:TDate;
+    ss,fvid:string;
 begin
-cxButton1.Click;
+//cxButton1.Click;
+Update;
 //  dxBarLookupCombo1.Enabled:=true;
 
   imp.Close;
   imp.Open;
+
+
+
+  imp.Open;
+  ss:=GetAppVersionStr;
+  MainForm.Caption:=MainForm.Caption+' '+ss;
+
+
+  if SplashForm.Visible then
+  begin
+    SplashForm.Visible:=false;
+   // SplashForm.Hide;
+   // SplashForm.Free;
+  end;
+
+
+  if impVPROG.Value<>ss then
+  begin
+    ShowMessage('База даних '+impVPROG.Value+' не відповідає версії програми '+ss+'. Зверніться до Адміністратора!!!');
+//    Exit;
+   // Application.Destroy;
+    MainForm.Close;
+  end;
 
   if startimport='1' then
   begin
@@ -1021,6 +1254,18 @@ FormLichPlomb.Caption:= dxBarButton31.Caption;
 FormLichPlomb.Show;
 end;
 
+procedure TMainForm.dxBarButton32Click(Sender: TObject);
+begin
+spr_zn.vidspr:='widnach';
+spr_zn.Caption:=dxBarButton32.Caption;
+spr_zn.Show;
+end;
+
+procedure TMainForm.dxBarButton33Click(Sender: TObject);
+begin
+allcalclich2;
+end;
+
 procedure TMainForm.DBGrid1Column1PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
@@ -1047,6 +1292,14 @@ FormAddkart.cxTabSheet4.TabVisible:=false;
 FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet3;
 FormAddkart.cxTextEdit9.Text:=MainForm.hvdSCHET.Value;
 FormAddkart.cxLabel15.Caption:=MainForm.hvdFIO.Value;
+FormAddkart.cxCalcEdit6.EditValue:=MainForm.hvdNOR_RAZN.Value;
+
+  if (FormAddkart.cxTabSheet3.Visible) and (MainForm.hvdLICH_TO.Value=0) then
+  begin
+    ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
+    exit;
+  end;
+
 FormAddkart.Show;
 if FormAddkart.IBQuery1.RecordCount<>0 then
 begin
@@ -1250,34 +1503,34 @@ begin
 
 
 
-    p:=pos(':',IBDatabase.DatabaseName);
-    if (p=0) or (p=2) then
-    begin
-      IBBackupService1.DatabaseName:=IBDatabase.DatabaseName;
-      IBBackupService1.ServerName:='';
-      IBBackupService1.Protocol:=Local;
-    end
-    else
-    begin
-      IBBackupService1.DatabaseName:=copy(IBDatabase.DatabaseName,p+1,length(IBDatabase.DatabaseName));
-      IBBackupService1.ServerName:=copy(IBDatabase.DatabaseName,1,p-1);
-      IBBackupService1.Protocol:=TCP;
-    end;
+//    p:=pos(':',IBDatabase.DatabaseName);
+//    if (p=0) or (p=2) then
+//    begin
+//      IBBackupService1.DatabaseName:=IBDatabase.DatabaseName;
+//     IBBackupService1.ServerName:='';
+//      IBBackupService1.Protocol:=Local;
+//    end
+//    else
+//    begin
+//      IBBackupService1.DatabaseName:=copy(IBDatabase.DatabaseName,p+1,length(IBDatabase.DatabaseName));
+//      IBBackupService1.ServerName:=copy(IBDatabase.DatabaseName,1,p-1);
+//      IBBackupService1.Protocol:=TCP;
+//    end;
 
-    IBBackupService1.Params.Clear;
-    IBBackupService1.Params.Add('user_name='+IniFile.ReadString('Login', 'Username', 'sysdba'));
-    IBBackupService1.Params.Add('password='+IniFile.ReadString('Login', 'Password', 'masterkey'));
-    IBBackupService1.BackupFile.Clear;
-    s:=IniFile.ReadString('Login', 'BackupDir', 'c:\');
-    s:=s+'gku'+Date2Str(now)+'.gbk';
-    IBBackupService1.BackupFile.add(s);
+//    IBBackupService1.Params.Clear;
+//    IBBackupService1.Params.Add('user_name='+IniFile.ReadString('Login', 'Username', 'sysdba'));
+//    IBBackupService1.Params.Add('password='+IniFile.ReadString('Login', 'Password', 'masterkey'));
+//    IBBackupService1.BackupFile.Clear;
+//    s:=IniFile.ReadString('Login', 'BackupDir', 'c:\');
+//    s:=s+'gku'+Date2Str(now)+'.gbk';
+//    IBBackupService1.BackupFile.add(s);
 
-    if not FileExists(s) then
-    try
-      IBBackupService1.Attach;
-      IBBackupService1.ServiceStart;
-    except
-    end;
+//    if not FileExists(s) then
+//    try
+//      IBBackupService1.Attach;
+//      IBBackupService1.ServiceStart;
+//    except
+//    end;
 
   except
     on E: Exception do
@@ -1344,10 +1597,10 @@ begin
   hvdYEARMON.Value:=CurYM;
   hvdWID.Value:=1;    // счетчик по умолчанию
 
-    DBGrid1SCHET.Options.Editing:=true;
-    DBGrid1FIO.Options.Editing:=true;
+ //   DBGrid1SCHET.Options.Editing:=true;
+ //   DBGrid1FIO.Options.Editing:=true;
     //DBGrid1n_sch.Options.Editing:=true;
-    DBGrid1SCHET.Focused:=true;
+ //   DBGrid1SCHET.Focused:=true;
 end;
 
 procedure TMainForm.hvdBeforePost(DataSet: TDataSet);
@@ -1386,8 +1639,20 @@ end;
 
 procedure TMainForm.Timer1Timer(Sender: TObject);
 begin
-  Timer1.Interval:=20000;
+
 //  IBTransaction1.CommitRetaining;
+    if not isArchive then
+    begin
+      imp.Close;
+      imp.Open;
+      if (cxLabel1.Visible) and (impLASTEXP.Value=0) then
+          update;
+      if (not cxLabel1.Visible) and (impLASTEXP.Value=1) then
+          update;
+    end;
+    
+
+
 end;
 
 procedure TMainForm.grpNewRecord(DataSet: TDataSet);
@@ -1509,7 +1774,7 @@ end;
 
 procedure TMainForm.DBGrid1NOR_RAZNPropertiesChange(Sender: TObject);
 begin
- if hvdWID.Value<>6 then
+ if hvdWID.Value<>46 then
     hvd.Cancel;
 
 
@@ -1659,15 +1924,30 @@ end;
 
 procedure TMainForm.cxButton1Click(Sender: TObject);
 begin
+  Update;
+end;
+
+procedure TMainForm.Update;
+begin
 if hvd.State in [dsInsert,dsEdit] then hvd.Post;
 if org.State in [dsInsert,dsEdit] then org.Post;
 IBTransaction1.CommitRetaining;
 
+
+
   if (data.Active and dom.Active)then
   begin
-    StartWait;
+  StartWait;
   org.Close;
   org.Open;
+
+  vid_rn.close;
+  vid_nach.close;
+  vid_nach46.close;
+
+  vid_rn.open;
+  vid_nach.open;
+  vid_nach46.open;
 
 //   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
    if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
@@ -1679,8 +1959,15 @@ IBTransaction1.CommitRetaining;
    else if cxPageControl1.ActivePage=cxTabSheet2 then prop.open
    else if cxPageControl1.ActivePage=cxTabSheet3 then grp.open;
 
-   if isArchive then
+   if (isArchive) or (impLASTEXP.Value=1) then
    begin
+     if isArchive then
+        cxLabel1.Caption:='Увага! Редагування даних закрито. Ви в архіві!'
+     else if impLASTEXP.Value=1 then
+        cxLabel1.Caption:='Увага! Редагування даних закрито до закриття місяця. Показники передані бухгалтеру!';
+
+
+     cxLabel1.Visible:=true;
      dxBarButton6.Enabled:=false;
      DBGrid1.OptionsData.Deleting:=false;
      DBGrid1WID.Properties.ReadOnly:=true;
@@ -1690,6 +1977,7 @@ IBTransaction1.CommitRetaining;
      Form2.Panel3.Enabled:=false;
      Form2.Panel4.Enabled:=false;
      Form2.Panel2.Enabled:=false;
+     Form2.Panel6.Enabled:=false;
 
 //     DBGrid1.OptionsData.Editing:=false;
      DBGrid1.OptionsData.Inserting:=false;
@@ -1704,6 +1992,7 @@ IBTransaction1.CommitRetaining;
    end
    else
    begin
+     cxLabel1.Visible:=false;
      dxBarButton6.Enabled:=true;
      DBGrid1.OptionsData.Deleting:=true;
      DBGrid1WID.Properties.ReadOnly:=false;
@@ -1714,6 +2003,7 @@ IBTransaction1.CommitRetaining;
      Form2.Panel3.Enabled:=true;
      Form2.Panel4.Enabled:=true;
      Form2.Panel2.Enabled:=true;
+     Form2.Panel6.Enabled:=true;
 
      DBGrid1.OptionsData.Inserting:=true;
 
@@ -1776,7 +2066,7 @@ end;
 procedure TMainForm.cxTabSheet1Show(Sender: TObject);
 begin
      Form2.cxDBCheckBox1.DataBinding.DataSource:=MainForm.hvdSource;
-     Form2.cxDBLookupComboBox1.DataBinding.DataSource:=MainForm.hvdSource;
+  //   Form2.cxDBLookupComboBox1.DataBinding.DataSource:=MainForm.hvdSource;
 
 
      Form2.cxDBTextEdit1.DataBinding.DataSource:=MainForm.hvdSource;
@@ -1792,7 +2082,7 @@ end;
 procedure TMainForm.cxTabSheet4Show(Sender: TObject);
 begin
      Form2.cxDBCheckBox1.DataBinding.DataSource:=MainForm.orgSource;
-     Form2.cxDBLookupComboBox1.DataBinding.DataSource:=MainForm.orgSource;
+   //  Form2.cxDBLookupComboBox1.DataBinding.DataSource:=MainForm.orgSource;
     // Form2.cxDBLookupComboBox2.DataBinding.DataSource:=MainForm.orgSource;
      Form2.cxDBTextEdit1.DataBinding.DataSource:=MainForm.orgSource;
      Form2.cxDBTextEdit3.DataBinding.DataSource:=MainForm.orgSource;
@@ -1808,33 +2098,15 @@ procedure TMainForm.dxBarButton6Click(Sender: TObject);
 var kl:integer;
   kk:double;
 begin
-
-
-
-//   kl:=hvdKL.Value;
-//  if hvd.State in [dsInsert,dsEdit] then hvd.Post;
-//  if org.State in [dsInsert,dsEdit] then org.Post;
-//  IBtransaction1.CommitRetaining;
-//  StartWait;
-//  prop.Open;
-//  prop.First;
-//
-//  hvd.DisableControls;
-//  Enabled:=false;
-//  try
-//    FormEdExpr.Exec('Calcs');
-//  finally
-//    StopWait;
-//    hvd.EnableControls;
-//    hvd.Close;
-//    hvd.Open;
-//    grp.Close;
-//    grp.Open;
-//    hvd.Locate('kl',kl,[]);
-//    Enabled:=true;
-//  end;
-
+    Form4.ImKart;
     allcalclich;
+    imp.Edit;
+    impLASTRASCH.Value:=Now();
+    imp.Post;
+    IBTransaction1.CommitRetaining;
+
+    //allcalcnorm;
+ //   allcalckub;
 
 end;
 
@@ -1875,15 +2147,23 @@ end;
 
 procedure TMainForm.dxBarButton9Click(Sender: TObject);
 begin
+   if impLASTEXP.Value<>1 then
+   begin
+     ShowMessage('Перед закриттям, виконайте передачу показників бухгалтеру і повторіть операцію знову!!!');
+     exit;
+   end;
+
+   
+
   if application.MessageBox('Зроблені всі звіти ?','Підтвердження',MB_YESNO)<>IDYES then exit;
   if application.MessageBox('Закрити поточний період ?'+#13 +'Всі дані будуть збережені, в подальшому їх можливо буде тільки продивлятися, але не редагувати.','Підтвердження',MB_YESNO)<>IDYES then exit;
 
-  timer1.Enabled:=false;
+ // timer1.Enabled:=false;
   try
     try
      Form4.Show;
      MainForm.Enabled:=false;
-     Timer1.Enabled:=false;
+    // Timer1.Enabled:=false;
      Form4.Label2.Caption:='Закриття місяця.Зачекайте...';
      application.ProcessMessages;
 
@@ -1909,8 +2189,8 @@ begin
     data.Open;
     period:=dataYEARMON.Value;
     Form4.ImKart;
-    allcalclich;
-    timer1.Enabled:=true;
+   // allcalclich;
+   // timer1.Enabled:=true;
      Form4.Label2.Caption:='Закриття місяця.Зачекайте...';
      Form4.cxProgressBar1.Position:=100;
         application.ProcessMessages;
@@ -1922,15 +2202,34 @@ procedure TMainForm.dxBarButton10Click(Sender: TObject);
 begin
   Application.ProcessMessages;
   IBtransaction1.CommitRetaining;
+  //allcalclich;
+  if impLASTRASCH.Value<IncDay(Now(),-2) then
+  begin
+     ShowMessage('Ви давно не виконували повний розрахунок. Виконайте повний розрахунок і повторіть операцію знову!!!');
+     exit;
+  end;
+
+   if application.MessageBox('Увага!!! Почати процедуру передачі показників бухгалтеру? Після передачі , редагування показників і лічильників буде закрито до переходу на наступний місяць!','Підтвердження',MB_YESNO)=IDNO then
+      exit;
+
+
+  
   StartWait;
   Enabled:=false;
   try
     FormEdExpr.Exec('Export','Export('''+
          IniFile.ReadString('Send', 'FileName', 'a:\hvd.dbf')+''')');
+  imp.Edit;
+  impLASTEXP.Value:=1;
+  imp.Post;
   finally
     StopWait;
     Enabled:=true;
   end;
+
+
+
+
 end;
 
 procedure TMainForm.dxBarButton11Click(Sender: TObject);

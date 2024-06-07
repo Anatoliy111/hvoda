@@ -50,7 +50,7 @@ procedure TSplashForm.FormShow(Sender: TObject);
 begin
   ( Image2.Picture.Graphic as TGIFImage ).Animate := True;// gets it goin'
 
-  ( Image2.Picture.Graphic as TGIFImage ).AnimationSpeed:= 50;// adjust your speed
+  ( Image2.Picture.Graphic as TGIFImage ).AnimationSpeed:= 5;// adjust your speed
 
   SplashForm.DoubleBuffered := True;// stops flickering
 

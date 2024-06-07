@@ -32,6 +32,7 @@ uses
 begin
 
   SplashForm := TSplashForm.Create(Application);
+  SplashForm.Visible:=true;
   SplashForm.Show;
   Application.ProcessMessages;
 
@@ -57,8 +58,8 @@ begin
   Application.CreateForm(TFormLichPlomb, FormLichPlomb);
   Application.CreateForm(TFormViberPokDmkg, FormViberPokDmkg);
   // Application.CreateForm(TSplashForm, SplashForm);
-    SplashForm.Hide;
-  SplashForm.Free;
+//    SplashForm.Hide;
+//  SplashForm.Free;
 
   Application.Run;
 end.

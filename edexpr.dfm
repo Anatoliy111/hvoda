@@ -580,6 +580,7 @@ object FormEdExpr: TFormEdExpr
     Top = 336
   end
   object IBTransactionScript: TIBTransaction
+    Active = True
     DefaultDatabase = MainForm.IBDatabase
     Params.Strings = (
       'read_committed'
@@ -916,23 +917,40 @@ object FormEdExpr: TFormEdExpr
     InsertSQL.Strings = (
       'insert into H_VODA'
       
-        '  (FIO, GRP_RAZN, ID_KONTR, KL, KOLI_F, KOLI_P, KOLI_P0, KOLI_P1' +
-        ', KV, N_DOM, '
+        '  (DATE_POK, DATE_ZN, DEL_NORM, FILTR, FIO, GRP_RAZN, ID_KONTR, ' +
+        'KL, KLNTAR, '
       
-        '   N_SCH, NOR_RAZN, NOTE, PERE_DAY, PERE_RAZN, PLOMB, POD, RASCH' +
-        '_KUB, RASCH_NOR, '
-      '   RASCH_NOTE, SCH_CUR, SCH_OLD, SCHET, UL, WID, YEARMON)'
+        '   KOLI_F, KOLI_P, KOLI_P0, KOLI_P1, KUB_MES, KV, LICH_POV, LICH' +
+        '_TO, N_DOM, '
+      
+        '   N_SCH, NOR_RAZN, NORMA, NOTE, ORG, PERE_DAY, PERE_RAZN, PLOMB' +
+        ', POD, '
+      
+        '   POMPA, PREV_NORM, RASCH_KUB, RASCH_NOR, RASCH_NOTE, SCH_CUR, ' +
+        'SCH_OLD, '
+      
+        '   SCH_RAZN, SCH_RAZN2, SCHET, TARIF_NAME, UL, VID_POK, VID_RN, ' +
+        'WID, YEARMON, '
+      '   ZN_LICH, ZNOLD_LICH)'
       'values'
       
-        '  (:FIO, :GRP_RAZN, :ID_KONTR, :KL, :KOLI_F, :KOLI_P, :KOLI_P0, ' +
-        ':KOLI_P1, '
+        '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :FILTR, :FIO, :GRP_RAZN, :ID_' +
+        'KONTR, '
       
-        '   :KV, :N_DOM, :N_SCH, :NOR_RAZN, :NOTE, :PERE_DAY, :PERE_RAZN,' +
-        ' :PLOMB, '
+        '   :KL, :KLNTAR, :KOLI_F, :KOLI_P, :KOLI_P0, :KOLI_P1, :KUB_MES,' +
+        ' :KV, :LICH_POV, '
       
-        '   :POD, :RASCH_KUB, :RASCH_NOR, :RASCH_NOTE, :SCH_CUR, :SCH_OLD' +
-        ', :SCHET, '
-      '   :UL, :WID, :YEARMON)')
+        '   :LICH_TO, :N_DOM, :N_SCH, :NOR_RAZN, :NORMA, :NOTE, :ORG, :PE' +
+        'RE_DAY, '
+      
+        '   :PERE_RAZN, :PLOMB, :POD, :POMPA, :PREV_NORM, :RASCH_KUB, :RA' +
+        'SCH_NOR, '
+      
+        '   :RASCH_NOTE, :SCH_CUR, :SCH_OLD, :SCH_RAZN, :SCH_RAZN2, :SCHE' +
+        'T, :TARIF_NAME, '
+      
+        '   :UL, :VID_POK, :VID_RN, :WID, :YEARMON, :ZN_LICH, :ZNOLD_LICH' +
+        ')')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -947,12 +965,11 @@ object FormEdExpr: TFormEdExpr
       '  SCH_OLD,'
       '  SCH_CUR,'
       '  SCH_RAZN,'
-      '  RASCH_KUB,'
+      '  SCH_RAZN2,'
       '  KOLI_P,'
       '  KOLI_P0,'
       '  KOLI_P1,'
       '  NOR_RAZN,'
-      '  RASCH_NOR,'
       '  GRP_RAZN,'
       '  PERE_DAY,'
       '  PERE_RAZN,'
@@ -962,8 +979,27 @@ object FormEdExpr: TFormEdExpr
       '  KV,'
       '  NOTE,'
       '  KOLI_F,'
+      '  RASCH_KUB,'
+      '  RASCH_NOR,'
       '  POD,'
-      '  RASCH_NOTE'
+      '  RASCH_NOTE,'
+      '  DATE_POK,'
+      '  VID_POK,'
+      '  KUB_MES,'
+      '  LICH_POV,'
+      '  ORG,'
+      '  VID_RN,'
+      '  FILTR,'
+      '  POMPA,'
+      '  ZN_LICH,'
+      '  ZNOLD_LICH,'
+      '  DATE_ZN,'
+      '  LICH_TO,'
+      '  KLNTAR,'
+      '  TARIF_NAME,'
+      '  NORMA,'
+      '  DEL_NORM,'
+      '  PREV_NORM'
       'from H_VODA '
       'where'
       '  KL = :KL')
@@ -975,32 +1011,51 @@ object FormEdExpr: TFormEdExpr
     ModifySQL.Strings = (
       'update H_VODA'
       'set'
+      '  DATE_POK = :DATE_POK,'
+      '  DATE_ZN = :DATE_ZN,'
+      '  DEL_NORM = :DEL_NORM,'
+      '  FILTR = :FILTR,'
       '  FIO = :FIO,'
       '  GRP_RAZN = :GRP_RAZN,'
       '  ID_KONTR = :ID_KONTR,'
       '  KL = :KL,'
+      '  KLNTAR = :KLNTAR,'
       '  KOLI_F = :KOLI_F,'
       '  KOLI_P = :KOLI_P,'
       '  KOLI_P0 = :KOLI_P0,'
       '  KOLI_P1 = :KOLI_P1,'
+      '  KUB_MES = :KUB_MES,'
       '  KV = :KV,'
+      '  LICH_POV = :LICH_POV,'
+      '  LICH_TO = :LICH_TO,'
       '  N_DOM = :N_DOM,'
       '  N_SCH = :N_SCH,'
       '  NOR_RAZN = :NOR_RAZN,'
+      '  NORMA = :NORMA,'
       '  NOTE = :NOTE,'
+      '  ORG = :ORG,'
       '  PERE_DAY = :PERE_DAY,'
       '  PERE_RAZN = :PERE_RAZN,'
       '  PLOMB = :PLOMB,'
       '  POD = :POD,'
+      '  POMPA = :POMPA,'
+      '  PREV_NORM = :PREV_NORM,'
       '  RASCH_KUB = :RASCH_KUB,'
       '  RASCH_NOR = :RASCH_NOR,'
       '  RASCH_NOTE = :RASCH_NOTE,'
       '  SCH_CUR = :SCH_CUR,'
       '  SCH_OLD = :SCH_OLD,'
+      '  SCH_RAZN = :SCH_RAZN,'
+      '  SCH_RAZN2 = :SCH_RAZN2,'
       '  SCHET = :SCHET,'
+      '  TARIF_NAME = :TARIF_NAME,'
       '  UL = :UL,'
+      '  VID_POK = :VID_POK,'
+      '  VID_RN = :VID_RN,'
       '  WID = :WID,'
-      '  YEARMON = :YEARMON'
+      '  YEARMON = :YEARMON,'
+      '  ZN_LICH = :ZN_LICH,'
+      '  ZNOLD_LICH = :ZNOLD_LICH'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'
@@ -1155,6 +1210,88 @@ object FormEdExpr: TFormEdExpr
     object hvd_repPOD: TIntegerField
       FieldName = 'POD'
       Origin = '"H_VODA"."POD"'
+    end
+    object hvd_repSCH_RAZN2: TIBBCDField
+      FieldName = 'SCH_RAZN2'
+      Origin = '"H_VODA"."SCH_RAZN2"'
+      Precision = 18
+      Size = 4
+    end
+    object hvd_repRASCH_NOTE: TIBStringField
+      FieldName = 'RASCH_NOTE'
+      Origin = '"H_VODA"."RASCH_NOTE"'
+      Size = 50
+    end
+    object hvd_repDATE_POK: TDateField
+      FieldName = 'DATE_POK'
+      Origin = '"H_VODA"."DATE_POK"'
+    end
+    object hvd_repVID_POK: TIntegerField
+      FieldName = 'VID_POK'
+      Origin = '"H_VODA"."VID_POK"'
+    end
+    object hvd_repKUB_MES: TIBBCDField
+      FieldName = 'KUB_MES'
+      Origin = '"H_VODA"."KUB_MES"'
+      Precision = 18
+      Size = 4
+    end
+    object hvd_repLICH_POV: TDateField
+      FieldName = 'LICH_POV'
+      Origin = '"H_VODA"."LICH_POV"'
+    end
+    object hvd_repORG: TIntegerField
+      FieldName = 'ORG'
+      Origin = '"H_VODA"."ORG"'
+    end
+    object hvd_repVID_RN: TIntegerField
+      FieldName = 'VID_RN'
+      Origin = '"H_VODA"."VID_RN"'
+    end
+    object hvd_repFILTR: TIntegerField
+      FieldName = 'FILTR'
+      Origin = '"H_VODA"."FILTR"'
+    end
+    object hvd_repPOMPA: TIntegerField
+      FieldName = 'POMPA'
+      Origin = '"H_VODA"."POMPA"'
+    end
+    object hvd_repZN_LICH: TIntegerField
+      FieldName = 'ZN_LICH'
+      Origin = '"H_VODA"."ZN_LICH"'
+    end
+    object hvd_repZNOLD_LICH: TIntegerField
+      FieldName = 'ZNOLD_LICH'
+      Origin = '"H_VODA"."ZNOLD_LICH"'
+    end
+    object hvd_repDATE_ZN: TDateField
+      FieldName = 'DATE_ZN'
+      Origin = '"H_VODA"."DATE_ZN"'
+    end
+    object hvd_repLICH_TO: TIntegerField
+      FieldName = 'LICH_TO'
+      Origin = '"H_VODA"."LICH_TO"'
+    end
+    object hvd_repKLNTAR: TIntegerField
+      FieldName = 'KLNTAR'
+      Origin = '"H_VODA"."KLNTAR"'
+    end
+    object hvd_repTARIF_NAME: TIBStringField
+      FieldName = 'TARIF_NAME'
+      Origin = '"H_VODA"."TARIF_NAME"'
+      Size = 50
+    end
+    object hvd_repNORMA: TFloatField
+      FieldName = 'NORMA'
+      Origin = '"H_VODA"."NORMA"'
+    end
+    object hvd_repDEL_NORM: TFloatField
+      FieldName = 'DEL_NORM'
+      Origin = '"H_VODA"."DEL_NORM"'
+    end
+    object hvd_repPREV_NORM: TFloatField
+      FieldName = 'PREV_NORM'
+      Origin = '"H_VODA"."PREV_NORM"'
     end
   end
   object dom: TIBDataSet

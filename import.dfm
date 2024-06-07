@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 114
   Caption = 'Form1'
   ClientHeight = 358
-  ClientWidth = 559
+  ClientWidth = 648
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -27,57 +27,92 @@ object Form1: TForm1
     Height = 13
     Caption = 'kart'
   end
-  object DBGrid1: TDBGrid
-    Left = 264
-    Top = 152
-    Width = 320
-    Height = 120
-    TabOrder = 0
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = []
-  end
   object Button1: TButton
-    Left = 32
-    Top = 16
+    Left = 8
+    Top = 0
     Width = 75
     Height = 25
     Caption = 'Connect'
-    TabOrder = 1
+    TabOrder = 0
     OnClick = Button1Click
   end
   object Button2: TButton
-    Left = 32
-    Top = 48
+    Left = 8
+    Top = 31
     Width = 75
     Height = 25
     Caption = 'exec'
-    TabOrder = 2
+    TabOrder = 1
     OnClick = Button2Click
-  end
-  object cxProgressBar1: TcxProgressBar
-    Left = 16
-    Top = 336
-    Properties.PeakValue = 50.000000000000000000
-    TabOrder = 3
-    Width = 649
   end
   object cxProgressBar2: TcxProgressBar
     Left = 16
     Top = 368
-    TabOrder = 4
+    TabOrder = 2
     Width = 649
   end
   object Button3: TButton
     Left = 456
-    Top = 16
-    Width = 75
+    Top = 8
+    Width = 97
     Height = 25
-    Caption = 'ImKartPokaz'
-    TabOrder = 5
+    Caption = 'UpdateKartAbon'
+    TabOrder = 3
     OnClick = Button3Click
+  end
+  object cxGrid1: TcxGrid
+    Left = 0
+    Top = 93
+    Width = 648
+    Height = 265
+    Align = alBottom
+    TabOrder = 4
+    object cxGrid1DBTableView1: TcxGridDBTableView
+      NavigatorButtons.ConfirmDelete = False
+      DataController.DataSource = MainForm.usersSource
+      DataController.DetailKeyFieldNames = 'ID'
+      DataController.KeyFieldNames = 'ID'
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsView.Navigator = True
+      object cxGrid1DBTableView1ID: TcxGridDBColumn
+        DataBinding.FieldName = 'ID'
+      end
+      object cxGrid1DBTableView1USER_NAIM: TcxGridDBColumn
+        Caption = #1055#1030#1055
+        DataBinding.FieldName = 'USER_NAIM'
+        Width = 178
+      end
+      object cxGrid1DBTableView1PW: TcxGridDBColumn
+        Caption = #1055#1072#1088#1086#1083#1100
+        DataBinding.FieldName = 'PW'
+      end
+      object cxGrid1DBTableView1ADDLICH: TcxGridDBColumn
+        Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
+        DataBinding.FieldName = 'ADDLICH'
+        PropertiesClassName = 'TcxCheckBoxProperties'
+        Properties.ValueChecked = '1'
+        Properties.ValueGrayed = 0
+        Properties.ValueUnchecked = '0'
+      end
+      object cxGrid1DBTableView1ADDPOKAZ: TcxGridDBColumn
+        Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
+        DataBinding.FieldName = 'ADDPOKAZ'
+      end
+      object cxGrid1DBTableView1ADDPLOMB: TcxGridDBColumn
+        Caption = #1055#1083#1086#1084#1073#1080
+        DataBinding.FieldName = 'ADDPLOMB'
+      end
+      object cxGrid1DBTableView1ENDMES: TcxGridDBColumn
+        Caption = #1047#1072#1082#1088#1080#1090#1090#1103' '#1084#1110#1089'.'
+        DataBinding.FieldName = 'ENDMES'
+        Width = 91
+      end
+    end
+    object cxGrid1Level1: TcxGridLevel
+      GridView = cxGrid1DBTableView1
+    end
   end
   object hvd: TIBDataSet
     Database = MainForm.IBDatabase
@@ -138,8 +173,8 @@ object Form1: TForm1
     GeneratorField.Field = 'KL'
     GeneratorField.Generator = 'GEN_H_VODA_ID'
     GeneratorField.ApplyEvent = gamOnPost
-    Left = 136
-    Top = 176
+    Left = 248
+    Top = 16
     object hvdKL: TIntegerField
       FieldName = 'KL'
       Origin = 'H_VODA.KL'
@@ -202,19 +237,18 @@ object Form1: TForm1
   end
   object OpenDialog1: TOpenDialog
     Filter = 'dbf|*.dbf'
-    Left = 64
-    Top = 96
+    Left = 360
+    Top = 16
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultDatabase = MainForm.IBDatabase
-    Left = 104
-    Top = 176
+    Left = 288
+    Top = 16
   end
   object qry: TIBQuery
     Database = MainForm.IBDatabase
     Transaction = IBTransaction1
-    Left = 136
-    Top = 216
+    Left = 320
+    Top = 16
   end
 end

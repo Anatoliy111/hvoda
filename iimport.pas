@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, cxControls, cxContainer, cxEdit,
-  cxProgressBar, DB, IBCustomDataSet;
+  cxProgressBar, DB, IBCustomDataSet, IBQuery, Menus, cxLookAndFeelPainters,
+  cxButtons;
 
 type
   TForm4 = class(TForm)
@@ -24,7 +25,13 @@ type
     IBPokaznVID_ZN: TIntegerField;
     IBPokaznSCHET: TIBStringField;
     IBPokaznID_LICH: TIntegerField;
+    IBQuery1: TIBQuery;
+    IBQuery2: TIBQuery;
+    Label1: TLabel;
+    cxButton1: TcxButton;
+    Label3: TLabel;
     procedure Timer1Timer(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
   private
     { Private declarations }
 
@@ -41,7 +48,7 @@ var
 implementation
 
 uses main,dbf,dbf_lang,mytools, kart, addkart;
-var hh,kk,oo,oo1,hvd1:TDbf;
+var hh,kk,oo,oo1,hvd1,ntar:TDbf;
 
 {$R *.dfm}
 
@@ -52,7 +59,7 @@ end;
 
 procedure TForm4.ImKart;
 var pok:integer;                        
-    sch,sss:string;
+    sch,sss,tarnam:string;
 begin
  MainForm.hvdall.Close;
  MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
@@ -60,6 +67,7 @@ begin
  IBPokazn.Open;
 
  Form4.Show;
+ Form4.Label1.Caption:='Start -'+DateTimeToStr(now());
  MainForm.Enabled:=false;
  Timer1.Enabled:=false;
  Form4.Label2.Caption:='Перевірка підключення до бази даних.Зачекайте...';
@@ -69,9 +77,14 @@ begin
      oo1.TableName:=main.MainForm.PathKvart+'obor.dbf';
      oo1.Open;
 
-     hvd1:=TDbf.Create(self);
-     hvd1.TableName:=main.MainForm.PathKvart+'h_voda.dbf';
-     hvd1.Open;
+  //   hvd1:=TDbf.Create(self);
+  //   hvd1.TableName:=main.MainForm.PathKvart+'h_voda.dbf';
+  //   hvd1.Open;
+
+     ntar:=TDbf.Create(self);
+     ntar.TableName:=main.MainForm.PathKvart+'ntarif.dbf';
+     ntar.Open;
+
 
 
     Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
@@ -89,31 +102,66 @@ begin
           MainForm.hvdall.Insert;
           MainForm.hvdall.edit;
           MainForm.hvdallSCHET.Value:=sch;
+          MainForm.hvdallKLNTAR.Value:=oo1.fieldbyname('kl_ntar').AsInteger;
           MainForm.hvdallYEARMON.Value:=main.MainForm.dataYEARMON.Value;
+          MainForm.hvdall.edit;
+ //         if (oo1.fieldbyname('koef').AsInteger=0) then
+ //             MainForm.hvdallwid.Value:=48
+ //         else
+ //           MainForm.hvdallWID.Value:=42;
+
+
           MainForm.hvdallORG.Value:=0;
           MainForm.hvdall.post;
-          hvd1.first;
-          pok:=0;
-          while (not hvd1.Eof) and (pok=0) do
-          begin
-             if (hvd1.fieldbyname('schet').AsString=sch) and (hvd1.fieldbyname('fl').AsString<>'n') then
-             begin
-               IBPokazn.Append;
-               IBPokazn.Edit;
-               IBPokaznYEARMON.Value:=MainForm.period;
-               IBPokaznSCHET.Value:=MainForm.hvdallSCHET.Value;
-               IBPokaznPOKAZN.Value:=hvd1.fieldbyname('new').Value;
-               IBPokaznDATE_POK.Value:=YearMon2Date(mainform.dataYEARMON.Value);
-               IBPokaznVID_POK.Value:=26;
-               IBPokazn.Post;
+   //       hvd1.first;
+   //       pok:=0;
+   //       while (not hvd1.Eof) and (pok=0) do
+   //       begin
+    //         if (hvd1.fieldbyname('schet').AsString=sch) and (hvd1.fieldbyname('fl').AsString<>'n') then
+   //          begin
+   //            IBPokazn.Append;
+   //            IBPokazn.Edit;
+   //            IBPokaznYEARMON.Value:=MainForm.period;
+   //            IBPokaznSCHET.Value:=MainForm.hvdallSCHET.Value;
+   //            IBPokaznPOKAZN.Value:=hvd1.fieldbyname('new').Value;
+   //            IBPokaznDATE_POK.Value:=YearMon2Date(mainform.dataYEARMON.Value);
+   //            IBPokaznVID_POK.Value:=26;
+   //            IBPokazn.Post;
 
-               FormAddkart.calcpok(MainForm.hvdallSCHET.Value);
-               pok:=1;
-             end;
-             hvd1.Next;
-          end;
+   //            FormAddkart.calcpok2(MainForm.hvdall);
+   //            pok:=1;
+   //          end;
+   //          hvd1.Next;
+   //       end;
  //         if hvd1.Locate('fl;schet',VarArrayOf([null,MainForm.hvdallSCHET.Value]),[]) then
-       end;
+       end
+       else
+            if (oo1.fieldbyname('kl_ntar').AsInteger<>MainForm.hvdallKLNTAR.Value) then
+            begin
+              MainForm.hvdall.edit;
+              MainForm.hvdallKLNTAR.Value:=oo1.fieldbyname('kl_ntar').AsInteger;
+              MainForm.hvdall.post;
+            end;
+            if (oo1.fieldbyname('koef').AsInteger=0) and (MainForm.hvdallwid.Value<=46) then
+            begin
+              MainForm.hvdall.edit;
+              MainForm.hvdallwid.Value:=48;
+              MainForm.hvdall.post;
+              FormAddkart.calcpok2(MainForm.hvdall);
+
+            end;
+            if (oo1.fieldbyname('koef').AsInteger=1) and (MainForm.hvdallwid.Value<=46) then
+            begin
+              MainForm.hvdall.edit;
+              MainForm.hvdallwid.Value:=41;
+              MainForm.hvdall.post;
+              FormAddkart.calcpok2(MainForm.hvdall);
+            end;
+
+
+
+
+
        end;
       oo1.Next;
       cxProgressBar1.Position:=oo1.RecNo/oo1.RecordCount*100;
@@ -121,17 +169,42 @@ begin
     end;
 
      oo1.Free;
-     hvd1.Free;
-     IBPokazn.Close;
+  //   hvd1.Free;
+  //   IBPokazn.Close;
+     MainForm.IBTransaction1.CommitRetaining;
+
+     ntar.First;
+     while not ntar.Eof do
+     begin
+       if ntar.fieldbyname('wid').AsString='hv' then
+       begin
+          tarnam:=dos2win(trim(ntar.fieldbyname('name').AsString));
+          IBQuery2.Close;
+          IBQuery2.SQL.Text:='update h_voda set tarif_name=:tn, norma=:nor where yearmon=:ym and klntar=:kltar';
+          IBQuery2.ParamByName('tn').AsString:=tarnam;
+          IBQuery2.ParamByName('nor').AsCurrency:=ntar.fieldbyname('norma').AsCurrency;
+          IBQuery2.ParamByName('ym').AsInteger:=mainform.dataYEARMON.Value;
+          IBQuery2.ParamByName('kltar').AsInteger:=ntar.fieldbyname('kl').AsInteger;
+          IBQuery2.ExecSQL;
+          MainForm.IBTransaction1.CommitRetaining;
+       end;
+     ntar.next;
+     end;
 
      kk:=TDbf.Create(self);
      kk.TableName:=main.MainForm.PathKvart+'kart.dbf';
      kk.Open;
 
+     MainForm.hvdall.Close;
+     MainForm.hvdall.Open;
+
     Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
     kk.First;
     while not kk.Eof do
     begin
+       if  kk.fieldbyname('schet').AsString='0014016' then
+          MainForm.hvdall.First;
+
        MainForm.hvdall.First;
        if MainForm.hvdall.Locate('schet',dos2win(kk.fieldbyname('schet').AsString),[loCaseInsensitive, loPartialKey]) then
        begin
@@ -156,9 +229,9 @@ begin
     MainForm.dom.Close;
     MainForm.dom.Open;
 
-    MainForm.hvd.Close;
-    MainForm.hvd.Open;
 
+    MainForm.hvd.close;
+    MainForm.hvd.open;
 
 
 
@@ -171,6 +244,7 @@ begin
 
 
   end;
+  Form4.Label1.Caption:=Form4.Label1.Caption+' End-'+DateTimeToStr(now());
   Form4.Close;
    MainForm.Enabled:=true;
 end;
@@ -207,9 +281,9 @@ begin
     end;
     MainForm.IBTransaction1.CommitRetaining;
 //    MessageDlg('Імпорт виконано', mtConfirmation, [mbOK], 0);
-    MainForm.hvd.Close;
-    MainForm.hvd.Open;
 
+    MainForm.hvd.close;
+    MainForm.hvd.open;
 
   except
    on E : Exception do
@@ -224,6 +298,11 @@ begin
    MainForm.Enabled:=true;
 end;
 
+
+procedure TForm4.cxButton1Click(Sender: TObject);
+begin
+Close;
+end;
 
 procedure TForm4.DelKart;
 var pok:integer;
@@ -294,10 +373,10 @@ begin
     MainForm.dom.Close;
     MainForm.dom.Open;
 
-    MainForm.hvd.Close;
-    MainForm.hvd.Open;
 
 
+    MainForm.hvd.close;
+    MainForm.hvd.open;
 
 
   except

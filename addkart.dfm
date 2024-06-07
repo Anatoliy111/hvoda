@@ -33,7 +33,7 @@ object FormAddkart: TFormAddkart
       ImageIndex = 0
       object cxTextEdit1: TcxTextEdit
         Left = 24
-        Top = 32
+        Top = 29
         Properties.ReadOnly = True
         TabOrder = 0
         Width = 169
@@ -319,7 +319,10 @@ object FormAddkart: TFormAddkart
       end
       object cxDateEdit6: TcxDateEdit
         Left = 24
-        Top = 132
+        Top = 131
+        EditValue = 0d
+        Properties.DateButtons = [btnClear, btnNow, btnToday]
+        Properties.DateOnError = deNull
         Properties.SaveTime = False
         Style.Color = clMoneyGreen
         TabOrder = 8
@@ -373,6 +376,20 @@ object FormAddkart: TFormAddkart
         Style.Color = clMoneyGreen
         TabOrder = 14
         Width = 121
+      end
+      object cxCalcEdit6: TcxCalcEdit
+        Left = 27
+        Top = 236
+        EditValue = 0.000000000000000000
+        Enabled = False
+        Properties.ReadOnly = True
+        TabOrder = 15
+        Width = 121
+      end
+      object cxLabel33: TcxLabel
+        Left = 27
+        Top = 213
+        Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1082#1086#1074#1077' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
       end
     end
     object cxTabSheet4: TcxTabSheet

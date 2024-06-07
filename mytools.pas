@@ -120,10 +120,14 @@ begin
  begin
    l:=ord(s[i]);
    inc(i);
+
    if (l>=128) and (l<=192)then l:=l+64 else
    if (l>=224) and (l<240) then l:=l+16 else
    if l=241 then l:=184 else
-   if l=240 then l:=168;
+   if l=242 then l:=170 else
+   if l=240 then l:=168 else
+   if l=243 then l:=186 else
+   if l=245 then l:=191;
    dd:=chr(l);
    c:=c+dd;
  end;

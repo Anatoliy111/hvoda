@@ -140,12 +140,16 @@ begin
       begin
         MainForm.hvd.Edit;
         MainForm.hvdLICH_TO.Value:=MainForm.hvdLICH_TO.Value-1;
+        if MainForm.hvdLICH_TO.Value=0 then
+           MainForm.hvdWID.Value:=42;
         MainForm.hvd.Post;
       end;
       
 
       MainForm.IBTransaction1.CommitRetaining;
-      Form2.calclich(MainForm.hvd);
+
+      Form2.cxButton5.Click;
+     // Form2.calclich(MainForm.hvd);
 
   IBQuery4.Close;
   IBQuery4.SQL.Text:='select first 1 * from h_voda where schet=:sch and yearmon=:ym order by kl desc';
@@ -153,17 +157,17 @@ begin
   IBQuery4.ParamByName('ym').Value:=MainForm.period;
   IBQuery4.Open;
 
-      if MainForm.hvdSCHET.Value<>cxTextEdit1.Text then
-      begin
-        MainForm.hvd.First;
-        MainForm.hvd.Locate('schet',cxTextEdit1.Text,[]);
-      end;
-      if MainForm.hvdSCHET.Value=cxTextEdit1.Text then
-      begin
-         MainForm.hvd.Edit;
-         MainForm.hvdWID.Value:=3;
-         MainForm.hvd.Post;
-      end;
+//      if MainForm.hvdSCHET.Value<>cxTextEdit1.Text then
+//      begin
+//        MainForm.hvd.First;
+//        MainForm.hvd.Locate('schet',cxTextEdit1.Text,[]);
+//      end;
+//      if MainForm.hvdSCHET.Value=cxTextEdit1.Text then
+//      begin
+//         MainForm.hvd.Edit;
+//         MainForm.hvdWID.Value:=3;
+//         MainForm.hvd.Post;
+//      end;
 
 
 

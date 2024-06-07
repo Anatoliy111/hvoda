@@ -21,7 +21,6 @@ object FormLichPlomb: TFormLichPlomb
     Height = 41
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 495
     object cxButton1: TcxButton
       Left = 15
       Top = 8
@@ -40,8 +39,6 @@ object FormLichPlomb: TFormLichPlomb
     Height = 385
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 495
-    ExplicitHeight = 484
     object cxGrid1DBTableView1: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       NavigatorButtons.Edit.Enabled = False
@@ -109,8 +106,6 @@ object FormLichPlomb: TFormLichPlomb
     Height = 385
     Align = alClient
     TabOrder = 2
-    ExplicitWidth = 495
-    ExplicitHeight = 484
     object cxGridDBTableView1: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       NavigatorButtons.Edit.Enabled = False
@@ -159,6 +154,18 @@ object FormLichPlomb: TFormLichPlomb
         Caption = #1050#1074#1072#1088#1090#1080#1088#1072
         DataBinding.FieldName = 'KV'
       end
+      object cxGridDBTableView1KOLI_P: TcxGridDBColumn
+        Caption = #1055#1088#1086#1087#1080#1089#1072#1085#1086
+        DataBinding.FieldName = 'KOLI_P'
+      end
+      object cxGridDBTableView1KOLI_F: TcxGridDBColumn
+        Caption = #1055#1088#1086#1078#1080#1074#1072#1108
+        DataBinding.FieldName = 'KOLI_F'
+      end
+      object cxGridDBTableView1DATE_POK: TcxGridDBColumn
+        Caption = #1044#1072#1090#1072' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+        DataBinding.FieldName = 'DATE_POK'
+      end
     end
     object cxGridLevel1: TcxGridLevel
       GridView = cxGridDBTableView1
@@ -202,6 +209,9 @@ object FormLichPlomb: TFormLichPlomb
       '    h_voda.ul,'
       '    h_voda.n_dom,'
       '    h_voda.kv,'
+      '    h_voda.koli_p,'
+      '    h_voda.koli_f,'
+      '    h_voda.date_pok,'
       '    case when org=0 then '#39#1060#1110#1079'.'#1086#1089#1086#1073#1080#39' else '#39#1070#1088'.'#1086#1089#1086#1073#1080#39' end as abon'
       'from lich_plomb'
       
@@ -268,6 +278,30 @@ object FormLichPlomb: TFormLichPlomb
       ProviderFlags = []
       FixedChar = True
       Size = 9
+    end
+    object lichplombLICHALL: TIBStringField
+      FieldName = 'LICHALL'
+      Origin = '"LICH_PLOMB"."LICHALL"'
+      Size = 80
+    end
+    object lichplombPLOMBALL: TIBStringField
+      FieldName = 'PLOMBALL'
+      Origin = '"LICH_PLOMB"."PLOMBALL"'
+      Size = 80
+    end
+    object lichplombKOLI_P: TIBBCDField
+      FieldName = 'KOLI_P'
+      Origin = '"H_VODA"."KOLI_P"'
+      Precision = 18
+      Size = 4
+    end
+    object lichplombKOLI_F: TLargeintField
+      FieldName = 'KOLI_F'
+      Origin = '"H_VODA"."KOLI_F"'
+    end
+    object lichplombDATE_POK: TDateField
+      FieldName = 'DATE_POK'
+      Origin = '"H_VODA"."DATE_POK"'
     end
   end
   object lichplombSource: TDataSource

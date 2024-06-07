@@ -49,10 +49,11 @@ var HTTP1 :TIdHttp;
     sResponse,stdata,s,dt: string;
     cur,stroka,strmes,strye,pp,strdd:string;
     res,js: TlkJSONobject;
-    id,i,CurrentDay,CurMonth,kolpok:integer;
+    id,i,CurrentDay,CurMonth,kolpok, CurYear:integer;
     jsparce : TlkJSONbase;
     FST,FS: TFormatSettings;
      Day, Month, Year: Word;
+     pDay, pMonth, pYear: Word;
      dd:TDate;
 
 
@@ -61,16 +62,23 @@ begin
     DecodeDate(now, Year, Month, Day);
     dt:= IntToStr(MainForm.curYM);
     CurMonth:=StrtoInt(copy(IntToStr(MainForm.curYM),5,2));
+    CurYear:=StrtoInt(copy(IntToStr(MainForm.curYM),1,4));
 
-    if (Day>MainForm.impIMPLASTDAY.Value) and (Month=CurMonth) then
+    if (Day>MainForm.impIMPLASTDAY.Value) and (Month=CurMonth) and (Year=CurYear) then
     begin
       cxLabel1.Caption:='Приймання показників закрито. Термін приймання встановлено до '+IntToStr(MainForm.impIMPLASTDAY.Value)+' числа поточного місяця!!!';
       exit;
     end;
 
-    if (Month>CurMonth) then
+    if (Month<>CurMonth) then
     begin
       cxLabel1.Caption:='Приймання показників закрито. Можливо ви не перейшли на новий місяць!!!';
+      exit;
+    end;
+
+    if (Year<>CurYear) then
+    begin
+      cxLabel1.Caption:='Приймання показників закрито. Можливо ви не перейшли на новий місяць або у вас не правильна дата на комп"ютері!!!';
       exit;
     end;
 
@@ -232,6 +240,16 @@ begin
         if Length(sResponse)<>0 then
         begin
           jsparce := TlkJSON.ParseText(sResponse);
+
+
+          DecodeDate(StrToDate(jsparce.Child[I].Field['data'].Value,FS), pYear, pMonth, pDay);
+
+          if (pYear<>CurYear) and (pMonth <> CurMonth) then
+          begin
+            cxLabel1.Caption:='Приймання показників закрито так як дата показника не відповідає поточному періоду!!!';
+            exit;
+          end;
+
 
           MainForm.viber_task.Append;
           MainForm.viber_taskDATA.Value:=now();

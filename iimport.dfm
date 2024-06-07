@@ -1,10 +1,10 @@
 object Form4: TForm4
   Left = 0
   Top = 0
-  BorderStyle = bsNone
+  BorderStyle = bsDialog
   Caption = #1030#1084#1087#1086#1088#1090
-  ClientHeight = 194
-  ClientWidth = 476
+  ClientHeight = 166
+  ClientWidth = 470
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,28 +12,57 @@ object Form4: TForm4
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesktopCenter
+  Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
   object Label2: TLabel
-    Left = 144
+    AlignWithMargins = True
+    Left = 75
     Top = 69
     Width = 138
     Height = 13
+    Alignment = taCenter
     Caption = '_______________________'
+    Layout = tlCenter
+  end
+  object Label1: TLabel
+    Left = 8
+    Top = 8
+    Width = 31
+    Height = 13
+    Caption = 'Label1'
+    Visible = False
+  end
+  object Label3: TLabel
+    Left = 8
+    Top = 27
+    Width = 31
+    Height = 13
+    Caption = 'Label3'
+    Visible = False
   end
   object cxProgressBar1: TcxProgressBar
-    Left = 48
+    Left = 75
     Top = 88
     TabOrder = 0
     Width = 345
+  end
+  object cxButton1: TcxButton
+    Left = 360
+    Top = 144
+    Width = 75
+    Height = 25
+    Caption = 'Close'
+    TabOrder = 1
+    Visible = False
+    OnClick = cxButton1Click
   end
   object Timer1: TTimer
     Enabled = False
     Interval = 10
     OnTimer = Timer1Timer
-    Left = 24
-    Top = 8
+    Left = 407
+    Top = 24
   end
   object IBPokazn: TIBDataSet
     Database = MainForm.IBDatabase
@@ -90,7 +119,8 @@ object Form4: TForm4
       '  ID = :OLD_ID')
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_POKAZN_ID'
-    Left = 88
+    Left = 327
+    Top = 16
     object IBPokaznID: TIntegerField
       FieldName = 'ID'
       Origin = '"POKAZN"."ID"'
@@ -139,7 +169,28 @@ object Form4: TForm4
   end
   object DSPokazn: TDataSource
     DataSet = IBPokazn
-    Left = 88
-    Top = 32
+    Left = 287
+    Top = 16
+  end
+  object IBQuery1: TIBQuery
+    SQL.Strings = (
+      
+        'SELECT h_voda.* , sp1.vid_zn from H_VODA left join spr_zn sp1 on' +
+        ' sp1.id=h_voda.vid_rn where h_voda.yearmon=:yearmon ORDER BY h_v' +
+        'oda.vid_rn')
+    Left = 65455
+    Top = 296
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'yearmon'
+        ParamType = ptUnknown
+      end>
+  end
+  object IBQuery2: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    Left = 232
+    Top = 16
   end
 end

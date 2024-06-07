@@ -50,6 +50,14 @@ type
     cxGridDBTableView1N_DOM: TcxGridDBColumn;
     cxGridDBTableView1KV: TcxGridDBColumn;
     cxGridDBTableView1ABON: TcxGridDBColumn;
+    lichplombLICHALL: TIBStringField;
+    lichplombPLOMBALL: TIBStringField;
+    lichplombKOLI_P: TIBBCDField;
+    lichplombKOLI_F: TLargeintField;
+    lichplombDATE_POK: TDateField;
+    cxGridDBTableView1KOLI_P: TcxGridDBColumn;
+    cxGridDBTableView1KOLI_F: TcxGridDBColumn;
+    cxGridDBTableView1DATE_POK: TcxGridDBColumn;
     procedure cxButton1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
