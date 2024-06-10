@@ -1276,7 +1276,7 @@ end;
 procedure TMainForm.DBGrid1Column2PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
-   if isArchive then
+   if (isArchive) or (impLASTEXP.Value=1) then
       exit;
 
     MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch order by date_pok desc';

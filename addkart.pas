@@ -337,7 +337,7 @@ begin
        if (DS.FieldByName('WID').Value>=46) then
        begin
          DS.FieldByName('SCH_RAZN').Value:=0;
-         DS.FieldByName('NOR_RAZN').Value=0;
+         DS.FieldByName('NOR_RAZN').Value:=0;
        end
        else
        begin
