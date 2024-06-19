@@ -25,7 +25,8 @@ uses
   uLkJSON in 'uLkJSON.pas',
   EditNormaForm in 'EditNormaForm.pas' {EditNorma},
   LichPlomb in 'LichPlomb.pas' {FormLichPlomb},
-  ViberPokDmkg in 'ViberPokDmkg.pas' {FormViberPokDmkg};
+  ViberPokDmkg in 'ViberPokDmkg.pas' {FormViberPokDmkg},
+  Conn in 'Conn.pas' {FormConn};
 
 {$R *.res}
 
@@ -57,6 +58,7 @@ begin
   Application.CreateForm(TEditNorma, EditNorma);
   Application.CreateForm(TFormLichPlomb, FormLichPlomb);
   Application.CreateForm(TFormViberPokDmkg, FormViberPokDmkg);
+  Application.CreateForm(TFormConn, FormConn);
   // Application.CreateForm(TSplashForm, SplashForm);
 //    SplashForm.Hide;
 //  SplashForm.Free;

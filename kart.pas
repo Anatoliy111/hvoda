@@ -159,6 +159,10 @@ type
     cxDBLabel7: TcxDBLabel;
     Label21: TLabel;
     cxDBLabel8: TcxDBLabel;
+    cxGridDBTableView4ID: TcxGridDBColumn;
+    cxGridDBTableView4NOTE: TcxGridDBColumn;
+    cxGridDBTableView4DATE_USER: TcxGridDBColumn;
+    cxGridDBTableView4VID_ZN: TcxGridDBColumn;
     procedure cxButton1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -215,6 +219,8 @@ begin
 //  IBQuery5.ParamByName('sch').Value:=DS.FieldByName('schet').value;
 ////  IBQuery5.ParamByName('ym').Value:=MainForm.curYM;
 //  IBQuery5.Open;
+
+  if (DS.FieldByName('wid').Value=45) or (DS.FieldByName('wid').Value=42) or (DS.FieldByName('wid').Value>=46) then exit;
 
   MainForm.lichzn.Close;
   MainForm.lichzn.Open;
@@ -460,6 +466,22 @@ end;
     MainForm.hvd.Edit;
     MainForm.hvdWID.Value:=cxLookupComboBox1.EditValue;
     MainForm.hvd.Post;
+
+    MainForm.why_pok.Append;
+    MainForm.why_pok.Edit;
+    MainForm.why_pokWID.Value:=cxLookupComboBox1.EditValue;
+    MainForm.why_pokNOTE.Value:=cxMemo1.Text;
+    MainForm.why_pokSCHET.Value:=MainForm.hvdSCHET.Value;
+    MainForm.why_pok.Post;
+
+    MainForm.IBTransaction1.CommitRetaining;    
+
+    MainForm.why_pok.Close;
+    MainForm.why_pok.Open;
+
+
+
+
     cxLookupComboBox1.EditValue:=null;
     cxMemo1.Clear;
     FormAddkart.calcpok2(MainForm.hvd);
@@ -520,6 +542,12 @@ end;
 
 procedure TForm2.cxButton2Click(Sender: TObject);
 begin
+if MainForm.lich.RecordCount=0 then
+begin
+  ShowMessage('Немає лічильників!');
+  exit;
+end;
+
 FormAddkart.cxCheckBox1.Visible:=false;
 FormAddkart.cxlabel26.Visible:=false;
 
@@ -583,6 +611,11 @@ end;
 
 procedure TForm2.cxButton4Click(Sender: TObject);
 begin
+if MainForm.lich.RecordCount=0 then
+begin
+  ShowMessage('Немає лічильників!');
+  exit;
+end;
 
 FormDelkart.cxTabSheet1.TabVisible:=true;
 FormDelkart.cxTabSheet1.Show;
@@ -639,6 +672,24 @@ end;
 
 procedure TForm2.cxButton8Click(Sender: TObject);
 begin
+
+   if MainForm.hvdWID.Value=45 then
+   begin
+     ShowMessage('Лічильник не повірений! Введення показників закрито');
+     exit;
+   end;
+
+   if MainForm.hvdWID.Value=42 then
+   begin
+     ShowMessage('Лічильник не встановлений! Введення показників закрито');
+     exit;
+   end;
+
+   if MainForm.hvdWID.Value>=46 then
+   begin
+     ShowMessage('При цьому виді нарахувань введення показників не пердбачувано! Введення показників закрито');
+     exit;
+   end;
 
 
 FormAddkart.cxTabSheet1.TabVisible:=false;
@@ -757,6 +808,11 @@ begin
     MainForm.pokazn.Close;
     MainForm.pokazn.open;
 
+    MainForm.why_pok.SelectSQL.Text:=MainForm.why_pokSQL+' where why_pok.schet=:sch order by id desc';
+    MainForm.why_pok.ParamByName('sch').Value:=sch;
+    MainForm.why_pok.Close;
+    MainForm.why_pok.open;
+
 
 
 
@@ -771,37 +827,7 @@ begin
      if MainForm.hvd.State in [dsInsert,dsEdit] then MainForm.hvd.Post;
      if MainForm.org.State in [dsInsert,dsEdit] then MainForm.org.Post;
 
-     if LichPost then
-     begin
-     IBQuery2.Close;
-     IBQuery2.SQL.Text:='select first 1 * from lich where schet=:sch and vid_zn is null order by data_pov NULLS FIRST';
-     IBQuery2.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
-     IBQuery2.Open;
 
-
-       if IBQuery2.RecordCount<>0 then
-       begin
-          if MainForm.hvdDATE_POK.Value<>IBQuery2.FieldByName('data_pov').Value then
-          begin
-          MainForm.hvd.Edit;
-          if IBQuery2.FieldByName('data_pov').Value=null then
-             MainForm.hvdLICH_POV.Clear
-          else
-             MainForm.hvdLICH_POV.Value:=IBQuery2.FieldByName('data_pov').Value;
-          MainForm.hvd.Post;
-          end;
-       end
-       else
-       begin
-          if MainForm.hvdDATE_POK.Value<>IBQuery2.FieldByName('data_pov').Value then
-          begin
-          MainForm.hvd.Edit;
-          MainForm.hvdLICH_POV.Clear;
-          MainForm.hvd.Post;
-          end;
-
-       end;
-     end;
 
 
 

@@ -28,6 +28,8 @@ type
     cxGridDBTableView3VID: TcxGridDBColumn;
     procedure cxButton8Click(Sender: TObject);
     procedure cxGridDBTableView3DblClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -357,6 +359,16 @@ MainForm.site_pokazn.Open;
 FormViberPokDmkg.Show;
 end;
 
+end;
+
+procedure TFormViberTask.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+MainForm.Enabled:=true;
+end;
+
+procedure TFormViberTask.FormShow(Sender: TObject);
+begin
+MainForm.Enabled:=false;
 end;
 
 end.

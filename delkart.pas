@@ -136,26 +136,32 @@ begin
       MainForm.lichzn.Close;
       MainForm.lichzn.Open;
 
+      MainForm.hvd.Edit;
+
       if cxLookupComboBox1.EditValue=39 then
       begin
         MainForm.hvd.Edit;
         MainForm.hvdLICH_TO.Value:=MainForm.hvdLICH_TO.Value-1;
         if MainForm.hvdLICH_TO.Value=0 then
            MainForm.hvdWID.Value:=42;
-        MainForm.hvd.Post;
-      end;
-      
+      end
+      else if cxLookupComboBox1.EditValue=6 then
+           MainForm.hvdWID.Value:=42
+      else
+           MainForm.hvdWID.Value:=43;
+
+      MainForm.hvd.Post;
 
       MainForm.IBTransaction1.CommitRetaining;
 
       Form2.cxButton5.Click;
      // Form2.calclich(MainForm.hvd);
 
-  IBQuery4.Close;
-  IBQuery4.SQL.Text:='select first 1 * from h_voda where schet=:sch and yearmon=:ym order by kl desc';
-  IBQuery4.ParamByName('sch').Value:=cxTextEdit1.Text;
-  IBQuery4.ParamByName('ym').Value:=MainForm.period;
-  IBQuery4.Open;
+//  IBQuery4.Close;
+//  IBQuery4.SQL.Text:='select first 1 * from h_voda where schet=:sch and yearmon=:ym order by kl desc';
+//  IBQuery4.ParamByName('sch').Value:=cxTextEdit1.Text;
+//  IBQuery4.ParamByName('ym').Value:=MainForm.period;
+//  IBQuery4.Open;
 
 //      if MainForm.hvdSCHET.Value<>cxTextEdit1.Text then
 //      begin

@@ -3,7 +3,7 @@ object Form4: TForm4
   Top = 0
   BorderStyle = bsDialog
   Caption = #1030#1084#1087#1086#1088#1090
-  ClientHeight = 166
+  ClientHeight = 180
   ClientWidth = 470
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -54,6 +54,16 @@ object Form4: TForm4
     Height = 25
     Caption = 'Close'
     TabOrder = 1
+    Visible = False
+    OnClick = cxButton1Click
+  end
+  object cxButton2: TcxButton
+    Left = 216
+    Top = 147
+    Width = 123
+    Height = 25
+    Caption = #1047#1072#1082#1088#1080#1090#1080' '#1087#1088#1086#1075#1088#1072#1084#1091
+    TabOrder = 2
     Visible = False
     OnClick = cxButton1Click
   end

@@ -30,6 +30,7 @@ type
     Label1: TLabel;
     cxButton1: TcxButton;
     Label3: TLabel;
+    cxButton2: TcxButton;
     procedure Timer1Timer(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
   private
@@ -150,13 +151,13 @@ begin
               FormAddkart.calcpok2(MainForm.hvdall);
 
             end;
-            if (oo1.fieldbyname('koef').AsInteger=1) and (MainForm.hvdallwid.Value<=46) then
-            begin
-              MainForm.hvdall.edit;
-              MainForm.hvdallwid.Value:=41;
-              MainForm.hvdall.post;
-              FormAddkart.calcpok2(MainForm.hvdall);
-            end;
+           // if (oo1.fieldbyname('koef').AsInteger=1) and (MainForm.hvdallwid.Value<=46) then
+          //  begin
+            //  MainForm.hvdall.edit;
+           //   MainForm.hvdallwid.Value:=41;
+           //   MainForm.hvdall.post;
+              //FormAddkart.calcpok2(MainForm.hvdall);
+           // end;
 
 
 

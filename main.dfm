@@ -142,6 +142,14 @@ object MainForm: TMainForm
             item
               Kind = skCount
               Column = DBGrid1SCHET
+            end
+            item
+              Kind = skSum
+              Column = DBGrid1PREV_NORM
+            end
+            item
+              Kind = skSum
+              Column = DBGrid1DEL_NORM
             end>
           DataController.Summary.SummaryGroups = <>
           OptionsBehavior.AlwaysShowEditor = True
@@ -451,6 +459,13 @@ object MainForm: TMainForm
             Width = 99
             Position.BandIndex = 2
             Position.ColIndex = 3
+            Position.RowIndex = 0
+          end
+          object DBGrid1LICH_YEARMON: TcxGridDBBandedColumn
+            DataBinding.FieldName = 'LICH_YEARMON'
+            Options.Editing = False
+            Position.BandIndex = 0
+            Position.ColIndex = 11
             Position.RowIndex = 0
           end
         end
@@ -1013,20 +1028,20 @@ object MainForm: TMainForm
     Height = 35
     Align = alTop
     TabOrder = 6
-    object cxButton1: TcxButton
-      Left = 0
-      Top = 0
-      Width = 113
-      Height = 35
-      Caption = #1054#1085#1086#1074#1080#1090#1080
-      TabOrder = 0
-      OnClick = cxButton1Click
-    end
     object cxLabel1: TcxLabel
       Left = 128
       Top = 8
       Caption = #1059#1074#1072#1075#1072'! '#1056#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103' '#1076#1072#1085#1080#1093' '#1079#1072#1082#1088#1080#1090#1086'.'
       Style.TextColor = clRed
+    end
+    object cxButton2: TcxButton
+      Left = 0
+      Top = 0
+      Width = 113
+      Height = 35
+      Caption = #1054#1085#1086#1074#1080#1090#1080
+      TabOrder = 1
+      OnClick = cxButton2Click
     end
   end
   object BarManager: TdxBarManager
@@ -1678,7 +1693,7 @@ object MainForm: TMainForm
       ListField = 'ym'
       ListSource = DataSource
       RowCount = 10
-      OnKeyValueChange = cxButton1Click
+      OnKeyValueChange = dxBarLookupCombo2KeyValueChange
     end
     object dxBarButton9: TdxBarButton
       Caption = #1053#1086#1074#1080#1081' '#1084#1110#1089#1103#1094#1100
@@ -1945,7 +1960,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E004000840114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000980114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5273,6 +5288,7 @@ object MainForm: TMainForm
       000000000000}
   end
   object IBDatabase: TIBDatabase
+    Connected = True
     DatabaseName = 'C:\TEMP\GKU.GDB'
     Params.Strings = (
       'user_name=sysdba'
@@ -6963,7 +6979,7 @@ object MainForm: TMainForm
       
         '   SCH_RAZN, SCH_RAZN2, SCHET, TARIF_NAME, UL, VID_POK, VID_RN, ' +
         'WID, YEARMON, '
-      '   ZN_LICH, ZNOLD_LICH)'
+      '   ZN_LICH, ZNOLD_LICH,LICH_YEARMON)'
       'values'
       
         '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :FILTR, :FIO, :GRP_RAZN, :ID_' +
@@ -6982,7 +6998,7 @@ object MainForm: TMainForm
         'T, :TARIF_NAME, '
       
         '   :UL, :VID_POK, :VID_RN, :WID, :YEARMON, :ZN_LICH, :ZNOLD_LICH' +
-        ')')
+        ',:LICH_YEARMON)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -7031,7 +7047,8 @@ object MainForm: TMainForm
       '  TARIF_NAME,'
       '  NORMA,'
       '  PREV_NORM,'
-      '  DEL_NORM'
+      '  DEL_NORM,'
+      '  LICH_YEARMON'
       'from H_VODA '
       'where'
       '  KL = :KL')
@@ -7094,7 +7111,8 @@ object MainForm: TMainForm
       '  WID = :WID,'
       '  YEARMON = :YEARMON,'
       '  ZN_LICH = :ZN_LICH,'
-      '  ZNOLD_LICH = :ZNOLD_LICH'
+      '  ZNOLD_LICH = :ZNOLD_LICH,'
+      '  LICH_YEARMON = :LICH_YEARMON'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'
@@ -7335,6 +7353,14 @@ object MainForm: TMainForm
     object hvdallPREV_NORM: TFloatField
       FieldName = 'PREV_NORM'
       Origin = '"H_VODA"."PREV_NORM"'
+    end
+    object hvdallLICH_YEARMON: TIntegerField
+      FieldName = 'LICH_YEARMON'
+      Origin = '"H_VODA"."LICH_YEARMON"'
+    end
+    object hvdallOLD_NORM: TFloatField
+      FieldName = 'OLD_NORM'
+      Origin = '"H_VODA"."OLD_NORM"'
     end
   end
   object hvdallSource: TDataSource
@@ -8068,6 +8094,7 @@ object MainForm: TMainForm
   object lich: TIBDataSet
     Database = IBDatabase
     Transaction = IBTransaction1
+    AfterPost = lichAfterPost
     BeforePost = lichBeforePost
     OnNewRecord = lichNewRecord
     DeleteSQL.Strings = (
@@ -10494,17 +10521,17 @@ object MainForm: TMainForm
         'KL, KLNTAR, '
       
         '   KOLI_F, KOLI_P, KOLI_P0, KOLI_P1, KUB_MES, KV, LICH_POV, LICH' +
-        '_TO, N_DOM, '
+        '_TO, LICH_YEARMON, '
       
-        '   N_SCH, NOR_RAZN, NORMA, NOTE, OLD_NORM, ORG, PERE_DAY, PERE_R' +
-        'AZN, PLOMB, '
+        '   N_DOM, N_SCH, NOR_RAZN, NORMA, NOTE, OLD_NORM, ORG, PERE_DAY,' +
+        ' PERE_RAZN, '
       
-        '   POD, POMPA, PREV_NORM, RASCH_KUB, RASCH_NOR, RASCH_NOTE, SCH_' +
-        'CUR, SCH_OLD, '
+        '   PLOMB, POD, POMPA, PREV_NORM, RASCH_KUB, RASCH_NOR, RASCH_NOT' +
+        'E, SCH_CUR, '
       
-        '   SCH_RAZN, SCH_RAZN2, SCHET, TARIF_NAME, UL, VID_POK, VID_RN, ' +
-        'WID, YEARMON, '
-      '   ZN_LICH, ZNOLD_LICH)'
+        '   SCH_OLD, SCH_RAZN, SCH_RAZN2, SCHET, TARIF_NAME, UL, VID_POK,' +
+        ' VID_RN, '
+      '   WID, YEARMON, ZN_LICH, ZNOLD_LICH)'
       'values'
       
         '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :FILTR, :FIO, :GRP_RAZN, :ID_' +
@@ -10513,11 +10540,11 @@ object MainForm: TMainForm
         '   :KL, :KLNTAR, :KOLI_F, :KOLI_P, :KOLI_P0, :KOLI_P1, :KUB_MES,' +
         ' :KV, :LICH_POV, '
       
-        '   :LICH_TO, :N_DOM, :N_SCH, :NOR_RAZN, :NORMA, :NOTE, :OLD_NORM' +
-        ', :ORG, '
+        '   :LICH_TO, :LICH_YEARMON, :N_DOM, :N_SCH, :NOR_RAZN, :NORMA, :' +
+        'NOTE, :OLD_NORM, '
       
-        '   :PERE_DAY, :PERE_RAZN, :PLOMB, :POD, :POMPA, :PREV_NORM, :RAS' +
-        'CH_KUB, '
+        '   :ORG, :PERE_DAY, :PERE_RAZN, :PLOMB, :POD, :POMPA, :PREV_NORM' +
+        ', :RASCH_KUB, '
       
         '   :RASCH_NOR, :RASCH_NOTE, :SCH_CUR, :SCH_OLD, :SCH_RAZN, :SCH_' +
         'RAZN2, '
@@ -10561,6 +10588,7 @@ object MainForm: TMainForm
       '  VID_POK,'
       '  KUB_MES,'
       '  LICH_POV,'
+      '  LICH_YEARMON,'
       '  ORG,'
       '  VID_RN,'
       '  FILTR,'
@@ -10603,6 +10631,7 @@ object MainForm: TMainForm
       '  KV = :KV,'
       '  LICH_POV = :LICH_POV,'
       '  LICH_TO = :LICH_TO,'
+      '  LICH_YEARMON = :LICH_YEARMON,'
       '  N_DOM = :N_DOM,'
       '  N_SCH = :N_SCH,'
       '  NOR_RAZN = :NOR_RAZN,'
@@ -10870,10 +10899,111 @@ object MainForm: TMainForm
       FieldName = 'PREV_NORM'
       Origin = '"H_VODA"."PREV_NORM"'
     end
+    object hvdLICH_YEARMON: TIntegerField
+      FieldName = 'LICH_YEARMON'
+      Origin = '"H_VODA"."LICH_YEARMON"'
+    end
   end
   object hvdSource: TDataSource
     DataSet = hvd
     Left = 144
     Top = 368
+  end
+  object IBQuery2: TIBQuery
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    SQL.Strings = (
+      '')
+    Left = 560
+    Top = 296
+  end
+  object why_pok: TIBDataSet
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    DeleteSQL.Strings = (
+      'delete from WHY_POK'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into WHY_POK'
+      '  (DATE_USER, ID, ID_USER, NOTE, SCHET, USER_NAIM, WID)'
+      'values'
+      '  (:DATE_USER, :ID, :ID_USER, :NOTE, :SCHET, :USER_NAIM, :WID)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  WID,'
+      '  SCHET,'
+      '  NOTE,'
+      '  USER_NAIM,'
+      '  ID_USER,'
+      '  DATE_USER'
+      'from WHY_POK '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'select WHY_POK.*,sp.vid_zn from WHY_POK'
+      'left join spr_zn sp on sp.id=why_pok.wid'
+      ''
+      '')
+    ModifySQL.Strings = (
+      'update WHY_POK'
+      'set'
+      '  DATE_USER = :DATE_USER,'
+      '  ID = :ID,'
+      '  ID_USER = :ID_USER,'
+      '  NOTE = :NOTE,'
+      '  SCHET = :SCHET,'
+      '  USER_NAIM = :USER_NAIM,'
+      '  WID = :WID'
+      'where'
+      '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_WHY_POK_ID'
+    Left = 504
+    Top = 432
+    object why_pokID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"WHY_POK"."ID"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object why_pokWID: TIntegerField
+      FieldName = 'WID'
+      Origin = '"WHY_POK"."WID"'
+    end
+    object why_pokNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"WHY_POK"."NOTE"'
+      Size = 300
+    end
+    object why_pokUSER_NAIM: TIBStringField
+      FieldName = 'USER_NAIM'
+      Origin = '"WHY_POK"."USER_NAIM"'
+      Size = 50
+    end
+    object why_pokID_USER: TSmallintField
+      FieldName = 'ID_USER'
+      Origin = '"WHY_POK"."ID_USER"'
+    end
+    object why_pokDATE_USER: TDateTimeField
+      FieldName = 'DATE_USER'
+      Origin = '"WHY_POK"."DATE_USER"'
+    end
+    object why_pokSCHET: TIBStringField
+      FieldName = 'SCHET'
+      Origin = '"WHY_POK"."SCHET"'
+      Size = 10
+    end
+    object why_pokVID_ZN: TIBStringField
+      FieldName = 'VID_ZN'
+      Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
+    end
+  end
+  object why_pokSource: TDataSource
+    DataSet = why_pok
+    Left = 504
+    Top = 464
   end
 end

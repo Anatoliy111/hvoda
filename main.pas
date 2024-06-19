@@ -532,7 +532,6 @@ type
     cxBarEditItem1: TcxBarEditItem;
     cxBarEditItem2: TcxBarEditItem;
     Panel2: TPanel;
-    cxButton1: TcxButton;
     IBQuery1: TIBQuery;
     hvdallKLNTAR: TIntegerField;
     hvdallTARIF_NAME: TIBStringField;
@@ -631,6 +630,22 @@ type
     impLASTRASCH: TDateField;
     impLASTEXP: TIntegerField;
     cxLabel1: TcxLabel;
+    hvdLICH_YEARMON: TIntegerField;
+    hvdallLICH_YEARMON: TIntegerField;
+    hvdallOLD_NORM: TFloatField;
+    DBGrid1LICH_YEARMON: TcxGridDBBandedColumn;
+    IBQuery2: TIBQuery;
+    cxButton2: TcxButton;
+    why_pok: TIBDataSet;
+    why_pokSource: TDataSource;
+    why_pokID: TIntegerField;
+    why_pokWID: TIntegerField;
+    why_pokNOTE: TIBStringField;
+    why_pokUSER_NAIM: TIBStringField;
+    why_pokID_USER: TSmallintField;
+    why_pokDATE_USER: TDateTimeField;
+    why_pokSCHET: TIBStringField;
+    why_pokVID_ZN: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -727,9 +742,10 @@ type
     procedure cxBarEditItem1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure cxBarEditItem1Exit(Sender: TObject);
-    procedure cxButton1Click(Sender: TObject);
     procedure dxBarButton32Click(Sender: TObject);
     procedure dxBarButton33Click(Sender: TObject);
+    procedure lichAfterPost(DataSet: TDataSet);
+    procedure cxButton2Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -739,10 +755,11 @@ type
 
   public
     { Public declarations }
-    lchSQL,lchznSQL,plSQL,plznSQL,pokSQL,url,urlsend,startimport,sendmessbefoimp:string;
+    lchSQL,lchznSQL,plSQL,plznSQL,pokSQL,why_pokSQL,url,urlsend,startimport,sendmessbefoimp:string;
     PathKvart:string;
     iniFile:TIniFile;
     period:integer;
+    fl_startprog:boolean;
     function curYM:integer;
     function isArchive:boolean;
     function GetAppVersionStr:string;
@@ -763,7 +780,7 @@ implementation
 
 uses inpedpro, edexpr, import, mytools, itoghvd,ComObj,dbf,dbf_lang,
   edplomb, kart, lichall, iimport, sprzn, addkart, ViberTask, ViberPok,
-  ViberSendOrders, LichPlomb, splash;
+  ViberSendOrders, LichPlomb, splash, Conn;
 
 {$R *.dfm}
 
@@ -808,6 +825,7 @@ begin
 //    IBTransaction1.CommitRetaining;
 
  //MainForm.hvdallSource.Enabled:=false;
+ MainForm.hvdallSource.Enabled:=false;
  MainForm.hvdall.Close;
  MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
  MainForm.hvdall.Open;
@@ -831,6 +849,7 @@ begin
     end;
 
   IBTransaction1.CommitRetaining;
+  MainForm.hvdallSource.Enabled:=true;
   hvd.close;
   hvd.open;
 
@@ -947,6 +966,49 @@ begin
   result := data.RecNo<>1;  
 end;
 
+procedure TMainForm.lichAfterPost(DataSet: TDataSet);
+begin
+
+     IBQuery2.Close;
+     IBQuery2.SQL.Text:='select first 1 * from lich where schet=:sch and vid_zn is null order by data_pov NULLS FIRST';
+     IBQuery2.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+     IBQuery2.Open;
+
+
+       if IBQuery2.RecordCount<>0 then
+       begin
+          if MainForm.hvdLICH_POV.Value<>IBQuery2.FieldByName('data_pov').Value then
+          begin
+          MainForm.hvd.Edit;
+          if IBQuery2.FieldByName('data_pov').Value=null then
+          begin
+             MainForm.hvdLICH_POV.Clear;
+             MainForm.hvdLICH_YEARMON.Clear;
+          end
+          else
+          begin
+             MainForm.hvdLICH_POV.Value:=IBQuery2.FieldByName('data_pov').Value;
+             MainForm.hvdLICH_YEARMON.Value:=Date2YearMon(MainForm.hvdLICH_POV.Value);
+          end;
+          MainForm.hvd.Post;
+          end;
+       end
+       else
+       begin
+  //        if MainForm.hvdDATE_POK.Value<>IBQuery2.FieldByName('data_pov').Value then
+  //        begin
+          MainForm.hvd.Edit;
+          MainForm.hvdLICH_POV.Clear;
+          MainForm.hvdLICH_YEARMON.Clear;
+          MainForm.hvd.Post;
+   //       end;
+
+       end;
+
+    IBTransaction1.CommitRetaining;
+
+end;
+
 procedure TMainForm.lichBeforePost(DataSet: TDataSet);
 begin
 Form2.LichPost:=true;
@@ -990,56 +1052,64 @@ procedure TMainForm.FormCreate(Sender: TObject);
 var kk:Currency;
     ss:string;
 begin
+//  try
+  IBdatabase.Connected:=false;
+//  IBTransaction1.Active:=true;
+//  //DataSource.Enabled:=false;
+//  //hvdSource.Enabled:=false;
+//  except
+//    on E: Exception do
+//      begin
+//        messagedlg('Помилка при підключенні до бази даних! Спробуйте пізніше? ('+E.Message+')',mtError,[mbCancel],0);
+//        exit;
+////        Application.Terminate;
+//      end;
+//  end;
 
-  IBdatabase.Connected:=true;
-  IBTransaction1.Active:=true;
-  //DataSource.Enabled:=false;
-  //hvdSource.Enabled:=false;
 
-
-
-  data.Open;
-  users.open;
-  //lich.Open;
+//  data.Open;
+//  users.open;
+//  //lich.Open;
   lchSQL:=lich.SelectSQL.Text;
-  //lichzn.Open;
+//  //lichzn.Open;
   lchznSQL:=lichzn.SelectSQL.Text;
-  dom.Open;
-  dxBarLookupCombo1.Enabled:=false;
-  dxBarLookupCombo1.KeyValue:=domDOM.AsString;
 
-  //hvd.Open;
-  prop.Open;
-  grp.Open;
-  imp.open;
-  //plombs.Open;
-  //pokazn.Open;
-//  dbgrid1.DataController.Groups.FullExpand;
+//  dom.Open;
+
+fl_startprog:=true;
+//  //hvd.Open;
+//  prop.Open;
+//  grp.Open;
+//  imp.open;
+//  //plombs.Open;
+//  //pokazn.Open;
+////  dbgrid1.DataController.Groups.FullExpand;
 
   plSQL:=plombs.SelectSQL.Text;
   pokSQL:=pokazn.SelectSQL.Text;
- // plombszn.Open;
+  why_pokSQL:=why_pok.SelectSQL.Text;
+// // plombszn.Open;
   plznSQL:=plombszn.SelectSQL.Text;
-  period:=dataYEARMON.Value;
-  ul.ParamByName('yearmon').AsInteger:=dataYEARMON.Value;
-  ul.open;
 
-org.Open;
-vid_rn.Open;
-vid_nach.Open;
-vid_nach46.Open;
-//viber_task.ParamByName('yearmon').Value:=period;
-viber_task.Open;
-viber_pokazn.Open;
-site_pokazn.Open;
-viber_send.Open;
+//  ul.ParamByName('yearmon').AsInteger:=dataYEARMON.Value;
+//  ul.open;
 
-  //DataSource.Enabled:=true;
-  //hvdSource.Enabled:=true;
-//
- //dxBarLookupCombo1.Enabled:=false;
+//org.Open;
+//vid_rn.Open;
+//vid_nach.Open;
+//vid_nach46.Open;
+////viber_task.ParamByName('yearmon').Value:=period;
+//viber_task.Open;
+//viber_pokazn.Open;
+//site_pokazn.Open;
+//viber_send.Open;
+
+//  //DataSource.Enabled:=true;
+//  //hvdSource.Enabled:=true;
+////
+// //dxBarLookupCombo1.Enabled:=false;
   cxPageControl1.ActivePage:=cxTabSheet1;
- // ActiveControl:=cxGrid2;
+// // ActiveControl:=cxGrid2;
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
@@ -1048,34 +1118,43 @@ var dd:integer;
     ss,fvid:string;
 begin
 //cxButton1.Click;
-Update;
+
 //  dxBarLookupCombo1.Enabled:=true;
 
-  imp.Close;
-  imp.Open;
 
 
 
-  imp.Open;
+
+
   ss:=GetAppVersionStr;
   MainForm.Caption:=MainForm.Caption+' '+ss;
 
 
-  if SplashForm.Visible then
-  begin
-    SplashForm.Visible:=false;
-   // SplashForm.Hide;
-   // SplashForm.Free;
-  end;
 
 
-  if impVPROG.Value<>ss then
-  begin
-    ShowMessage('База даних '+impVPROG.Value+' не відповідає версії програми '+ss+'. Зверніться до Адміністратора!!!');
+FormConn.TestConn;
+
+if not IBDatabase.Connected then exit;
+
+  dxBarLookupCombo1.Enabled:=false;
+  dxBarLookupCombo1.KeyValue:=domDOM.AsString;
+
+  period:=dataYEARMON.Value;
+  ul.close;
+  ul.ParamByName('yearmon').AsInteger:=dataYEARMON.Value;
+  ul.open;
+
+
+//Update;
+
+
+//  if impVPROG.Value<>ss then
+//  begin
+//    ShowMessage('База даних '+impVPROG.Value+' не відповідає версії програми '+ss+'. Зверніться до Адміністратора!!!');
 //    Exit;
    // Application.Destroy;
-    MainForm.Close;
-  end;
+//    MainForm.Close;
+//  end;
 
   if startimport='1' then
   begin
@@ -1107,6 +1186,8 @@ Update;
 
 
   end;
+
+fl_startprog:=false;
 end;
 
 procedure TMainForm.ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
@@ -1279,6 +1360,25 @@ begin
    if (isArchive) or (impLASTEXP.Value=1) then
       exit;
 
+   if MainForm.hvdWID.Value=45 then
+   begin
+     ShowMessage('Лічильник не повірений! Введення показників закрито');
+     exit;
+   end;
+
+   if MainForm.hvdWID.Value=42 then
+   begin
+     ShowMessage('Лічильник не встановлений! Введення показників закрито');
+     exit;
+   end;
+
+   if MainForm.hvdWID.Value>=46 then
+   begin
+     ShowMessage('При цьому виді нарахувань введення показників не пердбачувано! Введення показників закрито');
+     exit;
+   end;
+
+
     MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch order by date_pok desc';
     MainForm.pokazn.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
     MainForm.pokazn.Close;
@@ -1361,7 +1461,7 @@ begin
   end;}
 
 
-       if (AViewInfo.GridRecord.Values[DBGrid1LICH_POV.Index] < now()) then
+       if (AViewInfo.GridRecord.Values[DBGrid1LICH_YEARMON.Index] < MainForm.period) then
     ACanvas.Brush.Color := clScrollBar;
 end;
 
@@ -1419,6 +1519,9 @@ end;
 
 procedure TMainForm.dxBarLookupCombo2KeyValueChange(Sender: TObject);
 begin
+if (not IBDatabase.Connected) or (fl_startprog) then exit;
+update;
+
 //  if (data.Active and dom.Active)then
 //  begin
 //
@@ -1638,19 +1741,63 @@ begin
 end;
 
 procedure TMainForm.Timer1Timer(Sender: TObject);
+var fl_exit:boolean;
 begin
 
 //  IBTransaction1.CommitRetaining;
-    if not isArchive then
-    begin
-      imp.Close;
-      imp.Open;
-      if (cxLabel1.Visible) and (impLASTEXP.Value=0) then
-          update;
-      if (not cxLabel1.Visible) and (impLASTEXP.Value=1) then
-          update;
-    end;
-    
+  FormConn.TestConn;
+
+
+  //try
+      if not isArchive then
+      begin
+
+        imp.Close;
+       imp.Open;
+       if (cxLabel1.Visible) and (impLASTEXP.Value=0) then
+            update;
+        if (not cxLabel1.Visible) and (impLASTEXP.Value=1) then
+           update;
+      end;
+//  except
+//   on E : Exception do
+//   begin
+//    Timer1.Enabled:=false;
+//    fl_exit:=false;
+//
+//    while not fl_exit do
+//    begin
+//      try
+//      Application.ProcessMessages;
+//      IBDatabase.Close;
+//      IBDatabase.Open;
+//      IBTransaction1.Active:=true;
+//      data.Open;
+//      dom.Open;
+//      Update;
+//      Timer1.Enabled:=true;
+//      fl_exit:=true;
+//
+ //     except
+ //     on E : Exception do
+//        begin
+//          if application.MessageBox('Помилка при підключенні до бази даних! Спробувати підключитись знову?','Підтвердження',MB_YESNO)<>IDYES then
+//          begin
+//             fl_exit:=true;
+//             close;
+//          end;
+//        end;
+ //     end;
+//
+//
+//
+//
+//    end;
+//
+//
+//
+ //  end;
+//  end;
 
 
 end;
@@ -1922,7 +2069,7 @@ begin
 //DelFilter(DBGrid1SCHET,cxBarEditItem1.EditValue);
 end;
 
-procedure TMainForm.cxButton1Click(Sender: TObject);
+procedure TMainForm.cxButton2Click(Sender: TObject);
 begin
   Update;
 end;
@@ -1933,6 +2080,8 @@ if hvd.State in [dsInsert,dsEdit] then hvd.Post;
 if org.State in [dsInsert,dsEdit] then org.Post;
 IBTransaction1.CommitRetaining;
 
+  imp.Close;
+  imp.Open;
 
 
   if (data.Active and dom.Active)then
@@ -2018,6 +2167,13 @@ IBTransaction1.CommitRetaining;
 
     StopWait;
   end;
+
+  if SplashForm.Visible then
+  begin
+    SplashForm.Visible:=false;
+   // SplashForm.Hide;
+   // SplashForm.Free;
+  end;  
 end;
 
 procedure TMainForm.cxGridDBBandedColumn13PropertiesButtonClick(Sender: TObject;
@@ -2189,7 +2345,7 @@ begin
     data.Open;
     period:=dataYEARMON.Value;
     Form4.ImKart;
-   // allcalclich;
+    allcalclich;
    // timer1.Enabled:=true;
      Form4.Label2.Caption:='Закриття місяця.Зачекайте...';
      Form4.cxProgressBar1.Position:=100;

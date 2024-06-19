@@ -166,67 +166,7 @@ begin
 
   if trim(MainForm.hvdSCHET.Value)=trim(sch) then
   begin
-    IBQuery2.Close;
-    IBQuery2.SQL.Text:='select first 1 * from pokazn where yearmon<>:per and schet=:sch order by date_pok desc, id desc';
-    IBQuery2.ParamByName('per').Value:=MainForm.period;
-    IBQuery2.ParamByName('sch').Value:=sch;
-    IBQuery2.Open;
-
-    lastpokazn:=0;
-    if IBQuery2.RecordCount<>0 then
-       if not IBQuery2.FieldByName('POKAZN').IsNull then
-       begin
-          lastpokazn:=IBQuery2.FieldByName('POKAZN').Value;
-          date:=IBQuery2.FieldByName('date_pok').Value;
-          vid:=IBQuery2.FieldByName('VID_POK').Value;
-       end;
-
-
-
-    IBQuery3.Close;
-    IBQuery3.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch order by date_pok,id';
-//  IBQuery2.SQL.Text:='select * from pokazn where schet=:sch order by date_pok';
-    IBQuery3.ParamByName('sch').Value:=sch;
-    IBQuery3.ParamByName('per').Value:=MainForm.period;
-    IBQuery3.Open;
-
-    kol:=0;
-     while not IBQuery3.eof do
-     begin
-//  if (IBQuery2.FieldByName('VID_POK').Value=17) or (lastpokazn=0) then
-
-     if (IBQuery3.FieldByName('VID_POK').Value<>17) and (IBQuery3.FieldByName('VID_POK').Value<>26) then
-         kol:=kol+IBQuery3.FieldByName('POKAZN').Value-lastpokazn;
-
-     lastpokazn:=IBQuery3.FieldByName('POKAZN').Value;
-        date:=IBQuery3.FieldByName('date_pok').Value;
-        vid:=IBQuery3.FieldByName('VID_POK').Value;
-     IBQuery3.Next;
-     end;
-
-       MainForm.hvd.Edit;
-
-       MainForm.hvdSCH_CUR.Value:=lastpokazn;
-  //MainForm.hvdSCH_OLD.Value:=cxCalcEdit2.Value;
-       MainForm.hvdSCH_RAZN.Value:=kol;
-       if (MainForm.hvdSCH_RAZN.IsNull) or (MainForm.hvdSCH_RAZN.Value=0) then
-       begin
-          if (MainForm.hvdWID.Value=1) or (MainForm.hvdWID.Value=2) or (MainForm.hvdWID.Value=3) then
-          begin
-            MainForm.hvdWID.Value:=2;
-            MainForm.hvdNOR_RAZN.Value:=MainForm.hvdKOLI_P.Value*MainForm.hvdNORMA.Value;
-          end;
-       end
-       else
-       begin
-          MainForm.hvdWID.Value:=1;
-          MainForm.hvdNOR_RAZN.Value:=0;
-       end;
-
-       MainForm.hvdDATE_POK.Value:=date;
-       MainForm.hvdVID_POK.Value:=vid;
-       MainForm.hvd.Post;
-       MainForm.IBTransaction1.CommitRetaining;
+     calcpok2(MainForm.hvd);
   end
   else
   begin                                     
@@ -268,7 +208,7 @@ begin
 
 
     IBQuery3.Close;
-    IBQuery3.SQL.Text:='select * from pokazn where yearmon>=:per and schet=:sch order by date_pok,id';
+    IBQuery3.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch order by date_pok,id';
 //  IBQuery2.SQL.Text:='select * from pokazn where schet=:sch order by date_pok';
     IBQuery3.ParamByName('sch').Value:=DS.FieldByName('schet').value;
     IBQuery3.ParamByName('per').Value:=MainForm.period;
@@ -314,70 +254,148 @@ begin
   //         if DS.FieldByName('SCH_RAZN2').Value<>0 then
    //           DS.FieldByName('SCH_RAZN2').Value:=0;
 
-            if IBQuery3.RecordCount>0 then
-            begin
-   //            DS.FieldByName('WID').Value:=41;
-               if DS.FieldByName('PREV_NORM').Value>0 then
-               begin
-                  DS.FieldByName('DEL_NORM').Value:=DS.FieldByName('PREV_NORM').Value*-1;
-                  DS.FieldByName('PREV_NORM').Value:=0;
-               end;
-            end
-            else
-               if DS.FieldByName('DEL_NORM').Value<0 then
-                  begin
-                  DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
-                  DS.FieldByName('DEL_NORM').Value:=0;
-                  end;
+//            if IBQuery3.RecordCount>0 then
+//            begin
+//               if DS.FieldByName('PREV_NORM').Value>0 then
+//               begin
+//                  DS.FieldByName('DEL_NORM').Value:=DS.FieldByName('PREV_NORM').Value*-1;
+//                  DS.FieldByName('PREV_NORM').Value:=0;
+//               end;
+//            end
+//            else
+//               if DS.FieldByName('DEL_NORM').Value<0 then
+//                  begin
+//                  DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
+//                  DS.FieldByName('DEL_NORM').Value:=0;
+//                  end;
 
        DS.FieldByName('VID_POK').Value:=vid;
        DS.FieldByName('DATE_POK').Value:=date;
        DS.FieldByName('SCH_CUR').Value:=lastpokazn;
 
+//       if (DS.FieldByName('WID').Value>=46) then
+//       begin
+//         if (DS.FieldByName('WID').Value>46) then
+//             DS.FieldByName('NOR_RAZN').Value:=0;
+//         DS.FieldByName('SCH_RAZN').Value:=0;
+//       end
+//       else
+//       begin
+//         if (IBQuery3.RecordCount<>0) then
+//         begin
+//               if DS.FieldByName('PREV_NORM').Value>0 then
+//               begin
+//                  DS.FieldByName('DEL_NORM').Value:=DS.FieldByName('PREV_NORM').Value*-1;
+//                  DS.FieldByName('PREV_NORM').Value:=0;
+//               end;
+//
+//
+//            if (DS.FieldByName('WID').Value=45) or (DS.FieldByName('WID').Value=42) then
+//            begin
+//                DS.FieldByName('SCH_RAZN').Value:=0;
+//                DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+//            end
+//            else
+//            begin
+//                  DS.FieldByName('SCH_RAZN').Value:=kol;
+//                if (DS.FieldByName('WID').Value<>43) then
+//                begin
+//                  DS.FieldByName('NOR_RAZN').Value:=0;
+//                  DS.FieldByName('WID').Value:=41;
+//                end;
+//            end;
+//         end
+//         else
+//         begin
+//            DS.FieldByName('SCH_RAZN').Value:=0;
+//               if DS.FieldByName('DEL_NORM').Value<0 then
+//                  begin
+//                  DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
+//                  DS.FieldByName('DEL_NORM').Value:=0;
+//                  end;
+//
+//
+//
+//            if (DS.FieldByName('WID').Value<>43) then
+//                DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+//
+//
+//
+//              if (DS.FieldByName('LICH_TO').Value=0) then
+//                   DS.FieldByName('WID').Value:=42
+//
+//              else if (DS.FieldByName('WID').Value=41) then
+//                   DS.FieldByName('WID').Value:=44;
+//         end;
+//
+//       end;
+
+       //46,47,48
        if (DS.FieldByName('WID').Value>=46) then
        begin
+       if (DS.FieldByName('WID').Value>46) then
+            DS.FieldByName('NOR_RAZN').Value:=0;
          DS.FieldByName('SCH_RAZN').Value:=0;
-         DS.FieldByName('NOR_RAZN').Value:=0;
+
+         if DS.FieldByName('DEL_NORM').Value<0 then
+                  begin
+                  DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
+                  DS.FieldByName('DEL_NORM').Value:=0;
+                  end;
        end
        else
-       begin
-         if (IBQuery3.RecordCount<>0) then
-         begin
+       begin //41,42,43,44,45
+         if (DS.FieldByName('LICH_TO').Value=0) then
+                  DS.FieldByName('WID').Value:=42;
 
-            if (DS.FieldByName('WID').Value=45) or (DS.FieldByName('WID').Value=42) then
-            begin
+         if (DS.FieldByName('LICH_YEARMON').Value<MainForm.period) and (DS.FieldByName('WID').Value<>43) and (DS.FieldByName('WID').Value<>42) then
+                  DS.FieldByName('WID').Value:=45;
+
+         //45,42
+         if (DS.FieldByName('WID').Value=45) or (DS.FieldByName('WID').Value=42) then
+         begin
                 DS.FieldByName('SCH_RAZN').Value:=0;
                 DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
-            end
-            else
-            begin
+
+                if DS.FieldByName('DEL_NORM').Value<0 then
+                    begin
+                    DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
+                    DS.FieldByName('DEL_NORM').Value:=0;
+                    end;
+
+         end
+         else if (IBQuery3.RecordCount<>0) then  //41,43,44
+         begin
+               if DS.FieldByName('PREV_NORM').Value>0 then
+               begin
+                  DS.FieldByName('DEL_NORM').Value:=DS.FieldByName('PREV_NORM').Value*-1;
+                  DS.FieldByName('PREV_NORM').Value:=0;
+               end;
+
+
                   DS.FieldByName('SCH_RAZN').Value:=kol;
                 if (DS.FieldByName('WID').Value<>43) then
                 begin
                   DS.FieldByName('NOR_RAZN').Value:=0;
                   DS.FieldByName('WID').Value:=41;
                 end;
-            end;
+
          end
          else
-         begin
+         begin      //41,43,44
             DS.FieldByName('SCH_RAZN').Value:=0;
+               if DS.FieldByName('DEL_NORM').Value<0 then
+                  begin
+                  DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
+                  DS.FieldByName('DEL_NORM').Value:=0;
+                  end;
 
 
 
-//            if (DS.FieldByName('WID').Value=43) or (DS.FieldByName('WID').Value>46) then
-
-              if (DS.FieldByName('WID').Value>46) then
-                DS.FieldByName('NOR_RAZN').Value:=0
-              else
+            if (DS.FieldByName('WID').Value<>43) then
                 DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
 
-
-
-              if (DS.FieldByName('LICH_TO').Value=0) then
-                   DS.FieldByName('WID').Value:=42
-
-              else if (DS.FieldByName('WID').Value=41) or (DS.FieldByName('WID').Value=43) then
+            if (DS.FieldByName('WID').Value=41) then
                    DS.FieldByName('WID').Value:=44;
          end;
 
@@ -494,12 +512,14 @@ begin
   MainForm.lichNOTE.Value:=cxTextEdit4.Text;
   MainForm.lich.Post;
 
+  MainForm.hvd.Edit;
+
   if MainForm.lich.RecordCount>MainForm.hvdLICH_TO.Value then
-  begin
-    MainForm.hvd.Edit;
     MainForm.hvdLICH_TO.Value:=MainForm.hvdLICH_TO.Value+1;
-    MainForm.hvd.Post;
-  end;
+
+  MainForm.hvdWID.Value:=41;
+  MainForm.hvd.Post;
+
 
 //  IBQuery4.Close;
 //  IBQuery4.SQL.Text:='select first 1 h_voda.*, (select count(*) kol from lich where lich.schet=h_voda.schet and lich.vid_zn is null) lichkol from h_voda where schet=:sch and yearmon=:ym order by kl desc';

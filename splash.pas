@@ -5,7 +5,7 @@ interface
 uses
   SysUtils, Windows, Messages, Classes, Graphics, Controls,
   Forms, Dialogs, StdCtrls, ExtCtrls, jpeg, GIFImg, cxControls, cxContainer,
-  cxEdit, cxImage;
+  cxEdit, cxImage,ShellAPI;
 
 type
   TSplashForm = class(TForm)
@@ -53,6 +53,12 @@ begin
   ( Image2.Picture.Graphic as TGIFImage ).AnimationSpeed:= 5;// adjust your speed
 
   SplashForm.DoubleBuffered := True;// stops flickering
+
+      Application.ProcessMessages;
+
+
+  //  if fileexists(ExtractFilePath(ParamStr(0))+'UpdateProg.exe') and fileexists(ExtractFilePath(ParamStr(0))+'UpdateProg.ini') then
+  //      ShellExecute(0,nil,pchar('UpdateProg.exe'),nil,nil,SW_SHOWNORMAL);
 
 end;
 

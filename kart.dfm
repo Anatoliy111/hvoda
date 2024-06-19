@@ -1001,15 +1001,35 @@ object Form2: TForm2
         TabOrder = 1
         object cxGridDBTableView4: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
-          DataController.DataSource = MainForm.pokaznSource
+          DataController.DataSource = MainForm.why_pokSource
           DataController.DetailKeyFieldNames = 'ID'
           DataController.KeyFieldNames = 'ID'
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
           OptionsData.Editing = False
+          OptionsView.CellAutoHeight = True
+          OptionsView.ColumnAutoWidth = True
           OptionsView.GroupByBox = False
           OptionsView.Indicator = True
+          object cxGridDBTableView4ID: TcxGridDBColumn
+            DataBinding.FieldName = 'ID'
+            Width = 48
+          end
+          object cxGridDBTableView4VID_ZN: TcxGridDBColumn
+            Caption = #1042#1080#1076
+            DataBinding.FieldName = 'VID_ZN'
+            Width = 217
+          end
+          object cxGridDBTableView4NOTE: TcxGridDBColumn
+            Caption = #1055#1088#1080#1095#1080#1085#1072' '#1079#1084#1110#1085#1080
+            DataBinding.FieldName = 'NOTE'
+            Width = 320
+          end
+          object cxGridDBTableView4DATE_USER: TcxGridDBColumn
+            Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
+            DataBinding.FieldName = 'DATE_USER'
+          end
         end
         object cxGridLevel4: TcxGridLevel
           GridView = cxGridDBTableView4
