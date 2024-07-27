@@ -118,7 +118,7 @@ begin
    //       pok:=0;
    //       while (not hvd1.Eof) and (pok=0) do
    //       begin
-    //         if (hvd1.fieldbyname('schet').AsString=sch) and (hvd1.fieldbyname('fl').AsString<>'n') then
+   //         if (hvd1.fieldbyname('schet').AsString=sch) and (hvd1.fieldbyname('fl').AsString<>'n') then
    //          begin
    //            IBPokazn.Append;
    //            IBPokazn.Edit;
@@ -134,7 +134,7 @@ begin
    //          end;
    //          hvd1.Next;
    //       end;
- //         if hvd1.Locate('fl;schet',VarArrayOf([null,MainForm.hvdallSCHET.Value]),[]) then
+   //         if hvd1.Locate('fl;schet',VarArrayOf([null,MainForm.hvdallSCHET.Value]),[]) then
        end
        else
             if (oo1.fieldbyname('kl_ntar').AsInteger<>MainForm.hvdallKLNTAR.Value) then
@@ -203,8 +203,8 @@ begin
     kk.First;
     while not kk.Eof do
     begin
-       if  kk.fieldbyname('schet').AsString='0014016' then
-          MainForm.hvdall.First;
+    //   if  kk.fieldbyname('schet').AsString='0014016' then
+     //     MainForm.hvdall.First;
 
        MainForm.hvdall.First;
        if MainForm.hvdall.Locate('schet',dos2win(kk.fieldbyname('schet').AsString),[loCaseInsensitive, loPartialKey]) then

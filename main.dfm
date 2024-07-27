@@ -23,7 +23,7 @@ object MainForm: TMainForm
     Top = 112
     Width = 744
     Height = 454
-    ActivePage = cxTabSheet1
+    ActivePage = cxTabSheet4
     Align = alClient
     TabOrder = 0
     OnPageChanging = cxPageControl1PageChanging
@@ -468,6 +468,12 @@ object MainForm: TMainForm
             Position.ColIndex = 11
             Position.RowIndex = 0
           end
+          object DBGrid1LICH_TO: TcxGridDBBandedColumn
+            DataBinding.FieldName = 'LICH_TO'
+            Position.BandIndex = 0
+            Position.ColIndex = 12
+            Position.RowIndex = 0
+          end
         end
         object cxGridLevel1: TcxGridLevel
           Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
@@ -475,200 +481,9 @@ object MainForm: TMainForm
         end
       end
     end
-    object cxTabSheet2: TcxTabSheet
-      Caption = #1055#1088#1086#1087#1080#1089#1082#1072
-      ImageIndex = 1
-      ExplicitHeight = 501
-      object dxBarDockControl2: TdxBarDockControl
-        Left = 0
-        Top = 0
-        Width = 744
-        Height = 26
-        Align = dalTop
-        BarManager = BarManager
-      end
-      object cxGrid3: TcxGrid
-        Left = 0
-        Top = 26
-        Width = 744
-        Height = 404
-        Align = alClient
-        TabOrder = 1
-        object DBGrid2: TcxGridDBTableView
-          NavigatorButtons.ConfirmDelete = False
-          NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
-          NavigatorButtons.PriorPage.Hint = #1055#1086#1087#1077#1088#1077#1076#1085#1103' '#1089#1090#1086#1088#1110#1085#1082#1072
-          NavigatorButtons.Prior.Hint = #1055#1086#1087#1077#1088#1077#1076#1085#1110#1081
-          NavigatorButtons.Next.Hint = #1053#1072#1089#1090#1091#1087#1085#1080#1081
-          NavigatorButtons.NextPage.Hint = #1053#1072#1089#1090#1091#1087#1085#1072' '#1089#1090#1086#1088#1110#1085#1082#1072
-          NavigatorButtons.Last.Hint = #1054#1089#1090#1072#1085#1085#1110#1081' '#1079#1072#1087#1080#1089
-          NavigatorButtons.Insert.Hint = #1042#1089#1090#1072#1074#1080#1090#1080' '#1079#1072#1087#1080#1089
-          NavigatorButtons.Delete.Hint = #1042#1080#1076#1072#1083#1080#1090#1080
-          NavigatorButtons.Edit.Hint = #1056#1077#1076#1072#1075#1091#1074#1072#1090#1080
-          NavigatorButtons.Post.Hint = #1047#1073#1077#1088#1077#1075#1090#1080
-          NavigatorButtons.Cancel.Hint = #1042#1110#1076#1084#1110#1085#1080#1090#1080
-          NavigatorButtons.Refresh.Hint = #1054#1073#1085#1086#1074#1080#1090#1080
-          NavigatorButtons.Filter.Hint = #1060#1110#1083#1100#1090#1088
-          DataController.DataModeController.SmartRefresh = True
-          DataController.DataSource = propSource
-          DataController.Summary.DefaultGroupSummaryItems = <>
-          DataController.Summary.FooterSummaryItems = <>
-          DataController.Summary.SummaryGroups = <>
-          OptionsBehavior.FocusFirstCellOnNewRecord = True
-          OptionsBehavior.GoToNextCellOnEnter = True
-          OptionsBehavior.NavigatorHints = True
-          OptionsData.CancelOnExit = False
-          OptionsView.Navigator = True
-          OptionsView.Indicator = True
-          OptionsView.IndicatorWidth = 10
-          object DBGrid2SCHET: TcxGridDBColumn
-            DataBinding.FieldName = 'SCHET'
-            Width = 88
-          end
-          object DBGrid2DD: TcxGridDBColumn
-            DataBinding.FieldName = 'DD'
-            Width = 78
-          end
-          object DBGrid2KOLI: TcxGridDBColumn
-            DataBinding.FieldName = 'KOLI'
-            Width = 97
-          end
-          object DBGrid2NOTE: TcxGridDBColumn
-            DataBinding.FieldName = 'NOTE'
-          end
-          object DBGrid2KL: TcxGridDBColumn
-            DataBinding.FieldName = 'KL'
-            Visible = False
-          end
-          object DBGrid2YEARMON: TcxGridDBColumn
-            DataBinding.FieldName = 'YEARMON'
-            Visible = False
-          end
-        end
-        object cxGridLevel5: TcxGridLevel
-          Caption = #1055#1088#1086#1087#1080#1089#1082#1072
-          GridView = DBGrid2
-        end
-      end
-    end
-    object cxTabSheet3: TcxTabSheet
-      Caption = #1050#1091#1073#1080' '#1087#1086' '#1079#1072#1075'. '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1091
-      ImageIndex = 2
-      ExplicitHeight = 501
-      object dxBarDockControl3: TdxBarDockControl
-        Left = 0
-        Top = 0
-        Width = 744
-        Height = 26
-        Align = dalTop
-        BarManager = BarManager
-      end
-      object cxGrid4: TcxGrid
-        Left = 0
-        Top = 26
-        Width = 744
-        Height = 404
-        Align = alClient
-        TabOrder = 1
-        object DBGrid3: TcxGridDBTableView
-          NavigatorButtons.ConfirmDelete = False
-          NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
-          NavigatorButtons.PriorPage.Hint = #1055#1086#1087#1077#1088#1077#1076#1085#1103' '#1089#1090#1086#1088#1110#1085#1082#1072
-          NavigatorButtons.Prior.Hint = #1055#1086#1087#1077#1088#1077#1076#1085#1110#1081
-          NavigatorButtons.Next.Hint = #1053#1072#1089#1090#1091#1087#1085#1080#1081
-          NavigatorButtons.NextPage.Hint = #1053#1072#1089#1090#1091#1087#1085#1072' '#1089#1090#1086#1088#1110#1085#1082#1072
-          NavigatorButtons.Last.Hint = #1054#1089#1090#1072#1085#1085#1110#1081' '#1079#1072#1087#1080#1089
-          NavigatorButtons.Insert.Hint = #1042#1089#1090#1072#1074#1080#1090#1080' '#1079#1072#1087#1080#1089
-          NavigatorButtons.Delete.Hint = #1042#1080#1076#1072#1083#1080#1090#1080
-          NavigatorButtons.Edit.Hint = #1056#1077#1076#1072#1075#1091#1074#1072#1090#1080
-          NavigatorButtons.Post.Hint = #1047#1073#1077#1088#1077#1075#1090#1080
-          NavigatorButtons.Cancel.Hint = #1042#1110#1076#1084#1110#1085#1080#1090#1080
-          NavigatorButtons.Refresh.Hint = #1054#1073#1085#1086#1074#1080#1090#1080
-          NavigatorButtons.Filter.Hint = #1060#1110#1083#1100#1090#1088
-          DataController.DataSource = grpSource
-          DataController.Summary.DefaultGroupSummaryItems = <>
-          DataController.Summary.FooterSummaryItems = <>
-          DataController.Summary.SummaryGroups = <
-            item
-              Links = <>
-              SummaryItems = <>
-            end>
-          OptionsBehavior.FocusFirstCellOnNewRecord = True
-          OptionsBehavior.GoToNextCellOnEnter = True
-          OptionsBehavior.NavigatorHints = True
-          OptionsData.CancelOnExit = False
-          OptionsView.Navigator = True
-          OptionsView.Indicator = True
-          OptionsView.IndicatorWidth = 10
-          object DBGrid3DOM: TcxGridDBColumn
-            Caption = #1041#1091#1076#1080#1085#1086#1082
-            DataBinding.FieldName = 'DOM'
-            PropertiesClassName = 'TcxLookupComboBoxProperties'
-            Properties.KeyFieldNames = 'DOM'
-            Properties.ListColumns = <
-              item
-                FieldName = 'DOM'
-              end>
-            Properties.ListSource = domSource
-            Width = 64
-          end
-          object DBGrid3POD: TcxGridDBColumn
-            Caption = #1055#1110#1076#1111#1079#1076
-            DataBinding.FieldName = 'POD'
-            Visible = False
-          end
-          object DBGrid3SCH_CUR: TcxGridDBColumn
-            Caption = #1055#1086#1082#1072#1079#1085#1080#1082' '#1090#1077#1087#1077#1088#1110#1096#1085#1110#1081
-            DataBinding.FieldName = 'SCH_CUR'
-          end
-          object DBGrid3SCH_OLD: TcxGridDBColumn
-            Caption = #1055#1086#1082#1072#1079#1085#1080#1082' '#1084#1080#1085#1091#1083#1080#1081
-            DataBinding.FieldName = 'SCH_OLD'
-          end
-          object DBGrid3SCH_KUB: TcxGridDBColumn
-            Caption = #1050#1091#1073#1080
-            DataBinding.FieldName = 'SCH_KUB'
-            Options.Editing = False
-          end
-          object DBGrid3SCH_FOP: TcxGridDBColumn
-            Caption = #1050#1091#1073#1080' '#1060#1054#1055
-            DataBinding.FieldName = 'SCH_FOP'
-          end
-          object DBGrid3SCH_FACT: TcxGridDBColumn
-            Caption = #1050#1091#1073#1080' '#1072#1073#1086#1085'.'
-            DataBinding.FieldName = 'SCH_FACT'
-            Options.Editing = False
-          end
-          object DBGrid3SCH_RAZN: TcxGridDBColumn
-            Caption = #1056#1110#1079#1085#1080#1094#1103
-            DataBinding.FieldName = 'SCH_RAZN'
-            Options.Editing = False
-          end
-          object DBGrid3NORMA: TcxGridDBColumn
-            Caption = #1053#1086#1088#1084#1072' '#1085#1072' '#1082#1091#1073
-            DataBinding.FieldName = 'NORMA'
-            Options.Editing = False
-            Width = 78
-          end
-          object DBGrid3NORMA_BL: TcxGridDBColumn
-            Caption = #1053#1086#1088#1084#1072' '#1073#1077#1079' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072
-            DataBinding.FieldName = 'NORMA_BL'
-            Options.Editing = False
-          end
-          object DBGrid3NOTE: TcxGridDBColumn
-            DataBinding.FieldName = 'NOTE'
-            Width = 144
-          end
-        end
-        object cxGridLevel9: TcxGridLevel
-          Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080' '#1087#1086' '#1087#1110#1076#1111#1079#1076#1072#1084
-          GridView = DBGrid3
-        end
-      end
-    end
     object cxTabSheet4: TcxTabSheet
       Caption = #1054#1088#1075#1072#1085#1110#1079#1072#1094#1110#1111
-      ImageIndex = 0
+      ImageIndex = 1
       OnShow = cxTabSheet4Show
       ExplicitHeight = 501
       object Image2: TImage
@@ -1010,6 +825,199 @@ object MainForm: TMainForm
         end
       end
     end
+    object cxTabSheet3: TcxTabSheet
+      Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1110' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1080
+      ImageIndex = 3
+      ExplicitHeight = 501
+      object dxBarDockControl3: TdxBarDockControl
+        Left = 0
+        Top = 0
+        Width = 744
+        Height = 28
+        Align = dalTop
+        BarManager = BarManager
+      end
+      object cxGrid4: TcxGrid
+        Left = 0
+        Top = 28
+        Width = 744
+        Height = 402
+        Align = alClient
+        TabOrder = 1
+        ExplicitTop = 26
+        ExplicitHeight = 404
+        object DBGrid3: TcxGridDBTableView
+          NavigatorButtons.ConfirmDelete = False
+          NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
+          NavigatorButtons.PriorPage.Hint = #1055#1086#1087#1077#1088#1077#1076#1085#1103' '#1089#1090#1086#1088#1110#1085#1082#1072
+          NavigatorButtons.Prior.Hint = #1055#1086#1087#1077#1088#1077#1076#1085#1110#1081
+          NavigatorButtons.Next.Hint = #1053#1072#1089#1090#1091#1087#1085#1080#1081
+          NavigatorButtons.NextPage.Hint = #1053#1072#1089#1090#1091#1087#1085#1072' '#1089#1090#1086#1088#1110#1085#1082#1072
+          NavigatorButtons.Last.Hint = #1054#1089#1090#1072#1085#1085#1110#1081' '#1079#1072#1087#1080#1089
+          NavigatorButtons.Insert.Hint = #1042#1089#1090#1072#1074#1080#1090#1080' '#1079#1072#1087#1080#1089
+          NavigatorButtons.Delete.Hint = #1042#1080#1076#1072#1083#1080#1090#1080
+          NavigatorButtons.Edit.Hint = #1056#1077#1076#1072#1075#1091#1074#1072#1090#1080
+          NavigatorButtons.Post.Hint = #1047#1073#1077#1088#1077#1075#1090#1080
+          NavigatorButtons.Cancel.Hint = #1042#1110#1076#1084#1110#1085#1080#1090#1080
+          NavigatorButtons.Refresh.Hint = #1054#1073#1085#1086#1074#1080#1090#1080
+          NavigatorButtons.Filter.Hint = #1060#1110#1083#1100#1090#1088
+          DataController.DataSource = grpSource
+          DataController.Summary.DefaultGroupSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.SummaryGroups = <
+            item
+              Links = <>
+              SummaryItems = <>
+            end>
+          OptionsBehavior.FocusFirstCellOnNewRecord = True
+          OptionsBehavior.GoToNextCellOnEnter = True
+          OptionsBehavior.NavigatorHints = True
+          OptionsData.CancelOnExit = False
+          OptionsView.Navigator = True
+          OptionsView.Indicator = True
+          OptionsView.IndicatorWidth = 10
+          object DBGrid3DOM: TcxGridDBColumn
+            Caption = #1041#1091#1076#1080#1085#1086#1082
+            DataBinding.FieldName = 'DOM'
+            PropertiesClassName = 'TcxLookupComboBoxProperties'
+            Properties.KeyFieldNames = 'DOM'
+            Properties.ListColumns = <
+              item
+                FieldName = 'DOM'
+              end>
+            Properties.ListSource = domSource
+            Width = 64
+          end
+          object DBGrid3POD: TcxGridDBColumn
+            Caption = #1055#1110#1076#1111#1079#1076
+            DataBinding.FieldName = 'POD'
+            Visible = False
+          end
+          object DBGrid3SCH_CUR: TcxGridDBColumn
+            Caption = #1055#1086#1082#1072#1079#1085#1080#1082' '#1090#1077#1087#1077#1088#1110#1096#1085#1110#1081
+            DataBinding.FieldName = 'SCH_CUR'
+          end
+          object DBGrid3SCH_OLD: TcxGridDBColumn
+            Caption = #1055#1086#1082#1072#1079#1085#1080#1082' '#1084#1080#1085#1091#1083#1080#1081
+            DataBinding.FieldName = 'SCH_OLD'
+          end
+          object DBGrid3SCH_KUB: TcxGridDBColumn
+            Caption = #1050#1091#1073#1080
+            DataBinding.FieldName = 'SCH_KUB'
+            Options.Editing = False
+          end
+          object DBGrid3SCH_FOP: TcxGridDBColumn
+            Caption = #1050#1091#1073#1080' '#1060#1054#1055
+            DataBinding.FieldName = 'SCH_FOP'
+          end
+          object DBGrid3SCH_FACT: TcxGridDBColumn
+            Caption = #1050#1091#1073#1080' '#1072#1073#1086#1085'.'
+            DataBinding.FieldName = 'SCH_FACT'
+            Options.Editing = False
+          end
+          object DBGrid3SCH_RAZN: TcxGridDBColumn
+            Caption = #1056#1110#1079#1085#1080#1094#1103
+            DataBinding.FieldName = 'SCH_RAZN'
+            Options.Editing = False
+          end
+          object DBGrid3NORMA: TcxGridDBColumn
+            Caption = #1053#1086#1088#1084#1072' '#1085#1072' '#1082#1091#1073
+            DataBinding.FieldName = 'NORMA'
+            Options.Editing = False
+            Width = 78
+          end
+          object DBGrid3NORMA_BL: TcxGridDBColumn
+            Caption = #1053#1086#1088#1084#1072' '#1073#1077#1079' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072
+            DataBinding.FieldName = 'NORMA_BL'
+            Options.Editing = False
+          end
+          object DBGrid3NOTE: TcxGridDBColumn
+            DataBinding.FieldName = 'NOTE'
+            Width = 144
+          end
+        end
+        object cxGridLevel9: TcxGridLevel
+          Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080' '#1087#1086' '#1087#1110#1076#1111#1079#1076#1072#1084
+          GridView = DBGrid3
+        end
+      end
+    end
+    object cxTabSheet2: TcxTabSheet
+      Caption = #1055#1088#1086#1087#1080#1089#1082#1072
+      ImageIndex = 2
+      ExplicitHeight = 501
+      object dxBarDockControl2: TdxBarDockControl
+        Left = 0
+        Top = 0
+        Width = 744
+        Height = 26
+        Align = dalTop
+        BarManager = BarManager
+      end
+      object cxGrid3: TcxGrid
+        Left = 0
+        Top = 26
+        Width = 744
+        Height = 404
+        Align = alClient
+        TabOrder = 1
+        object DBGrid2: TcxGridDBTableView
+          NavigatorButtons.ConfirmDelete = False
+          NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
+          NavigatorButtons.PriorPage.Hint = #1055#1086#1087#1077#1088#1077#1076#1085#1103' '#1089#1090#1086#1088#1110#1085#1082#1072
+          NavigatorButtons.Prior.Hint = #1055#1086#1087#1077#1088#1077#1076#1085#1110#1081
+          NavigatorButtons.Next.Hint = #1053#1072#1089#1090#1091#1087#1085#1080#1081
+          NavigatorButtons.NextPage.Hint = #1053#1072#1089#1090#1091#1087#1085#1072' '#1089#1090#1086#1088#1110#1085#1082#1072
+          NavigatorButtons.Last.Hint = #1054#1089#1090#1072#1085#1085#1110#1081' '#1079#1072#1087#1080#1089
+          NavigatorButtons.Insert.Hint = #1042#1089#1090#1072#1074#1080#1090#1080' '#1079#1072#1087#1080#1089
+          NavigatorButtons.Delete.Hint = #1042#1080#1076#1072#1083#1080#1090#1080
+          NavigatorButtons.Edit.Hint = #1056#1077#1076#1072#1075#1091#1074#1072#1090#1080
+          NavigatorButtons.Post.Hint = #1047#1073#1077#1088#1077#1075#1090#1080
+          NavigatorButtons.Cancel.Hint = #1042#1110#1076#1084#1110#1085#1080#1090#1080
+          NavigatorButtons.Refresh.Hint = #1054#1073#1085#1086#1074#1080#1090#1080
+          NavigatorButtons.Filter.Hint = #1060#1110#1083#1100#1090#1088
+          DataController.DataModeController.SmartRefresh = True
+          DataController.DataSource = propSource
+          DataController.Summary.DefaultGroupSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.SummaryGroups = <>
+          OptionsBehavior.FocusFirstCellOnNewRecord = True
+          OptionsBehavior.GoToNextCellOnEnter = True
+          OptionsBehavior.NavigatorHints = True
+          OptionsData.CancelOnExit = False
+          OptionsView.Navigator = True
+          OptionsView.Indicator = True
+          OptionsView.IndicatorWidth = 10
+          object DBGrid2SCHET: TcxGridDBColumn
+            DataBinding.FieldName = 'SCHET'
+            Width = 88
+          end
+          object DBGrid2DD: TcxGridDBColumn
+            DataBinding.FieldName = 'DD'
+            Width = 78
+          end
+          object DBGrid2KOLI: TcxGridDBColumn
+            DataBinding.FieldName = 'KOLI'
+            Width = 97
+          end
+          object DBGrid2NOTE: TcxGridDBColumn
+            DataBinding.FieldName = 'NOTE'
+          end
+          object DBGrid2KL: TcxGridDBColumn
+            DataBinding.FieldName = 'KL'
+            Visible = False
+          end
+          object DBGrid2YEARMON: TcxGridDBColumn
+            DataBinding.FieldName = 'YEARMON'
+            Visible = False
+          end
+        end
+        object cxGridLevel5: TcxGridLevel
+          Caption = #1055#1088#1086#1087#1080#1089#1082#1072
+          GridView = DBGrid2
+        end
+      end
+    end
   end
   object Panel1: TPanel
     Left = 0
@@ -1239,7 +1247,23 @@ object MainForm: TMainForm
       FloatTop = 109
       FloatClientWidth = 0
       FloatClientHeight = 0
-      ItemLinks = <>
+      ItemLinks = <
+        item
+          Visible = True
+          ItemName = 'dxBarButton34'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton35'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton36'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton37'
+        end>
       OldName = 'Custom 4'
       OneOnRow = True
       Row = 0
@@ -1817,6 +1841,9 @@ object MainForm: TMainForm
       Category = 0
       Hint = #1047#1084#1110#1085#1080#1090#1080
       Visible = ivAlways
+      ImageIndex = 36
+      Lowered = True
+      PaintStyle = psCaptionGlyph
     end
     object dxBarButton25: TdxBarButton
       Caption = #1054#1085#1086#1074#1080#1090#1080
@@ -1833,6 +1860,7 @@ object MainForm: TMainForm
       Hint = #1054#1085#1086#1074#1080#1090#1080
       Visible = ivAlways
       ImageIndex = 33
+      Lowered = True
       PaintStyle = psCaptionGlyph
       OnClick = dxBarButton26Click
     end
@@ -1915,6 +1943,42 @@ object MainForm: TMainForm
       Visible = ivNever
       OnClick = dxBarButton33Click
     end
+    object dxBarButton34: TdxBarButton
+      Caption = #1054#1085#1086#1074#1080#1090#1080
+      Category = 0
+      Hint = #1054#1085#1086#1074#1080#1090#1080
+      Visible = ivAlways
+      ImageIndex = 33
+      Lowered = True
+      PaintStyle = psCaptionGlyph
+    end
+    object dxBarButton35: TdxBarButton
+      Caption = #1044#1086#1076#1072#1090#1080
+      Category = 0
+      Hint = #1044#1086#1076#1072#1090#1080
+      Visible = ivAlways
+      ImageIndex = 16
+      Lowered = True
+      PaintStyle = psCaptionGlyph
+    end
+    object dxBarButton36: TdxBarButton
+      Caption = #1047#1084#1110#1085#1080#1090#1080
+      Category = 0
+      Hint = #1047#1084#1110#1085#1080#1090#1080
+      Visible = ivAlways
+      ImageIndex = 36
+      Lowered = True
+      PaintStyle = psCaptionGlyph
+    end
+    object dxBarButton37: TdxBarButton
+      Caption = #1042#1080#1076#1072#1083#1080#1090#1080
+      Category = 0
+      Hint = #1042#1080#1076#1072#1083#1080#1090#1080
+      Visible = ivAlways
+      ImageIndex = 17
+      Lowered = True
+      PaintStyle = psCaptionGlyph
+    end
     object dxBarButton1: TdxBarButton
       Action = ActionEdCalcs
       Category = 1
@@ -1960,7 +2024,7 @@ object MainForm: TMainForm
     Left = 600
     Top = 204
     Bitmap = {
-      494C01013E004000980114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000A00114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5301,6 +5365,7 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'

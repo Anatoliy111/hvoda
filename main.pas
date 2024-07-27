@@ -646,6 +646,11 @@ type
     why_pokDATE_USER: TDateTimeField;
     why_pokSCHET: TIBStringField;
     why_pokVID_ZN: TIBStringField;
+    DBGrid1LICH_TO: TcxGridDBBandedColumn;
+    dxBarButton34: TdxBarButton;
+    dxBarButton35: TdxBarButton;
+    dxBarButton36: TdxBarButton;
+    dxBarButton37: TdxBarButton;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
