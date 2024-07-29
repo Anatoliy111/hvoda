@@ -85,7 +85,7 @@ object Form2: TForm2
       Left = 24
       Top = 118
       DataBinding.DataField = 'KOLI_P'
-      DataBinding.DataSource = MainForm.hvdSource
+      DataBinding.DataSource = DataAllSource
       Properties.ReadOnly = True
       TabOrder = 0
       Width = 79
@@ -94,7 +94,7 @@ object Form2: TForm2
       Left = 24
       Top = 72
       DataBinding.DataField = 'UL'
-      DataBinding.DataSource = MainForm.hvdSource
+      DataBinding.DataSource = DataAllSource
       Properties.ReadOnly = True
       TabOrder = 1
       Width = 249
@@ -103,7 +103,7 @@ object Form2: TForm2
       Left = 296
       Top = 72
       DataBinding.DataField = 'N_DOM'
-      DataBinding.DataSource = MainForm.hvdSource
+      DataBinding.DataSource = DataAllSource
       Properties.ReadOnly = True
       TabOrder = 2
       Width = 49
@@ -112,7 +112,7 @@ object Form2: TForm2
       Left = 24
       Top = 27
       DataBinding.DataField = 'SCHET'
-      DataBinding.DataSource = MainForm.hvdSource
+      DataBinding.DataSource = DataAllSource
       Properties.ReadOnly = True
       TabOrder = 3
       Width = 201
@@ -121,7 +121,7 @@ object Form2: TForm2
       Left = 375
       Top = 72
       DataBinding.DataField = 'KV'
-      DataBinding.DataSource = MainForm.hvdSource
+      DataBinding.DataSource = DataAllSource
       Properties.ReadOnly = True
       TabOrder = 4
       Width = 49
@@ -131,7 +131,7 @@ object Form2: TForm2
       Top = 118
       Caption = #1054#1088#1075#1072#1085#1110#1079#1072#1094#1110#1103
       DataBinding.DataField = 'ORG'
-      DataBinding.DataSource = MainForm.hvdSource
+      DataBinding.DataSource = DataAllSource
       Properties.ValueChecked = '1'
       Properties.ValueUnchecked = '0'
       TabOrder = 5
@@ -141,7 +141,7 @@ object Form2: TForm2
       Left = 241
       Top = 26
       DataBinding.DataField = 'FIO'
-      DataBinding.DataSource = MainForm.hvdSource
+      DataBinding.DataSource = DataAllSource
       Properties.ReadOnly = True
       TabOrder = 6
       Width = 315
@@ -151,7 +151,7 @@ object Form2: TForm2
       Top = 118
       Caption = #1060#1110#1083#1100#1090#1088
       DataBinding.DataField = 'FILTR'
-      DataBinding.DataSource = MainForm.hvdSource
+      DataBinding.DataSource = DataAllSource
       Properties.NullStyle = nssUnchecked
       Properties.ValueChecked = '1'
       Properties.ValueUnchecked = '0'
@@ -163,7 +163,7 @@ object Form2: TForm2
       Top = 118
       Caption = #1055#1086#1084#1087#1072
       DataBinding.DataField = 'POMPA'
-      DataBinding.DataSource = MainForm.hvdSource
+      DataBinding.DataSource = DataAllSource
       Properties.NullStyle = nssUnchecked
       Properties.ValueChecked = '1'
       Properties.ValueUnchecked = '0'
@@ -175,7 +175,7 @@ object Form2: TForm2
       Top = 158
       AutoSize = False
       DataBinding.DataField = 'WID'
-      DataBinding.DataSource = MainForm.hvdSource
+      DataBinding.DataSource = DataAllSource
       Enabled = False
       ParentShowHint = False
       Properties.AutoSelect = False
@@ -247,7 +247,7 @@ object Form2: TForm2
         Left = 93
         Top = 16
         DataBinding.DataField = 'PERE_DAY'
-        DataBinding.DataSource = MainForm.hvdSource
+        DataBinding.DataSource = DataAllSource
         Height = 21
         Width = 19
       end
@@ -255,7 +255,7 @@ object Form2: TForm2
         Left = 191
         Top = 15
         DataBinding.DataField = 'NOR_RAZN'
-        DataBinding.DataSource = MainForm.hvdSource
+        DataBinding.DataSource = DataAllSource
         Height = 19
         Width = 59
       end
@@ -263,7 +263,7 @@ object Form2: TForm2
         Left = 135
         Top = 35
         DataBinding.DataField = 'PREV_NORM'
-        DataBinding.DataSource = MainForm.hvdSource
+        DataBinding.DataSource = DataAllSource
         Height = 20
         Width = 42
       end
@@ -271,7 +271,7 @@ object Form2: TForm2
         Left = 303
         Top = 35
         DataBinding.DataField = 'DEL_NORM'
-        DataBinding.DataSource = MainForm.hvdSource
+        DataBinding.DataSource = DataAllSource
         Height = 20
         Width = 42
       end
@@ -309,7 +309,7 @@ object Form2: TForm2
         Left = 105
         Top = 16
         DataBinding.DataField = 'SCH_CUR'
-        DataBinding.DataSource = MainForm.hvdSource
+        DataBinding.DataSource = DataAllSource
         Height = 21
         Width = 35
       end
@@ -317,7 +317,7 @@ object Form2: TForm2
         Left = 236
         Top = 15
         DataBinding.DataField = 'SCH_RAZN'
-        DataBinding.DataSource = MainForm.hvdSource
+        DataBinding.DataSource = DataAllSource
         Height = 19
         Width = 21
       end
@@ -325,7 +325,7 @@ object Form2: TForm2
         Left = 236
         Top = 36
         DataBinding.DataField = 'SCH_RAZN2'
-        DataBinding.DataSource = MainForm.hvdSource
+        DataBinding.DataSource = DataAllSource
         Visible = False
         Height = 19
         Width = 21
@@ -393,7 +393,7 @@ object Form2: TForm2
     Top = 271
     Width = 699
     Height = 407
-    ActivePage = cxTabSheet8
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 2
     ClientRectBottom = 407
@@ -478,7 +478,7 @@ object Form2: TForm2
               Left = 137
               Top = 30
               DataBinding.DataField = 'LICH_TO'
-              DataBinding.DataSource = MainForm.hvdSource
+              DataBinding.DataSource = DataAllSource
               Height = 21
               Width = 19
             end
@@ -850,7 +850,7 @@ object Form2: TForm2
           Left = 432
           Top = 20
           DataBinding.DataField = 'SCH_RAZN'
-          DataBinding.DataSource = MainForm.hvdSource
+          DataBinding.DataSource = DataAllSource
           TabOrder = 2
           Width = 121
         end
@@ -1144,5 +1144,9 @@ object Form2: TForm2
       '')
     Left = 640
     Top = 88
+  end
+  object DataAllSource: TDataSource
+    Left = 640
+    Top = 16
   end
 end

@@ -163,6 +163,7 @@ type
     cxGridDBTableView4NOTE: TcxGridDBColumn;
     cxGridDBTableView4DATE_USER: TcxGridDBColumn;
     cxGridDBTableView4VID_ZN: TcxGridDBColumn;
+    DataAllSource: TDataSource;
     procedure cxButton1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -184,14 +185,17 @@ type
   public
     { Public declarations }
       LichPost:boolean;
+      DSet:TIBDataSet;
       procedure Find(sch:string);
       procedure calclich(DS:TIBDataSet);
+
 
 
   end;
 
 var
   Form2: TForm2;
+
 
 
 
@@ -441,11 +445,11 @@ procedure TForm2.cxButton10Click(Sender: TObject);
 begin
     IBQuery5.close;
     IBQuery5.SQL.Text:='execute procedure calc_pok :schet';
-    IBQuery5.ParamByName('schet').Value:=MainForm.hvdSCHET.Value;
+    IBQuery5.ParamByName('schet').Value:=DSet.FieldByName('SCHET').Value;
     IBQuery5.ExecSQL;
     IBQuery5.close;
-    MainForm.hvd.close;
-    MainForm.hvd.open;
+    DSet.close;
+    DSet.open;
 
 end;
 
@@ -463,15 +467,15 @@ begin
    exit;
 end;
 
-    MainForm.hvd.Edit;
-    MainForm.hvdWID.Value:=cxLookupComboBox1.EditValue;
-    MainForm.hvd.Post;
+    DSet.Edit;
+    DSet.FieldByName('WID').Value:=cxLookupComboBox1.EditValue;
+    DSet.Post;
 
     MainForm.why_pok.Append;
     MainForm.why_pok.Edit;
     MainForm.why_pokWID.Value:=cxLookupComboBox1.EditValue;
     MainForm.why_pokNOTE.Value:=cxMemo1.Text;
-    MainForm.why_pokSCHET.Value:=MainForm.hvdSCHET.Value;
+    MainForm.why_pokSCHET.Value:=DSet.FieldByName('SCHET').Value;
     MainForm.why_pok.Post;
 
     MainForm.IBTransaction1.CommitRetaining;    
@@ -484,10 +488,10 @@ end;
 
     cxLookupComboBox1.EditValue:=null;
     cxMemo1.Clear;
-    FormAddkart.calcpok2(MainForm.hvd);
+    FormAddkart.calcpok2(DSet);
 
  // if cxCalcEdit6.EditValue<>0 then
-    Form2.calclich(MainForm.hvd);
+    Form2.calclich(DSet);
 
   MainForm.IBTransaction1.CommitRetaining;
 
@@ -501,7 +505,7 @@ begin
     exit;
 end;
 
-if MainForm.lich.RecordCount=MainForm.hvdLICH_TO.Value then
+if MainForm.lich.RecordCount=DSet.FieldByName('LICH_TO').Value then
   if application.MessageBox('Ви дійсно бажаєте додати нову точку обліку?','Підтвердження',MB_YESNO)=IDNO then
     exit;
 
@@ -522,8 +526,8 @@ FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet1;
 FormAddkart.cxTabSheet2.TabVisible:=false;
 FormAddkart.cxTabSheet3.TabVisible:=false;
 FormAddkart.cxTabSheet4.TabVisible:=false;
-FormAddkart.cxTextEdit1.Text:=MainForm.hvdSCHET.Value;
-FormAddkart.cxLabel17.Caption:=MainForm.hvdFIO.Value;
+FormAddkart.cxTextEdit1.Text:=DSet.FieldByName('SCHET').Value;
+FormAddkart.cxLabel17.Caption:=DSet.FieldByName('FIO').Value;
 FormAddkart.Show;
 FormAddkart.cxDateEdit2.Visible:=true;
 //FormAddkart.cxLabel33.Visible:=false;
@@ -558,8 +562,8 @@ FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet1;
 FormAddkart.cxTabSheet2.TabVisible:=false;
 FormAddkart.cxTabSheet3.TabVisible:=false;
 FormAddkart.cxTabSheet4.TabVisible:=false;
-FormAddkart.cxTextEdit1.Text:=MainForm.hvdSCHET.Value;
-FormAddkart.cxLabel17.Caption:=MainForm.hvdFIO.Value;
+FormAddkart.cxTextEdit1.Text:=DSet.FieldByName('SCHET').Value;
+FormAddkart.cxLabel17.Caption:=DSet.FieldByName('FIO').Value;
 FormAddkart.Show;
 FormAddkart.cxTextEdit2.Text:=MainForm.lichTIP.Value;
 FormAddkart.cxTextEdit3.Text:=MainForm.lichN_LICH.Value;
@@ -580,7 +584,7 @@ begin
     exit;
 end;
 
-if MainForm.lich.RecordCount=MainForm.hvdLICH_TO.Value then
+if MainForm.lich.RecordCount=DSet.FieldByName('LICH_TO').Value then
   if application.MessageBox('Ви дійсно бажаєте додати нову точку обліку?','Підтвердження',MB_YESNO)=IDNO then
     exit;
 
@@ -596,8 +600,8 @@ FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet1;
 FormAddkart.cxTabSheet2.TabVisible:=false;
 FormAddkart.cxTabSheet3.TabVisible:=false;
 FormAddkart.cxTabSheet4.TabVisible:=false;
-FormAddkart.cxTextEdit1.Text:=MainForm.hvdSCHET.Value;
-FormAddkart.cxLabel17.Caption:=MainForm.hvdFIO.Value;
+FormAddkart.cxTextEdit1.Text:=DSet.FieldByName('SCHET').Value;
+FormAddkart.cxLabel17.Caption:=DSet.FieldByName('FIO').Value;
 FormAddkart.cxDateEdit2.Visible:=true;
 //FormAddkart.cxLabel33.Visible:=false;
 
@@ -621,8 +625,8 @@ FormDelkart.cxTabSheet1.TabVisible:=true;
 FormDelkart.cxTabSheet1.Show;
 FormDelkart.cxTabSheet2.TabVisible:=false;
 FormDelkart.cxTabSheet3.TabVisible:=false;
-FormDelkart.cxTextEdit1.Text:=MainForm.hvdSCHET.Value;
-FormDelkart.cxLabel17.Caption:=MainForm.hvdFIO.Value;
+FormDelkart.cxTextEdit1.Text:=DSet.FieldByName('SCHET').Value;
+FormDelkart.cxLabel17.Caption:=DSet.FieldByName('FIO').Value;
 
 FormDelkart.Show;
 
@@ -634,8 +638,8 @@ end;
 
 procedure TForm2.cxButton5Click(Sender: TObject);
 begin
-FormAddkart.calcpok2(MainForm.hvd);
-Form2.calclich(MainForm.hvd);
+FormAddkart.calcpok2(DSet);
+Form2.calclich(DSet);
 
 end;
 
@@ -647,8 +651,8 @@ FormAddkart.cxTabSheet2.TabVisible:=true;
 FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet2;
 FormAddkart.cxTabSheet3.TabVisible:=false;
 FormAddkart.cxTabSheet4.TabVisible:=false;
-FormAddkart.cxTextEdit5.Text:=MainForm.hvdSCHET.Value;
-FormAddkart.cxLabel16.Caption:=MainForm.hvdFIO.Value;
+FormAddkart.cxTextEdit5.Text:=DSet.FieldByName('SCHET').Value;
+FormAddkart.cxLabel16.Caption:=DSet.FieldByName('FIO').Value;
 FormAddkart.Show;
 end;
 
@@ -659,8 +663,8 @@ FormDelkart.cxTabSheet2.TabVisible:=true;
 FormDelkart.cxTabSheet2.Show;
 //FormAddkart.cxTabSheet2.ShowHint:=true;
 FormDelkart.cxTabSheet3.TabVisible:=false;
-FormDelkart.cxTextEdit5.Text:=MainForm.hvdSCHET.Value;
-FormDelkart.cxLabel16.Caption:=MainForm.hvdFIO.Value;
+FormDelkart.cxTextEdit5.Text:=DSet.FieldByName('SCHET').Value;
+FormDelkart.cxLabel16.Caption:=DSet.FieldByName('FIO').Value;
 
 FormDelkart.Show;
 
@@ -673,19 +677,19 @@ end;
 procedure TForm2.cxButton8Click(Sender: TObject);
 begin
 
-   if MainForm.hvdWID.Value=45 then
+   if DSet.FieldByName('WID').Value=45 then
    begin
      ShowMessage('Лічильник не повірений! Введення показників закрито');
      exit;
    end;
 
-   if MainForm.hvdWID.Value=42 then
+   if DSet.FieldByName('WID').Value=42 then
    begin
      ShowMessage('Лічильник не встановлений! Введення показників закрито');
      exit;
    end;
 
-   if MainForm.hvdWID.Value>=46 then
+   if DSet.FieldByName('WID').Value>=46 then
    begin
      ShowMessage('При цьому виді нарахувань введення показників не пердбачувано! Введення показників закрито');
      exit;
@@ -697,11 +701,11 @@ FormAddkart.cxTabSheet2.TabVisible:=false;
 FormAddkart.cxTabSheet3.TabVisible:=true;
 FormAddkart.cxTabSheet4.TabVisible:=false;
 FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet3;
-FormAddkart.cxTextEdit9.Text:=MainForm.hvdSCHET.Value;
-FormAddkart.cxLabel15.Caption:=MainForm.hvdFIO.Value;
-FormAddkart.cxCalcEdit6.EditValue:=MainForm.hvdNOR_RAZN.Value;
+FormAddkart.cxTextEdit9.Text:=DSet.FieldByName('SCHET').Value;
+FormAddkart.cxLabel15.Caption:=DSet.FieldByName('FIO').Value;
+FormAddkart.cxCalcEdit6.EditValue:=DSet.FieldByName('NOR_RAZN').Value;
 
-  if (FormAddkart.cxTabSheet3.Visible) and (MainForm.hvdLICH_TO.Value=0) then
+  if (FormAddkart.cxTabSheet3.Visible) and (DSet.FieldByName('LICH_TO').Value=0) then
   begin
     ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
     exit;
@@ -736,7 +740,7 @@ begin
   begin
   IBQuery1.Close;
   IBQuery1.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch and id>=:id order by date_pok';
-  IBQuery1.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+  IBQuery1.ParamByName('sch').Value:=DSet.FieldByName('SCHET').Value;
   IBQuery1.ParamByName('per').Value:=MainForm.period;
   IBQuery1.ParamByName('id').Value:=MainForm.pokaznID.Value;
   IBQuery1.Open;
@@ -752,7 +756,7 @@ begin
   begin
   IBQuery1.Close;
   IBQuery1.SQL.Text:='select * from lich where schet=:sch and id=:id and DATA_ZN is null';
-  IBQuery1.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+  IBQuery1.ParamByName('sch').Value:=DSet.FieldByName('SCHET').Value;
   IBQuery1.ParamByName('id').Value:=MainForm.pokaznID_LICH.Value;
   IBQuery1.Open;
 
@@ -768,8 +772,8 @@ begin
   begin
   if (MainForm.pokazn.RecordCount<>0) then
      MainForm.pokazn.Delete;
-     FormAddkart.calcpok2(MainForm.hvd);
-     Form2.calclich(MainForm.hvd);
+     FormAddkart.calcpok2(DSet);
+     Form2.calclich(DSet);
   end;
 end;
 
@@ -783,6 +787,8 @@ end;
 
 procedure TForm2.Find(sch:string);
 begin
+
+
     MainForm.lich.SelectSQL.Text:=MainForm.lchSQL+' and schet=:sch order by data_vip,id desc';
     MainForm.lich.ParamByName('sch').Value:=sch;
     MainForm.lich.Close;
@@ -829,8 +835,6 @@ begin
 
 
 
-
-
    MainForm.IBTransaction1.CommitRetaining;
       MainForm.Enabled:=true;
 end;
@@ -843,7 +847,7 @@ begin
     cxPageControl2.ActivePage:=cxTabSheet4;
     cxPageControl3.ActivePage:=cxTabSheet5;
 
-    if MainForm.hvdLICH_TO.Value>MainForm.lich.RecordCount then
+    if DSet.FieldByName('LICH_TO').Value>MainForm.lich.RecordCount then
        label11.Visible:=true
     else label11.Visible:=false;
     

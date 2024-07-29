@@ -179,12 +179,9 @@ type
     hvd3SNORM: TIBBCDField;
     DBGrid1NOTE: TcxGridDBBandedColumn;
     hvd_repKOLI_F: TLargeintField;
-    DBGrid3DOM: TcxGridDBColumn;
-    DBGrid3POD: TcxGridDBColumn;
     DBGrid3SCH_OLD: TcxGridDBColumn;
     DBGrid3SCH_CUR: TcxGridDBColumn;
     DBGrid3SCH_RAZN: TcxGridDBColumn;
-    DBGrid3NORMA: TcxGridDBColumn;
     DBGrid3SCH_KUB: TcxGridDBColumn;
     DBGrid3SCH_FACT: TcxGridDBColumn;
     grpKL: TIntegerField;
@@ -202,7 +199,6 @@ type
     grpSCH_KUB: TIBBCDField;
     grpSCH_RAZN: TIBBCDField;
     grpNORMA_BL: TIBBCDField;
-    DBGrid3NORMA_BL: TcxGridDBColumn;
     grpSCH_FOP: TIBBCDField;
     DBGrid3SCH_FOP: TcxGridDBColumn;
     pokaznSource: TDataSource;
@@ -363,7 +359,6 @@ type
     orgWID: TSmallintField;
     orgDOM: TIBStringField;
     orgKVART: TIBStringField;
-    orgSCHET: TIBStringField;
     orgN_SCH: TIBStringField;
     orgSCH_OLD: TIBBCDField;
     orgSCH_CUR: TIBBCDField;
@@ -666,7 +661,16 @@ type
     orgPREV_NORM: TFloatField;
     orgLICH_YEARMON: TIntegerField;
     orgEDRPOU: TIntegerField;
-    cxGridDBBandedTableView1EDRPOU: TcxGridDBBandedColumn;
+    grpN_LICH: TIBStringField;
+    grpTIP: TIBStringField;
+    grpKL_UL: TIntegerField;
+    grpUL: TIBStringField;
+    grpN_DOM: TIBStringField;
+    DBGrid3UL: TcxGridDBColumn;
+    DBGrid3N_DOM: TcxGridDBColumn;
+    orgKL_UL: TIntegerField;
+    orgSCHET: TIBStringField;
+    cxGridDBBandedTableView1Column1: TcxGridDBBandedColumn;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -751,8 +755,6 @@ type
     procedure dxBarButton23Click(Sender: TObject);
     procedure cxGridDBBandedColumn13PropertiesButtonClick(Sender: TObject;
       AButtonIndex: Integer);
-    procedure cxTabSheet4Show(Sender: TObject);
-    procedure cxTabSheet1Show(Sender: TObject);
     procedure dxBarButton25Click(Sender: TObject);
     procedure dxBarButton26Click(Sender: TObject);
     procedure dxBarButton27Click(Sender: TObject);
@@ -767,6 +769,8 @@ type
     procedure dxBarButton33Click(Sender: TObject);
     procedure lichAfterPost(DataSet: TDataSet);
     procedure cxButton2Click(Sender: TObject);
+    procedure cxGridDBBandedColumn8PropertiesButtonClick(Sender: TObject;
+      AButtonIndex: Integer);
 
   private
     { Private declarations }
@@ -1372,6 +1376,8 @@ procedure TMainForm.DBGrid1Column1PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
      Form2.Find(MainForm.hvdSCHET.Value);
+     Form2.DSet:=MainForm.hvd;
+     Form2.DataAllSource.DataSet:=MainForm.hvd;
      Form2.Show;
 end;
 
@@ -2201,8 +2207,67 @@ procedure TMainForm.cxGridDBBandedColumn13PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
      Form2.Find(MainForm.orgSCHET.Value);
+     Form2.DSet:=MainForm.org;
+     Form2.DataAllSource.DataSet:=MainForm.org;
      Form2.Show;
 
+end;
+
+procedure TMainForm.cxGridDBBandedColumn8PropertiesButtonClick(Sender: TObject;
+  AButtonIndex: Integer);
+begin
+   if (isArchive) or (impLASTEXP.Value=1) then
+      exit;
+
+   if MainForm.orgWID.Value=45 then
+   begin
+     ShowMessage('Лічильник не повірений! Введення показників закрито');
+     exit;
+   end;
+
+   if MainForm.orgWID.Value=42 then
+   begin
+     ShowMessage('Лічильник не встановлений! Введення показників закрито');
+     exit;
+   end;
+
+   if MainForm.orgWID.Value>=46 then
+   begin
+     ShowMessage('При цьому виді нарахувань введення показників не пердбачувано! Введення показників закрито');
+     exit;
+   end;
+
+
+    MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch order by date_pok desc';
+    MainForm.pokazn.ParamByName('sch').Value:=MainForm.orgSCHET.Value;
+    MainForm.pokazn.Close;
+    MainForm.pokazn.open;
+//     Form2.Show;
+//     Form2.cxPageControl1.ActivePage:=Form2.cxTabSheet3;
+FormAddkart.cxTabSheet1.TabVisible:=false;
+FormAddkart.cxTabSheet2.TabVisible:=false;
+FormAddkart.cxTabSheet3.TabVisible:=true;
+FormAddkart.cxTabSheet4.TabVisible:=false;
+FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet3;
+FormAddkart.cxTextEdit9.Text:=MainForm.orgSCHET.Value;
+FormAddkart.cxLabel15.Caption:=MainForm.orgFIO.Value;
+FormAddkart.cxCalcEdit6.EditValue:=MainForm.orgNOR_RAZN.Value;
+
+  if (FormAddkart.cxTabSheet3.Visible) and (MainForm.hvdLICH_TO.Value=0) then
+  begin
+    ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
+    exit;
+  end;
+
+FormAddkart.Show;
+if FormAddkart.IBQuery1.RecordCount<>0 then
+begin
+  FormAddkart.cxDateEdit5.EditValue:=FormAddkart.IBQuery1.FieldByName('date_pok').Value;
+  if FormAddkart.IBQuery1.FieldByName('pokazn').IsNull then
+    FormAddkart.cxCalcEdit2.Text:='0'
+  else
+    FormAddkart.cxCalcEdit2.Text:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
+end;
 end;
 
 procedure TMainForm.cxGridDBBandedTableView1EditKeyDown(
@@ -2237,37 +2302,6 @@ begin
 //  else if NewPage=cxTabSheet2 then prop.Open
 //  else if NewPage=cxTabSheet3 then grp.Open
 //  else if NewPage=cxTabSheet4 then org.Open;
-
-end;
-
-procedure TMainForm.cxTabSheet1Show(Sender: TObject);
-begin
-     Form2.cxDBCheckBox1.DataBinding.DataSource:=MainForm.hvdSource;
-  //   Form2.cxDBLookupComboBox1.DataBinding.DataSource:=MainForm.hvdSource;
-
-
-     Form2.cxDBTextEdit1.DataBinding.DataSource:=MainForm.hvdSource;
-     Form2.cxDBTextEdit3.DataBinding.DataSource:=MainForm.hvdSource;
-     Form2.cxDBTextEdit6.DataBinding.DataSource:=MainForm.hvdSource;
-     Form2.cxDBTextEdit2.DataBinding.DataSource:=MainForm.hvdSource;
-     Form2.cxDBTextEdit5.DataBinding.DataSource:=MainForm.hvdSource;
-     Form2.cxDBTextEdit4.DataBinding.DataSource:=MainForm.hvdSource;
-     Form2.cxDBTextEdit10.DataBinding.DataSource:=MainForm.hvdSource;
-
-end;
-
-procedure TMainForm.cxTabSheet4Show(Sender: TObject);
-begin
-     Form2.cxDBCheckBox1.DataBinding.DataSource:=MainForm.orgSource;
-   //  Form2.cxDBLookupComboBox1.DataBinding.DataSource:=MainForm.orgSource;
-    // Form2.cxDBLookupComboBox2.DataBinding.DataSource:=MainForm.orgSource;
-     Form2.cxDBTextEdit1.DataBinding.DataSource:=MainForm.orgSource;
-     Form2.cxDBTextEdit3.DataBinding.DataSource:=MainForm.orgSource;
-     Form2.cxDBTextEdit6.DataBinding.DataSource:=MainForm.orgSource;
-     Form2.cxDBTextEdit2.DataBinding.DataSource:=MainForm.orgSource;
-     Form2.cxDBTextEdit5.DataBinding.DataSource:=MainForm.orgSource;
-     Form2.cxDBTextEdit4.DataBinding.DataSource:=MainForm.orgSource;
-     Form2.cxDBTextEdit10.DataBinding.DataSource:=MainForm.orgSource;
 
 end;
 

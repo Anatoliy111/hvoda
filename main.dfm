@@ -2,8 +2,8 @@ object MainForm: TMainForm
   Left = 197
   Top = 72
   Caption = #1042#1086#1076#1086#1087#1086#1089#1090#1072#1095#1072#1085#1085#1103
-  ClientHeight = 566
-  ClientWidth = 744
+  ClientHeight = 633
+  ClientWidth = 864
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,21 +21,22 @@ object MainForm: TMainForm
   object cxPageControl1: TcxPageControl
     Left = 0
     Top = 112
-    Width = 744
-    Height = 454
-    ActivePage = cxTabSheet3
+    Width = 864
+    Height = 521
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 0
     OnPageChanging = cxPageControl1PageChanging
     ExplicitTop = 41
+    ExplicitWidth = 744
     ExplicitHeight = 525
-    ClientRectBottom = 454
-    ClientRectRight = 744
+    ClientRectBottom = 521
+    ClientRectRight = 864
     ClientRectTop = 24
     object cxTabSheet1: TcxTabSheet
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
-      OnShow = cxTabSheet1Show
+      ExplicitWidth = 744
       ExplicitHeight = 501
       object Image1: TImage
         Left = 608
@@ -46,18 +47,21 @@ object MainForm: TMainForm
       object dxBarDockControl1: TdxBarDockControl
         Left = 0
         Top = 0
-        Width = 744
+        Width = 864
         Height = 28
         Align = dalTop
         BarManager = BarManager
+        ExplicitWidth = 744
       end
       object cxGrid2: TcxGrid
         Left = 0
         Top = 28
-        Width = 744
-        Height = 402
+        Width = 864
+        Height = 469
         Align = alClient
         TabOrder = 1
+        ExplicitWidth = 744
+        ExplicitHeight = 402
         object DBGrid1: TcxGridDBBandedTableView
           OnKeyDown = DBGrid1KeyDown
           NavigatorButtons.OnButtonClick = DBGrid1NavigatorButtonsButtonClick
@@ -484,7 +488,7 @@ object MainForm: TMainForm
     object cxTabSheet4: TcxTabSheet
       Caption = #1070#1088'.'#1086#1089#1086#1073#1080'/'#1060#1054#1055
       ImageIndex = 1
-      OnShow = cxTabSheet4Show
+      ExplicitWidth = 744
       ExplicitHeight = 501
       object Image2: TImage
         Left = 608
@@ -495,20 +499,23 @@ object MainForm: TMainForm
       object dxBarDockControl4: TdxBarDockControl
         Left = 0
         Top = 0
-        Width = 744
+        Width = 864
         Height = 28
         Align = dalTop
         BarManager = BarManager
         SunkenBorder = False
         UseOwnSunkenBorder = True
+        ExplicitWidth = 744
       end
       object cxGrid1: TcxGrid
         Left = 0
         Top = 28
-        Width = 744
-        Height = 402
+        Width = 864
+        Height = 469
         Align = alClient
         TabOrder = 1
+        ExplicitWidth = 744
+        ExplicitHeight = 402
         object cxGridDBBandedTableView1: TcxGridDBBandedTableView
           OnKeyDown = cxGridDBBandedTableView1KeyDown
           NavigatorButtons.ConfirmDelete = False
@@ -592,19 +599,19 @@ object MainForm: TMainForm
           Styles.ContentEven = cxStyle1
           Bands = <
             item
-              Width = 905
+              Width = 1072
             end
             item
               Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
               Width = 221
             end>
           object cxGridDBBandedColumn2: TcxGridDBBandedColumn
-            Caption = #1054#1089#1086#1073'.'#1088#1072#1093#1091#1085#1086#1082
+            Caption = #1054#1089'.'#1088#1072#1093'/'#1028#1044#1056#1055#1054#1059'/'#1030#1055#1053
             DataBinding.FieldName = 'SCHET'
             Options.Editing = False
-            Width = 134
+            Width = 176
             Position.BandIndex = 0
-            Position.ColIndex = 1
+            Position.ColIndex = 0
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn3: TcxGridDBBandedColumn
@@ -612,9 +619,9 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'FIO'
             Options.Editing = False
             Options.Filtering = False
-            Width = 211
+            Width = 200
             Position.BandIndex = 0
-            Position.ColIndex = 2
+            Position.ColIndex = 1
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn4: TcxGridDBBandedColumn
@@ -657,9 +664,9 @@ object MainForm: TMainForm
             Caption = #1044#1072#1090#1072' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
             DataBinding.FieldName = 'DATE_POK'
             Options.Editing = False
-            Width = 110
+            Width = 98
             Position.BandIndex = 0
-            Position.ColIndex = 9
+            Position.ColIndex = 8
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn8: TcxGridDBBandedColumn
@@ -670,14 +677,14 @@ object MainForm: TMainForm
                 Default = True
                 Kind = bkEllipsis
               end>
-            Properties.OnButtonClick = DBGrid1Column2PropertiesButtonClick
+            Properties.OnButtonClick = cxGridDBBandedColumn8PropertiesButtonClick
             Options.Filtering = False
             Options.ShowEditButtons = isebAlways
             Options.Grouping = False
             Options.Sorting = False
-            Width = 24
+            Width = 22
             Position.BandIndex = 0
-            Position.ColIndex = 10
+            Position.ColIndex = 9
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn9: TcxGridDBBandedColumn
@@ -714,44 +721,17 @@ object MainForm: TMainForm
           object cxGridDBBandedColumn12: TcxGridDBBandedColumn
             Caption = #1042#1080#1076' '#1085#1072#1088#1072#1093'.'
             DataBinding.FieldName = 'WID'
-            PropertiesClassName = 'TcxImageComboBoxProperties'
-            Properties.Alignment.Horz = taLeftJustify
-            Properties.Items = <
+            PropertiesClassName = 'TcxLookupComboBoxProperties'
+            Properties.KeyFieldNames = 'ID'
+            Properties.ListColumns = <
               item
-                Description = #1051#1110#1095#1080#1083#1100#1085#1080#1082
-                ImageIndex = 0
-                Tag = 1
-                Value = 1
-              end
-              item
-                Description = #1041#1077#1079' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072
-                Tag = 2
-                Value = 2
-              end
-              item
-                Description = #1053#1072' '#1087#1086#1074#1110#1088#1094#1110'/'#1088#1077#1084#1086#1085#1090
-                Tag = 3
-                Value = 3
-              end
-              item
-                Description = #1053#1077' '#1087#1088#1086#1078#1080#1074#1072#1108
-                Tag = 4
-                Value = 4
-              end
-              item
-                Description = #1053#1077' '#1085#1072#1088#1072#1093#1086#1074#1091#1074#1072#1090#1080
-                Tag = 5
-                Value = '5'
-              end
-              item
-                Description = #1055#1086#1095#1072#1089#1086#1074#1072' '#1085#1086#1088#1084#1072
-                Tag = 6
-                Value = '6'
+                FieldName = 'VID_ZN'
               end>
-            Properties.OnEditValueChanged = DBGrid1WIDPropertiesEditValueChanged
-            Width = 64
+            Properties.ListSource = vid_nachSource
+            Options.Editing = False
+            Width = 154
             Position.BandIndex = 0
-            Position.ColIndex = 8
+            Position.ColIndex = 7
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn13: TcxGridDBBandedColumn
@@ -768,36 +748,36 @@ object MainForm: TMainForm
             Options.ShowEditButtons = isebAlways
             Options.Grouping = False
             Options.Sorting = False
-            Width = 23
+            Width = 21
             Position.BandIndex = 0
-            Position.ColIndex = 3
+            Position.ColIndex = 2
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn14: TcxGridDBBandedColumn
             Caption = #1042#1091#1083#1080#1094#1103
             DataBinding.FieldName = 'UL'
             Options.Editing = False
-            Width = 82
+            Width = 115
             Position.BandIndex = 0
-            Position.ColIndex = 4
+            Position.ColIndex = 3
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn15: TcxGridDBBandedColumn
             Caption = #1041#1091#1076#1080#1085#1086#1082
             DataBinding.FieldName = 'N_DOM'
             Options.Editing = False
-            Width = 58
+            Width = 78
             Position.BandIndex = 0
-            Position.ColIndex = 5
+            Position.ColIndex = 4
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn16: TcxGridDBBandedColumn
             Caption = #1050#1074#1072#1088#1090#1080#1088#1072
             DataBinding.FieldName = 'KV'
             Options.Editing = False
-            Width = 37
+            Width = 52
             Position.BandIndex = 0
-            Position.ColIndex = 6
+            Position.ColIndex = 5
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn17: TcxGridDBBandedColumn
@@ -813,17 +793,16 @@ object MainForm: TMainForm
             Caption = #1044#1072#1090#1072' '#1087#1086#1074#1110#1088#1082#1080
             DataBinding.FieldName = 'LICH_POV'
             Options.Editing = False
-            Width = 69
+            Width = 95
             Position.BandIndex = 0
-            Position.ColIndex = 7
+            Position.ColIndex = 6
             Position.RowIndex = 0
           end
-          object cxGridDBBandedTableView1EDRPOU: TcxGridDBBandedColumn
-            Caption = #1028#1044#1056#1055#1054#1059'/'#1030#1055#1053
-            DataBinding.FieldName = 'EDRPOU'
-            Width = 93
+          object cxGridDBBandedTableView1Column1: TcxGridDBBandedColumn
+            DataBinding.FieldName = 'WID'
+            Width = 61
             Position.BandIndex = 0
-            Position.ColIndex = 0
+            Position.ColIndex = 10
             Position.RowIndex = 0
           end
         end
@@ -836,22 +815,26 @@ object MainForm: TMainForm
     object cxTabSheet3: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1110' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 3
+      ExplicitWidth = 744
       ExplicitHeight = 501
       object dxBarDockControl3: TdxBarDockControl
         Left = 0
         Top = 0
-        Width = 744
+        Width = 864
         Height = 28
         Align = dalTop
         BarManager = BarManager
+        ExplicitWidth = 744
       end
       object cxGrid4: TcxGrid
         Left = 0
         Top = 28
-        Width = 744
-        Height = 402
+        Width = 864
+        Height = 469
         Align = alClient
         TabOrder = 1
+        ExplicitWidth = 744
+        ExplicitHeight = 402
         object DBGrid3: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
@@ -882,30 +865,22 @@ object MainForm: TMainForm
           OptionsView.Navigator = True
           OptionsView.Indicator = True
           OptionsView.IndicatorWidth = 10
-          object DBGrid3DOM: TcxGridDBColumn
+          object DBGrid3UL: TcxGridDBColumn
+            Caption = #1042#1091#1083#1080#1094#1103
+            DataBinding.FieldName = 'UL'
+            Width = 269
+          end
+          object DBGrid3N_DOM: TcxGridDBColumn
             Caption = #1041#1091#1076#1080#1085#1086#1082
-            DataBinding.FieldName = 'DOM'
-            PropertiesClassName = 'TcxLookupComboBoxProperties'
-            Properties.KeyFieldNames = 'DOM'
-            Properties.ListColumns = <
-              item
-                FieldName = 'DOM'
-              end>
-            Properties.ListSource = domSource
-            Width = 64
-          end
-          object DBGrid3POD: TcxGridDBColumn
-            Caption = #1055#1110#1076#1111#1079#1076
-            DataBinding.FieldName = 'POD'
-            Visible = False
-          end
-          object DBGrid3SCH_CUR: TcxGridDBColumn
-            Caption = #1055#1086#1082#1072#1079#1085#1080#1082' '#1090#1077#1087#1077#1088#1110#1096#1085#1110#1081
-            DataBinding.FieldName = 'SCH_CUR'
+            DataBinding.FieldName = 'N_DOM'
           end
           object DBGrid3SCH_OLD: TcxGridDBColumn
             Caption = #1055#1086#1082#1072#1079#1085#1080#1082' '#1084#1080#1085#1091#1083#1080#1081
             DataBinding.FieldName = 'SCH_OLD'
+          end
+          object DBGrid3SCH_CUR: TcxGridDBColumn
+            Caption = #1055#1086#1082#1072#1079#1085#1080#1082' '#1090#1077#1087#1077#1088#1110#1096#1085#1110#1081
+            DataBinding.FieldName = 'SCH_CUR'
           end
           object DBGrid3SCH_KUB: TcxGridDBColumn
             Caption = #1050#1091#1073#1080
@@ -913,7 +888,7 @@ object MainForm: TMainForm
             Options.Editing = False
           end
           object DBGrid3SCH_FOP: TcxGridDBColumn
-            Caption = #1050#1091#1073#1080' '#1060#1054#1055
+            Caption = #1050#1091#1073#1080' '#1070#1088'.'#1086#1089#1086#1073#1080'/'#1060#1054#1055
             DataBinding.FieldName = 'SCH_FOP'
           end
           object DBGrid3SCH_FACT: TcxGridDBColumn
@@ -924,17 +899,6 @@ object MainForm: TMainForm
           object DBGrid3SCH_RAZN: TcxGridDBColumn
             Caption = #1056#1110#1079#1085#1080#1094#1103
             DataBinding.FieldName = 'SCH_RAZN'
-            Options.Editing = False
-          end
-          object DBGrid3NORMA: TcxGridDBColumn
-            Caption = #1053#1086#1088#1084#1072' '#1085#1072' '#1082#1091#1073
-            DataBinding.FieldName = 'NORMA'
-            Options.Editing = False
-            Width = 78
-          end
-          object DBGrid3NORMA_BL: TcxGridDBColumn
-            Caption = #1053#1086#1088#1084#1072' '#1073#1077#1079' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072
-            DataBinding.FieldName = 'NORMA_BL'
             Options.Editing = False
           end
           object DBGrid3NOTE: TcxGridDBColumn
@@ -951,22 +915,26 @@ object MainForm: TMainForm
     object cxTabSheet2: TcxTabSheet
       Caption = #1055#1088#1086#1087#1080#1089#1082#1072
       ImageIndex = 2
+      ExplicitWidth = 744
       ExplicitHeight = 501
       object dxBarDockControl2: TdxBarDockControl
         Left = 0
         Top = 0
-        Width = 744
+        Width = 864
         Height = 26
         Align = dalTop
         BarManager = BarManager
+        ExplicitWidth = 744
       end
       object cxGrid3: TcxGrid
         Left = 0
         Top = 26
-        Width = 744
-        Height = 404
+        Width = 864
+        Height = 471
         Align = alClient
         TabOrder = 1
+        ExplicitWidth = 744
+        ExplicitHeight = 404
         object DBGrid2: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
@@ -1028,20 +996,22 @@ object MainForm: TMainForm
   object Panel1: TPanel
     Left = 0
     Top = 106
-    Width = 744
+    Width = 864
     Height = 6
     Align = alTop
     BorderStyle = bsSingle
     Color = clCream
     TabOrder = 1
+    ExplicitWidth = 744
   end
   object Panel2: TPanel
     Left = 0
     Top = 71
-    Width = 744
+    Width = 864
     Height = 35
     Align = alTop
     TabOrder = 6
+    ExplicitWidth = 744
     object cxLabel1: TcxLabel
       Left = 128
       Top = 8
@@ -1993,7 +1963,7 @@ object MainForm: TMainForm
   object ActionList1: TActionList
     Images = ImageList1
     Left = 680
-    Top = 216
+    Top = 256
     object ActionEdCalcs: TAction
       Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1082#1080
       ImageIndex = 40
@@ -2030,7 +2000,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000A80114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000AC0114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5358,6 +5328,7 @@ object MainForm: TMainForm
       000000000000}
   end
   object IBDatabase: TIBDatabase
+    Connected = True
     DatabaseName = 'C:\TEMP\GKU.GDB'
     Params.Strings = (
       'user_name=sysdba'
@@ -5993,44 +5964,57 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into HVGRP'
       
-        '  (DOM, KL, NORMA, NORMA_BL, NOTE, POD, RAZN, SCH_CUR, SCH_FACT,' +
-        ' SCH_FOP, '
-      '   SCH_OLD, SCH_RAZN, SCH0, SCH1, YEARMON)'
+        '  (DOM, KL, KL_UL, N_DOM, N_LICH, NORMA, NORMA_BL, NOTE, POD, RA' +
+        'ZN, SCH_CUR, '
+      
+        '   SCH_FACT, SCH_FOP, SCH_OLD, SCH_RAZN, SCH0, SCH1, TIP, UL, YE' +
+        'ARMON)'
       'values'
       
-        '  (:DOM, :KL, :NORMA, :NORMA_BL, :NOTE, :POD, :RAZN, :SCH_CUR, :' +
-        'SCH_FACT, '
-      '   :SCH_FOP, :SCH_OLD, :SCH_RAZN, :SCH0, :SCH1, :YEARMON)')
+        '  (:DOM, :KL, :KL_UL, :N_DOM, :N_LICH, :NORMA, :NORMA_BL, :NOTE,' +
+        ' :POD, '
+      
+        '   :RAZN, :SCH_CUR, :SCH_FACT, :SCH_FOP, :SCH_OLD, :SCH_RAZN, :S' +
+        'CH0, :SCH1, '
+      '   :TIP, :UL, :YEARMON)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
       '  YEARMON,'
-      '  DOM,'
-      '  POD,'
       '  SCH0,'
       '  SCH1,'
+      '  RAZN,'
+      '  NORMA,'
+      '  NOTE,'
+      '  DOM,'
+      '  POD,'
       '  SCH_OLD,'
       '  SCH_CUR,'
       '  SCH_FACT,'
-      '  NORMA,'
-      '  RAZN,'
-      '  NOTE,'
       '  SCH_KUB,'
       '  SCH_RAZN,'
       '  NORMA_BL,'
-      '  SCH_FOP'
+      '  SCH_FOP,'
+      '  N_LICH,'
+      '  TIP,'
+      '  KL_UL,'
+      '  UL,'
+      '  N_DOM'
       'from HVGRP '
       'where'
       '  KL = :KL')
     SelectSQL.Strings = (
       'select * from HVGRP'
       'where yearmon=:yearmon'
-      'order by dom')
+      'order by ul')
     ModifySQL.Strings = (
       'update HVGRP'
       'set'
       '  DOM = :DOM,'
       '  KL = :KL,'
+      '  KL_UL = :KL_UL,'
+      '  N_DOM = :N_DOM,'
+      '  N_LICH = :N_LICH,'
       '  NORMA = :NORMA,'
       '  NORMA_BL = :NORMA_BL,'
       '  NOTE = :NOTE,'
@@ -6043,14 +6027,16 @@ object MainForm: TMainForm
       '  SCH_RAZN = :SCH_RAZN,'
       '  SCH0 = :SCH0,'
       '  SCH1 = :SCH1,'
+      '  TIP = :TIP,'
+      '  UL = :UL,'
       '  YEARMON = :YEARMON'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'
     GeneratorField.Generator = 'GEN_HVGRP_ID'
     GeneratorField.ApplyEvent = gamOnPost
-    Left = 304
-    Top = 352
+    Left = 224
+    Top = 336
     object grpKL: TIntegerField
       FieldName = 'KL'
       Origin = '"HVGRP"."KL"'
@@ -6142,11 +6128,33 @@ object MainForm: TMainForm
       Precision = 18
       Size = 4
     end
+    object grpN_LICH: TIBStringField
+      FieldName = 'N_LICH'
+      Origin = '"HVGRP"."N_LICH"'
+    end
+    object grpTIP: TIBStringField
+      FieldName = 'TIP'
+      Origin = '"HVGRP"."TIP"'
+    end
+    object grpKL_UL: TIntegerField
+      FieldName = 'KL_UL'
+      Origin = '"HVGRP"."KL_UL"'
+    end
+    object grpUL: TIBStringField
+      FieldName = 'UL'
+      Origin = '"HVGRP"."UL"'
+      Size = 70
+    end
+    object grpN_DOM: TIBStringField
+      FieldName = 'N_DOM'
+      Origin = '"HVGRP"."N_DOM"'
+      Size = 10
+    end
   end
   object grpSource: TDataSource
     DataSet = grp
-    Left = 304
-    Top = 384
+    Left = 224
+    Top = 368
   end
   object Timer1: TTimer
     Interval = 10000
@@ -6173,8 +6181,8 @@ object MainForm: TMainForm
     Restrictions = []
     RTLLanguage = False
     MemoParentFont = False
-    Left = 744
-    Top = 224
+    Left = 712
+    Top = 288
   end
   object frxDotMatrixExport1: TfrxDotMatrixExport
     UseFileCache = True
@@ -6918,8 +6926,8 @@ object MainForm: TMainForm
       'begin'
       ''
       'end.')
-    Left = 744
-    Top = 194
+    Left = 776
+    Top = 250
     Datasets = <>
     Variables = <>
     Style = <>
@@ -8976,12 +8984,6 @@ object MainForm: TMainForm
       ReadOnly = True
       Size = 10
     end
-    object orgSCHET: TIBStringField
-      FieldName = 'SCHET'
-      Origin = '"H_VODA"."SCHET"'
-      Required = True
-      Size = 10
-    end
     object orgN_SCH: TIBStringField
       FieldName = 'N_SCH'
       Origin = '"H_VODA"."N_SCH"'
@@ -9178,6 +9180,17 @@ object MainForm: TMainForm
     object orgEDRPOU: TIntegerField
       FieldName = 'EDRPOU'
       Origin = '"H_VODA"."EDRPOU"'
+    end
+    object orgKL_UL: TIntegerField
+      FieldName = 'KL_UL'
+      Origin = '"H_VODA"."KL_UL"'
+    end
+    object orgSCHET: TIBStringField
+      DisplayWidth = 12
+      FieldName = 'SCHET'
+      Origin = '"H_VODA"."SCHET"'
+      Required = True
+      Size = 10
     end
   end
   object orgSource: TDataSource
