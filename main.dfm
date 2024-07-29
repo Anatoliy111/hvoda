@@ -23,7 +23,7 @@ object MainForm: TMainForm
     Top = 112
     Width = 744
     Height = 454
-    ActivePage = cxTabSheet4
+    ActivePage = cxTabSheet3
     Align = alClient
     TabOrder = 0
     OnPageChanging = cxPageControl1PageChanging
@@ -482,7 +482,7 @@ object MainForm: TMainForm
       end
     end
     object cxTabSheet4: TcxTabSheet
-      Caption = #1054#1088#1075#1072#1085#1110#1079#1072#1094#1110#1111
+      Caption = #1070#1088'.'#1086#1089#1086#1073#1080'/'#1060#1054#1055
       ImageIndex = 1
       OnShow = cxTabSheet4Show
       ExplicitHeight = 501
@@ -599,12 +599,12 @@ object MainForm: TMainForm
               Width = 221
             end>
           object cxGridDBBandedColumn2: TcxGridDBBandedColumn
-            Caption = #1028#1044#1056#1055#1054#1059
+            Caption = #1054#1089#1086#1073'.'#1088#1072#1093#1091#1085#1086#1082
             DataBinding.FieldName = 'SCHET'
             Options.Editing = False
-            Width = 131
+            Width = 134
             Position.BandIndex = 0
-            Position.ColIndex = 0
+            Position.ColIndex = 1
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn3: TcxGridDBBandedColumn
@@ -612,9 +612,9 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'FIO'
             Options.Editing = False
             Options.Filtering = False
-            Width = 206
+            Width = 211
             Position.BandIndex = 0
-            Position.ColIndex = 1
+            Position.ColIndex = 2
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn4: TcxGridDBBandedColumn
@@ -657,9 +657,9 @@ object MainForm: TMainForm
             Caption = #1044#1072#1090#1072' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
             DataBinding.FieldName = 'DATE_POK'
             Options.Editing = False
-            Width = 108
+            Width = 110
             Position.BandIndex = 0
-            Position.ColIndex = 8
+            Position.ColIndex = 9
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn8: TcxGridDBBandedColumn
@@ -675,9 +675,9 @@ object MainForm: TMainForm
             Options.ShowEditButtons = isebAlways
             Options.Grouping = False
             Options.Sorting = False
-            Width = 23
+            Width = 24
             Position.BandIndex = 0
-            Position.ColIndex = 9
+            Position.ColIndex = 10
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn9: TcxGridDBBandedColumn
@@ -749,9 +749,9 @@ object MainForm: TMainForm
                 Value = '6'
               end>
             Properties.OnEditValueChanged = DBGrid1WIDPropertiesEditValueChanged
-            Width = 62
+            Width = 64
             Position.BandIndex = 0
-            Position.ColIndex = 7
+            Position.ColIndex = 8
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn13: TcxGridDBBandedColumn
@@ -768,18 +768,18 @@ object MainForm: TMainForm
             Options.ShowEditButtons = isebAlways
             Options.Grouping = False
             Options.Sorting = False
-            Width = 24
+            Width = 23
             Position.BandIndex = 0
-            Position.ColIndex = 2
+            Position.ColIndex = 3
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn14: TcxGridDBBandedColumn
             Caption = #1042#1091#1083#1080#1094#1103
             DataBinding.FieldName = 'UL'
             Options.Editing = False
-            Width = 78
+            Width = 82
             Position.BandIndex = 0
-            Position.ColIndex = 3
+            Position.ColIndex = 4
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn15: TcxGridDBBandedColumn
@@ -788,16 +788,16 @@ object MainForm: TMainForm
             Options.Editing = False
             Width = 58
             Position.BandIndex = 0
-            Position.ColIndex = 4
+            Position.ColIndex = 5
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn16: TcxGridDBBandedColumn
             Caption = #1050#1074#1072#1088#1090#1080#1088#1072
             DataBinding.FieldName = 'KV'
             Options.Editing = False
-            Width = 35
+            Width = 37
             Position.BandIndex = 0
-            Position.ColIndex = 5
+            Position.ColIndex = 6
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn17: TcxGridDBBandedColumn
@@ -815,7 +815,15 @@ object MainForm: TMainForm
             Options.Editing = False
             Width = 69
             Position.BandIndex = 0
-            Position.ColIndex = 6
+            Position.ColIndex = 7
+            Position.RowIndex = 0
+          end
+          object cxGridDBBandedTableView1EDRPOU: TcxGridDBBandedColumn
+            Caption = #1028#1044#1056#1055#1054#1059'/'#1030#1055#1053
+            DataBinding.FieldName = 'EDRPOU'
+            Width = 93
+            Position.BandIndex = 0
+            Position.ColIndex = 0
             Position.RowIndex = 0
           end
         end
@@ -844,8 +852,6 @@ object MainForm: TMainForm
         Height = 402
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 26
-        ExplicitHeight = 404
         object DBGrid3: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
@@ -2021,10 +2027,10 @@ object MainForm: TMainForm
   object ImageList1: TImageList
     Height = 20
     Width = 20
-    Left = 600
-    Top = 204
+    Left = 616
+    Top = 156
     Bitmap = {
-      494C01013E004000A00114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000A80114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5352,7 +5358,6 @@ object MainForm: TMainForm
       000000000000}
   end
   object IBDatabase: TIBDatabase
-    Connected = True
     DatabaseName = 'C:\TEMP\GKU.GDB'
     Params.Strings = (
       'user_name=sysdba'
@@ -5365,7 +5370,6 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'
@@ -8781,29 +8785,41 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into h_voda'
       
-        '  (DATE_POK, FIO, GRP_RAZN, ID_KONTR, KL, KOLI_F, KOLI_P, KOLI_P' +
-        '0, KOLI_P1, '
+        '  (DATE_POK, DATE_ZN, DEL_NORM, EDRPOU, FILTR, FIO, GRP_RAZN, ID' +
+        '_KONTR, '
       
-        '   KUB_MES, KV, LICH_POV, N_DOM, N_SCH, NOR_RAZN, NOTE, ORG, PER' +
-        'E_DAY, '
+        '   KL, KLNTAR, KOLI_F, KOLI_P, KOLI_P0, KOLI_P1, KUB_MES, KV, LI' +
+        'CH_POV, '
       
-        '   PERE_RAZN, PLOMB, POD, RASCH_KUB, RASCH_NOR, RASCH_NOTE, SCH_' +
-        'CUR, SCH_OLD, '
-      '   SCH_RAZN, SCHET, UL, VID_POK, VID_RN, WID, YEARMON)'
+        '   LICH_TO, LICH_YEARMON, N_DOM, N_SCH, NOR_RAZN, NORMA, NOTE, O' +
+        'LD_NORM, '
+      
+        '   ORG, PERE_DAY, PERE_RAZN, PLOMB, POD, POMPA, PREV_NORM, RASCH' +
+        '_KUB, RASCH_NOR, '
+      
+        '   RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN, SCH_RAZN2, SCHET, TAR' +
+        'IF_NAME, '
+      '   UL, VID_POK, VID_RN, WID, YEARMON, ZN_LICH, ZNOLD_LICH)'
       'values'
       
-        '  (:DATE_POK, :FIO, :GRP_RAZN, :ID_KONTR, :KL, :KOLI_F, :KOLI_P,' +
-        ' :KOLI_P0, '
+        '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :EDRPOU, :FILTR, :FIO, :GRP_R' +
+        'AZN, :ID_KONTR, '
       
-        '   :KOLI_P1, :KUB_MES, :KV, :LICH_POV, :N_DOM, :N_SCH, :NOR_RAZN' +
-        ', :NOTE, '
+        '   :KL, :KLNTAR, :KOLI_F, :KOLI_P, :KOLI_P0, :KOLI_P1, :KUB_MES,' +
+        ' :KV, :LICH_POV, '
       
-        '   :ORG, :PERE_DAY, :PERE_RAZN, :PLOMB, :POD, :RASCH_KUB, :RASCH' +
-        '_NOR, :RASCH_NOTE, '
+        '   :LICH_TO, :LICH_YEARMON, :N_DOM, :N_SCH, :NOR_RAZN, :NORMA, :' +
+        'NOTE, :OLD_NORM, '
       
-        '   :SCH_CUR, :SCH_OLD, :SCH_RAZN, :SCHET, :UL, :VID_POK, :VID_RN' +
-        ', :WID, '
-      '   :YEARMON)')
+        '   :ORG, :PERE_DAY, :PERE_RAZN, :PLOMB, :POD, :POMPA, :PREV_NORM' +
+        ', :RASCH_KUB, '
+      
+        '   :RASCH_NOR, :RASCH_NOTE, :SCH_CUR, :SCH_OLD, :SCH_RAZN, :SCH_' +
+        'RAZN2, '
+      
+        '   :SCHET, :TARIF_NAME, :UL, :VID_POK, :VID_RN, :WID, :YEARMON, ' +
+        ':ZN_LICH, '
+      '   :ZNOLD_LICH)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -8818,6 +8834,7 @@ object MainForm: TMainForm
       '  SCH_OLD,'
       '  SCH_CUR,'
       '  SCH_RAZN,'
+      '  SCH_RAZN2,'
       '  KOLI_P,'
       '  KOLI_P0,'
       '  KOLI_P1,'
@@ -8840,7 +8857,21 @@ object MainForm: TMainForm
       '  KUB_MES,'
       '  LICH_POV,'
       '  ORG,'
-      '  VID_RN'
+      '  VID_RN,'
+      '  FILTR,'
+      '  POMPA,'
+      '  ZN_LICH,'
+      '  ZNOLD_LICH,'
+      '  DATE_ZN,'
+      '  LICH_TO,'
+      '  KLNTAR,'
+      '  TARIF_NAME,'
+      '  NORMA,'
+      '  OLD_NORM,'
+      '  DEL_NORM,'
+      '  PREV_NORM,'
+      '  LICH_YEARMON,'
+      '  EDRPOU'
       'from h_voda '
       'where'
       '  KL = :KL')
@@ -8852,10 +8883,15 @@ object MainForm: TMainForm
       'update h_voda'
       'set'
       '  DATE_POK = :DATE_POK,'
+      '  DATE_ZN = :DATE_ZN,'
+      '  DEL_NORM = :DEL_NORM,'
+      '  EDRPOU = :EDRPOU,'
+      '  FILTR = :FILTR,'
       '  FIO = :FIO,'
       '  GRP_RAZN = :GRP_RAZN,'
       '  ID_KONTR = :ID_KONTR,'
       '  KL = :KL,'
+      '  KLNTAR = :KLNTAR,'
       '  KOLI_F = :KOLI_F,'
       '  KOLI_P = :KOLI_P,'
       '  KOLI_P0 = :KOLI_P0,'
@@ -8863,27 +8899,37 @@ object MainForm: TMainForm
       '  KUB_MES = :KUB_MES,'
       '  KV = :KV,'
       '  LICH_POV = :LICH_POV,'
+      '  LICH_TO = :LICH_TO,'
+      '  LICH_YEARMON = :LICH_YEARMON,'
       '  N_DOM = :N_DOM,'
       '  N_SCH = :N_SCH,'
       '  NOR_RAZN = :NOR_RAZN,'
+      '  NORMA = :NORMA,'
       '  NOTE = :NOTE,'
+      '  OLD_NORM = :OLD_NORM,'
       '  ORG = :ORG,'
       '  PERE_DAY = :PERE_DAY,'
       '  PERE_RAZN = :PERE_RAZN,'
       '  PLOMB = :PLOMB,'
       '  POD = :POD,'
+      '  POMPA = :POMPA,'
+      '  PREV_NORM = :PREV_NORM,'
       '  RASCH_KUB = :RASCH_KUB,'
       '  RASCH_NOR = :RASCH_NOR,'
       '  RASCH_NOTE = :RASCH_NOTE,'
       '  SCH_CUR = :SCH_CUR,'
       '  SCH_OLD = :SCH_OLD,'
       '  SCH_RAZN = :SCH_RAZN,'
+      '  SCH_RAZN2 = :SCH_RAZN2,'
       '  SCHET = :SCHET,'
+      '  TARIF_NAME = :TARIF_NAME,'
       '  UL = :UL,'
       '  VID_POK = :VID_POK,'
       '  VID_RN = :VID_RN,'
       '  WID = :WID,'
-      '  YEARMON = :YEARMON'
+      '  YEARMON = :YEARMON,'
+      '  ZN_LICH = :ZN_LICH,'
+      '  ZNOLD_LICH = :ZNOLD_LICH'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'
@@ -9069,6 +9115,69 @@ object MainForm: TMainForm
     object orgVID_RN: TIntegerField
       FieldName = 'VID_RN'
       Origin = '"H_VODA"."VID_RN"'
+    end
+    object orgSCH_RAZN2: TIBBCDField
+      FieldName = 'SCH_RAZN2'
+      Origin = '"H_VODA"."SCH_RAZN2"'
+      Precision = 18
+      Size = 4
+    end
+    object orgFILTR: TIntegerField
+      FieldName = 'FILTR'
+      Origin = '"H_VODA"."FILTR"'
+    end
+    object orgPOMPA: TIntegerField
+      FieldName = 'POMPA'
+      Origin = '"H_VODA"."POMPA"'
+    end
+    object orgZN_LICH: TIntegerField
+      FieldName = 'ZN_LICH'
+      Origin = '"H_VODA"."ZN_LICH"'
+    end
+    object orgZNOLD_LICH: TIntegerField
+      FieldName = 'ZNOLD_LICH'
+      Origin = '"H_VODA"."ZNOLD_LICH"'
+    end
+    object orgDATE_ZN: TDateField
+      FieldName = 'DATE_ZN'
+      Origin = '"H_VODA"."DATE_ZN"'
+    end
+    object orgLICH_TO: TIntegerField
+      FieldName = 'LICH_TO'
+      Origin = '"H_VODA"."LICH_TO"'
+    end
+    object orgKLNTAR: TIntegerField
+      FieldName = 'KLNTAR'
+      Origin = '"H_VODA"."KLNTAR"'
+    end
+    object orgTARIF_NAME: TIBStringField
+      FieldName = 'TARIF_NAME'
+      Origin = '"H_VODA"."TARIF_NAME"'
+      Size = 50
+    end
+    object orgNORMA: TFloatField
+      FieldName = 'NORMA'
+      Origin = '"H_VODA"."NORMA"'
+    end
+    object orgOLD_NORM: TFloatField
+      FieldName = 'OLD_NORM'
+      Origin = '"H_VODA"."OLD_NORM"'
+    end
+    object orgDEL_NORM: TFloatField
+      FieldName = 'DEL_NORM'
+      Origin = '"H_VODA"."DEL_NORM"'
+    end
+    object orgPREV_NORM: TFloatField
+      FieldName = 'PREV_NORM'
+      Origin = '"H_VODA"."PREV_NORM"'
+    end
+    object orgLICH_YEARMON: TIntegerField
+      FieldName = 'LICH_YEARMON'
+      Origin = '"H_VODA"."LICH_YEARMON"'
+    end
+    object orgEDRPOU: TIntegerField
+      FieldName = 'EDRPOU'
+      Origin = '"H_VODA"."EDRPOU"'
     end
   end
   object orgSource: TDataSource

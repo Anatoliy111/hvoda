@@ -84,11 +84,9 @@ type
     cxLookupComboBox3: TcxLookupComboBox;
     cxLabel30: TcxLabel;
     cxTextEdit10: TcxTextEdit;
-    cxTextEdit6: TcxTextEdit;
     ULQuery: TIBQuery;
     ULQueryUL: TIBStringField;
     UlSource: TDataSource;
-    cxTextEdit11: TcxTextEdit;
     cxLabel31: TcxLabel;
     cxLabel32: TcxLabel;
     cxTextEdit12: TcxTextEdit;
@@ -96,6 +94,13 @@ type
     IBQuery4: TIBQuery;
     cxCalcEdit6: TcxCalcEdit;
     cxLabel33: TcxLabel;
+    cxCalcEdit7: TcxCalcEdit;
+    cxLabel34: TcxLabel;
+    cxTextEdit6: TcxTextEdit;
+    cxLookupComboBox4: TcxLookupComboBox;
+    cxLabel35: TcxLabel;
+    cxTextEdit11: TcxTextEdit;
+    cxTabSheet5: TcxTabSheet;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxDateEdit2PropertiesChange(Sender: TObject);

@@ -22,7 +22,7 @@ object FormAddkart: TFormAddkart
     Top = 0
     Width = 438
     Height = 391
-    ActivePage = cxTabSheet1
+    ActivePage = cxTabSheet5
     Align = alClient
     TabOrder = 0
     ClientRectBottom = 391
@@ -393,7 +393,7 @@ object FormAddkart: TFormAddkart
       end
     end
     object cxTabSheet4: TcxTabSheet
-      Caption = #1054#1088#1075#1072#1085#1110#1079#1072#1094#1110#1111
+      Caption = #1070#1088'.'#1086#1089#1086#1073#1080'/'#1060#1054#1055
       ImageIndex = 3
       object cxLabel28: TcxLabel
         Left = 24
@@ -402,12 +402,12 @@ object FormAddkart: TFormAddkart
       end
       object cxLabel29: TcxLabel
         Left = 24
-        Top = 120
+        Top = 168
         Caption = #1042#1091#1083#1080#1094#1103
       end
       object cxLookupComboBox3: TcxLookupComboBox
         Left = 24
-        Top = 140
+        Top = 188
         Properties.KeyFieldNames = 'UL'
         Properties.ListColumns = <
           item
@@ -420,47 +420,82 @@ object FormAddkart: TFormAddkart
       end
       object cxLabel30: TcxLabel
         Left = 24
-        Top = 64
+        Top = 112
         Caption = #1053#1072#1079#1074#1072
       end
       object cxTextEdit10: TcxTextEdit
         Left = 24
-        Top = 87
+        Top = 135
         Style.Color = clMoneyGreen
         TabOrder = 4
         Width = 169
       end
-      object cxTextEdit6: TcxTextEdit
-        Left = 24
-        Top = 37
-        Style.Color = clMoneyGreen
-        TabOrder = 5
-        Width = 169
-      end
-      object cxTextEdit11: TcxTextEdit
-        Left = 24
-        Top = 191
-        Style.Color = clMoneyGreen
-        TabOrder = 6
-        Width = 47
-      end
       object cxLabel31: TcxLabel
         Left = 24
-        Top = 168
+        Top = 216
         Caption = #1041#1091#1076#1080#1085#1086#1082
       end
       object cxLabel32: TcxLabel
-        Left = 88
-        Top = 168
+        Left = 104
+        Top = 216
         Caption = #1050#1074#1072#1088#1090#1080#1088#1072
       end
       object cxTextEdit12: TcxTextEdit
-        Left = 88
-        Top = 191
+        Left = 104
+        Top = 239
         Properties.ReadOnly = True
-        TabOrder = 9
+        TabOrder = 7
         Width = 47
       end
+      object cxCalcEdit7: TcxCalcEdit
+        Left = 24
+        Top = 39
+        EditValue = 0.000000000000000000
+        Properties.OnEditValueChanged = cxCalcEdit1PropertiesEditValueChanged
+        Style.Color = clMoneyGreen
+        TabOrder = 8
+        Width = 169
+      end
+      object cxLabel34: TcxLabel
+        Left = 24
+        Top = 66
+        Caption = #1054#1089#1086#1073#1086#1074#1080#1081' '#1088#1072#1093#1091#1085#1086#1082
+      end
+      object cxTextEdit6: TcxTextEdit
+        Left = 24
+        Top = 85
+        Properties.ReadOnly = True
+        TabOrder = 10
+        Width = 169
+      end
+      object cxLookupComboBox4: TcxLookupComboBox
+        Left = 24
+        Top = 239
+        Properties.KeyFieldNames = 'ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'VID_ZN'
+          end>
+        Properties.ListSource = VIDZNSource
+        Style.Color = clMoneyGreen
+        TabOrder = 11
+        Width = 57
+      end
+      object cxLabel35: TcxLabel
+        Left = 24
+        Top = 301
+        Caption = #1055#1088#1080#1084#1110#1090#1082#1072
+      end
+      object cxTextEdit11: TcxTextEdit
+        Left = 24
+        Top = 317
+        TabOrder = 13
+        Width = 401
+      end
+    end
+    object cxTabSheet5: TcxTabSheet
+      Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1110' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1080
+      ImageIndex = 4
     end
   end
   object Panel1: TPanel
