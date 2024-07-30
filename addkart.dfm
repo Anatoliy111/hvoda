@@ -395,7 +395,7 @@ object FormAddkart: TFormAddkart
     object cxTabSheet4: TcxTabSheet
       Caption = #1070#1088'.'#1086#1089#1086#1073#1080'/'#1060#1054#1055
       ImageIndex = 3
-      ExplicitTop = 30
+      OnShow = cxTabSheet4Show
       object cxLabel29: TcxLabel
         Left = 15
         Top = 120
@@ -404,12 +404,13 @@ object FormAddkart: TFormAddkart
       object cxLookupComboBox3: TcxLookupComboBox
         Left = 15
         Top = 140
-        Properties.KeyFieldNames = 'KL_UL'
+        Properties.KeyFieldNames = 'UL'
         Properties.ListColumns = <
           item
             FieldName = 'UL'
           end>
         Properties.ListSource = UlSource
+        Properties.OnEditValueChanged = cxLookupComboBox3PropertiesEditValueChanged
         Style.Color = clMoneyGreen
         TabOrder = 1
         Width = 191
@@ -439,7 +440,6 @@ object FormAddkart: TFormAddkart
       object cxTextEdit12: TcxTextEdit
         Left = 95
         Top = 191
-        Properties.ReadOnly = True
         TabOrder = 6
         Width = 47
       end
@@ -451,12 +451,16 @@ object FormAddkart: TFormAddkart
       object cxLookupComboBox4: TcxLookupComboBox
         Left = 15
         Top = 191
+        Properties.DropDownAutoSize = True
+        Properties.DropDownListStyle = lsEditList
         Properties.KeyFieldNames = 'N_DOM'
         Properties.ListColumns = <
           item
             FieldName = 'N_DOM'
           end>
         Properties.ListSource = DomSource
+        Properties.MaxLength = 5
+        EditValue = ''
         Style.Color = clMoneyGreen
         TabOrder = 8
         Width = 57
@@ -688,33 +692,8 @@ object FormAddkart: TFormAddkart
         ParamType = ptUnknown
       end>
   end
-  object ULQuery: TIBQuery
-    Database = MainForm.IBDatabase
-    Transaction = MainForm.IBTransaction1
-    SQL.Strings = (
-      
-        'select kl_ul, ul from h_voda where h_voda.yearmon=:yearmon group' +
-        ' by kl_ul, ul')
-    Left = 256
-    Top = 40
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'yearmon'
-        ParamType = ptUnknown
-      end>
-    object ULQueryUL: TIBStringField
-      FieldName = 'UL'
-      Origin = '"H_VODA"."UL"'
-      Size = 70
-    end
-    object ULQueryKL_UL: TIntegerField
-      FieldName = 'KL_UL'
-      Origin = '"H_VODA"."KL_UL"'
-    end
-  end
   object UlSource: TDataSource
-    DataSet = ULQuery
+    DataSet = ULDataSet
     Left = 256
     Top = 80
   end
@@ -734,35 +713,85 @@ object FormAddkart: TFormAddkart
     Left = 376
     Top = 160
   end
-  object DomQuery: TIBQuery
+  object DomSource: TDataSource
+    DataSet = DOMDataSet
+    Left = 296
+    Top = 80
+  end
+  object ULDataSet: TIBDataSet
     Database = MainForm.IBDatabase
     Transaction = MainForm.IBTransaction1
-    SQL.Strings = (
+    DeleteSQL.Strings = (
+      'delete from h_voda'
+      'where'
+      '  KL_UL = :OLD_KL_UL')
+    InsertSQL.Strings = (
+      'insert into h_voda'
+      '  (KL_UL, UL)'
+      'values'
+      '  (:KL_UL, :UL)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  KL_UL,'
+      '  UL'
+      'from h_voda '
+      'where'
+      '  KL_UL = :KL_UL')
+    SelectSQL.Strings = (
+      'select ul from h_voda where h_voda.yearmon=:yearmon group by ul')
+    ModifySQL.Strings = (
+      'update h_voda'
+      'set'
+      '  KL_UL = :KL_UL,'
+      '  UL = :UL'
+      'where'
+      '  KL_UL = :OLD_KL_UL')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_SPR_ZN_ID'
+    Left = 256
+    Top = 112
+    object ULDataSetUL: TIBStringField
+      FieldName = 'UL'
+      Origin = '"H_VODA"."UL"'
+      Size = 70
+    end
+  end
+  object DOMDataSet: TIBDataSet
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    DeleteSQL.Strings = (
+      'delete from h_voda'
+      'where'
+      '  N_DOM = :OLD_N_DOM')
+    InsertSQL.Strings = (
+      'insert into h_voda'
+      '  (N_DOM)'
+      'values'
+      '  (:N_DOM)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  N_DOM'
+      'from h_voda '
+      'where'
+      '  N_DOM = :N_DOM')
+    SelectSQL.Strings = (
       
-        'select h_voda.n_dom from h_voda where h_voda.yearmon=:yearmon an' +
-        'd h_voda.kl_ul=:klul group by h_voda.kl_ul, h_voda.n_dom')
+        'select n_dom from h_voda where yearmon=:yearmon and ul=:ull grou' +
+        'p by ul, n_dom')
+    ModifySQL.Strings = (
+      'update h_voda'
+      'set'
+      '  N_DOM = :N_DOM'
+      'where'
+      '  N_DOM = :OLD_N_DOM')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_SPR_ZN_ID'
     Left = 296
-    Top = 40
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'yearmon'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'klul'
-        ParamType = ptUnknown
-      end>
-    object DomQueryN_DOM: TIBStringField
+    Top = 112
+    object DOMDataSetN_DOM: TIBStringField
       FieldName = 'N_DOM'
       Origin = '"H_VODA"."N_DOM"'
       Size = 10
     end
-  end
-  object DomSource: TDataSource
-    DataSet = DomQuery
-    Left = 296
-    Top = 80
   end
 end

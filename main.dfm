@@ -28,16 +28,15 @@ object MainForm: TMainForm
     TabOrder = 0
     OnPageChanging = cxPageControl1PageChanging
     ExplicitTop = 41
-    ExplicitWidth = 744
-    ExplicitHeight = 525
+    ExplicitHeight = 592
     ClientRectBottom = 521
     ClientRectRight = 864
     ClientRectTop = 24
     object cxTabSheet1: TcxTabSheet
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
-      ExplicitWidth = 744
-      ExplicitHeight = 501
+      OnShow = cxTabSheet1Show
+      ExplicitHeight = 568
       object Image1: TImage
         Left = 608
         Top = 232
@@ -51,7 +50,6 @@ object MainForm: TMainForm
         Height = 28
         Align = dalTop
         BarManager = BarManager
-        ExplicitWidth = 744
       end
       object cxGrid2: TcxGrid
         Left = 0
@@ -60,8 +58,6 @@ object MainForm: TMainForm
         Height = 469
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 744
-        ExplicitHeight = 402
         object DBGrid1: TcxGridDBBandedTableView
           OnKeyDown = DBGrid1KeyDown
           NavigatorButtons.OnButtonClick = DBGrid1NavigatorButtonsButtonClick
@@ -168,7 +164,7 @@ object MainForm: TMainForm
           Styles.ContentEven = cxStyle1
           Bands = <
             item
-              Width = 800
+              Width = 924
             end
             item
               Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
@@ -188,7 +184,7 @@ object MainForm: TMainForm
             Caption = #1050#1086#1076
             DataBinding.FieldName = 'DOM'
             Options.Editing = False
-            Width = 44
+            Width = 46
             Position.BandIndex = 0
             Position.ColIndex = 0
             Position.RowIndex = 0
@@ -197,7 +193,7 @@ object MainForm: TMainForm
             Caption = #1056#1072#1093#1091#1085#1086#1082
             DataBinding.FieldName = 'SCHET'
             Options.Editing = False
-            Width = 66
+            Width = 61
             Position.BandIndex = 0
             Position.ColIndex = 1
             Position.RowIndex = 0
@@ -207,7 +203,7 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'FIO'
             Options.Editing = False
             Options.Filtering = False
-            Width = 146
+            Width = 179
             Position.BandIndex = 0
             Position.ColIndex = 2
             Position.RowIndex = 0
@@ -250,7 +246,7 @@ object MainForm: TMainForm
             Caption = #1044#1072#1090#1072' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
             DataBinding.FieldName = 'DATE_POK'
             Options.Editing = False
-            Width = 70
+            Width = 66
             Position.BandIndex = 0
             Position.ColIndex = 9
             Position.RowIndex = 0
@@ -314,12 +310,12 @@ object MainForm: TMainForm
                 FieldName = 'VID_ZN'
               end>
             Properties.ListSource = vid_nachSource
-            MinWidth = 200
+            MinWidth = 160
             Options.Editing = False
             Options.IncSearch = False
             Options.HorzSizing = False
             Options.Moving = False
-            Width = 200
+            Width = 160
             Position.BandIndex = 0
             Position.ColIndex = 8
             Position.RowIndex = 0
@@ -347,7 +343,7 @@ object MainForm: TMainForm
             Caption = #1042#1091#1083#1080#1094#1103
             DataBinding.FieldName = 'UL'
             Options.Editing = False
-            Width = 112
+            Width = 169
             Position.BandIndex = 0
             Position.ColIndex = 4
             Position.RowIndex = 0
@@ -356,7 +352,7 @@ object MainForm: TMainForm
             Caption = #1041#1091#1076#1080#1085#1086#1082
             DataBinding.FieldName = 'N_DOM'
             Options.Editing = False
-            Width = 27
+            Width = 38
             Position.BandIndex = 0
             Position.ColIndex = 5
             Position.RowIndex = 0
@@ -365,7 +361,7 @@ object MainForm: TMainForm
             Caption = #1050#1074#1072#1088#1090#1080#1088#1072
             DataBinding.FieldName = 'KV'
             Options.Editing = False
-            Width = 23
+            Width = 30
             Position.BandIndex = 0
             Position.ColIndex = 6
             Position.RowIndex = 0
@@ -382,7 +378,7 @@ object MainForm: TMainForm
             Caption = #1044#1072#1090#1072' '#1087#1086#1074#1110#1088#1082#1080
             DataBinding.FieldName = 'LICH_POV'
             Options.Editing = False
-            Width = 72
+            Width = 66
             Position.BandIndex = 0
             Position.ColIndex = 7
             Position.RowIndex = 0
@@ -468,12 +464,14 @@ object MainForm: TMainForm
           object DBGrid1LICH_YEARMON: TcxGridDBBandedColumn
             DataBinding.FieldName = 'LICH_YEARMON'
             Options.Editing = False
+            Width = 28
             Position.BandIndex = 0
             Position.ColIndex = 11
             Position.RowIndex = 0
           end
           object DBGrid1LICH_TO: TcxGridDBBandedColumn
             DataBinding.FieldName = 'LICH_TO'
+            Width = 28
             Position.BandIndex = 0
             Position.ColIndex = 12
             Position.RowIndex = 0
@@ -488,8 +486,8 @@ object MainForm: TMainForm
     object cxTabSheet4: TcxTabSheet
       Caption = #1070#1088'.'#1086#1089#1086#1073#1080'/'#1060#1054#1055
       ImageIndex = 1
-      ExplicitWidth = 744
-      ExplicitHeight = 501
+      OnShow = cxTabSheet4Show
+      ExplicitHeight = 568
       object Image2: TImage
         Left = 608
         Top = 232
@@ -505,7 +503,6 @@ object MainForm: TMainForm
         BarManager = BarManager
         SunkenBorder = False
         UseOwnSunkenBorder = True
-        ExplicitWidth = 744
       end
       object cxGrid1: TcxGrid
         Left = 0
@@ -514,8 +511,6 @@ object MainForm: TMainForm
         Height = 469
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 744
-        ExplicitHeight = 402
         object cxGridDBBandedTableView1: TcxGridDBBandedTableView
           OnKeyDown = cxGridDBBandedTableView1KeyDown
           NavigatorButtons.ConfirmDelete = False
@@ -677,7 +672,7 @@ object MainForm: TMainForm
                 Default = True
                 Kind = bkEllipsis
               end>
-            Properties.OnButtonClick = cxGridDBBandedColumn8PropertiesButtonClick
+            Properties.OnButtonClick = DBGrid1Column2PropertiesButtonClick
             Options.Filtering = False
             Options.ShowEditButtons = isebAlways
             Options.Grouping = False
@@ -743,7 +738,7 @@ object MainForm: TMainForm
                 Default = True
                 Kind = bkEllipsis
               end>
-            Properties.OnButtonClick = cxGridDBBandedColumn13PropertiesButtonClick
+            Properties.OnButtonClick = DBGrid1Column1PropertiesButtonClick
             Options.Filtering = False
             Options.ShowEditButtons = isebAlways
             Options.Grouping = False
@@ -799,7 +794,7 @@ object MainForm: TMainForm
             Position.RowIndex = 0
           end
           object cxGridDBBandedTableView1Column1: TcxGridDBBandedColumn
-            DataBinding.FieldName = 'WID'
+            DataBinding.FieldName = 'LICH_TO'
             Width = 61
             Position.BandIndex = 0
             Position.ColIndex = 10
@@ -815,8 +810,7 @@ object MainForm: TMainForm
     object cxTabSheet3: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1110' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 3
-      ExplicitWidth = 744
-      ExplicitHeight = 501
+      ExplicitHeight = 568
       object dxBarDockControl3: TdxBarDockControl
         Left = 0
         Top = 0
@@ -824,7 +818,6 @@ object MainForm: TMainForm
         Height = 28
         Align = dalTop
         BarManager = BarManager
-        ExplicitWidth = 744
       end
       object cxGrid4: TcxGrid
         Left = 0
@@ -833,8 +826,6 @@ object MainForm: TMainForm
         Height = 469
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 744
-        ExplicitHeight = 402
         object DBGrid3: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
@@ -915,8 +906,7 @@ object MainForm: TMainForm
     object cxTabSheet2: TcxTabSheet
       Caption = #1055#1088#1086#1087#1080#1089#1082#1072
       ImageIndex = 2
-      ExplicitWidth = 744
-      ExplicitHeight = 501
+      ExplicitHeight = 568
       object dxBarDockControl2: TdxBarDockControl
         Left = 0
         Top = 0
@@ -924,7 +914,6 @@ object MainForm: TMainForm
         Height = 26
         Align = dalTop
         BarManager = BarManager
-        ExplicitWidth = 744
       end
       object cxGrid3: TcxGrid
         Left = 0
@@ -933,8 +922,6 @@ object MainForm: TMainForm
         Height = 471
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 744
-        ExplicitHeight = 404
         object DBGrid2: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
@@ -1002,7 +989,6 @@ object MainForm: TMainForm
     BorderStyle = bsSingle
     Color = clCream
     TabOrder = 1
-    ExplicitWidth = 744
   end
   object Panel2: TPanel
     Left = 0
@@ -1011,7 +997,6 @@ object MainForm: TMainForm
     Height = 35
     Align = alTop
     TabOrder = 6
-    ExplicitWidth = 744
     object cxLabel1: TcxLabel
       Left = 128
       Top = 8
@@ -1226,10 +1211,6 @@ object MainForm: TMainForm
       ItemLinks = <
         item
           Visible = True
-          ItemName = 'dxBarButton34'
-        end
-        item
-          Visible = True
           ItemName = 'dxBarButton35'
         end
         item
@@ -1263,6 +1244,10 @@ object MainForm: TMainForm
         item
           Visible = True
           ItemName = 'dxBarButton26'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarEdit1'
         end
         item
           Visible = True
@@ -1787,9 +1772,9 @@ object MainForm: TMainForm
       OnClick = dxBarButton20Click
     end
     object dxBarButton21: TdxBarButton
-      Caption = #1044#1086#1076#1072#1090#1080
+      Caption = #1044#1086#1076#1072#1090#1080' '#1072#1073#1086#1085#1077#1085#1090#1072
       Category = 0
-      Hint = #1044#1086#1076#1072#1090#1080
+      Hint = #1044#1086#1076#1072#1090#1080' '#1072#1073#1086#1085#1077#1085#1090#1072
       Visible = ivAlways
       ImageIndex = 16
       Lowered = True
@@ -1831,13 +1816,13 @@ object MainForm: TMainForm
       OnClick = dxBarButton25Click
     end
     object dxBarButton26: TdxBarButton
-      Caption = #1054#1085#1086#1074#1080#1090#1080
+      Caption = #1060#1110#1083#1100#1090#1088' '#1054#1089'.'#1088#1072#1093'/'#1028#1044#1056#1055#1054#1059'/'#1030#1055#1053
       Category = 0
-      Hint = #1054#1085#1086#1074#1080#1090#1080
+      Hint = #1060#1110#1083#1100#1090#1088' '#1054#1089'.'#1088#1072#1093'/'#1028#1044#1056#1055#1054#1059'/'#1030#1055#1053
       Visible = ivAlways
       ImageIndex = 33
       Lowered = True
-      PaintStyle = psCaptionGlyph
+      PaintStyle = psCaption
       OnClick = dxBarButton26Click
     end
     object dxBarButton27: TdxBarButton
@@ -1929,9 +1914,9 @@ object MainForm: TMainForm
       PaintStyle = psCaptionGlyph
     end
     object dxBarButton35: TdxBarButton
-      Caption = #1044#1086#1076#1072#1090#1080
+      Caption = #1044#1086#1076#1072#1090#1080' '#1083#1110#1095#1080#1083#1100#1085#1080#1082
       Category = 0
-      Hint = #1044#1086#1076#1072#1090#1080
+      Hint = #1044#1086#1076#1072#1090#1080' '#1083#1110#1095#1080#1083#1100#1085#1080#1082
       Visible = ivAlways
       ImageIndex = 16
       Lowered = True
@@ -1954,6 +1939,13 @@ object MainForm: TMainForm
       ImageIndex = 17
       Lowered = True
       PaintStyle = psCaptionGlyph
+    end
+    object dxBarEdit1: TdxBarEdit
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      Width = 100
     end
     object dxBarButton1: TdxBarButton
       Action = ActionEdCalcs
@@ -2000,7 +1992,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000AC0114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000B00114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -136,26 +136,26 @@ begin
       MainForm.lichzn.Close;
       MainForm.lichzn.Open;
 
-      MainForm.hvd.Edit;
+      MainForm.DSet.Edit;
 
       if cxLookupComboBox1.EditValue=39 then
       begin
-        MainForm.hvd.Edit;
-        MainForm.hvdLICH_TO.Value:=MainForm.hvdLICH_TO.Value-1;
-        if MainForm.hvdLICH_TO.Value=0 then
-           MainForm.hvdWID.Value:=42;
+        MainForm.DSet.Edit;
+        MainForm.DSet.FieldByName('LICH_TO').Value:=MainForm.DSet.FieldByName('LICH_TO').Value-1;
+        if MainForm.DSet.FieldByName('LICH_TO').Value=0 then
+           MainForm.DSet.FieldByName('WID').Value:=42;
       end
       else if cxLookupComboBox1.EditValue=6 then
-           MainForm.hvdWID.Value:=42
+           MainForm.DSet.FieldByName('WID').Value:=42
       else
-           MainForm.hvdWID.Value:=43;
+           MainForm.DSet.FieldByName('WID').Value:=43;
 
-      MainForm.hvd.Post;
+      MainForm.DSet.Post;
 
       MainForm.IBTransaction1.CommitRetaining;
 
       Form2.cxButton5.Click;
-     // Form2.calclich(MainForm.hvd);
+     // Form2.calclich(MainForm.DSet);
 
 //  IBQuery4.Close;
 //  IBQuery4.SQL.Text:='select first 1 * from h_voda where schet=:sch and yearmon=:ym order by kl desc';
@@ -163,16 +163,16 @@ begin
 //  IBQuery4.ParamByName('ym').Value:=MainForm.period;
 //  IBQuery4.Open;
 
-//      if MainForm.hvdSCHET.Value<>cxTextEdit1.Text then
+//      if MainForm.DSetSCHET.Value<>cxTextEdit1.Text then
 //      begin
-//        MainForm.hvd.First;
-//        MainForm.hvd.Locate('schet',cxTextEdit1.Text,[]);
+//        MainForm.DSet.First;
+//        MainForm.DSet.Locate('schet',cxTextEdit1.Text,[]);
 //      end;
-//      if MainForm.hvdSCHET.Value=cxTextEdit1.Text then
+//      if MainForm.DSetSCHET.Value=cxTextEdit1.Text then
 //      begin
-//         MainForm.hvd.Edit;
-//         MainForm.hvdWID.Value:=3;
-//         MainForm.hvd.Post;
+//         MainForm.DSet.Edit;
+//         MainForm.DSetWID.Value:=3;
+//         MainForm.DSet.Post;
 //      end;
 
 

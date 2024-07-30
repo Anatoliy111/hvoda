@@ -671,6 +671,7 @@ type
     orgKL_UL: TIntegerField;
     orgSCHET: TIBStringField;
     cxGridDBBandedTableView1Column1: TcxGridDBBandedColumn;
+    dxBarEdit1: TdxBarEdit;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -699,7 +700,6 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure grpNewRecord(DataSet: TDataSet);
     procedure ActionPrintExecute(Sender: TObject);
-    procedure hvdSCH_CURValidate(Sender: TField);
     procedure DBGrid1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBGrid1NavigatorButtonsButtonClick(Sender: TObject;
@@ -724,10 +724,6 @@ type
     procedure dxBarButton13Click(Sender: TObject);
     procedure dxBarButton12Click(Sender: TObject);
     procedure hvdallBeforeOpen(DataSet: TDataSet);
-    procedure hvdSCH_RAZNValidate(Sender: TField);
-    procedure hvdWIDChange(Sender: TField);
-    procedure hvdSCH_CURChange(Sender: TField);
-    procedure hvdWIDValidate(Sender: TField);
     procedure hvd3BeforeOpen(DataSet: TDataSet);
     procedure hvd12BeforeOpen(DataSet: TDataSet);
     procedure dxBarButton14Click(Sender: TObject);
@@ -753,8 +749,6 @@ type
       Shift: TShiftState);
     procedure dxBarButton21Click(Sender: TObject);
     procedure dxBarButton23Click(Sender: TObject);
-    procedure cxGridDBBandedColumn13PropertiesButtonClick(Sender: TObject;
-      AButtonIndex: Integer);
     procedure dxBarButton25Click(Sender: TObject);
     procedure dxBarButton26Click(Sender: TObject);
     procedure dxBarButton27Click(Sender: TObject);
@@ -769,8 +763,8 @@ type
     procedure dxBarButton33Click(Sender: TObject);
     procedure lichAfterPost(DataSet: TDataSet);
     procedure cxButton2Click(Sender: TObject);
-    procedure cxGridDBBandedColumn8PropertiesButtonClick(Sender: TObject;
-      AButtonIndex: Integer);
+    procedure cxTabSheet4Show(Sender: TObject);
+    procedure cxTabSheet1Show(Sender: TObject);
 
   private
     { Private declarations }
@@ -785,6 +779,7 @@ type
     iniFile:TIniFile;
     period:integer;
     fl_startprog:boolean;
+    DSet:TIBDataSet;
     function curYM:integer;
     function isArchive:boolean;
     function GetAppVersionStr:string;
@@ -877,6 +872,10 @@ begin
   MainForm.hvdallSource.Enabled:=true;
   hvd.close;
   hvd.open;
+  org.close;
+  org.open;
+  grp.close;
+  grp.open;
 
    Form4.Label3.Caption:=Form4.Label3.Caption+' End-'+DateTimeToStr(now());
 
@@ -933,6 +932,10 @@ begin
   IBTransaction1.CommitRetaining;
   hvd.close;
   hvd.open;
+  org.close;
+  org.open;
+  grp.close;
+  grp.open;
 
    Form4.Label3.Caption:=Form4.Label3.Caption+' End-'+DateTimeToStr(now());
 
@@ -980,6 +983,10 @@ begin
 
   hvd.close;
   hvd.open;
+  org.close;
+  org.open;
+  grp.close;
+  grp.open;
 
   Form4.Close;
    MainForm.Enabled:=true;
@@ -996,36 +1003,36 @@ begin
 
      IBQuery2.Close;
      IBQuery2.SQL.Text:='select first 1 * from lich where schet=:sch and vid_zn is null order by data_pov NULLS FIRST';
-     IBQuery2.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+     IBQuery2.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
      IBQuery2.Open;
 
 
        if IBQuery2.RecordCount<>0 then
        begin
-          if MainForm.hvdLICH_POV.Value<>IBQuery2.FieldByName('data_pov').Value then
+          if MainForm.DSet.FieldByName('LICH_POV').Value<>IBQuery2.FieldByName('data_pov').Value then
           begin
-          MainForm.hvd.Edit;
+          MainForm.DSet.Edit;
           if IBQuery2.FieldByName('data_pov').Value=null then
           begin
-             MainForm.hvdLICH_POV.Clear;
-             MainForm.hvdLICH_YEARMON.Clear;
+             MainForm.DSet.FieldByName('LICH_POV').Clear;
+             MainForm.DSet.FieldByName('LICH_YEARMON').Clear;
           end
           else
           begin
-             MainForm.hvdLICH_POV.Value:=IBQuery2.FieldByName('data_pov').Value;
-             MainForm.hvdLICH_YEARMON.Value:=Date2YearMon(MainForm.hvdLICH_POV.Value);
+             MainForm.DSet.FieldByName('LICH_POV').Value:=IBQuery2.FieldByName('data_pov').Value;
+             MainForm.DSet.FieldByName('LICH_YEARMON').Value:=Date2YearMon(MainForm.DSet.FieldByName('LICH_POV').Value);
           end;
-          MainForm.hvd.Post;
+          MainForm.DSet.Post;
           end;
        end
        else
        begin
   //        if MainForm.hvdDATE_POK.Value<>IBQuery2.FieldByName('data_pov').Value then
   //        begin
-          MainForm.hvd.Edit;
-          MainForm.hvdLICH_POV.Clear;
-          MainForm.hvdLICH_YEARMON.Clear;
-          MainForm.hvd.Post;
+          MainForm.DSet.Edit;
+          MainForm.DSet.FieldByName('LICH_POV').Clear;
+          MainForm.DSet.FieldByName('LICH_YEARMON').Clear;
+          MainForm.DSet.Post;
    //       end;
 
        end;
@@ -1042,7 +1049,7 @@ end;
 procedure TMainForm.lichNewRecord(DataSet: TDataSet);
 begin
  lich.edit;
- lichSCHET.Value:=hvdSCHET.Value;
+ lichSCHET.Value:=DSet.FieldByName('SCHET').Value;
  lich.post;
 end;
 
@@ -1279,8 +1286,9 @@ procedure TMainForm.dxBarButton21Click(Sender: TObject);
 begin
 FormAddkart.cxTabSheet1.TabVisible:=false;
 FormAddkart.cxTabSheet2.TabVisible:=false;
-FormAddkart.cxTabSheet3.TabVisible:=true;
-FormAddkart.cxTabSheet4.TabVisible:=false;
+FormAddkart.cxTabSheet3.TabVisible:=false;
+FormAddkart.cxTabSheet4.TabVisible:=true;
+FormAddkart.cxTabSheet5.TabVisible:=false;
 FormAddkart.Show;
 end;
 
@@ -1297,7 +1305,8 @@ IBTransaction1.CommitRetaining;
 
 hvd.Close;
 hvd.Open;
-
+grp.Close;
+grp.Open;
 org.Close;
 org.Open;
 end;
@@ -1308,10 +1317,12 @@ IBTransaction1.CommitRetaining;
 
 hvd.Close;
 hvd.Open;
-
+grp.Close;
+grp.Open;
 org.Close;
 org.Open;
-end;        
+end;
+
 procedure TMainForm.dxBarButton27Click(Sender: TObject);
 begin
   IBQueryRep.Close;
@@ -1375,9 +1386,8 @@ end;
 procedure TMainForm.DBGrid1Column1PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
-     Form2.Find(MainForm.hvdSCHET.Value);
-     Form2.DSet:=MainForm.hvd;
-     Form2.DataAllSource.DataSet:=MainForm.hvd;
+     Form2.Find(DSet.FieldByName('SCHET').Value);
+     Form2.DataAllSource.DataSet:=DSet;
      Form2.Show;
 end;
 
@@ -1387,19 +1397,19 @@ begin
    if (isArchive) or (impLASTEXP.Value=1) then
       exit;
 
-   if MainForm.hvdWID.Value=45 then
+   if DSet.FieldByName('WID').Value=45 then
    begin
      ShowMessage('Лічильник не повірений! Введення показників закрито');
      exit;
    end;
 
-   if MainForm.hvdWID.Value=42 then
+   if DSet.FieldByName('WID').Value=42 then
    begin
      ShowMessage('Лічильник не встановлений! Введення показників закрито');
      exit;
    end;
 
-   if MainForm.hvdWID.Value>=46 then
+   if DSet.FieldByName('WID').Value>=46 then
    begin
      ShowMessage('При цьому виді нарахувань введення показників не пердбачувано! Введення показників закрито');
      exit;
@@ -1407,7 +1417,7 @@ begin
 
 
     MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch order by date_pok desc';
-    MainForm.pokazn.ParamByName('sch').Value:=MainForm.hvdSCHET.Value;
+    MainForm.pokazn.ParamByName('sch').Value:=DSet.FieldByName('SCHET').Value;
     MainForm.pokazn.Close;
     MainForm.pokazn.open;
 //     Form2.Show;
@@ -1416,12 +1426,13 @@ FormAddkart.cxTabSheet1.TabVisible:=false;
 FormAddkart.cxTabSheet2.TabVisible:=false;
 FormAddkart.cxTabSheet3.TabVisible:=true;
 FormAddkart.cxTabSheet4.TabVisible:=false;
+FormAddkart.cxTabSheet5.TabVisible:=false;
 FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet3;
-FormAddkart.cxTextEdit9.Text:=MainForm.hvdSCHET.Value;
-FormAddkart.cxLabel15.Caption:=MainForm.hvdFIO.Value;
-FormAddkart.cxCalcEdit6.EditValue:=MainForm.hvdNOR_RAZN.Value;
+FormAddkart.cxTextEdit9.Text:=DSet.FieldByName('SCHET').Value;
+FormAddkart.cxLabel15.Caption:=DSet.FieldByName('FIO').Value;
+FormAddkart.cxCalcEdit6.EditValue:=DSet.FieldByName('NOR_RAZN').Value;
 
-  if (FormAddkart.cxTabSheet3.Visible) and (MainForm.hvdLICH_TO.Value=0) then
+  if (FormAddkart.cxTabSheet3.Visible) and (DSet.FieldByName('LICH_TO').Value=0) then
   begin
     ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
     exit;
@@ -1692,6 +1703,7 @@ end;
 procedure TMainForm.dxBarButton4Click(Sender: TObject);
 begin
   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
+
   StartWait;
   dxBarLookupCombo1.Enabled:=not dxBarButton4.down;
   hvd.Close;
@@ -1852,74 +1864,6 @@ begin
  // hvd_rep.Close;
 end;
 
-procedure TMainForm.hvdSCH_CURChange(Sender: TField);
-begin
-//  if (hvdWID.Value<>1) then
-//  begin
- //   ShowMessage('Змініть вид на ЛІЧИЛЬНИК !!!');
-//    hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
-
- //   hvd.Cancel;
- // end;
-end;
-
-procedure TMainForm.hvdSCH_CURValidate(Sender: TField);
-begin
-
- // if (hvdPLOMB.Value=1) and (hvdSCH_CUR.Value<>hvdSCH_OLD.Value) then
-//  begin
- //   ShowMessage('Вода опломбована, а є показання лічильника !!!');
- //   hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
-
- //   abort;
-//  end;
-
-
-end;
-
-procedure TMainForm.hvdSCH_RAZNValidate(Sender: TField);
-begin
-//  if (hvdWID.Value=2) then
-//  begin
-//    ShowMessage('Виставлена норма, змініть вид на лічильник!!!  Для відміни редагування натисніть ESC');
-////    hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
-//
-//    abort;
-//  end;
-end;
-
-procedure TMainForm.hvdWIDChange(Sender: TField);
-begin
-//if (hvdWID.Value=2) then
-//begin
-//    if hvdSCH_CUR.Value<>hvdSCH_OLD.Value then
-//    begin
-//    ShowMessage('При зміні виду на норму показники будуть повернуті на початок!!!');
-//    hvd.Edit;
-//    hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
-//    hvd.Post;
-//
-//    end;
-//
-//end;
-end;
-
-procedure TMainForm.hvdWIDValidate(Sender: TField);
-begin
-//if (hvdWID.Value=2) then
-//begin
-//    if hvdSCH_CUR.Value<>hvdSCH_OLD.Value then
-//    begin
-//    ShowMessage('При зміні виду на норму показники будуть повернуті на початок!!!');
-//    hvd.Edit;
-//    hvdSCH_CUR.Value:=hvdSCH_OLD.Value;
-//    hvd.Post;
-//
-//    end;
-//
-//end;
-end;
-
 procedure TMainForm.DBGrid1KeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -1948,8 +1892,8 @@ end;
 
 procedure TMainForm.DBGrid1NOR_RAZNPropertiesChange(Sender: TObject);
 begin
- if hvdWID.Value<>46 then
-    hvd.Cancel;
+ if DSet.FieldByName('WID').Value<>46 then
+    DSet.Cancel;
 
 
 end;
@@ -2105,6 +2049,7 @@ procedure TMainForm.Update;
 begin
 if hvd.State in [dsInsert,dsEdit] then hvd.Post;
 if org.State in [dsInsert,dsEdit] then org.Post;
+if grp.State in [dsInsert,dsEdit] then grp.Post;
 IBTransaction1.CommitRetaining;
 
   imp.Close;
@@ -2116,6 +2061,8 @@ IBTransaction1.CommitRetaining;
   StartWait;
   org.Close;
   org.Open;
+  grp.Close;
+  grp.Open;
 
   vid_rn.close;
   vid_nach.close;
@@ -2203,73 +2150,6 @@ IBTransaction1.CommitRetaining;
   end;  
 end;
 
-procedure TMainForm.cxGridDBBandedColumn13PropertiesButtonClick(Sender: TObject;
-  AButtonIndex: Integer);
-begin
-     Form2.Find(MainForm.orgSCHET.Value);
-     Form2.DSet:=MainForm.org;
-     Form2.DataAllSource.DataSet:=MainForm.org;
-     Form2.Show;
-
-end;
-
-procedure TMainForm.cxGridDBBandedColumn8PropertiesButtonClick(Sender: TObject;
-  AButtonIndex: Integer);
-begin
-   if (isArchive) or (impLASTEXP.Value=1) then
-      exit;
-
-   if MainForm.orgWID.Value=45 then
-   begin
-     ShowMessage('Лічильник не повірений! Введення показників закрито');
-     exit;
-   end;
-
-   if MainForm.orgWID.Value=42 then
-   begin
-     ShowMessage('Лічильник не встановлений! Введення показників закрито');
-     exit;
-   end;
-
-   if MainForm.orgWID.Value>=46 then
-   begin
-     ShowMessage('При цьому виді нарахувань введення показників не пердбачувано! Введення показників закрито');
-     exit;
-   end;
-
-
-    MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch order by date_pok desc';
-    MainForm.pokazn.ParamByName('sch').Value:=MainForm.orgSCHET.Value;
-    MainForm.pokazn.Close;
-    MainForm.pokazn.open;
-//     Form2.Show;
-//     Form2.cxPageControl1.ActivePage:=Form2.cxTabSheet3;
-FormAddkart.cxTabSheet1.TabVisible:=false;
-FormAddkart.cxTabSheet2.TabVisible:=false;
-FormAddkart.cxTabSheet3.TabVisible:=true;
-FormAddkart.cxTabSheet4.TabVisible:=false;
-FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet3;
-FormAddkart.cxTextEdit9.Text:=MainForm.orgSCHET.Value;
-FormAddkart.cxLabel15.Caption:=MainForm.orgFIO.Value;
-FormAddkart.cxCalcEdit6.EditValue:=MainForm.orgNOR_RAZN.Value;
-
-  if (FormAddkart.cxTabSheet3.Visible) and (MainForm.hvdLICH_TO.Value=0) then
-  begin
-    ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
-    exit;
-  end;
-
-FormAddkart.Show;
-if FormAddkart.IBQuery1.RecordCount<>0 then
-begin
-  FormAddkart.cxDateEdit5.EditValue:=FormAddkart.IBQuery1.FieldByName('date_pok').Value;
-  if FormAddkart.IBQuery1.FieldByName('pokazn').IsNull then
-    FormAddkart.cxCalcEdit2.Text:='0'
-  else
-    FormAddkart.cxCalcEdit2.Text:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
-end;
-end;
-
 procedure TMainForm.cxGridDBBandedTableView1EditKeyDown(
   Sender: TcxCustomGridTableView; AItem: TcxCustomGridTableItem;
   AEdit: TcxCustomEdit; var Key: Word; Shift: TShiftState);
@@ -2303,6 +2183,16 @@ begin
 //  else if NewPage=cxTabSheet3 then grp.Open
 //  else if NewPage=cxTabSheet4 then org.Open;
 
+end;
+
+procedure TMainForm.cxTabSheet1Show(Sender: TObject);
+begin
+DSet:=hvd;
+end;
+
+procedure TMainForm.cxTabSheet4Show(Sender: TObject);
+begin
+DSet:=org;
 end;
 
 procedure TMainForm.dxBarButton6Click(Sender: TObject);
