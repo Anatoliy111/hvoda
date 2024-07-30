@@ -22,7 +22,7 @@ object FormAddkart: TFormAddkart
     Top = 0
     Width = 438
     Height = 391
-    ActivePage = cxTabSheet4
+    ActivePage = cxTabSheet5
     Align = alClient
     TabOrder = 0
     ClientRectBottom = 391
@@ -488,6 +488,7 @@ object FormAddkart: TFormAddkart
     object cxTabSheet5: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1110' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 4
+      OnShow = cxTabSheet5Show
       object cxLabel36: TcxLabel
         Left = 15
         Top = 9
@@ -502,6 +503,7 @@ object FormAddkart: TFormAddkart
             FieldName = 'UL'
           end>
         Properties.ListSource = UlSource
+        Properties.OnEditValueChanged = cxLookupComboBox5PropertiesEditValueChanged
         Style.Color = clMoneyGreen
         TabOrder = 1
         Width = 191

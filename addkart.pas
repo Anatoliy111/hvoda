@@ -124,6 +124,8 @@ type
     procedure cxDateEdit9Exit(Sender: TObject);
     procedure cxLookupComboBox3PropertiesEditValueChanged(Sender: TObject);
     procedure cxTabSheet4Show(Sender: TObject);
+    procedure cxLookupComboBox5PropertiesEditValueChanged(Sender: TObject);
+    procedure cxTabSheet5Show(Sender: TObject);
   private
     { Private declarations }
   public
@@ -824,13 +826,69 @@ begin
 
   MainForm.org.edit;
   MainForm.orgSCHET.Value:=trim(cxTextEdit6.Text);
-  MainForm.orgYEARMON.Value:=main.MainForm.dataYEARMON.Value;
+  MainForm.orgYEARMON.Value:=MainForm.period;
   MainForm.orgFIO.Value:=trim(cxTextEdit10.Text);
   MainForm.orgUL.Value:=trim(cxLookupComboBox3.EditValue);
   MainForm.orgN_DOM.Value:=trim(cxLookupComboBox4.EditValue);
   MainForm.orgKV.Value:=trim(cxTextEdit12.Text);
   MainForm.orgNOTE.Value:=trim(cxTextEdit11.Text);
   MainForm.org.post;
+
+
+
+
+  end
+  else
+  begin
+    ShowMessage('Заповніть всі поля, виділені зеленим кольором');
+    exit;
+  end;
+end;
+
+if cxTabSheet5.TabVisible then
+begin
+  if (cxLookupComboBox5.EditValue<>null)
+   and (cxTextEdit13.Text<>'')
+   and (cxTextEdit14.Text<>'')
+   and (cxCalcEdit8.Text<>'')
+   and (cxLookupComboBox6.EditValue<>null)
+  then
+  begin
+
+     if (cxLookupComboBox5.EditValue<>MainForm.grp.FieldByName('UL').Value) or (cxLookupComboBox6.EditValue<>MainForm.grp.FieldByName('N_DOM').Value) then
+     begin
+       IBQuery3.Close;
+       IBQuery3.SQL.Text:='select first 1 ul,n_dom from grp where yearmon=:ym and ul=:ull and n_dom=:nd';
+       IBQuery3.ParamByName('ym').Value:=MainForm.curYM;
+       IBQuery3.ParamByName('ull').Value:=cxLookupComboBox5.EditValue;
+       IBQuery3.ParamByName('nd').Value:=trim(cxLookupComboBox6.EditValue);
+       IBQuery3.Open;
+
+       if IBQuery3.RecordCount<>0 then
+       begin
+         ShowMessage('Така адреса лічильника '+trim(cxLookupComboBox5.EditValue)+' '+trim(cxLookupComboBox6.EditValue)+'вже існує. Якщо в списку немає цього абонента, натисніть кнопку ОНОВИТИ!!!');
+         exit;
+       end;
+
+
+     end;
+
+
+
+  if adddomlich then
+  begin
+     MainForm.grp.Insert;
+  end;
+
+
+  MainForm.grp.edit;
+  MainForm.grpYEARMON.Value:=MainForm.period;
+  MainForm.grpUL.Value:=trim(cxLookupComboBox5.EditValue);
+  MainForm.grpN_DOM.Value:=trim(cxLookupComboBox6.EditValue);
+  MainForm.grpSCH_OLD.Value:=cxCalcEdit8.EditValue;
+  MainForm.grpTIP.Value:=trim(cxTextEdit13.Text);
+  MainForm.grpN_LICH.Value:=trim(cxTextEdit14.Text);
+  MainForm.grp.post;
 
 
 
@@ -902,7 +960,25 @@ DOMDataSet.Open;
 cxLookupComboBox4.EditValue:='';
 end;
 
+procedure TFormAddkart.cxLookupComboBox5PropertiesEditValueChanged(
+  Sender: TObject);
+begin
+DOMDataSet.Close;
+DOMDataSet.ParamByName('yearmon').Value:=MainForm.curYM;
+DOMDataSet.ParamByName('ull').Value:=cxLookupComboBox3.EditValue;;
+DOMDataSet.Open;
+
+cxLookupComboBox4.EditValue:='';
+end;
+
 procedure TFormAddkart.cxTabSheet4Show(Sender: TObject);
+begin
+ULDataSet.Close;
+ULDataSet.ParamByName('yearmon').Value:=MainForm.curYM;
+ULDataSet.Open;
+end;
+
+procedure TFormAddkart.cxTabSheet5Show(Sender: TObject);
 begin
 ULDataSet.Close;
 ULDataSet.ParamByName('yearmon').Value:=MainForm.curYM;

@@ -580,7 +580,6 @@ type
     hvdEDRPOU: TIntegerField;
     hvdKL_UL: TIntegerField;
     hvdR_NACH: TIBStringField;
-    hvdLICH_DYM: TIntegerField;
     orgKL: TIntegerField;
     orgYEARMON: TIntegerField;
     orgPLOMB: TSmallintField;
@@ -633,7 +632,6 @@ type
     orgEDRPOU: TIntegerField;
     orgKL_UL: TIntegerField;
     orgR_NACH: TIBStringField;
-    orgLICH_DYM: TIntegerField;
     hvdallKL: TIntegerField;
     hvdallYEARMON: TIntegerField;
     hvdallPLOMB: TSmallintField;
@@ -686,7 +684,6 @@ type
     hvdallEDRPOU: TIntegerField;
     hvdallKL_UL: TIntegerField;
     hvdallR_NACH: TIBStringField;
-    hvdallLICH_DYM: TIntegerField;
     hvdallLICHUPD: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
@@ -1134,7 +1131,7 @@ fl_startprog:=true;
 //  //hvd.Open;
 //  prop.Open;
 //  grp.Open;
-//  imp.open;
+ // imp.open;
 //  //plombs.Open;
 //  //pokazn.Open;
 ////  dbgrid1.DataController.Groups.FullExpand;
@@ -1226,6 +1223,10 @@ if not IBDatabase.Connected then exit;
 //    end;
 
 //    if (impIMPALLOW.Value=1) and (impIMPLASTDATE.Value<Now) then
+
+    viber_task.Close;
+    viber_task.ParamByName('yearmon').Value:=CurYM;
+    viber_task.Open;
     dt:=trunc(Now);
     if (impIMPLASTDATE.Value<dt) then
     begin
@@ -1469,7 +1470,7 @@ end;
 
 procedure TMainForm.dxBarButton38Click(Sender: TObject);
 begin
-//    Form4.ImKart;
+    Form4.ImKart;
     allcalclich;
     imp.Edit;
     impLASTRASCH.Value:=Now();
