@@ -605,7 +605,12 @@ begin
   MainForm.grpYEARMON.Value:=MainForm.period;
   MainForm.grpUL.Value:=trim(cxLookupComboBox5.EditValue);
   MainForm.grpN_DOM.Value:=trim(cxLookupComboBox6.EditValue);
-  MainForm.grpSCH_OLD.Value:=cxCalcEdit8.EditValue;
+  if MainForm.grpSCH_OLD.Value<>cxCalcEdit8.EditValue then
+  begin
+    MainForm.grpSCH_OLD.Value:=cxCalcEdit8.EditValue;
+    MainForm.grpSCH_CUR.Value:=0;
+    MainForm.grpSCH_KUB.Value:=0;
+  end;
   MainForm.grpTIP.Value:=trim(cxTextEdit13.Text);
   MainForm.grpN_LICH.Value:=trim(cxTextEdit14.Text);
   MainForm.grp.post;

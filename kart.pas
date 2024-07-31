@@ -192,6 +192,7 @@ type
       procedure Find(sch:string);
       procedure calclich(DS:TIBDataSet);
       procedure calcpok2(DS:TIBDataSet);
+      procedure kub_all(DS:TIBDataSet);
 
 
 
@@ -208,6 +209,17 @@ implementation
 uses main, addkart, delkart, mytools, math;
 
 {$R *.dfm}
+
+procedure TForm2.kub_all(DS:TIBDataSet);
+begin
+  DS.Edit;
+  DS.FieldByName('KUB_ALL').Value:=DS.FieldByName('SCH_RAZN').Value+
+  DS.FieldByName('NOR_RAZN').Value+
+  DS.FieldByName('NORM_BLICH').Value+
+  DS.FieldByName('KUB_NOBALANS').Value;
+  DS.Post;
+
+end;
 
 procedure TForm2.calcpok2(DS:TIBDataSet);
 var kol,kol2,lastpokazn,endpokazn,nextkub,vid,daymonth:integer;
@@ -244,7 +256,7 @@ begin
 
     kol:=0;
     kol2:=0;
-     while not IBQuery3.eof do
+     while not IBQuery6.eof do
      begin
 
 
@@ -398,17 +410,10 @@ begin
 
        end;
 
-
-  DS.FieldByName('KUB_ALL').Value:=DS.FieldByName('SCH_RAZN').Value+
-  DS.FieldByName('NOR_RAZN').Value+
-  DS.FieldByName('NORM_BLICH').Value+
-  DS.FieldByName('KUB_NOBALANS').Value;
-
-
-
-
        DS.Post;
-       MainForm.IBTransaction1.CommitRetaining;
+       kub_all(DS);
+
+      // MainForm.IBTransaction1.CommitRetaining;
 
 end;
 
@@ -629,15 +634,10 @@ begin
 
   end;
 
-  DS.Edit;
-  DS.FieldByName('KUB_ALL').Value:=DS.FieldByName('SCH_RAZN').Value+
-  DS.FieldByName('NOR_RAZN').Value+
-  DS.FieldByName('NORM_BLICH').Value+
-  DS.FieldByName('KUB_NOBALANS').Value;
-  DS.Post;
+  kub_all(DS);
 
 
-  MainForm.IBTransaction1.CommitRetaining;
+  //MainForm.IBTransaction1.CommitRetaining;
 
 end;
 

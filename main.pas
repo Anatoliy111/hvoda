@@ -151,29 +151,6 @@ type
     hvd3: TIBDataSet;
     hvd3Source: TDataSource;
     hvd12: TIBDataSet;
-    IntegerField6: TIntegerField;
-    IntegerField7: TIntegerField;
-    SmallintField4: TSmallintField;
-    IBStringField9: TIBStringField;
-    SmallintField5: TSmallintField;
-    IBStringField10: TIBStringField;
-    IBStringField11: TIBStringField;
-    IBStringField12: TIBStringField;
-    IBStringField13: TIBStringField;
-    IBBCDField8: TIBBCDField;
-    IBBCDField9: TIBBCDField;
-    IBBCDField10: TIBBCDField;
-    IBBCDField11: TIBBCDField;
-    IntegerField8: TIntegerField;
-    IntegerField9: TIntegerField;
-    IBBCDField12: TIBBCDField;
-    IBBCDField13: TIBBCDField;
-    IntegerField10: TIntegerField;
-    IBBCDField14: TIBBCDField;
-    SmallintField6: TSmallintField;
-    IBStringField14: TIBStringField;
-    IBStringField15: TIBStringField;
-    IBStringField16: TIBStringField;
     hvd12Source: TDataSource;
     hvd3SCHET: TIBStringField;
     hvd3SRAZN: TIBBCDField;
@@ -320,17 +297,6 @@ type
     dxBarButton22: TdxBarButton;
     org: TIBDataSet;
     orgSource: TDataSource;
-    hvd12NOTE: TIBStringField;
-    hvd12KOLI_F: TLargeintField;
-    hvd12RASCH_KUB: TIBBCDField;
-    hvd12RASCH_NOR: TIBBCDField;
-    hvd12POD: TIntegerField;
-    hvd12RASCH_NOTE: TIBStringField;
-    hvd12DATE_POK: TDateField;
-    hvd12VID_POK: TIntegerField;
-    hvd12KUB_MES: TIBBCDField;
-    hvd12LICH_POV: TDateField;
-    hvd12ORG: TIntegerField;
     dxBarButton23: TdxBarButton;
     vid_rn: TIBDataSet;
     vid_rnSource: TDataSource;
@@ -356,9 +322,6 @@ type
     impIMPLASTDATE: TDateField;
     impIMPALLOW: TIntegerField;
     impIMPLASTDAY: TIntegerField;
-    hvd12VID_RN: TIntegerField;
-    hvd12FILTR: TIntegerField;
-    hvd12POMPA: TIntegerField;
     DBGrid1FILTR: TcxGridDBBandedColumn;
     DBGrid1POMPA: TcxGridDBBandedColumn;
     dxBarButton29: TdxBarButton;
@@ -704,6 +667,133 @@ type
     orgKUB_NOBALANS: TFloatField;
     orgKUB_ALL: TFloatField;
     hvdallKUB_ALL: TFloatField;
+    cxStyle2: TcxStyle;
+    hvdrozpdom: TIBDataSet;
+    hvdrozpdomSource: TDataSource;
+    hvdrozpdomKL: TIntegerField;
+    hvdrozpdomYEARMON: TIntegerField;
+    hvdrozpdomPLOMB: TSmallintField;
+    hvdrozpdomFIO: TIBStringField;
+    hvdrozpdomWID: TSmallintField;
+    hvdrozpdomDOM: TIBStringField;
+    hvdrozpdomKVART: TIBStringField;
+    hvdrozpdomSCHET: TIBStringField;
+    hvdrozpdomN_SCH: TIBStringField;
+    hvdrozpdomSCH_OLD: TIBBCDField;
+    hvdrozpdomSCH_CUR: TIBBCDField;
+    hvdrozpdomSCH_RAZN: TIBBCDField;
+    hvdrozpdomSCH_RAZN2: TIBBCDField;
+    hvdrozpdomKOLI_P: TIBBCDField;
+    hvdrozpdomKOLI_P0: TIntegerField;
+    hvdrozpdomKOLI_P1: TIntegerField;
+    hvdrozpdomNOR_RAZN: TIBBCDField;
+    hvdrozpdomGRP_RAZN: TIBBCDField;
+    hvdrozpdomPERE_DAY: TIntegerField;
+    hvdrozpdomPERE_RAZN: TIBBCDField;
+    hvdrozpdomID_KONTR: TSmallintField;
+    hvdrozpdomUL: TIBStringField;
+    hvdrozpdomN_DOM: TIBStringField;
+    hvdrozpdomKV: TIBStringField;
+    hvdrozpdomNOTE: TIBStringField;
+    hvdrozpdomKOLI_F: TLargeintField;
+    hvdrozpdomRASCH_KUB: TIBBCDField;
+    hvdrozpdomRASCH_NOR: TIBBCDField;
+    hvdrozpdomPOD: TIntegerField;
+    hvdrozpdomRASCH_NOTE: TIBStringField;
+    hvdrozpdomDATE_POK: TDateField;
+    hvdrozpdomVID_POK: TIntegerField;
+    hvdrozpdomKUB_MES: TIBBCDField;
+    hvdrozpdomLICH_POV: TDateField;
+    hvdrozpdomORG: TIntegerField;
+    hvdrozpdomVID_RN: TIntegerField;
+    hvdrozpdomFILTR: TIntegerField;
+    hvdrozpdomPOMPA: TIntegerField;
+    hvdrozpdomZN_LICH: TIntegerField;
+    hvdrozpdomZNOLD_LICH: TIntegerField;
+    hvdrozpdomDATE_ZN: TDateField;
+    hvdrozpdomLICH_TO: TIntegerField;
+    hvdrozpdomKLNTAR: TIntegerField;
+    hvdrozpdomTARIF_NAME: TIBStringField;
+    hvdrozpdomNORMA: TFloatField;
+    hvdrozpdomOLD_NORM: TFloatField;
+    hvdrozpdomDEL_NORM: TFloatField;
+    hvdrozpdomPREV_NORM: TFloatField;
+    hvdrozpdomLICH_YEARMON: TIntegerField;
+    hvdrozpdomEDRPOU: TIntegerField;
+    hvdrozpdomKL_UL: TIntegerField;
+    hvdrozpdomR_NACH: TIBStringField;
+    hvdrozpdomNORM_BLICH: TFloatField;
+    hvdrozpdomKUB_NOBALANS: TFloatField;
+    hvdrozpdomKUB_ALL: TFloatField;
+    hvd12KL: TIntegerField;
+    hvd12YEARMON: TIntegerField;
+    hvd12PLOMB: TSmallintField;
+    hvd12FIO: TIBStringField;
+    hvd12WID: TSmallintField;
+    hvd12DOM: TIBStringField;
+    hvd12KVART: TIBStringField;
+    hvd12SCHET: TIBStringField;
+    hvd12N_SCH: TIBStringField;
+    hvd12SCH_OLD: TIBBCDField;
+    hvd12SCH_CUR: TIBBCDField;
+    hvd12SCH_RAZN: TIBBCDField;
+    hvd12SCH_RAZN2: TIBBCDField;
+    hvd12KOLI_P: TIBBCDField;
+    hvd12KOLI_P0: TIntegerField;
+    hvd12KOLI_P1: TIntegerField;
+    hvd12NOR_RAZN: TIBBCDField;
+    hvd12GRP_RAZN: TIBBCDField;
+    hvd12PERE_DAY: TIntegerField;
+    hvd12PERE_RAZN: TIBBCDField;
+    hvd12ID_KONTR: TSmallintField;
+    hvd12UL: TIBStringField;
+    hvd12N_DOM: TIBStringField;
+    hvd12KV: TIBStringField;
+    hvd12NOTE: TIBStringField;
+    hvd12KOLI_F: TLargeintField;
+    hvd12RASCH_KUB: TIBBCDField;
+    hvd12RASCH_NOR: TIBBCDField;
+    hvd12POD: TIntegerField;
+    hvd12RASCH_NOTE: TIBStringField;
+    hvd12DATE_POK: TDateField;
+    hvd12VID_POK: TIntegerField;
+    hvd12KUB_MES: TIBBCDField;
+    hvd12LICH_POV: TDateField;
+    hvd12ORG: TIntegerField;
+    hvd12VID_RN: TIntegerField;
+    hvd12FILTR: TIntegerField;
+    hvd12POMPA: TIntegerField;
+    hvd12ZN_LICH: TIntegerField;
+    hvd12ZNOLD_LICH: TIntegerField;
+    hvd12DATE_ZN: TDateField;
+    hvd12LICH_TO: TIntegerField;
+    hvd12KLNTAR: TIntegerField;
+    hvd12TARIF_NAME: TIBStringField;
+    hvd12NORMA: TFloatField;
+    hvd12OLD_NORM: TFloatField;
+    hvd12DEL_NORM: TFloatField;
+    hvd12PREV_NORM: TFloatField;
+    hvd12LICH_YEARMON: TIntegerField;
+    hvd12EDRPOU: TIntegerField;
+    hvd12KL_UL: TIntegerField;
+    hvd12R_NACH: TIBStringField;
+    hvd12NORM_BLICH: TFloatField;
+    hvd12KUB_NOBALANS: TFloatField;
+    hvd12KUB_ALL: TFloatField;
+    hvdlichupdSCH_RAZN2: TIBBCDField;
+    hvdlichupdKLNTAR: TIntegerField;
+    hvdlichupdTARIF_NAME: TIBStringField;
+    hvdlichupdNORMA: TFloatField;
+    hvdlichupdOLD_NORM: TFloatField;
+    hvdlichupdDEL_NORM: TFloatField;
+    hvdlichupdPREV_NORM: TFloatField;
+    hvdlichupdLICH_YEARMON: TIntegerField;
+    hvdlichupdEDRPOU: TIntegerField;
+    hvdlichupdKL_UL: TIntegerField;
+    hvdlichupdR_NACH: TIBStringField;
+    hvdlichupdNORM_BLICH: TFloatField;
+    hvdlichupdKUB_NOBALANS: TFloatField;
+    hvdlichupdKUB_ALL: TFloatField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -807,6 +897,7 @@ type
     procedure DBGrid3SCH_CURPropertiesValidate(Sender: TObject;
       var DisplayValue: Variant; var ErrorText: TCaption; var Error: Boolean);
     procedure grpSCH_CURChange(Sender: TField);
+    procedure hvdNOR_RAZNChange(Sender: TField);
 
   private
     { Private declarations }
@@ -831,7 +922,7 @@ type
     procedure allcalclich2;
     procedure allcalcnorm;
     procedure update;
-    procedure RaschLichDom;
+    procedure calcdomlich(DS:TIBDataSet);
 
   end;
 
@@ -907,8 +998,14 @@ begin
     application.ProcessMessages;
 
          Form2.calcpok2(hvdall);
-
          Form2.calclich(hvdall);
+         if not Form4.Visible then
+         begin
+
+         Break;
+         end;
+
+
 
       hvdall.Next;
     end;
@@ -1493,11 +1590,102 @@ end;
 
 procedure TMainForm.dxBarButton38Click(Sender: TObject);
 begin
-    Form4.ImKart;
+//    Form4.ImKart;
     allcalclich;
     imp.Edit;
     impLASTRASCH.Value:=Now();
     imp.Post;
+    IBTransaction1.CommitRetaining;
+
+end;
+
+procedure TMainForm.calcdomlich(DS:TIBDataSet);
+var sumabon:Currency;
+    kol_lud:integer;
+begin
+    IBQuery2.Close;
+    IBQuery2.SQL.Text:='select org,sum(kub_all) kuball from h_voda where wid<46 and wid<>42 and wid<>45 and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet group by org';
+    IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
+    IBQuery2.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
+    IBQuery2.ParamByName('ym').Value:=MainForm.period;
+    IBQuery2.Open;
+    IBQuery2.FetchAll;
+    sumabon:=0;
+    kol_lud:=0;
+    DS.Edit;
+    while IBQuery2.Eof do
+    begin
+      if IBQuery2.FieldByName('org').Value=0 then
+         DS.FieldByName('sch_nas').Value:=IBQuery2.FieldByName('kuball').Value;
+      if IBQuery2.FieldByName('org').Value=1 then
+         DS.FieldByName('sch_ur').Value:=IBQuery2.FieldByName('kuball').Value;
+      sumabon:=sumabon + IBQuery2.FieldByName('kuball').Value;
+      IBQuery2.Next;
+    end;
+    DS.FieldByName('sch_sumabon').Value:=sumabon;
+    DS.FieldByName('sch_kub').Value:=DS.FieldByName('sch_old').Value-DS.FieldByName('sch_cur').Value;
+    DS.FieldByName('sch_razn').Value:=DS.FieldByName('sch_kub').Value-DS.FieldByName('sch_sumabon').Value;
+
+    if DS.FieldByName('sch_razn').Value>0 then
+    begin
+
+      IBQuery2.Close;
+      IBQuery2.SQL.Text:='select count(*) cn, sum(koli_p) kollud from h_voda where (wid=42 or wid=45) and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet';
+      IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
+      IBQuery2.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
+      IBQuery2.ParamByName('ym').Value:=MainForm.period;
+      IBQuery2.Open;
+      IBQuery2.FetchAll;
+
+      if IBQuery2.FieldByName('cn').Value<>0 then
+      begin
+            hvdrozpdom.Close;
+            hvdrozpdom.SelectSQL.Text:='select * from h_voda where (wid=42 or wid=45) and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet';
+            hvdrozpdom.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
+            hvdrozpdom.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
+            hvdrozpdom.ParamByName('ym').Value:=MainForm.period;
+            hvdrozpdom.Open;
+            hvdrozpdom.FetchAll;
+
+         if IBQuery2.FieldByName('kollud').Value>0 then
+         begin
+             while hvdrozpdom.Eof do
+            begin
+              hvdrozpdom.Edit;
+              hvdrozpdomKUB_NOBALANS.Value:=DS.FieldByName('sch_razn').Value/(IBQuery2.FieldByName('kollud').Value*hvdrozpdomKOLI_P.Value);
+              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
+              hvdrozpdomNORM_BLICH.Value:=0;
+              hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку';
+              hvdrozpdom.Post;
+              hvdrozpdom.Next;
+            end;
+         end
+         else
+         begin
+            while hvdrozpdom.Eof do
+            begin
+              hvdrozpdom.Edit;
+              hvdrozpdomKUB_NOBALANS.Value:=DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('cn').Value;
+              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
+              hvdrozpdomNORM_BLICH.Value:=0;
+              hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку по кількості квартир ('+IBQuery2.FieldByName('cn').Value+') без лічильника або без повірки';
+              hvdrozpdom.Post;
+              hvdrozpdom.Next;
+            end;
+         end;
+      end;
+      
+
+
+
+
+
+
+
+    end;
+    
+
+    DS.Post;
     IBTransaction1.CommitRetaining;
 
 end;
@@ -1872,6 +2060,11 @@ begin
  //   DBGrid1SCHET.Focused:=true;
 end;
 
+procedure TMainForm.hvdNOR_RAZNChange(Sender: TField);
+begin
+  Form2.kub_all(DSet);
+end;
+
 procedure TMainForm.hvdBeforePost(DataSet: TDataSet);
 begin
   if hvdYEARMON.Value=0 then hvdYEARMON.Value:=CurYM;
@@ -1976,7 +2169,10 @@ end;
 
 procedure TMainForm.grpSCH_CURChange(Sender: TField);
 begin
-RaschLichDom;
+   MainForm.grp.Edit;
+   MainForm.grp.FieldByName('SCH_KUB').Value:=MainForm.grp.FieldByName('SCH_CUR').Value-MainForm.grp.FieldByName('SCH_OLD').Value;
+   MainForm.grp.Post;
+   MainForm.IBTransaction1.CommitRetaining;
 end;
 
 procedure TMainForm.ActionPrintExecute(Sender: TObject);
@@ -2053,17 +2249,6 @@ begin
     ErrorText:='Теперішній показник меньший за минулий! Перевірте правильність введених даних!';
     Error:=true;
 end;
-
-end;
-
-procedure TMainForm.RaschLichDom;
-begin
-   MainForm.grp.Edit;
-   MainForm.grp.FieldByName('SCH_KUB').Value:=MainForm.grp.FieldByName('SCH_CUR').Value-MainForm.grp.FieldByName('SCH_OLD').Value;
- //  MainForm.grp.FieldByName('SCH_SUMABON').Value:=MainForm.grp.FieldByName('SCH_UR').Value+MainForm.grp.FieldByName('SCH_NAS').Value;
- //  MainForm.grp.FieldByName('SCH_RAZN').Value:=MainForm.grp.FieldByName('SCH_KUB').Value-MainForm.grp.FieldByName('SCH_SUMABON').Value;
-   MainForm.grp.Post;
-   MainForm.IBTransaction1.CommitRetaining;
 
 end;
 
