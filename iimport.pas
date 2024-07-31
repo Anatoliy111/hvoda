@@ -31,6 +31,7 @@ type
     cxButton1: TcxButton;
     Label3: TLabel;
     cxButton2: TcxButton;
+    Label4: TLabel;
     procedure Timer1Timer(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
   private

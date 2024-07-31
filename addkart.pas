@@ -93,8 +93,6 @@ type
     cxLabel33: TcxLabel;
     cxLabel34: TcxLabel;
     cxLookupComboBox4: TcxLookupComboBox;
-    cxLabel35: TcxLabel;
-    cxTextEdit11: TcxTextEdit;
     cxTabSheet5: TcxTabSheet;
     DomSource: TDataSource;
     cxLabel36: TcxLabel;
@@ -113,6 +111,8 @@ type
     DOMDataSet: TIBDataSet;
     DOMDataSetN_DOM: TIBStringField;
     IBQuery5: TIBQuery;
+    cxLabel35: TcxLabel;
+    cxTextEdit11: TcxTextEdit;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxDateEdit2PropertiesChange(Sender: TObject);
@@ -127,7 +127,7 @@ type
   private
     { Private declarations }
   public
-    addznlich,reglich:boolean;
+    addznlich,reglich,addurabon,adddomlich:boolean;
     { Public declarations }
     function AddPokaz(sch:string;data:TDateTime;vid:integer;pok:double):boolean;
     procedure calcpok(sch:string);
@@ -357,7 +357,8 @@ begin
        begin
        if (DS.FieldByName('WID').Value>46) then
             DS.FieldByName('NOR_RAZN').Value:=0;
-         DS.FieldByName('SCH_RAZN').Value:=0;
+            DS.FieldByName('R_NACH').Value:='';
+            DS.FieldByName('SCH_RAZN').Value:=0;
 
          if DS.FieldByName('DEL_NORM').Value<0 then
                   begin
@@ -384,10 +385,21 @@ begin
          //45,42
          if (DS.FieldByName('WID').Value=45) or (DS.FieldByName('WID').Value=42) then
          begin
-                DS.FieldByName('SCH_RAZN').Value:=0;
-                DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
-                DS.FieldByName('R_NACH').Value:='Споживання по нормі: к-ть зареєстров.('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
 
+                if DS.FieldByName('ORG').Value=0 then
+                begin
+                  DS.FieldByName('SCH_RAZN').Value:=0;
+                  DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+                  DS.FieldByName('R_NACH').Value:='Споживання по нормі: к-ть зареєстров.('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
+                end
+                else
+                begin
+                  kub12:=Form2.CubAvg12(DS.FieldByName('SCHET').Value);
+                  daymonth:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
+                  kubavg:=SimpleRoundTo(kub12*daymonth,-3);
+                  DS.FieldByName('NOR_RAZN').Value:=kubavg;
+                  DS.FieldByName('R_NACH').Value:='Середнє споживання: к-ть днів за місяць('+inttostr(daymonth)+') * середнє спожив. в день за рік('+CurrToStr(kub12)+')';
+                end;
                 if DS.FieldByName('DEL_NORM').Value<0 then
                     begin
                     DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
@@ -408,6 +420,7 @@ begin
                 if (DS.FieldByName('WID').Value<>43) then
                 begin
                   DS.FieldByName('NOR_RAZN').Value:=0;
+                  DS.FieldByName('R_NACH').Value:='';
                   DS.FieldByName('WID').Value:=41;
                 end;
 
@@ -425,24 +438,35 @@ begin
 
             if (DS.FieldByName('WID').Value<>43) then
             begin
-               IBQuery5.Close;
-               IBQuery5.SQL.Text:='select yearmon from pokazn where schet=:sch and yearmon>=(select first 1 skip 3 yearmon from data order by yearmon desc)';
-               IBQuery5.ParamByName('sch').Value:=DS.FieldByName('schet').value;
-               IBQuery5.Close;
-
-               if IBQuery5.RecordCount>0 then
+               if DS.FieldByName('ORG').Value=0 then
                begin
-                kub12:=Form2.CubAvg12(DS.FieldByName('SCHET').Value);
-                daymonth:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
-                kubavg:=SimpleRoundTo(kub12*daymonth,-3);
-                DS.FieldByName('NOR_RAZN').Value:=kubavg;
-                DS.FieldByName('R_NACH').Value:='Середнє споживання: к-ть днів за місяць('+inttostr(daymonth)+') * середнє спожив. в день за рік('+CurrToStr(kub12)+')';
+                 IBQuery5.Close;
+                 IBQuery5.SQL.Text:='select yearmon from pokazn where schet=:sch and yearmon>=(select first 1 skip 3 yearmon from data order by yearmon desc)';
+                 IBQuery5.ParamByName('sch').Value:=DS.FieldByName('schet').value;
+                 IBQuery5.Open;
+
+                 if IBQuery5.RecordCount>0 then
+                 begin
+                  kub12:=Form2.CubAvg12(DS.FieldByName('SCHET').Value);
+                  daymonth:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
+                  kubavg:=SimpleRoundTo(kub12*daymonth,-3);
+                  DS.FieldByName('NOR_RAZN').Value:=kubavg;
+                  DS.FieldByName('R_NACH').Value:='Середнє споживання: к-ть днів за місяць('+inttostr(daymonth)+') * середнє спожив. в день за рік('+CurrToStr(kub12)+')';
+                 end
+                 else
+                 begin
+                   DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+                   DS.FieldByName('R_NACH').Value:='Споживання по нормі коли 3 міс. не було показників: к-ть зареєстров.('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
+                 end;
                end
                else
                begin
-                 DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
-                 DS.FieldByName('R_NACH').Value:='Споживання по нормі коли 3 міс. не було показників: к-ть зареєстров.('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
-              end;
+                  kub12:=Form2.CubAvg12(DS.FieldByName('SCHET').Value);
+                  daymonth:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
+                  kubavg:=SimpleRoundTo(kub12*daymonth,-3);
+                  DS.FieldByName('NOR_RAZN').Value:=kubavg;
+                  DS.FieldByName('R_NACH').Value:='Середнє споживання: к-ть днів за місяць('+inttostr(daymonth)+') * середнє спожив. в день за рік('+CurrToStr(kub12)+')';
+               end;
 
             end;
 
@@ -550,7 +574,7 @@ begin
 
   end;
 
-  if addznlich=true then
+  if addznlich then
        MainForm.lich.Append;
 
   MainForm.lich.Edit;
@@ -778,16 +802,28 @@ begin
     exit;
   end;
 
+  if addurabon then
+  begin
+     MainForm.org.Append;
+     MainForm.org.edit;
+     MainForm.orgWID.Value:=41;
+     MainForm.org.post;
+  end
+  else
+  begin
+     if trim(cxTextEdit6.Text)<>MainForm.DSet.FieldByName('SCHET').Value then
 
+  end;
 
-  MainForm.org.Append;
+  MainForm.org.edit;
   MainForm.orgSCHET.Value:=trim(cxTextEdit6.Text);
   MainForm.orgYEARMON.Value:=main.MainForm.dataYEARMON.Value;
   MainForm.orgFIO.Value:=trim(cxTextEdit10.Text);
   MainForm.orgUL.Value:=trim(cxLookupComboBox3.EditValue);
   MainForm.orgN_DOM.Value:=trim(cxLookupComboBox4.EditValue);
   MainForm.orgKV.Value:=trim(cxTextEdit12.Text);
-  MainForm.orgWID.Value:=41;
+  MainForm.orgNOTE.Value:=trim(cxTextEdit11.Text);
+
   MainForm.org.post;
 
   calcpok2(MainForm.org);

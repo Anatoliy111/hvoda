@@ -406,6 +406,7 @@ begin
              begin
                DS.FieldByName('WID').Value:=41;
                DS.FieldByName('NOR_RAZN').Value:=0;
+               DS.FieldByName('R_NACH').Value:='';
              end;
 
 

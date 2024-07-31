@@ -465,6 +465,13 @@ object FormAddkart: TFormAddkart
         TabOrder = 8
         Width = 57
       end
+      object cxTextEdit6: TcxTextEdit
+        Left = 15
+        Top = 41
+        Style.Color = clMoneyGreen
+        TabOrder = 9
+        Width = 169
+      end
       object cxLabel35: TcxLabel
         Left = 24
         Top = 301
@@ -473,15 +480,8 @@ object FormAddkart: TFormAddkart
       object cxTextEdit11: TcxTextEdit
         Left = 24
         Top = 317
-        TabOrder = 10
-        Width = 401
-      end
-      object cxTextEdit6: TcxTextEdit
-        Left = 15
-        Top = 41
-        Style.Color = clMoneyGreen
         TabOrder = 11
-        Width = 169
+        Width = 401
       end
     end
     object cxTabSheet5: TcxTabSheet

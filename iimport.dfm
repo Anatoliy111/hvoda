@@ -2,7 +2,6 @@ object Form4: TForm4
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = #1030#1084#1087#1086#1088#1090
   ClientHeight = 180
   ClientWidth = 470
   Color = clBtnFace
@@ -39,6 +38,13 @@ object Form4: TForm4
     Width = 31
     Height = 13
     Caption = 'Label3'
+    Visible = False
+  end
+  object Label4: TLabel
+    Left = 75
+    Top = 115
+    Width = 3
+    Height = 13
     Visible = False
   end
   object cxProgressBar1: TcxProgressBar

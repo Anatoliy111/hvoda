@@ -372,7 +372,7 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'NOTE'
             Width = 228
             Position.BandIndex = 3
-            Position.ColIndex = 2
+            Position.ColIndex = 3
             Position.RowIndex = 0
           end
           object DBGrid1LICH_POV: TcxGridDBBandedColumn
@@ -427,7 +427,7 @@ object MainForm: TMainForm
             Properties.ReadOnly = True
             Width = 186
             Position.BandIndex = 3
-            Position.ColIndex = 0
+            Position.ColIndex = 1
             Position.RowIndex = 0
           end
           object DBGrid1NORMA: TcxGridDBBandedColumn
@@ -435,7 +435,7 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'NORMA'
             Options.Editing = False
             Position.BandIndex = 3
-            Position.ColIndex = 1
+            Position.ColIndex = 2
             Position.RowIndex = 0
           end
           object DBGrid1DEL_NORM: TcxGridDBBandedColumn
@@ -478,6 +478,14 @@ object MainForm: TMainForm
             Width = 28
             Position.BandIndex = 0
             Position.ColIndex = 12
+            Position.RowIndex = 0
+          end
+          object DBGrid1R_NACH: TcxGridDBBandedColumn
+            Caption = #1052#1077#1090#1086#1076' '#1088#1086#1079#1088#1072#1093#1091#1085#1082#1091
+            DataBinding.FieldName = 'R_NACH'
+            Width = 202
+            Position.BandIndex = 3
+            Position.ColIndex = 0
             Position.RowIndex = 0
           end
         end
@@ -545,7 +553,6 @@ object MainForm: TMainForm
             item
               Kind = skSum
               FieldName = 'NOR_RAZN'
-              Column = cxGridDBBandedColumn6
             end
             item
               Kind = skSum
@@ -554,7 +561,6 @@ object MainForm: TMainForm
             end
             item
               Kind = skSum
-              Column = cxGridDBBandedColumn4
             end
             item
               Format = #1050#1074#1072#1088#1090#1080#1088' ####'
@@ -568,7 +574,6 @@ object MainForm: TMainForm
             end
             item
               Kind = skSum
-              Column = cxGridDBBandedColumn5
             end
             item
               Kind = skSum
@@ -604,6 +609,12 @@ object MainForm: TMainForm
             item
               Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
               Width = 221
+            end
+            item
+              Caption = #1044#1086#1076#1072#1090#1082#1086#1074#1086
+            end
+            item
+              Caption = #1030#1085#1092#1086#1088#1084#1072#1094#1110#1103
             end>
           object cxGridDBBandedColumn2: TcxGridDBBandedColumn
             Caption = #1054#1089'.'#1088#1072#1093'/'#1028#1044#1056#1055#1054#1059'/'#1030#1055#1053
@@ -623,42 +634,6 @@ object MainForm: TMainForm
             Position.BandIndex = 0
             Position.ColIndex = 1
             Position.RowIndex = 0
-          end
-          object cxGridDBBandedColumn4: TcxGridDBBandedColumn
-            Caption = #1055#1088#1086#1087#1080#1089#1072#1085#1086
-            DataBinding.FieldName = 'KOLI_P'
-            PropertiesClassName = 'TcxPopupEditProperties'
-            Properties.ImmediatePopup = False
-            Properties.ReadOnly = True
-            Properties.OnCloseUp = DBGrid1KOLI_PPropertiesCloseUp
-            Properties.OnPopup = DBGrid1KOLI_PPropertiesPopup
-            Options.Editing = False
-            Width = 44
-            Position.BandIndex = -1
-            Position.ColIndex = -1
-            Position.RowIndex = -1
-          end
-          object cxGridDBBandedColumn5: TcxGridDBBandedColumn
-            Caption = #1055#1088#1086#1078#1080#1074#1072#1108
-            DataBinding.FieldName = 'KOLI_F'
-            PropertiesClassName = 'TcxPopupEditProperties'
-            Properties.ReadOnly = True
-            Options.Editing = False
-            Width = 48
-            Position.BandIndex = -1
-            Position.ColIndex = -1
-            Position.RowIndex = -1
-          end
-          object cxGridDBBandedColumn6: TcxGridDBBandedColumn
-            Caption = #1053#1086#1088#1084#1072
-            DataBinding.FieldName = 'NOR_RAZN'
-            PropertiesClassName = 'TcxCalcEditProperties'
-            Properties.ReadOnly = False
-            Properties.OnChange = DBGrid1NOR_RAZNPropertiesChange
-            Width = 64
-            Position.BandIndex = -1
-            Position.ColIndex = -1
-            Position.RowIndex = -1
           end
           object cxGridDBBandedColumn7: TcxGridDBBandedColumn
             Caption = #1044#1072#1090#1072' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
@@ -780,15 +755,6 @@ object MainForm: TMainForm
             Position.ColIndex = 5
             Position.RowIndex = 0
           end
-          object cxGridDBBandedColumn17: TcxGridDBBandedColumn
-            Caption = #1055#1088#1080#1084#1110#1090#1082#1072
-            DataBinding.FieldName = 'NOTE'
-            Options.Editing = False
-            Width = 194
-            Position.BandIndex = -1
-            Position.ColIndex = -1
-            Position.RowIndex = -1
-          end
           object cxGridDBBandedColumn18: TcxGridDBBandedColumn
             Caption = #1044#1072#1090#1072' '#1087#1086#1074#1110#1088#1082#1080
             DataBinding.FieldName = 'LICH_POV'
@@ -803,6 +769,53 @@ object MainForm: TMainForm
             Width = 61
             Position.BandIndex = 0
             Position.ColIndex = 10
+            Position.RowIndex = 0
+          end
+          object cxGridDBBandedTableView1PERE_DAY: TcxGridDBBandedColumn
+            Caption = #1050'-'#1090#1100' '#1076#1085#1110#1074
+            DataBinding.FieldName = 'PERE_DAY'
+            Position.BandIndex = 2
+            Position.ColIndex = 1
+            Position.RowIndex = 0
+          end
+          object cxGridDBBandedTableView1DEL_NORM: TcxGridDBBandedColumn
+            Caption = #1057#1087#1080#1089#1072#1085#1085#1103' '#1085#1086#1088#1084#1080
+            DataBinding.FieldName = 'DEL_NORM'
+            Width = 97
+            Position.BandIndex = 2
+            Position.ColIndex = 3
+            Position.RowIndex = 0
+          end
+          object cxGridDBBandedTableView1PREV_NORM: TcxGridDBBandedColumn
+            Caption = #1053#1072#1082#1086#1087#1080#1095#1077#1085#1072' '#1085#1086#1088#1084#1072
+            DataBinding.FieldName = 'PREV_NORM'
+            Width = 107
+            Position.BandIndex = 2
+            Position.ColIndex = 2
+            Position.RowIndex = 0
+          end
+          object cxGridDBBandedTableView1R_NACH: TcxGridDBBandedColumn
+            Caption = #1052#1077#1090#1086#1076' '#1088#1086#1079#1088#1072#1093#1091#1085#1082#1091
+            DataBinding.FieldName = 'R_NACH'
+            Width = 183
+            Position.BandIndex = 3
+            Position.ColIndex = 0
+            Position.RowIndex = 0
+          end
+          object cxGridDBBandedTableView1NOR_RAZN: TcxGridDBBandedColumn
+            Caption = #1056#1086#1079#1088'. '#1089#1087#1086#1078'.'
+            DataBinding.FieldName = 'NOR_RAZN'
+            Width = 92
+            Position.BandIndex = 2
+            Position.ColIndex = 0
+            Position.RowIndex = 0
+          end
+          object cxGridDBBandedTableView1NOTE: TcxGridDBBandedColumn
+            Caption = #1055#1088#1080#1084#1110#1090#1082#1072
+            DataBinding.FieldName = 'NOTE'
+            Width = 180
+            Position.BandIndex = 3
+            Position.ColIndex = 1
             Position.RowIndex = 0
           end
         end
@@ -1004,7 +1017,7 @@ object MainForm: TMainForm
     Align = alTop
     TabOrder = 6
     object cxLabel1: TcxLabel
-      Left = 128
+      Left = 136
       Top = 8
       Caption = #1059#1074#1072#1075#1072'! '#1056#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103' '#1076#1072#1085#1080#1093' '#1079#1072#1082#1088#1080#1090#1086'.'
       Style.TextColor = clRed
@@ -1115,6 +1128,10 @@ object MainForm: TMainForm
         end
         item
           Visible = True
+          ItemName = 'dxBarButton38'
+        end
+        item
+          Visible = True
           ItemName = 'dxBarButton19'
         end
         item
@@ -1163,11 +1180,6 @@ object MainForm: TMainForm
         item
           Visible = True
           ItemName = 'dxBarButton3'
-        end
-        item
-          BeginGroup = True
-          Visible = True
-          ItemName = 'dxBarButton6'
         end
         item
           Visible = True
@@ -1253,7 +1265,7 @@ object MainForm: TMainForm
         end
         item
           Visible = True
-          ItemName = 'dxBarEdit1'
+          ItemName = 'cxBarEditItem3'
         end
         item
           Visible = True
@@ -1585,7 +1597,6 @@ object MainForm: TMainForm
         FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
       Lowered = True
       PaintStyle = psCaptionGlyph
-      OnClick = dxBarButton6Click
     end
     object dxBarButton3: TdxBarButton
       Caption = '           '
@@ -1712,6 +1723,8 @@ object MainForm: TMainForm
       Category = 0
       Hint = #1054#1085#1086#1074#1080#1090#1080' '#1082#1072#1088#1090#1082#1080
       Visible = ivAlways
+      ImageIndex = 56
+      PaintStyle = psCaptionGlyph
       OnClick = dxBarButton12Click
     end
     object dxBarSubItem4: TdxBarSubItem
@@ -1811,6 +1824,7 @@ object MainForm: TMainForm
       ImageIndex = 36
       Lowered = True
       PaintStyle = psCaptionGlyph
+      OnClick = dxBarButton24Click
     end
     object dxBarButton25: TdxBarButton
       Caption = #1054#1085#1086#1074#1080#1090#1080
@@ -1953,6 +1967,24 @@ object MainForm: TMainForm
       Visible = ivAlways
       Width = 100
     end
+    object cxBarEditItem3: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      OnExit = cxBarEditItem3Exit
+      Width = 100
+      PropertiesClassName = 'TcxTextEditProperties'
+    end
+    object dxBarButton38: TdxBarButton
+      Caption = #1055#1086#1074#1085#1080#1081' '#1088#1086#1079#1088#1072#1093#1091#1085#1086#1082' '
+      Category = 0
+      Hint = #1055#1086#1074#1085#1080#1081' '#1088#1086#1079#1088#1072#1093#1091#1085#1086#1082' '
+      Visible = ivAlways
+      ImageIndex = 34
+      PaintStyle = psCaptionGlyph
+      OnClick = dxBarButton38Click
+    end
     object dxBarButton1: TdxBarButton
       Action = ActionEdCalcs
       Category = 1
@@ -1998,7 +2030,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000B40114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000B80114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

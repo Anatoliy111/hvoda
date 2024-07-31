@@ -321,9 +321,6 @@ type
     cxGridDBBandedTableView1: TcxGridDBBandedTableView;
     cxGridDBBandedColumn2: TcxGridDBBandedColumn;
     cxGridDBBandedColumn3: TcxGridDBBandedColumn;
-    cxGridDBBandedColumn4: TcxGridDBBandedColumn;
-    cxGridDBBandedColumn5: TcxGridDBBandedColumn;
-    cxGridDBBandedColumn6: TcxGridDBBandedColumn;
     cxGridDBBandedColumn7: TcxGridDBBandedColumn;
     cxGridDBBandedColumn8: TcxGridDBBandedColumn;
     cxGridDBBandedColumn9: TcxGridDBBandedColumn;
@@ -334,7 +331,6 @@ type
     cxGridDBBandedColumn14: TcxGridDBBandedColumn;
     cxGridDBBandedColumn15: TcxGridDBBandedColumn;
     cxGridDBBandedColumn16: TcxGridDBBandedColumn;
-    cxGridDBBandedColumn17: TcxGridDBBandedColumn;
     cxGridDBBandedColumn18: TcxGridDBBandedColumn;
     cxGridLevel2: TcxGridLevel;
     BarManagerBar6: TdxBar;
@@ -680,6 +676,15 @@ type
     hvdallEDRPOU: TIntegerField;
     hvdallKL_UL: TIntegerField;
     hvdallR_NACH: TIBStringField;
+    DBGrid1R_NACH: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1PERE_DAY: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1DEL_NORM: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1PREV_NORM: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1R_NACH: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1NOR_RAZN: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1NOTE: TcxGridDBBandedColumn;
+    cxBarEditItem3: TcxBarEditItem;
+    dxBarButton38: TdxBarButton;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -717,7 +722,6 @@ type
     procedure hvdAfterPost(DataSet: TDataSet);
     procedure cxPageControl1PageChanging(Sender: TObject;
       NewPage: TcxTabSheet; var AllowChange: Boolean);
-    procedure dxBarButton6Click(Sender: TObject);
     procedure dxBarButton7Click(Sender: TObject);
     procedure dataCalcFields(DataSet: TDataSet);
     procedure dataAfterOpen(DataSet: TDataSet);
@@ -773,6 +777,9 @@ type
     procedure cxButton2Click(Sender: TObject);
     procedure cxTabSheet4Show(Sender: TObject);
     procedure cxTabSheet1Show(Sender: TObject);
+    procedure dxBarButton24Click(Sender: TObject);
+    procedure cxBarEditItem3Exit(Sender: TObject);
+    procedure dxBarButton38Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -866,7 +873,7 @@ begin
     while not hvdall.eof do
     begin
     Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
-  //  Form4.Label2.Caption:=hvdallSCHET.Value;
+    Form4.Label4.Caption:=hvdallSCHET.Value;
     application.ProcessMessages;
 
          FormAddkart.calcpok2(hvdall);
@@ -878,14 +885,11 @@ begin
 
   IBTransaction1.CommitRetaining;
   MainForm.hvdallSource.Enabled:=true;
-  hvd.close;
-  hvd.open;
-  org.close;
-  org.open;
-  grp.close;
-  grp.open;
+
+  Update;
 
    Form4.Label3.Caption:=Form4.Label3.Caption+' End-'+DateTimeToStr(now());
+   Form4.Label4.Caption:='';
 
   Form4.Close;
    MainForm.Enabled:=true;
@@ -1292,6 +1296,7 @@ end;
 
 procedure TMainForm.dxBarButton21Click(Sender: TObject);
 begin
+FormAddkart.addurabon:=true;
 FormAddkart.cxTabSheet1.TabVisible:=false;
 FormAddkart.cxTabSheet2.TabVisible:=false;
 FormAddkart.cxTabSheet3.TabVisible:=false;
@@ -1305,6 +1310,23 @@ begin
 spr_zn.vidspr:='addrn';
 spr_zn.Caption:=dxBarButton23.Caption;
 spr_zn.Show;
+end;
+
+procedure TMainForm.dxBarButton24Click(Sender: TObject);
+begin
+FormAddkart.addurabon:=false;
+FormAddkart.cxTabSheet1.TabVisible:=false;
+FormAddkart.cxTabSheet2.TabVisible:=false;
+FormAddkart.cxTabSheet3.TabVisible:=false;
+FormAddkart.cxTabSheet4.TabVisible:=true;
+FormAddkart.cxTabSheet5.TabVisible:=false;
+FormAddkart.Show;
+FormAddkart.cxTextEdit6.Text:=MainForm.DSet.FieldByName('SCHET').Value;
+FormAddkart.cxTextEdit10.Text:=MainForm.DSet.FieldByName('FIO').Value;
+FormAddkart.cxLookupComboBox3.EditValue:=MainForm.DSet.FieldByName('UL').Value;
+FormAddkart.cxLookupComboBox4.EditValue:=MainForm.DSet.FieldByName('N_DOM').Value;
+FormAddkart.cxTextEdit10.Text:=MainForm.DSet.FieldByName('KV').Value;
+FormAddkart.cxTextEdit11.Text:=MainForm.DSet.FieldByName('NOTE').Value;
 end;
 
 procedure TMainForm.dxBarButton25Click(Sender: TObject);
@@ -1389,6 +1411,17 @@ end;
 procedure TMainForm.dxBarButton33Click(Sender: TObject);
 begin
 allcalclich2;
+end;
+
+procedure TMainForm.dxBarButton38Click(Sender: TObject);
+begin
+    Form4.ImKart;
+    allcalclich;
+    imp.Edit;
+    impLASTRASCH.Value:=Now();
+    imp.Post;
+    IBTransaction1.CommitRetaining;
+
 end;
 
 procedure TMainForm.DBGrid1Column1PropertiesButtonClick(Sender: TObject;
@@ -2048,6 +2081,12 @@ begin
 //DelFilter(DBGrid1SCHET,cxBarEditItem1.EditValue);
 end;
 
+procedure TMainForm.cxBarEditItem3Exit(Sender: TObject);
+begin
+   DelFilter(cxGridDBBandedColumn2,cxBarEditItem1.EditValue);
+   AddFilter(cxGridDBBandedColumn2,cxBarEditItem1.EditValue);
+end;
+
 procedure TMainForm.cxButton2Click(Sender: TObject);
 begin
   Update;
@@ -2126,7 +2165,7 @@ IBTransaction1.CommitRetaining;
      cxLabel1.Visible:=false;
      dxBarButton6.Enabled:=true;
      DBGrid1.OptionsData.Deleting:=true;
-     DBGrid1WID.Properties.ReadOnly:=false;
+ //    DBGrid1WID.Properties.ReadOnly:=false;
      DBGrid1NOR_RAZN.Properties.ReadOnly:=false;
 //     DBGrid1.OptionsData.Editing:=true;
      Form2.Panel1.Enabled:=true;
@@ -2201,22 +2240,6 @@ end;
 procedure TMainForm.cxTabSheet4Show(Sender: TObject);
 begin
 DSet:=org;
-end;
-
-procedure TMainForm.dxBarButton6Click(Sender: TObject);
-var kl:integer;
-  kk:double;
-begin
-    Form4.ImKart;
-    allcalclich;
-    imp.Edit;
-    impLASTRASCH.Value:=Now();
-    imp.Post;
-    IBTransaction1.CommitRetaining;
-
-    //allcalcnorm;
- //   allcalckub;
-
 end;
 
 procedure TMainForm.dxBarButton7Click(Sender: TObject);
