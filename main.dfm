@@ -5326,7 +5326,6 @@ object MainForm: TMainForm
       000000000000}
   end
   object IBDatabase: TIBDatabase
-    Connected = True
     DatabaseName = 'C:\TEMP\GKU.GDB'
     Params.Strings = (
       'user_name=sysdba'
@@ -5339,7 +5338,6 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'
