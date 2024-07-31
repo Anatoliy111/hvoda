@@ -794,4 +794,12 @@ object FormAddkart: TFormAddkart
       Size = 10
     end
   end
+  object IBQuery5: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      '')
+    Left = 376
+    Top = 200
+  end
 end

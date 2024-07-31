@@ -186,6 +186,7 @@ type
     { Public declarations }
       LichPost:boolean;
 
+      function CubAvg12(sch:string):currency;
       procedure Find(sch:string);
       procedure calclich(DS:TIBDataSet);
 
@@ -208,9 +209,9 @@ uses main, addkart, delkart, mytools, math;
 procedure TForm2.calclich(DS:TIBDataSet);
 var date_zn,date_vs,date_stzn,lastdate_zn:TDate;
     kol,vs,zn,daynorm,raschday,kolmes,lastmes,firstmes,fl_adderr,newlich:integer;
+    kub12,kubavg,kubavgday,kubnorm:currency;
     lastvid:string;
     startvs:boolean;
-    kub12,kubavg,kubavgday:currency;
     LFactor: Double;
 
 begin
@@ -375,47 +376,26 @@ begin
          //     DS.FieldByName('wid').Value:=41
         //   else
               DS.FieldByName('wid').Value:=43;
+
+              kub12:=CubAvg12(DS.FieldByName('SCHET').Value);
+
+              if kub12>0 then
+              begin
+                kubavgday:=daynorm*(kub12);
+                kubavg:=SimpleRoundTo(kubavgday,-3);
+                DS.FieldByName('R_NACH').Value:='Середнє споживання: дні повірки('+inttostr(daynorm)+') * середнє спожив. в день за рік('+CurrToStr(kub12)+')';
+              end
+              else
+              begin
+                kubnorm:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+                raschday:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
+                kubavgday:=(kubnorm/raschday);
+                kubavg:=SimpleRoundTo(daynorm*kubavgday,-3);
+                DS.FieldByName('R_NACH').Value:='Споживання по нормі: дні повірки('+inttostr(daynorm)+') * спожив. в день по нормі('+CurrToStr(kubavgday)+')';
+              end;
+
+              DS.FieldByName('NOR_RAZN').Value:=kubavg;
            DS.Post;
-
-           IBQuery4.Close;
-           IBQuery4.ParamByName('sch').Value:=DS.FieldByName('schet').value;
-           IBQuery4.ParamByName('ym').Value:=MainForm.period;
-           IBQuery4.Open;
-           kub12:=0;
-           kolmes:=0;
-           IBQuery4.Last;
-           firstmes:=IBQuery4.FieldByName('yearmon').Value;
-           IBQuery4.First;
-           lastmes:=IBQuery4.FieldByName('yearmon').Value;
-
-           while not IBQuery4.eof do
-           begin
-             kub12:=kub12+IBQuery4.FieldByName('kub').Value;
-             kolmes:=kolmes+1;
-           IBQuery4.Next;
-           end;
-
-           if (kub12>0) and (kolmes>0) then
-           begin
-             raschday:=DaysBetween(YearMon2Date(firstmes),EndOfTheMonth(YearMon2Date(lastmes)));
-//             kubavg:=;
-             kubavgday:=daynorm*(kub12/raschday);
-             kubavg:=SimpleRoundTo(kubavgday,-3);
-             DS.Edit;
-             DS.FieldByName('NOR_RAZN').Value:=kubavg;
-             DS.Post;
-           end
-           else
-           begin
-             kub12:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
-             raschday:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
-             kubavgday:=daynorm*(kub12/raschday);
-             kubavg:=SimpleRoundTo(kubavgday,-3);
-             DS.Edit;
-             DS.FieldByName('NOR_RAZN').Value:=kubavg;
-             DS.Post;
-           end;
-
 
 
   end
@@ -438,6 +418,61 @@ begin
   end;
 
   MainForm.IBTransaction1.CommitRetaining;
+
+end;
+
+function TForm2.CubAvg12(sch:string):currency;
+var kub12,kubavg,kubavg12day:currency;
+    kolmes,lastmes,firstmes,raschday:integer;
+begin
+
+           IBQuery4.Close;
+           IBQuery4.ParamByName('sch').Value:=sch;
+           IBQuery4.ParamByName('ym').Value:=MainForm.period;
+           IBQuery4.Open;
+           kub12:=0;
+           kolmes:=0;
+           kubavg12day:=0;
+           IBQuery4.Last;
+           firstmes:=IBQuery4.FieldByName('yearmon').Value;
+           IBQuery4.First;
+           lastmes:=IBQuery4.FieldByName('yearmon').Value;
+
+           while not IBQuery4.eof do
+           begin
+             kub12:=kub12+IBQuery4.FieldByName('kub').Value;
+             kolmes:=kolmes+1;
+           IBQuery4.Next;
+           end;
+
+           if (kub12>0) and (kolmes>0) then
+           begin
+             raschday:=DaysBetween(YearMon2Date(firstmes),EndOfTheMonth(YearMon2Date(lastmes)));
+             kubavg12day:=SimpleRoundTo(kub12/raschday,-3);
+           end;
+
+           Result:=kubavg12day;
+
+//           if (kub12>0) then
+//           begin
+//             raschday:=DaysBetween(YearMon2Date(firstmes),EndOfTheMonth(YearMon2Date(lastmes)));
+////             kubavg:=;
+//             kubavgday:=daynorm*(kub12/raschday);
+//             kubavg:=SimpleRoundTo(kubavgday,-3);
+//             DS.Edit;
+//             DS.FieldByName('NOR_RAZN').Value:=kubavg;
+//             DS.Post;
+//           end
+//           else
+//           begin
+//             kub12:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+//             raschday:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
+//             kubavgday:=daynorm*(kub12/raschday);
+//             kubavg:=SimpleRoundTo(kubavgday,-3);
+//             DS.Edit;
+//             DS.FieldByName('NOR_RAZN').Value:=kubavg;
+//             DS.Post;
+//           end;
 
 end;
 

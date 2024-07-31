@@ -15,7 +15,8 @@ uses
   cxCalc, frxClass, frxDBSet, IBQuery, ExtCtrls, frxDMPExport, frxDesgn,cxNavigator,
   cxPC, frxExportPDF, frxExportRTF, frxExportXML, cxSplitter,
   cxLookAndFeelPainters, dxSkinsCore, cxButtonEdit, cxDBLookupComboBox,
-  cxTextEdit, cxBarEditItem, cxLabel, Menus, StdCtrls, cxButtons, cxContainer;
+  cxTextEdit, cxBarEditItem, cxLabel, Menus, StdCtrls, cxButtons, cxContainer,
+  cxMemo, cxBlobEdit;
 
 type
   TMainForm = class(TForm)
@@ -672,6 +673,13 @@ type
     orgSCHET: TIBStringField;
     cxGridDBBandedTableView1Column1: TcxGridDBBandedColumn;
     dxBarEdit1: TdxBarEdit;
+    hvdEDRPOU: TIntegerField;
+    hvdKL_UL: TIntegerField;
+    hvdR_NACH: TIBStringField;
+    orgR_NACH: TIBStringField;
+    hvdallEDRPOU: TIntegerField;
+    hvdallKL_UL: TIntegerField;
+    hvdallR_NACH: TIBStringField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
