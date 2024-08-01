@@ -270,7 +270,6 @@ begin
    //        DS.FieldByName('NOR_RAZN').Value:=0;
    //        DS.FieldByName('WID').Value:=43;
    //        DS.Post;
-    if (IBQuery3.FieldByName('vid_zn').Value=0) and (DS.FieldByName('lich_to').Value>0) and (DS.FieldByName('wid').Value<=46) then newlich:=1;
 
 
     if (IBQuery3.FieldByName('vid').Value='zn') then
@@ -361,6 +360,7 @@ begin
     date_zn:=0;
   end;
 
+
   if (DS.FieldByName('wid').Value=42) and (daynorm>0) and (DS.FieldByName('lich_to').Value=0) then
   begin
      daynorm:=0;
@@ -401,13 +401,19 @@ begin
   end
   else
   begin
+
+      if (IBQuery3.RecordCount>0) and (DS.FieldByName('lich_to').Value>0) then newlich:=1;
+
+
+
            DS.Edit;
              if newlich=1 then
              begin
-               DS.FieldByName('WID').Value:=41;
+               DS.FieldByName('WID').Value:=43;
                DS.FieldByName('NOR_RAZN').Value:=0;
                DS.FieldByName('R_NACH').Value:='';
              end;
+
 
 
            DS.FieldByName('PERE_DAY').Value:=0;
@@ -434,10 +440,15 @@ begin
            kub12:=0;
            kolmes:=0;
            kubavg12day:=0;
-           IBQuery4.Last;
-           firstmes:=IBQuery4.FieldByName('yearmon').Value;
-           IBQuery4.First;
-           lastmes:=IBQuery4.FieldByName('yearmon').Value;
+
+           if IBQuery4.RecordCount>0 then
+           begin
+             IBQuery4.Last;
+             firstmes:=IBQuery4.FieldByName('yearmon').Value;
+             IBQuery4.First;
+             lastmes:=IBQuery4.FieldByName('yearmon').Value;
+           end;
+
 
            while not IBQuery4.eof do
            begin

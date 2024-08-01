@@ -468,6 +468,7 @@ object FormAddkart: TFormAddkart
       object cxTextEdit6: TcxTextEdit
         Left = 15
         Top = 41
+        Properties.MaxLength = 10
         Style.Color = clMoneyGreen
         TabOrder = 9
         Width = 169

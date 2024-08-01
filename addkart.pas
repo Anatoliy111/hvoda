@@ -368,7 +368,7 @@ begin
        end
        else
        begin //41,42,43,44,45
-         if (DS.FieldByName('LICH_TO').Value=0) then
+         if (DS.FieldByName('LICH_TO').Value=0) or (DS.FieldByName('LICH_TO').Value=Null) then
                   DS.FieldByName('WID').Value:=42
          else
          begin
@@ -417,12 +417,12 @@ begin
 
 
                   DS.FieldByName('SCH_RAZN').Value:=kol;
-                if (DS.FieldByName('WID').Value<>43) then
-                begin
+             //   if (DS.FieldByName('WID').Value<>43) then
+             //   begin
                   DS.FieldByName('NOR_RAZN').Value:=0;
                   DS.FieldByName('R_NACH').Value:='';
                   DS.FieldByName('WID').Value:=41;
-                end;
+              //  end;
 
          end
          else
@@ -436,8 +436,8 @@ begin
 
 
 
-            if (DS.FieldByName('WID').Value<>43) then
-            begin
+         //   if (DS.FieldByName('WID').Value<>43) then
+         //   begin
                if DS.FieldByName('ORG').Value=0 then
                begin
                  IBQuery5.Close;
@@ -468,7 +468,7 @@ begin
                   DS.FieldByName('R_NACH').Value:='Середнє споживання: к-ть днів за місяць('+inttostr(daymonth)+') * середнє спожив. в день за рік('+CurrToStr(kub12)+')';
                end;
 
-            end;
+         //   end;
 
 
             if (DS.FieldByName('WID').Value=41) then
@@ -763,9 +763,7 @@ begin
   if not AddPokaz(trim(cxTextEdit9.Text),cxDateEdit6.EditValue,cxLookupComboBox2.EditValue,cxCalcEdit1.Value) then exit;
 
   calcpok2(MainForm.DSet);
-
- // if cxCalcEdit6.EditValue<>0 then
-    Form2.calclich(MainForm.DSet);
+  Form2.calclich(MainForm.DSet);
 
 
 
@@ -790,30 +788,39 @@ begin
    and (cxLookupComboBox4.EditValue<>null)
   then
   begin
-  IBQuery3.Close;
-  IBQuery3.SQL.Text:='select first1 schet from h_voda where yearmon=:ym and schet=:sch';
-  IBQuery3.ParamByName('ym').Value:=MainForm.curYM;
-  IBQuery3.ParamByName('sch').Value:=trim(cxTextEdit6.Text);
-  IBQuery3.Open;
 
-  if IBQuery3.RecordCount<>0 then
-  begin
-    ShowMessage('Такий Ос.рах/ЄДРПОУ/ІПН вже існує в '+iif(IBQuery3.FieldByName('org').Value=1,'юридичних абонентах','абонентах населення')+'. Якщо в списку немає цього абонента, натисніть кнопку ОНОВИТИ!!!');
-    exit;
-  end;
+     if trim(cxTextEdit6.Text)<>MainForm.DSet.FieldByName('SCHET').Value then
+     begin
+       IBQuery3.Close;
+       IBQuery3.SQL.Text:='select first 1 schet,org from h_voda where yearmon=:ym and schet=:sch';
+       IBQuery3.ParamByName('ym').Value:=MainForm.curYM;
+       IBQuery3.ParamByName('sch').Value:=trim(cxTextEdit6.Text);
+       IBQuery3.Open;
+
+       if IBQuery3.RecordCount<>0 then
+       begin
+         ShowMessage('Такий Ос.рах/ЄДРПОУ/ІПН '+trim(cxTextEdit6.Text)+' вже існує в '+iif(IBQuery3.FieldByName('org').Value=1,'юридичних абонентах','абонентах населення')+'. Якщо в списку немає цього абонента, натисніть кнопку ОНОВИТИ!!!');
+         exit;
+       end;
+
+
+     end;
+
+
 
   if addurabon then
   begin
-     MainForm.org.Append;
+     MainForm.org.Insert;
      MainForm.org.edit;
-     MainForm.orgWID.Value:=41;
+     MainForm.orgWID.Value:=42;
+     MainForm.orgSCHET.Value:=trim(cxTextEdit6.Text);
+     MainForm.orgORG.Value:=1;
+     MainForm.orgLICH_TO.Value:=0;
      MainForm.org.post;
-  end
-  else
-  begin
-     if trim(cxTextEdit6.Text)<>MainForm.DSet.FieldByName('SCHET').Value then
-
+     calcpok2(MainForm.org);
+     Form2.calclich(MainForm.org);
   end;
+
 
   MainForm.org.edit;
   MainForm.orgSCHET.Value:=trim(cxTextEdit6.Text);
@@ -823,11 +830,10 @@ begin
   MainForm.orgN_DOM.Value:=trim(cxLookupComboBox4.EditValue);
   MainForm.orgKV.Value:=trim(cxTextEdit12.Text);
   MainForm.orgNOTE.Value:=trim(cxTextEdit11.Text);
-
   MainForm.org.post;
 
-  calcpok2(MainForm.org);
-  Form2.calclich(MainForm.org);
+
+
 
   end
   else
@@ -950,26 +956,47 @@ begin
   else
      MainForm.Enabled:=false;
 
-  IBVIDZN.Close;
-  if cxTabSheet2.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''pl''';
-  if cxTabSheet3.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''addpk'' and id<>17 and id<>20 and id<>21 and id<>26 and id<>37';
-  IBVIDZN.Open;
 
-  if cxTabSheet3.Visible then FormAddkart.cxDateEdit6.EditValue:=Date();
-
-  if (FormAddkart.cxTabSheet3.Visible) and (MainForm.DSet.FieldByName('LICH_TO').Value=0) then
+  if cxTabSheet2.Visible then
   begin
-    ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
-    exit;
+    IBVIDZN.Close;
+    IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''pl''';
+    IBVIDZN.Open;
   end;
 
+  if cxTabSheet3.Visible then
+  begin
+    IBVIDZN.Close;
+    IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''addpk'' and id<>17 and id<>20 and id<>21 and id<>26 and id<>37';
+    IBVIDZN.Open;
+  end;
+
+  if cxTabSheet3.Visible then
+  begin
+    FormAddkart.cxDateEdit6.EditValue:=Date();
+
+    if (FormAddkart.cxTabSheet3.Visible) and (MainForm.DSet.FieldByName('LICH_TO').Value=0) then
+    begin
+      ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
+      exit;
+    end;
+
+  FormAddkart.IBQuery1.Close;
+  FormAddkart.IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
+  FormAddkart.IBQuery1.open;
+
+  end;
+
+  if cxTabSheet1.Visible then
+  begin
 
   FormAddkart.IBQuery1.Close;
   FormAddkart.IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
   FormAddkart.IBQuery1.open;
 
   FormAddkart.cxCheckBox1.Checked:=false;
-FormAddkart.cxCheckBox1PropertiesChange(FormAddkart.cxCheckBox1);
+  FormAddkart.cxCheckBox1PropertiesChange(FormAddkart.cxCheckBox1);
+  end;
 
 
 end;

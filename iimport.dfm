@@ -43,9 +43,9 @@ object Form4: TForm4
   object Label4: TLabel
     Left = 75
     Top = 115
-    Width = 3
+    Width = 31
     Height = 13
-    Visible = False
+    Caption = 'Label4'
   end
   object cxProgressBar1: TcxProgressBar
     Left = 75

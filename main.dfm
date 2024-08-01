@@ -154,9 +154,7 @@ object MainForm: TMainForm
           DataController.Summary.SummaryGroups = <>
           OptionsBehavior.AlwaysShowEditor = True
           OptionsBehavior.CellHints = True
-          OptionsBehavior.NavigatorHints = True
           OptionsData.CancelOnExit = False
-          OptionsView.Navigator = True
           OptionsView.NavigatorOffset = 20
           OptionsView.Footer = True
           OptionsView.HeaderEndEllipsis = True
@@ -593,9 +591,7 @@ object MainForm: TMainForm
           DataController.Summary.SummaryGroups = <>
           OptionsBehavior.AlwaysShowEditor = True
           OptionsBehavior.CellHints = True
-          OptionsBehavior.NavigatorHints = True
           OptionsData.CancelOnExit = False
-          OptionsView.Navigator = True
           OptionsView.NavigatorOffset = 20
           OptionsView.Footer = True
           OptionsView.HeaderEndEllipsis = True
@@ -872,7 +868,7 @@ object MainForm: TMainForm
           OptionsBehavior.GoToNextCellOnEnter = True
           OptionsBehavior.NavigatorHints = True
           OptionsData.CancelOnExit = False
-          OptionsView.Navigator = True
+          OptionsView.Footer = True
           OptionsView.Indicator = True
           OptionsView.IndicatorWidth = 10
           object DBGrid3UL: TcxGridDBColumn
@@ -1599,11 +1595,13 @@ object MainForm: TMainForm
       PaintStyle = psCaptionGlyph
     end
     object dxBarButton3: TdxBarButton
-      Caption = '           '
+      Caption = #1042#1080#1076#1072#1083#1080#1090#1080
       Category = 0
-      Enabled = False
-      Hint = '           '
+      Hint = #1042#1080#1076#1072#1083#1080#1090#1080
       Visible = ivAlways
+      ImageIndex = 17
+      PaintStyle = psCaptionGlyph
+      OnClick = dxBarButton3Click
     end
     object dxBarButton7: TdxBarButton
       Caption = #1042#1089#1100#1086#1075#1086
@@ -1808,6 +1806,7 @@ object MainForm: TMainForm
       ImageIndex = 17
       Lowered = True
       PaintStyle = psCaptionGlyph
+      OnClick = dxBarButton22Click
     end
     object dxBarButton23: TdxBarButton
       Caption = #1056#1086#1079#1090#1072#1096#1091#1074#1072#1085#1085#1103
@@ -1941,6 +1940,7 @@ object MainForm: TMainForm
       ImageIndex = 16
       Lowered = True
       PaintStyle = psCaptionGlyph
+      OnClick = dxBarButton35Click
     end
     object dxBarButton36: TdxBarButton
       Caption = #1047#1084#1110#1085#1080#1090#1080
@@ -1950,6 +1950,7 @@ object MainForm: TMainForm
       ImageIndex = 36
       Lowered = True
       PaintStyle = psCaptionGlyph
+      OnClick = dxBarButton36Click
     end
     object dxBarButton37: TdxBarButton
       Caption = #1042#1080#1076#1072#1083#1080#1090#1080
@@ -1959,6 +1960,7 @@ object MainForm: TMainForm
       ImageIndex = 17
       Lowered = True
       PaintStyle = psCaptionGlyph
+      OnClick = dxBarButton37Click
     end
     object dxBarEdit1: TdxBarEdit
       Caption = 'New Item'
@@ -2030,7 +2032,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000B80114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000BC0114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6188,8 +6190,8 @@ object MainForm: TMainForm
   object Timer1: TTimer
     Interval = 10000
     OnTimer = Timer1Timer
-    Left = 464
-    Top = 144
+    Left = 472
+    Top = 176
   end
   object frxDesigner1: TfrxDesigner
     DefaultScriptLanguage = 'PascalScript'
@@ -7071,40 +7073,41 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into H_VODA'
       
-        '  (DATE_POK, DATE_ZN, DEL_NORM, FILTR, FIO, GRP_RAZN, ID_KONTR, ' +
-        'KL, KLNTAR, '
+        '  (DATE_POK, DATE_ZN, DEL_NORM, EDRPOU, FILTR, FIO, GRP_RAZN, ID' +
+        '_KONTR, '
       
-        '   KOLI_F, KOLI_P, KOLI_P0, KOLI_P1, KUB_MES, KV, LICH_POV, LICH' +
-        '_TO, '
+        '   KL, KL_UL, KLNTAR, KOLI_F, KOLI_P, KOLI_P0, KOLI_P1, KUB_MES,' +
+        ' KV, LICH_POV, '
+      '   LICH_TO, LICH_YEARMON, N_DOM, N_SCH, NOR_RAZN, NORMA, NOTE, '
       
-        '   N_DOM, N_SCH, NOR_RAZN, NORMA, NOTE, PREV_NORM, ORG, PERE_DAY' +
-        ', PERE_RAZN, '
+        '   OLD_NORM, ORG, PERE_DAY, PERE_RAZN, PLOMB, POD, POMPA, PREV_N' +
+        'ORM, R_NACH, '
       
-        '   PLOMB, POD, POMPA, RASCH_KUB, RASCH_NOR, RASCH_NOTE, SCH_CUR,' +
-        ' SCH_OLD, '
+        '   RASCH_KUB, RASCH_NOR, RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN,' +
+        ' SCH_RAZN2, '
       
-        '   SCH_RAZN, SCH_RAZN2, SCHET, TARIF_NAME, UL, VID_POK, VID_RN, ' +
-        'WID, YEARMON, '
-      '   ZN_LICH, ZNOLD_LICH,LICH_YEARMON,R_NACH)'
+        '   SCHET, TARIF_NAME, UL, VID_POK, VID_RN, WID, YEARMON, ZN_LICH' +
+        ', ZNOLD_LICH)'
       'values'
       
-        '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :FILTR, :FIO, :GRP_RAZN, :ID_' +
-        'KONTR, '
+        '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :EDRPOU, :FILTR, :FIO, :GRP_R' +
+        'AZN, :ID_KONTR, '
       
-        '   :KL, :KLNTAR, :KOLI_F, :KOLI_P, :KOLI_P0, :KOLI_P1, :KUB_MES,' +
-        ' :KV, :LICH_POV, '
+        '   :KL, :KL_UL, :KLNTAR, :KOLI_F, :KOLI_P, :KOLI_P0, :KOLI_P1, :' +
+        'KUB_MES, '
       
-        '   :LICH_TO, :N_DOM, :N_SCH, :NOR_RAZN, :NORMA, :NOTE, :PREV_NOR' +
-        'M, '
+        '   :KV, :LICH_POV, :LICH_TO, :LICH_YEARMON, :N_DOM, :N_SCH, :NOR' +
+        '_RAZN, '
       
-        '   :ORG, :PERE_DAY, :PERE_RAZN, :PLOMB, :POD, :POMPA, :RASCH_KUB' +
-        ', :RASCH_NOR, '
+        '   :NORMA, :NOTE, :OLD_NORM, :ORG, :PERE_DAY, :PERE_RAZN, :PLOMB' +
+        ', :POD, '
       
-        '   :RASCH_NOTE, :SCH_CUR, :SCH_OLD, :SCH_RAZN, :SCH_RAZN2, :SCHE' +
-        'T, :TARIF_NAME, '
+        '   :POMPA, :PREV_NORM, :R_NACH, :RASCH_KUB, :RASCH_NOR, :RASCH_N' +
+        'OTE, :SCH_CUR, '
       
-        '   :UL, :VID_POK, :VID_RN, :WID, :YEARMON, :ZN_LICH, :ZNOLD_LICH' +
-        ',:LICH_YEARMON,:R_NACH)')
+        '   :SCH_OLD, :SCH_RAZN, :SCH_RAZN2, :SCHET, :TARIF_NAME, :UL, :V' +
+        'ID_POK, '
+      '   :VID_RN, :WID, :YEARMON, :ZN_LICH, :ZNOLD_LICH)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -7152,9 +7155,12 @@ object MainForm: TMainForm
       '  KLNTAR,'
       '  TARIF_NAME,'
       '  NORMA,'
-      '  PREV_NORM,'
+      '  OLD_NORM,'
       '  DEL_NORM,'
+      '  PREV_NORM,'
       '  LICH_YEARMON,'
+      '  EDRPOU,'
+      '  KL_UL,'
       '  R_NACH'
       'from H_VODA '
       'where'
@@ -7177,11 +7183,13 @@ object MainForm: TMainForm
       '  DATE_POK = :DATE_POK,'
       '  DATE_ZN = :DATE_ZN,'
       '  DEL_NORM = :DEL_NORM,'
+      '  EDRPOU = :EDRPOU,'
       '  FILTR = :FILTR,'
       '  FIO = :FIO,'
       '  GRP_RAZN = :GRP_RAZN,'
       '  ID_KONTR = :ID_KONTR,'
       '  KL = :KL,'
+      '  KL_UL = :KL_UL,'
       '  KLNTAR = :KLNTAR,'
       '  KOLI_F = :KOLI_F,'
       '  KOLI_P = :KOLI_P,'
@@ -7191,18 +7199,21 @@ object MainForm: TMainForm
       '  KV = :KV,'
       '  LICH_POV = :LICH_POV,'
       '  LICH_TO = :LICH_TO,'
+      '  LICH_YEARMON = :LICH_YEARMON,'
       '  N_DOM = :N_DOM,'
       '  N_SCH = :N_SCH,'
       '  NOR_RAZN = :NOR_RAZN,'
       '  NORMA = :NORMA,'
       '  NOTE = :NOTE,'
-      '  PREV_NORM = :PREV_NORM,'
+      '  OLD_NORM = :OLD_NORM,'
       '  ORG = :ORG,'
       '  PERE_DAY = :PERE_DAY,'
       '  PERE_RAZN = :PERE_RAZN,'
       '  PLOMB = :PLOMB,'
       '  POD = :POD,'
       '  POMPA = :POMPA,'
+      '  PREV_NORM = :PREV_NORM,'
+      '  R_NACH = :R_NACH,'
       '  RASCH_KUB = :RASCH_KUB,'
       '  RASCH_NOR = :RASCH_NOR,'
       '  RASCH_NOTE = :RASCH_NOTE,'
@@ -7218,9 +7229,7 @@ object MainForm: TMainForm
       '  WID = :WID,'
       '  YEARMON = :YEARMON,'
       '  ZN_LICH = :ZN_LICH,'
-      '  ZNOLD_LICH = :ZNOLD_LICH,'
-      '  LICH_YEARMON = :LICH_YEARMON,'
-      '  R_NACH = :R_NACH'
+      '  ZNOLD_LICH = :ZNOLD_LICH'
       'where'
       '  KL = :OLD_KL')
     GeneratorField.Field = 'KL'
@@ -7293,6 +7302,12 @@ object MainForm: TMainForm
     object hvdallSCH_RAZN: TIBBCDField
       FieldName = 'SCH_RAZN'
       Origin = '"H_VODA"."SCH_RAZN"'
+      Precision = 18
+      Size = 4
+    end
+    object hvdallSCH_RAZN2: TIBBCDField
+      FieldName = 'SCH_RAZN2'
+      Origin = '"H_VODA"."SCH_RAZN2"'
       Precision = 18
       Size = 4
     end
@@ -7431,10 +7446,6 @@ object MainForm: TMainForm
       FieldName = 'LICH_TO'
       Origin = '"H_VODA"."LICH_TO"'
     end
-    object hvdallLICHUPD: TIntegerField
-      FieldName = 'LICHUPD'
-      ProviderFlags = []
-    end
     object hvdallKLNTAR: TIntegerField
       FieldName = 'KLNTAR'
       Origin = '"H_VODA"."KLNTAR"'
@@ -7448,11 +7459,9 @@ object MainForm: TMainForm
       FieldName = 'NORMA'
       Origin = '"H_VODA"."NORMA"'
     end
-    object hvdallSCH_RAZN2: TIBBCDField
-      FieldName = 'SCH_RAZN2'
-      Origin = '"H_VODA"."SCH_RAZN2"'
-      Precision = 18
-      Size = 4
+    object hvdallOLD_NORM: TFloatField
+      FieldName = 'OLD_NORM'
+      Origin = '"H_VODA"."OLD_NORM"'
     end
     object hvdallDEL_NORM: TFloatField
       FieldName = 'DEL_NORM'
@@ -7466,10 +7475,6 @@ object MainForm: TMainForm
       FieldName = 'LICH_YEARMON'
       Origin = '"H_VODA"."LICH_YEARMON"'
     end
-    object hvdallOLD_NORM: TFloatField
-      FieldName = 'OLD_NORM'
-      Origin = '"H_VODA"."OLD_NORM"'
-    end
     object hvdallEDRPOU: TIntegerField
       FieldName = 'EDRPOU'
       Origin = '"H_VODA"."EDRPOU"'
@@ -7482,6 +7487,14 @@ object MainForm: TMainForm
       FieldName = 'R_NACH'
       Origin = '"H_VODA"."R_NACH"'
       Size = 100
+    end
+    object hvdallLICH_DYM: TIntegerField
+      FieldName = 'LICH_DYM'
+      Origin = '"H_VODA"."LICH_DYM"'
+    end
+    object hvdallLICHUPD: TIntegerField
+      FieldName = 'LICHUPD'
+      ProviderFlags = []
     end
   end
   object hvdallSource: TDataSource
@@ -8841,19 +8854,19 @@ object MainForm: TMainForm
         '_KONTR, '
       
         '   KL, KL_UL, KLNTAR, KOLI_F, KOLI_P, KOLI_P0, KOLI_P1, KUB_MES,' +
-        ' KV, LICH_POV, '
+        ' KV, LICH_DYM, '
       
-        '   LICH_TO, LICH_YEARMON, N_DOM, N_SCH, NOR_RAZN, NORMA, NOTE, O' +
-        'LD_NORM, '
+        '   LICH_POV, LICH_TO, LICH_YEARMON, N_DOM, N_SCH, NOR_RAZN, NORM' +
+        'A, NOTE, '
       
-        '   ORG, PERE_DAY, PERE_RAZN, PLOMB, POD, POMPA, PREV_NORM, R_NAC' +
-        'H, RASCH_KUB, '
+        '   OLD_NORM, ORG, PERE_DAY, PERE_RAZN, PLOMB, POD, POMPA, PREV_N' +
+        'ORM, R_NACH, '
       
-        '   RASCH_NOR, RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN, SCH_RAZN2,' +
-        ' SCHET, '
+        '   RASCH_KUB, RASCH_NOR, RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN,' +
+        ' SCH_RAZN2, '
       
-        '   TARIF_NAME, UL, VID_POK, VID_RN, WID, YEARMON, ZN_LICH, ZNOLD' +
-        '_LICH)'
+        '   SCHET, TARIF_NAME, UL, VID_POK, VID_RN, WID, YEARMON, ZN_LICH' +
+        ', ZNOLD_LICH)'
       'values'
       
         '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :EDRPOU, :FILTR, :FIO, :GRP_R' +
@@ -8862,18 +8875,18 @@ object MainForm: TMainForm
         '   :KL, :KL_UL, :KLNTAR, :KOLI_F, :KOLI_P, :KOLI_P0, :KOLI_P1, :' +
         'KUB_MES, '
       
-        '   :KV, :LICH_POV, :LICH_TO, :LICH_YEARMON, :N_DOM, :N_SCH, :NOR' +
-        '_RAZN, '
+        '   :KV, :LICH_DYM, :LICH_POV, :LICH_TO, :LICH_YEARMON, :N_DOM, :' +
+        'N_SCH, '
       
-        '   :NORMA, :NOTE, :OLD_NORM, :ORG, :PERE_DAY, :PERE_RAZN, :PLOMB' +
-        ', :POD, '
+        '   :NOR_RAZN, :NORMA, :NOTE, :OLD_NORM, :ORG, :PERE_DAY, :PERE_R' +
+        'AZN, :PLOMB, '
       
-        '   :POMPA, :PREV_NORM, :R_NACH, :RASCH_KUB, :RASCH_NOR, :RASCH_N' +
-        'OTE, :SCH_CUR, '
+        '   :POD, :POMPA, :PREV_NORM, :R_NACH, :RASCH_KUB, :RASCH_NOR, :R' +
+        'ASCH_NOTE, '
       
-        '   :SCH_OLD, :SCH_RAZN, :SCH_RAZN2, :SCHET, :TARIF_NAME, :UL, :V' +
-        'ID_POK, '
-      '   :VID_RN, :WID, :YEARMON, :ZN_LICH, :ZNOLD_LICH)')
+        '   :SCH_CUR, :SCH_OLD, :SCH_RAZN, :SCH_RAZN2, :SCHET, :TARIF_NAM' +
+        'E, :UL, '
+      '   :VID_POK, :VID_RN, :WID, :YEARMON, :ZN_LICH, :ZNOLD_LICH)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -8927,7 +8940,8 @@ object MainForm: TMainForm
       '  LICH_YEARMON,'
       '  EDRPOU,'
       '  KL_UL,'
-      '  R_NACH'
+      '  R_NACH,'
+      '  LICH_DYM'
       'from h_voda '
       'where'
       '  KL = :KL')
@@ -8955,6 +8969,7 @@ object MainForm: TMainForm
       '  KOLI_P1 = :KOLI_P1,'
       '  KUB_MES = :KUB_MES,'
       '  KV = :KV,'
+      '  LICH_DYM = :LICH_DYM,'
       '  LICH_POV = :LICH_POV,'
       '  LICH_TO = :LICH_TO,'
       '  LICH_YEARMON = :LICH_YEARMON,'
@@ -9034,6 +9049,12 @@ object MainForm: TMainForm
       ReadOnly = True
       Size = 10
     end
+    object orgSCHET: TIBStringField
+      FieldName = 'SCHET'
+      Origin = '"H_VODA"."SCHET"'
+      Required = True
+      Size = 10
+    end
     object orgN_SCH: TIBStringField
       FieldName = 'N_SCH'
       Origin = '"H_VODA"."N_SCH"'
@@ -9054,6 +9075,12 @@ object MainForm: TMainForm
     object orgSCH_RAZN: TIBBCDField
       FieldName = 'SCH_RAZN'
       Origin = '"H_VODA"."SCH_RAZN"'
+      Precision = 18
+      Size = 4
+    end
+    object orgSCH_RAZN2: TIBBCDField
+      FieldName = 'SCH_RAZN2'
+      Origin = '"H_VODA"."SCH_RAZN2"'
       Precision = 18
       Size = 4
     end
@@ -9168,12 +9195,6 @@ object MainForm: TMainForm
       FieldName = 'VID_RN'
       Origin = '"H_VODA"."VID_RN"'
     end
-    object orgSCH_RAZN2: TIBBCDField
-      FieldName = 'SCH_RAZN2'
-      Origin = '"H_VODA"."SCH_RAZN2"'
-      Precision = 18
-      Size = 4
-    end
     object orgFILTR: TIntegerField
       FieldName = 'FILTR'
       Origin = '"H_VODA"."FILTR"'
@@ -9235,17 +9256,14 @@ object MainForm: TMainForm
       FieldName = 'KL_UL'
       Origin = '"H_VODA"."KL_UL"'
     end
-    object orgSCHET: TIBStringField
-      DisplayWidth = 12
-      FieldName = 'SCHET'
-      Origin = '"H_VODA"."SCHET"'
-      Required = True
-      Size = 10
-    end
     object orgR_NACH: TIBStringField
       FieldName = 'R_NACH'
       Origin = '"H_VODA"."R_NACH"'
       Size = 100
+    end
+    object orgLICH_DYM: TIntegerField
+      FieldName = 'LICH_DYM'
+      Origin = '"H_VODA"."LICH_DYM"'
     end
   end
   object orgSource: TDataSource
@@ -10763,19 +10781,19 @@ object MainForm: TMainForm
         '_KONTR, '
       
         '   KL, KL_UL, KLNTAR, KOLI_F, KOLI_P, KOLI_P0, KOLI_P1, KUB_MES,' +
-        ' KV, LICH_POV, '
+        ' KV, LICH_DYM, '
       
-        '   LICH_TO, LICH_YEARMON, N_DOM, N_SCH, NOR_RAZN, NORMA, NOTE, O' +
-        'LD_NORM, '
+        '   LICH_POV, LICH_TO, LICH_YEARMON, N_DOM, N_SCH, NOR_RAZN, NORM' +
+        'A, NOTE, '
       
-        '   ORG, PERE_DAY, PERE_RAZN, PLOMB, POD, POMPA, PREV_NORM, R_NAC' +
-        'H, RASCH_KUB, '
+        '   OLD_NORM, ORG, PERE_DAY, PERE_RAZN, PLOMB, POD, POMPA, PREV_N' +
+        'ORM, R_NACH, '
       
-        '   RASCH_NOR, RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN, SCH_RAZN2,' +
-        ' SCHET, '
+        '   RASCH_KUB, RASCH_NOR, RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN,' +
+        ' SCH_RAZN2, '
       
-        '   TARIF_NAME, UL, VID_POK, VID_RN, WID, YEARMON, ZN_LICH, ZNOLD' +
-        '_LICH)'
+        '   SCHET, TARIF_NAME, UL, VID_POK, VID_RN, WID, YEARMON, ZN_LICH' +
+        ', ZNOLD_LICH)'
       'values'
       
         '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :EDRPOU, :FILTR, :FIO, :GRP_R' +
@@ -10784,18 +10802,18 @@ object MainForm: TMainForm
         '   :KL, :KL_UL, :KLNTAR, :KOLI_F, :KOLI_P, :KOLI_P0, :KOLI_P1, :' +
         'KUB_MES, '
       
-        '   :KV, :LICH_POV, :LICH_TO, :LICH_YEARMON, :N_DOM, :N_SCH, :NOR' +
-        '_RAZN, '
+        '   :KV, :LICH_DYM, :LICH_POV, :LICH_TO, :LICH_YEARMON, :N_DOM, :' +
+        'N_SCH, '
       
-        '   :NORMA, :NOTE, :OLD_NORM, :ORG, :PERE_DAY, :PERE_RAZN, :PLOMB' +
-        ', :POD, '
+        '   :NOR_RAZN, :NORMA, :NOTE, :OLD_NORM, :ORG, :PERE_DAY, :PERE_R' +
+        'AZN, :PLOMB, '
       
-        '   :POMPA, :PREV_NORM, :R_NACH, :RASCH_KUB, :RASCH_NOR, :RASCH_N' +
-        'OTE, :SCH_CUR, '
+        '   :POD, :POMPA, :PREV_NORM, :R_NACH, :RASCH_KUB, :RASCH_NOR, :R' +
+        'ASCH_NOTE, '
       
-        '   :SCH_OLD, :SCH_RAZN, :SCH_RAZN2, :SCHET, :TARIF_NAME, :UL, :V' +
-        'ID_POK, '
-      '   :VID_RN, :WID, :YEARMON, :ZN_LICH, :ZNOLD_LICH)')
+        '   :SCH_CUR, :SCH_OLD, :SCH_RAZN, :SCH_RAZN2, :SCHET, :TARIF_NAM' +
+        'E, :UL, '
+      '   :VID_POK, :VID_RN, :WID, :YEARMON, :ZN_LICH, :ZNOLD_LICH)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -10849,7 +10867,8 @@ object MainForm: TMainForm
       '  LICH_YEARMON,'
       '  EDRPOU,'
       '  KL_UL,'
-      '  R_NACH'
+      '  R_NACH,'
+      '  LICH_DYM'
       'from h_voda '
       'where'
       '  KL = :KL')
@@ -10878,6 +10897,7 @@ object MainForm: TMainForm
       '  KOLI_P1 = :KOLI_P1,'
       '  KUB_MES = :KUB_MES,'
       '  KV = :KV,'
+      '  LICH_DYM = :LICH_DYM,'
       '  LICH_POV = :LICH_POV,'
       '  LICH_TO = :LICH_TO,'
       '  LICH_YEARMON = :LICH_YEARMON,'
@@ -11165,6 +11185,10 @@ object MainForm: TMainForm
       FieldName = 'R_NACH'
       Origin = '"H_VODA"."R_NACH"'
       Size = 100
+    end
+    object hvdLICH_DYM: TIntegerField
+      FieldName = 'LICH_DYM'
+      Origin = '"H_VODA"."LICH_DYM"'
     end
   end
   object hvdSource: TDataSource
