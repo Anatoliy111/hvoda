@@ -211,8 +211,18 @@ uses main, addkart, delkart, mytools, math;
 {$R *.dfm}
 
 procedure TForm2.kub_all(DS:TIBDataSet);
+var sum,sum2:Currency;
 begin
+  sum:=DS.FieldByName('SCH_RAZN').Value+
+  DS.FieldByName('NOR_RAZN').Value+
+  DS.FieldByName('NORM_BLICH').Value;
+
+  sum2:=DS.FieldByName('KUB_ALL').Value-DS.FieldByName('KUB_NOBALANS').Value;
+
   DS.Edit;
+  if sum<>sum2 then
+     DS.FieldByName('KUB_NOBALANS').Value:=0;
+
   DS.FieldByName('KUB_ALL').Value:=DS.FieldByName('SCH_RAZN').Value+
   DS.FieldByName('NOR_RAZN').Value+
   DS.FieldByName('NORM_BLICH').Value+
@@ -226,7 +236,6 @@ var kol,kol2,lastpokazn,endpokazn,nextkub,vid,daymonth:integer;
     date:tdate;
     kub12,kubavg:Currency;
 begin
-
 
     IBQuery5.Close;
     IBQuery5.SQL.Text:='select first 1 * from pokazn where yearmon<:per and schet=:sch order by date_pok desc, id desc';
@@ -268,6 +277,7 @@ begin
         vid:=IBQuery6.FieldByName('VID_POK').Value;
      IBQuery6.Next;
      end;
+
 
 
     DS.Edit;

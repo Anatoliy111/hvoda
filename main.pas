@@ -43,13 +43,6 @@ type
     ActionExit: TAction;
     dxBarLargeButton1: TdxBarLargeButton;
     dxBarButton4: TdxBarButton;
-    prop: TIBDataSet;
-    propSource: TDataSource;
-    propDD: TSmallintField;
-    propKL: TIntegerField;
-    propKOLI: TSmallintField;
-    propSCHET: TIBStringField;
-    propYEARMON: TIntegerField;
     ActionCalc: TAction;
     domYEARMON: TIntegerField;
     frxDBDataset1: TfrxDBDataset;
@@ -67,16 +60,11 @@ type
     cxPageControl1: TcxPageControl;
     cxTabSheet1: TcxTabSheet;
     dxBarDockControl1: TdxBarDockControl;
-    cxTabSheet2: TcxTabSheet;
-    dxBarDockControl2: TdxBarDockControl;
     cxTabSheet3: TcxTabSheet;
     dxBarDockControl3: TdxBarDockControl;
     cxGrid2: TcxGrid;
     DBGrid1: TcxGridDBBandedTableView;
     cxGridLevel1: TcxGridLevel;
-    cxGrid3: TcxGrid;
-    DBGrid2: TcxGridDBTableView;
-    cxGridLevel5: TcxGridLevel;
     cxGrid4: TcxGrid;
     DBGrid3: TcxGridDBTableView;
     cxGridLevel9: TcxGridLevel;
@@ -95,13 +83,6 @@ type
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
     DBGrid3NOTE: TcxGridDBColumn;
-    propNOTE: TIBStringField;
-    DBGrid2DD: TcxGridDBColumn;
-    DBGrid2KL: TcxGridDBColumn;
-    DBGrid2KOLI: TcxGridDBColumn;
-    DBGrid2SCHET: TcxGridDBColumn;
-    DBGrid2YEARMON: TcxGridDBColumn;
-    DBGrid2NOTE: TcxGridDBColumn;
     data: TIBDataSet;
     dataYEARMON: TIntegerField;
     dataNORMA_HVD: TIBBCDField;
@@ -308,7 +289,6 @@ type
     ulSource: TDataSource;
     ulUL: TIBStringField;
     dxBarButton24: TdxBarButton;
-    dxBarButton25: TdxBarButton;
     dxBarButton26: TdxBarButton;
     dxBarButton27: TdxBarButton;
     dxBarButton28: TdxBarButton;
@@ -318,10 +298,6 @@ type
     frxDBDataset3: TfrxDBDataset;
     impDataSource: TDataSource;
     imp: TIBDataSet;
-    impKL: TIntegerField;
-    impIMPLASTDATE: TDateField;
-    impIMPALLOW: TIntegerField;
-    impIMPLASTDAY: TIntegerField;
     DBGrid1FILTR: TcxGridDBBandedColumn;
     DBGrid1POMPA: TcxGridDBBandedColumn;
     dxBarButton29: TdxBarButton;
@@ -396,7 +372,6 @@ type
     IBQuery1: TIBQuery;
     DBGrid1TARIF_NAME: TcxGridDBBandedColumn;
     DBGrid1NORMA: TcxGridDBBandedColumn;
-    impVPROG: TIBStringField;
     users: TIBDataSet;
     usersSource: TDataSource;
     usersID: TIntegerField;
@@ -434,8 +409,6 @@ type
     DBGrid1PREV_NORM: TcxGridDBBandedColumn;
     hvd: TIBDataSet;
     hvdSource: TDataSource;
-    impLASTRASCH: TDateField;
-    impLASTEXP: TIntegerField;
     cxLabel1: TcxLabel;
     DBGrid1LICH_YEARMON: TcxGridDBBandedColumn;
     IBQuery2: TIBQuery;
@@ -794,6 +767,13 @@ type
     hvdlichupdNORM_BLICH: TFloatField;
     hvdlichupdKUB_NOBALANS: TFloatField;
     hvdlichupdKUB_ALL: TFloatField;
+    impKL: TIntegerField;
+    impIMPLASTDATE: TDateField;
+    impIMPALLOW: TIntegerField;
+    impIMPLASTDAY: TIntegerField;
+    impVPROG: TIBStringField;
+    impLASTEXP: TIntegerField;
+    impLASTROZR: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -813,8 +793,8 @@ type
     procedure ActionExportExecute(Sender: TObject);
     procedure ActionExitExecute(Sender: TObject);
     procedure dxBarButton4Click(Sender: TObject);
-    procedure propDDSetText(Sender: TField; const Text: String);
-    procedure propKOLISetText(Sender: TField; const Text: String);
+    procedure prop1DDSetText(Sender: TField; const Text: String);
+    procedure prop1KOLISetText(Sender: TField; const Text: String);
     procedure domBeforeOpen(DataSet: TDataSet);
     procedure hvdNewRecord(DataSet: TDataSet);
     procedure hvdBeforePost(DataSet: TDataSet);
@@ -871,7 +851,6 @@ type
     procedure dxBarButton21Click(Sender: TObject);
     procedure dxBarButton23Click(Sender: TObject);
     procedure dxBarButton25Click(Sender: TObject);
-    procedure dxBarButton26Click(Sender: TObject);
     procedure dxBarButton27Click(Sender: TObject);
     procedure dataAfterScroll(DataSet: TDataSet);
     procedure dataAfterClose(DataSet: TDataSet);
@@ -897,7 +876,7 @@ type
     procedure DBGrid3SCH_CURPropertiesValidate(Sender: TObject;
       var DisplayValue: Variant; var ErrorText: TCaption; var Error: Boolean);
     procedure grpSCH_CURChange(Sender: TField);
-    procedure hvdNOR_RAZNChange(Sender: TField);
+    procedure dxBarButton39Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -923,6 +902,7 @@ type
     procedure allcalcnorm;
     procedure update;
     procedure calcdomlich(DS:TIBDataSet);
+    procedure calcalldomlich;
 
   end;
 
@@ -934,7 +914,7 @@ implementation
 
 uses inpedpro, edexpr, import, mytools, itoghvd,ComObj,dbf,dbf_lang,
   edplomb, kart, lichall, iimport, sprzn, addkart, ViberTask, ViberPok,
-  ViberSendOrders, LichPlomb, splash, Conn;
+  ViberSendOrders, LichPlomb, splash, Conn, math;
 
 {$R *.dfm}
 
@@ -967,7 +947,7 @@ begin
      Form4.Label3.Caption:='Start -'+DateTimeToStr(now());
 
      MainForm.Enabled:=false;
-     Form4.Label2.Caption:='Розрахунок.Зачекайте приблизно 40-50 хв.(Триває перерахунок всих даних)';
+     Form4.Label2.Caption:='Розрахунок споживання...';
      Form4.cxProgressBar1.Properties.Min:=0;
      Form4.cxProgressBar1.Properties.Max:=0;
      application.ProcessMessages;
@@ -979,6 +959,8 @@ begin
 //    IBTransaction1.CommitRetaining;
 
  //MainForm.hvdallSource.Enabled:=false;
+// pokaznall.Open;
+// pokaznall.FetchAll;
  MainForm.hvdallSource.Enabled:=false;
  MainForm.hvdall.Close;
  MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
@@ -986,6 +968,7 @@ begin
  MainForm.hvdall.ParamByName('mm').Value:=StrtoInt(copy(IntToStr(MainForm.period),5,2));
  MainForm.hvdall.Open;
  MainForm.hvdall.FetchAll;
+ MainForm.hvdall.First;
  Form4.cxProgressBar1.Properties.Max:=MainForm.hvdall.RecordCount-1;
  //Form4.Label1.Caption:='allcalclich';
 
@@ -1012,8 +995,6 @@ begin
 
   IBTransaction1.CommitRetaining;
   MainForm.hvdallSource.Enabled:=true;
-
-  Update;
 
    Form4.Label3.Caption:=Form4.Label3.Caption+' End-'+DateTimeToStr(now());
    Form4.Label4.Caption:='';
@@ -1047,6 +1028,7 @@ begin
  MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
  MainForm.hvdall.Open;
  MainForm.hvdall.FetchAll;
+ MainForm.hvdall.first;
  Form4.cxProgressBar1.Properties.Max:=MainForm.hvdall.RecordCount-1;
 
     IBQuery1.close;
@@ -1480,18 +1462,6 @@ org.Close;
 org.Open;
 end;
 
-procedure TMainForm.dxBarButton26Click(Sender: TObject);
-begin
-IBTransaction1.CommitRetaining;
-
-hvd.Close;
-hvd.Open;
-grp.Close;
-grp.Open;
-org.Close;
-org.Open;
-end;
-
 procedure TMainForm.dxBarButton27Click(Sender: TObject);
 begin
   IBQueryRep.Close;
@@ -1585,17 +1555,88 @@ procedure TMainForm.dxBarButton37Click(Sender: TObject);
 begin
     if application.MessageBox(PAnsiChar(AnsiString('Ви дійсно бажаєте видалити будинковий лічильник за адресою '+grp.FieldByName('UL').AsString+' '+grp.FieldByName('N_DOM').AsString+' ?')),'Підтвердження',MB_YESNO)=IDNO then
     exit;
-    DSet.delete;
+    grp.delete;
 end;
 
 procedure TMainForm.dxBarButton38Click(Sender: TObject);
 begin
 //    Form4.ImKart;
-    allcalclich;
+
+   if application.MessageBox('Увага!!! Почати процедуру повного розрахунку? Редагування інформації буде закрито!','Підтвердження',MB_YESNO)=IDNO then
+      exit;
+
     imp.Edit;
-    impLASTRASCH.Value:=Now();
+    impLASTROZR.Value:=1;
+    imp.Post;
+    allcalclich;
+    calcalldomlich;
+    imp.Edit;
+    impLASTROZR.Value:=2;
     imp.Post;
     IBTransaction1.CommitRetaining;
+
+end;
+
+procedure TMainForm.dxBarButton39Click(Sender: TObject);
+begin
+calcalldomlich;
+end;
+
+procedure TMainForm.calcalldomlich;
+begin
+
+    Form4.Show;
+   //  Form4.Label3.Caption:='Start -'+DateTimeToStr(now());
+
+     MainForm.Enabled:=false;
+     Form4.Label2.Caption:='Розрахунок небалансу...';
+     Form4.cxProgressBar1.Properties.Min:=0;
+     Form4.cxProgressBar1.Properties.Max:=0;
+     application.ProcessMessages;
+
+    grp.Close;
+    grp.ParamByName('yearmon').Value:=MainForm.period;
+    grp.Open;
+    grp.FetchAll;
+
+
+    Form4.cxProgressBar1.Properties.Max:=grp.RecordCount-1;
+ //Form4.Label1.Caption:='allcalclich';
+    application.ProcessMessages;
+
+    Form4.cxProgressBar1.Position:=0;
+    while not grp.eof do
+    begin
+    Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
+    Form4.Label4.Caption:=grpUL.Value+' '+grpN_DOM.Value;
+    application.ProcessMessages;
+
+         calcdomlich(grp);
+         if not Form4.Visible then
+         begin
+
+         Break;
+         end;
+
+
+
+      grp.Next;
+    end;
+
+  IBTransaction1.CommitRetaining;
+
+  Update;
+
+   Form4.Label3.Caption:=Form4.Label3.Caption+' End-'+DateTimeToStr(now());
+   Form4.Label4.Caption:='';
+   Form4.Label2.Caption:='';
+
+  Form4.Close;
+   MainForm.Enabled:=true;
+
+
+
+
 
 end;
 
@@ -1604,16 +1645,19 @@ var sumabon:Currency;
     kol_lud:integer;
 begin
     IBQuery2.Close;
-    IBQuery2.SQL.Text:='select org,sum(kub_all) kuball from h_voda where wid<46 and wid<>42 and wid<>45 and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet group by org';
+    IBQuery2.SQL.Text:='select org,sum(sch_razn+nor_razn) kuball from h_voda where wid<46 and wid<>42 and wid<>45 and ul=:uul and n_dom=:ndom and yearmon=:ym group by org';
     IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
     IBQuery2.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
     IBQuery2.ParamByName('ym').Value:=MainForm.period;
     IBQuery2.Open;
     IBQuery2.FetchAll;
+
     sumabon:=0;
     kol_lud:=0;
+
     DS.Edit;
-    while IBQuery2.Eof do
+    IBQuery2.First;
+    while not IBQuery2.Eof do
     begin
       if IBQuery2.FieldByName('org').Value=0 then
          DS.FieldByName('sch_nas').Value:=IBQuery2.FieldByName('kuball').Value;
@@ -1623,21 +1667,22 @@ begin
       IBQuery2.Next;
     end;
     DS.FieldByName('sch_sumabon').Value:=sumabon;
-    DS.FieldByName('sch_kub').Value:=DS.FieldByName('sch_old').Value-DS.FieldByName('sch_cur').Value;
+    DS.FieldByName('sch_kub').Value:=DS.FieldByName('sch_cur').Value-DS.FieldByName('sch_old').Value;
     DS.FieldByName('sch_razn').Value:=DS.FieldByName('sch_kub').Value-DS.FieldByName('sch_sumabon').Value;
 
     if DS.FieldByName('sch_razn').Value>0 then
     begin
 
       IBQuery2.Close;
-      IBQuery2.SQL.Text:='select count(*) cn, sum(koli_p) kollud from h_voda where (wid=42 or wid=45) and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet';
+      IBQuery2.SQL.Text:='select count(*) cn,sum(koll) kollud from (select schet, iif(koli_p>0,koli_p,1) koll, wid, ul, n_dom from h_voda where (wid=42 or wid=45) and ul=:uul and n_dom=:ndom and yearmon=:ym) group by ul,n_dom';
       IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
       IBQuery2.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
       IBQuery2.ParamByName('ym').Value:=MainForm.period;
       IBQuery2.Open;
       IBQuery2.FetchAll;
+      IBQuery2.First;
 
-      if IBQuery2.FieldByName('cn').Value<>0 then
+      if IBQuery2.FieldByName('cn').Value>0 then
       begin
             hvdrozpdom.Close;
             hvdrozpdom.SelectSQL.Text:='select * from h_voda where (wid=42 or wid=45) and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet';
@@ -1646,35 +1691,58 @@ begin
             hvdrozpdom.ParamByName('ym').Value:=MainForm.period;
             hvdrozpdom.Open;
             hvdrozpdom.FetchAll;
+            hvdrozpdom.First;
+             while not hvdrozpdom.Eof do
+            begin
+              hvdrozpdom.Edit;
+              hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kollud').Value)*iif(hvdrozpdomKOLI_P.Value>0,hvdrozpdomKOLI_P.Value,1),-3);
+              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
+              hvdrozpdomNORM_BLICH.Value:=0;
+              hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно к-ті людей';
+              hvdrozpdom.Post;
+              hvdrozpdom.Next;
+            end;
+      end
+      else
+      begin
 
-         if IBQuery2.FieldByName('kollud').Value>0 then
-         begin
-             while hvdrozpdom.Eof do
+      IBQuery2.Close;
+      IBQuery2.SQL.Text:='select count(*) cn, sum(sch_razn+nor_razn) kuball from h_voda where wid<46 and ul=:uul and n_dom=:ndom and yearmon=:ym group by ul,n_dom';
+      IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
+      IBQuery2.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
+      IBQuery2.ParamByName('ym').Value:=MainForm.period;
+      IBQuery2.Open;
+      IBQuery2.FetchAll;
+      IBQuery2.First;
+
+        if IBQuery2.FieldByName('cn').Value>0 then
+        begin
+            hvdrozpdom.Close;
+            hvdrozpdom.SelectSQL.Text:='select * from h_voda where wid<46 and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet';
+            hvdrozpdom.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
+            hvdrozpdom.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
+            hvdrozpdom.ParamByName('ym').Value:=MainForm.period;
+            hvdrozpdom.Open;
+            hvdrozpdom.FetchAll;
+            hvdrozpdom.First;
+
+            while not hvdrozpdom.Eof do
             begin
               hvdrozpdom.Edit;
-              hvdrozpdomKUB_NOBALANS.Value:=DS.FieldByName('sch_razn').Value/(IBQuery2.FieldByName('kollud').Value*hvdrozpdomKOLI_P.Value);
-              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
+              hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kuball').Value)*(hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value),-3);
+              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value+hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value;
               hvdrozpdomNORM_BLICH.Value:=0;
-              hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку';
+              hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно споживанню';
               hvdrozpdom.Post;
               hvdrozpdom.Next;
             end;
-         end
-         else
-         begin
-            while hvdrozpdom.Eof do
-            begin
-              hvdrozpdom.Edit;
-              hvdrozpdomKUB_NOBALANS.Value:=DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('cn').Value;
-              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
-              hvdrozpdomNORM_BLICH.Value:=0;
-              hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку по кількості квартир ('+IBQuery2.FieldByName('cn').Value+') без лічильника або без повірки';
-              hvdrozpdom.Post;
-              hvdrozpdom.Next;
-            end;
-         end;
+
+        end;
+
+
+
       end;
-      
+
 
 
 
@@ -2004,7 +2072,6 @@ end;
 procedure TMainForm.ActionExportExecute(Sender: TObject);
 begin
   if cxPageControl1.ActivePage=cxTabSheet1 then self.ExportGrid(cxGrid2)
-  else if cxPageControl1.ActivePage=cxTabSheet2 then self.ExportGrid(cxGrid3)
   else if cxPageControl1.ActivePage=cxTabSheet3 then self.ExportGrid(cxGrid4)
   else if cxPageControl1.ActivePage=cxTabSheet4 then self.ExportGrid(cxGrid1);
 
@@ -2026,7 +2093,7 @@ begin
   StopWait;
 end;
 
-procedure TMainForm.propDDSetText(Sender: TField; const Text: String);
+procedure TMainForm.prop1DDSetText(Sender: TField; const Text: String);
 begin
   if (str2int(Text)<1) or (str2int(Text)>31) then
     Sender.AsInteger:=1
@@ -2035,7 +2102,7 @@ begin
 
 end;
 
-procedure TMainForm.propKOLISetText(Sender: TField; const Text: String);
+procedure TMainForm.prop1KOLISetText(Sender: TField; const Text: String);
 begin
   if (str2int(Text)<-8) or (str2int(Text)>8) then
     Sender.AsInteger:=0
@@ -2058,11 +2125,6 @@ begin
  //   DBGrid1FIO.Options.Editing:=true;
     //DBGrid1n_sch.Options.Editing:=true;
  //   DBGrid1SCHET.Focused:=true;
-end;
-
-procedure TMainForm.hvdNOR_RAZNChange(Sender: TField);
-begin
-  Form2.kub_all(DSet);
 end;
 
 procedure TMainForm.hvdBeforePost(DataSet: TDataSet);
@@ -2095,7 +2157,7 @@ end;
 
 procedure TMainForm.grpBeforeOpen(DataSet: TDataSet);
 begin
-  grp.ParamByName('yearmon').AsInteger:=CurYM;
+  grp.ParamByName('yearmon').AsInteger:=curYM;
 
 end;
 
@@ -2113,9 +2175,9 @@ begin
 
         imp.Close;
        imp.Open;
-       if (cxLabel1.Visible) and (impLASTEXP.Value=0) then
+       if (cxLabel1.Visible) and (impLASTROZR.Value=0) then
             update;
-        if (not cxLabel1.Visible) and (impLASTEXP.Value=1) then
+        if (not cxLabel1.Visible) and (impLASTROZR.Value>0) then
            update;
       end;
 //  except
@@ -2169,10 +2231,13 @@ end;
 
 procedure TMainForm.grpSCH_CURChange(Sender: TField);
 begin
-   MainForm.grp.Edit;
-   MainForm.grp.FieldByName('SCH_KUB').Value:=MainForm.grp.FieldByName('SCH_CUR').Value-MainForm.grp.FieldByName('SCH_OLD').Value;
-   MainForm.grp.Post;
-   MainForm.IBTransaction1.CommitRetaining;
+   if MainForm.grp.FieldByName('SCH_CUR').Value<>0 then
+   begin
+     MainForm.grp.Edit;
+     MainForm.grp.FieldByName('SCH_KUB').Value:=MainForm.grp.FieldByName('SCH_CUR').Value-MainForm.grp.FieldByName('SCH_OLD').Value;
+     MainForm.grp.Post;
+     MainForm.IBTransaction1.CommitRetaining;
+   end;
 end;
 
 procedure TMainForm.ActionPrintExecute(Sender: TObject);
@@ -2402,13 +2467,16 @@ IBTransaction1.CommitRetaining;
   imp.Open;
 
 
-  if (data.Active and dom.Active)then
+  if (data.Active)then
   begin
   StartWait;
   org.Close;
   org.Open;
   grp.Close;
   grp.Open;
+
+  hvd.Close;
+  hvd.open;
 
   vid_rn.close;
   vid_nach.close;
@@ -2419,21 +2487,23 @@ IBTransaction1.CommitRetaining;
   vid_nach46.open;
 
 //   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
-   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
-   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
-   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
+//   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
+//   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
+//   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
+//
+//
+//   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.open
+//   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.open
+//   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.open;
 
-
-   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.open
-   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.open
-   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.open;
-
-   if (isArchive) or (impLASTEXP.Value=1) then
+   if (isArchive) or (impLASTROZR.Value=1) then
    begin
      if isArchive then
         cxLabel1.Caption:='Увага! Редагування даних закрито. Ви в архіві!'
      else if impLASTEXP.Value=1 then
-        cxLabel1.Caption:='Увага! Редагування даних закрито до закриття місяця. Показники передані бухгалтеру!';
+        cxLabel1.Caption:='Увага! Редагування даних закрито. Розпочато процедуру повного розрахунку!'
+     else if impLASTEXP.Value=2 then
+        cxLabel1.Caption:='Увага! Редагування даних закрито. Виконано повний розрахунок даних, чекайте закриття місяця!';
 
 
      cxLabel1.Visible:=true;
@@ -2441,6 +2511,7 @@ IBTransaction1.CommitRetaining;
      DBGrid1.OptionsData.Deleting:=false;
      DBGrid1WID.Properties.ReadOnly:=true;
      DBGrid1NOR_RAZN.Properties.ReadOnly:=true;
+     DBGrid3SCH_CUR.Properties.ReadOnly:=true;
      Form2.Panel1.Enabled:=false;
      Form2.Panel5.Enabled:=false;
      Form2.Panel3.Enabled:=false;
@@ -2451,13 +2522,13 @@ IBTransaction1.CommitRetaining;
 //     DBGrid1.OptionsData.Editing:=false;
      DBGrid1.OptionsData.Inserting:=false;
 
-     DBGrid2.OptionsData.Deleting:=false;
-     DBGrid2.OptionsData.Editing:=false;
-     DBGrid2.OptionsData.Inserting:=false;
-
-     DBGrid3.OptionsData.Deleting:=false;
-     DBGrid3.OptionsData.Editing:=false;
-     DBGrid3.OptionsData.Inserting:=false;
+     dxBarButton3.Enabled:=false;
+     dxBarButton21.Enabled:=false;
+     dxBarButton24.Enabled:=false;
+     dxBarButton22.Enabled:=false;
+     dxBarButton35.Enabled:=false;
+     dxBarButton36.Enabled:=false;
+     dxBarButton37.Enabled:=false;
    end
    else
    begin
@@ -2466,6 +2537,7 @@ IBTransaction1.CommitRetaining;
      DBGrid1.OptionsData.Deleting:=true;
  //    DBGrid1WID.Properties.ReadOnly:=false;
      DBGrid1NOR_RAZN.Properties.ReadOnly:=false;
+     DBGrid3SCH_CUR.Properties.ReadOnly:=false;
 //     DBGrid1.OptionsData.Editing:=true;
      Form2.Panel1.Enabled:=true;
      Form2.Panel5.Enabled:=true;
@@ -2476,13 +2548,13 @@ IBTransaction1.CommitRetaining;
 
      DBGrid1.OptionsData.Inserting:=true;
 
-     DBGrid2.OptionsData.Deleting:=true;
-     DBGrid2.OptionsData.Editing:=true;
-     DBGrid2.OptionsData.Inserting:=true;
-
-     DBGrid3.OptionsData.Deleting:=true;
-     DBGrid3.OptionsData.Editing:=true;
-     DBGrid3.OptionsData.Inserting:=true;
+     dxBarButton3.Enabled:=true;
+     dxBarButton21.Enabled:=true;
+     dxBarButton24.Enabled:=true;
+     dxBarButton22.Enabled:=true;
+     dxBarButton35.Enabled:=true;
+     dxBarButton36.Enabled:=true;
+     dxBarButton37.Enabled:=true;
     end;
 
     StopWait;
@@ -2513,14 +2585,14 @@ end;
 procedure TMainForm.cxPageControl1PageChanging(Sender: TObject;
   NewPage: TcxTabSheet; var AllowChange: Boolean);
 begin
-  if prop.State in [dsInsert,dsEdit] then prop.Post;
+ // if prop.State in [dsInsert,dsEdit] then prop.Post;
   if grp.State in [dsInsert,dsEdit] then grp.Post;
   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
   if org.State in [dsInsert,dsEdit] then org.Post;
 
-  if cxPageControl1.ActivePage=cxTabSheet1 then //hvd.Close
-  else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
-  else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
+//  if cxPageControl1.ActivePage=cxTabSheet1 then //hvd.Close
+//  else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
+//  else if cxPageControl1.ActivePage=cxTabSheet3 then grp.close;
 
   IBtransaction1.CommitRetaining;
 
@@ -2634,17 +2706,23 @@ begin
   Application.ProcessMessages;
   IBtransaction1.CommitRetaining;
   //allcalclich;
-  if impLASTRASCH.Value<IncDay(Now(),-2) then
+  if impLASTROZR.Value=0 then
   begin
-     ShowMessage('Ви давно не виконували повний розрахунок. Виконайте повний розрахунок і повторіть операцію знову!!!');
+     ShowMessage('Ви не виконували повний розрахунок. Виконайте повний розрахунок і повторіть операцію знову!!!');
      exit;
   end;
 
-   if application.MessageBox('Увага!!! Почати процедуру передачі показників бухгалтеру? Після передачі , редагування показників і лічильників буде закрито до переходу на наступний місяць!','Підтвердження',MB_YESNO)=IDNO then
+  if impLASTROZR.Value=1 then
+  begin
+     ShowMessage('Ви почали повний розрахунок але він не завершився до кінця. Виконайте повний розрахунок і повторіть операцію знову!!!');
+     exit;
+  end;
+
+   if application.MessageBox('Увага!!! Почати процедуру передачі показників бухгалтеру?','Підтвердження',MB_YESNO)=IDNO then
       exit;
 
 
-  
+
   StartWait;
   Enabled:=false;
   try

@@ -917,7 +917,31 @@ object MainForm: TMainForm
           DataController.KeyFieldNames = 'KL'
           DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
-          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <
+            item
+              Kind = skSum
+              Column = DBGrid3SCH_KUB
+            end
+            item
+              Kind = skSum
+              Column = DBGrid3SCH_UR
+            end
+            item
+              Kind = skSum
+              Column = DBGrid3SCH_NAS
+            end
+            item
+              Kind = skSum
+              Column = DBGrid3SCH_SUMABON
+            end
+            item
+              Kind = skSum
+              Column = DBGrid3SCH_RAZN
+            end
+            item
+              Kind = skCount
+              Column = DBGrid3TIP
+            end>
           DataController.Summary.SummaryGroups = <
             item
               Links = <>
@@ -999,82 +1023,6 @@ object MainForm: TMainForm
         object cxGridLevel9: TcxGridLevel
           Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080' '#1087#1086' '#1087#1110#1076#1111#1079#1076#1072#1084
           GridView = DBGrid3
-        end
-      end
-    end
-    object cxTabSheet2: TcxTabSheet
-      Caption = #1055#1088#1086#1087#1080#1089#1082#1072
-      ImageIndex = 2
-      ExplicitHeight = 568
-      object dxBarDockControl2: TdxBarDockControl
-        Left = 0
-        Top = 0
-        Width = 1017
-        Height = 26
-        Align = dalTop
-        BarManager = BarManager
-      end
-      object cxGrid3: TcxGrid
-        Left = 0
-        Top = 26
-        Width = 1017
-        Height = 471
-        Align = alClient
-        TabOrder = 1
-        object DBGrid2: TcxGridDBTableView
-          NavigatorButtons.ConfirmDelete = False
-          NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
-          NavigatorButtons.PriorPage.Hint = #1055#1086#1087#1077#1088#1077#1076#1085#1103' '#1089#1090#1086#1088#1110#1085#1082#1072
-          NavigatorButtons.Prior.Hint = #1055#1086#1087#1077#1088#1077#1076#1085#1110#1081
-          NavigatorButtons.Next.Hint = #1053#1072#1089#1090#1091#1087#1085#1080#1081
-          NavigatorButtons.NextPage.Hint = #1053#1072#1089#1090#1091#1087#1085#1072' '#1089#1090#1086#1088#1110#1085#1082#1072
-          NavigatorButtons.Last.Hint = #1054#1089#1090#1072#1085#1085#1110#1081' '#1079#1072#1087#1080#1089
-          NavigatorButtons.Insert.Hint = #1042#1089#1090#1072#1074#1080#1090#1080' '#1079#1072#1087#1080#1089
-          NavigatorButtons.Delete.Hint = #1042#1080#1076#1072#1083#1080#1090#1080
-          NavigatorButtons.Edit.Hint = #1056#1077#1076#1072#1075#1091#1074#1072#1090#1080
-          NavigatorButtons.Post.Hint = #1047#1073#1077#1088#1077#1075#1090#1080
-          NavigatorButtons.Cancel.Hint = #1042#1110#1076#1084#1110#1085#1080#1090#1080
-          NavigatorButtons.Refresh.Hint = #1054#1073#1085#1086#1074#1080#1090#1080
-          NavigatorButtons.Filter.Hint = #1060#1110#1083#1100#1090#1088
-          DataController.DataModeController.SmartRefresh = True
-          DataController.DataSource = propSource
-          DataController.Summary.DefaultGroupSummaryItems = <>
-          DataController.Summary.FooterSummaryItems = <>
-          DataController.Summary.SummaryGroups = <>
-          OptionsBehavior.FocusFirstCellOnNewRecord = True
-          OptionsBehavior.GoToNextCellOnEnter = True
-          OptionsBehavior.NavigatorHints = True
-          OptionsData.CancelOnExit = False
-          OptionsView.Navigator = True
-          OptionsView.Indicator = True
-          OptionsView.IndicatorWidth = 10
-          object DBGrid2SCHET: TcxGridDBColumn
-            DataBinding.FieldName = 'SCHET'
-            Width = 88
-          end
-          object DBGrid2DD: TcxGridDBColumn
-            DataBinding.FieldName = 'DD'
-            Width = 78
-          end
-          object DBGrid2KOLI: TcxGridDBColumn
-            DataBinding.FieldName = 'KOLI'
-            Width = 97
-          end
-          object DBGrid2NOTE: TcxGridDBColumn
-            DataBinding.FieldName = 'NOTE'
-          end
-          object DBGrid2KL: TcxGridDBColumn
-            DataBinding.FieldName = 'KL'
-            Visible = False
-          end
-          object DBGrid2YEARMON: TcxGridDBColumn
-            DataBinding.FieldName = 'YEARMON'
-            Visible = False
-          end
-        end
-        object cxGridLevel5: TcxGridLevel
-          Caption = #1055#1088#1086#1087#1080#1089#1082#1072
-          GridView = DBGrid2
         end
       end
     end
@@ -1279,10 +1227,10 @@ object MainForm: TMainForm
     object BarManagerBar4: TdxBar
       Caption = 'Custom 3'
       CaptionButtons = <>
-      DockControl = dxBarDockControl2
-      DockedDockControl = dxBarDockControl2
+      DockedDockingStyle = dsTop
       DockedLeft = 0
       DockedTop = 0
+      DockingStyle = dsTop
       FloatLeft = 151
       FloatTop = 109
       FloatClientWidth = 0
@@ -1292,7 +1240,7 @@ object MainForm: TMainForm
       OneOnRow = True
       Row = 0
       UseOwnFont = False
-      Visible = True
+      Visible = False
       WholeRow = True
     end
     object BarManagerBar5: TdxBar
@@ -1913,15 +1861,6 @@ object MainForm: TMainForm
       PaintStyle = psCaptionGlyph
       OnClick = dxBarButton24Click
     end
-    object dxBarButton25: TdxBarButton
-      Caption = #1054#1085#1086#1074#1080#1090#1080
-      Category = 0
-      Hint = #1054#1085#1086#1074#1080#1090#1080
-      Visible = ivAlways
-      ImageIndex = 33
-      PaintStyle = psCaptionGlyph
-      OnClick = dxBarButton25Click
-    end
     object dxBarButton26: TdxBarButton
       Caption = #1060#1110#1083#1100#1090#1088' '#1054#1089'.'#1088#1072#1093'/'#1028#1044#1056#1055#1054#1059'/'#1030#1055#1053
       Category = 0
@@ -1930,7 +1869,6 @@ object MainForm: TMainForm
       ImageIndex = 33
       Lowered = True
       PaintStyle = psCaption
-      OnClick = dxBarButton26Click
     end
     object dxBarButton27: TdxBarButton
       Caption = #1047#1074#1077#1076#1077#1085#1080#1081' '#1079#1074#1110#1090' '#1087#1086' '#1088#1072#1081#1086#1085#1072#1084
@@ -2082,6 +2020,7 @@ object MainForm: TMainForm
       Visible = ivAlways
       ImageIndex = 34
       PaintStyle = psCaptionGlyph
+      OnClick = dxBarButton39Click
     end
     object dxBarButton1: TdxBarButton
       Action = ActionEdCalcs
@@ -2128,7 +2067,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000CC0114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000D00114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4729,93 +4668,6 @@ object MainForm: TMainForm
     Left = 272
     Top = 288
   end
-  object prop: TIBDataSet
-    Database = IBDatabase
-    Transaction = IBTransaction1
-    DeleteSQL.Strings = (
-      'delete from PROP'
-      'where'
-      '  KL = :OLD_KL')
-    InsertSQL.Strings = (
-      'insert into PROP'
-      '  (DD, KL, KOLI, SCHET, YEARMON, NOTE)'
-      'values'
-      '  (:DD, :KL, :KOLI, :SCHET, :YEARMON, :NOTE)')
-    RefreshSQL.Strings = (
-      'Select '
-      '  KL,'
-      '  YEARMON,'
-      '  SCHET,'
-      '  DD,'
-      '  KOLI,'
-      '  NOTE'
-      'from PROP '
-      'where'
-      '  KL = :KL')
-    SelectSQL.Strings = (
-      
-        'select  prop.DD, prop.KL, prop.KOLI, prop.SCHET, prop.YEARMON, p' +
-        'rop.note'
-      'FROM PROP'
-      'where yearmon=:yearmon'
-      'ORDER BY prop.SCHET')
-    ModifySQL.Strings = (
-      'update PROP'
-      'set'
-      '  DD = :DD,'
-      '  KL = :KL,'
-      '  KOLI = :KOLI,'
-      '  SCHET = :SCHET,'
-      '  YEARMON = :YEARMON,'
-      '  NOTE = :NOTE'
-      'where'
-      '  KL = :OLD_KL')
-    GeneratorField.Field = 'KL'
-    GeneratorField.Generator = 'GEN_PROP_ID'
-    GeneratorField.ApplyEvent = gamOnPost
-    Left = 272
-    Top = 336
-    object propDD: TSmallintField
-      DisplayLabel = #1044#1077#1085#1100
-      FieldName = 'DD'
-      Origin = 'PROP.DD'
-      OnSetText = propDDSetText
-    end
-    object propKL: TIntegerField
-      FieldName = 'KL'
-      Origin = 'PROP.KL'
-      Required = True
-    end
-    object propKOLI: TSmallintField
-      DisplayLabel = #1055#1088#1086#1087#1080#1089#1082#1072' +-'
-      FieldName = 'KOLI'
-      Origin = 'PROP.KOLI'
-      OnSetText = propKOLISetText
-    end
-    object propSCHET: TIBStringField
-      DisplayLabel = #1056#1072#1093#1091#1085#1086#1082
-      FieldName = 'SCHET'
-      Origin = 'PROP.SCHET'
-      Required = True
-      Size = 10
-    end
-    object propYEARMON: TIntegerField
-      FieldName = 'YEARMON'
-      Origin = 'PROP.YEARMON'
-      Required = True
-    end
-    object propNOTE: TIBStringField
-      DisplayLabel = #1055#1088#1080#1084#1110#1090#1082#1072
-      FieldName = 'NOTE'
-      Origin = 'PROP.NOTE'
-      Size = 45
-    end
-  end
-  object propSource: TDataSource
-    DataSet = prop
-    Left = 272
-    Top = 368
-  end
   object frxReport1: TfrxReport
     Version = '4.14'
     DotMatrixReport = True
@@ -5337,7 +5189,7 @@ object MainForm: TMainForm
     SelectSQL.Strings = (
       'select * from HVGRP'
       'where yearmon=:yearmon'
-      'order by ul')
+      '')
     ModifySQL.Strings = (
       'update HVGRP'
       'set'
@@ -9448,12 +9300,12 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into IMPEXP'
       
-        '  (IMPALLOW, IMPLASTDATE, IMPLASTDAY, KL, LASTEXP, LASTRASCH, VP' +
-        'ROG)'
+        '  (IMPALLOW, IMPLASTDATE, IMPLASTDAY, KL, LASTEXP, LASTROZR, VPR' +
+        'OG)'
       'values'
       
-        '  (:IMPALLOW, :IMPLASTDATE, :IMPLASTDAY, :KL, :LASTEXP, :LASTRAS' +
-        'CH, :VPROG)')
+        '  (:IMPALLOW, :IMPLASTDATE, :IMPLASTDAY, :KL, :LASTEXP, :LASTROZ' +
+        'R, :VPROG)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -9461,8 +9313,8 @@ object MainForm: TMainForm
       '  IMPALLOW,'
       '  IMPLASTDAY,'
       '  VPROG,'
-      '  LASTRASCH,'
-      '  LASTEXP'
+      '  LASTEXP,'
+      '  LASTROZR'
       'from IMPEXP '
       'where'
       '  KL = :KL')
@@ -9476,7 +9328,7 @@ object MainForm: TMainForm
       '  IMPLASTDAY = :IMPLASTDAY,'
       '  KL = :KL,'
       '  LASTEXP = :LASTEXP,'
-      '  LASTRASCH = :LASTRASCH,'
+      '  LASTROZR = :LASTROZR,'
       '  VPROG = :VPROG'
       'where'
       '  KL = :OLD_KL')
@@ -9506,13 +9358,13 @@ object MainForm: TMainForm
       Origin = '"IMPEXP"."VPROG"'
       Size = 10
     end
-    object impLASTRASCH: TDateField
-      FieldName = 'LASTRASCH'
-      Origin = '"IMPEXP"."LASTRASCH"'
-    end
     object impLASTEXP: TIntegerField
       FieldName = 'LASTEXP'
       Origin = '"IMPEXP"."LASTEXP"'
+    end
+    object impLASTROZR: TIntegerField
+      FieldName = 'LASTROZR'
+      Origin = '"IMPEXP"."LASTROZR"'
     end
   end
   object site_pokazn: TIBDataSet
@@ -10553,7 +10405,6 @@ object MainForm: TMainForm
     object hvdNOR_RAZN: TIBBCDField
       FieldName = 'NOR_RAZN'
       Origin = '"H_VODA"."NOR_RAZN"'
-      OnChange = hvdNOR_RAZNChange
       Precision = 18
       Size = 4
     end
