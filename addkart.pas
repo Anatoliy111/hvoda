@@ -96,9 +96,7 @@ type
     cxTabSheet5: TcxTabSheet;
     DomSource: TDataSource;
     cxLabel36: TcxLabel;
-    cxLookupComboBox5: TcxLookupComboBox;
     cxLabel37: TcxLabel;
-    cxLookupComboBox6: TcxLookupComboBox;
     cxLabel38: TcxLabel;
     cxCalcEdit8: TcxCalcEdit;
     cxTextEdit6: TcxTextEdit;
@@ -113,6 +111,8 @@ type
     IBQuery5: TIBQuery;
     cxLabel35: TcxLabel;
     cxTextEdit11: TcxTextEdit;
+    cxLookupComboBox5: TcxLookupComboBox;
+    cxLookupComboBox6: TcxLookupComboBox;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxDateEdit2PropertiesChange(Sender: TObject);
@@ -133,7 +133,7 @@ type
     { Public declarations }
     function AddPokaz(sch:string;data:TDateTime;vid:integer;pok:double):boolean;
     procedure calcpok(sch:string);
-    procedure calcpok2(DS:TIBDataSet);
+
 
   end;
 
@@ -190,7 +190,7 @@ begin
 
   if trim(MainForm.DSet.FieldByName('schet').Value)=trim(sch) then
   begin
-     calcpok2(MainForm.DSet);
+     Form2.calcpok2(MainForm.DSet);
   end
   else
   begin                                     
@@ -204,287 +204,7 @@ begin
 
 end;
 
-procedure TFormAddkart.calcpok2(DS:TIBDataSet);
-var kol,kol2,lastpokazn,endpokazn,nextkub,vid,daymonth:integer;
-    date:tdate;
-    kub12,kubavg:Currency;
-begin
 
-
-    IBQuery2.Close;
-    IBQuery2.SQL.Text:='select first 1 * from pokazn where yearmon<:per and schet=:sch order by date_pok desc, id desc';
-    IBQuery2.ParamByName('per').Value:=MainForm.period;
-    IBQuery2.ParamByName('sch').Value:=DS.FieldByName('schet').value;
-    IBQuery2.Open;
-
-    lastpokazn:=0;
-    if IBQuery2.RecordCount<>0 then
-    begin
-       if IBQuery2.FieldByName('POKAZN').IsNull then
-          lastpokazn:=0
-       else
-          lastpokazn:=IBQuery2.FieldByName('POKAZN').Value;
-
-          date:=IBQuery2.FieldByName('date_pok').Value;
-          vid:=IBQuery2.FieldByName('VID_POK').Value;
-    end;
-
-
-
-    IBQuery3.Close;
-    IBQuery3.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch order by date_pok,id';
-//  IBQuery2.SQL.Text:='select * from pokazn where schet=:sch order by date_pok';
-    IBQuery3.ParamByName('sch').Value:=DS.FieldByName('schet').value;
-    IBQuery3.ParamByName('per').Value:=MainForm.period;
-    IBQuery3.Open;
-
-    kol:=0;
-    kol2:=0;
-     while not IBQuery3.eof do
-     begin
-//  if (IBQuery2.FieldByName('VID_POK').Value=17) or (lastpokazn=0) then
-
-     if (IBQuery3.FieldByName('VID_POK').Value<>17) and (IBQuery3.FieldByName('VID_POK').Value<>26) then
-         kol:=kol+IBQuery3.FieldByName('POKAZN').Value-lastpokazn;
-
-     lastpokazn:=IBQuery3.FieldByName('POKAZN').Value;
-        date:=IBQuery3.FieldByName('date_pok').Value;
-        vid:=IBQuery3.FieldByName('VID_POK').Value;
-     IBQuery3.Next;
-     end;
-
- //   IBQuery2.Close;
- //   IBQuery2.SQL.Text:='select first 1 * from pokazn where yearmon>:per and schet=:sch order by date_pok desc, id desc';
- //   IBQuery2.ParamByName('per').Value:=MainForm.period;
- //   IBQuery2.ParamByName('sch').Value:=DS.FieldByName('schet').value;
- //   IBQuery2.Open;
-
-
-
-
-
-    DS.Edit;
- //       if IBQuery2.RecordCount<>0 then
- //          if not IBQuery2.FieldByName('POKAZN').IsNull then
- //          begin
- //             DS.FieldByName('SCH_RAZN2').Value:=IBQuery2.FieldByName('POKAZN').Value-lastpokazn;
- //             date:=IBQuery2.FieldByName('date_pok').Value;
- //             vid:=IBQuery2.FieldByName('VID_POK').Value;
- //             lastpokazn:=IBQuery2.FieldByName('POKAZN').Value;
- //          end
- //          else
-  //            DS.FieldByName('SCH_RAZN2').Value:=0
-  //      else
-  //         if DS.FieldByName('SCH_RAZN2').Value<>0 then
-   //           DS.FieldByName('SCH_RAZN2').Value:=0;
-
-//            if IBQuery3.RecordCount>0 then
-//            begin
-//               if DS.FieldByName('PREV_NORM').Value>0 then
-//               begin
-//                  DS.FieldByName('DEL_NORM').Value:=DS.FieldByName('PREV_NORM').Value*-1;
-//                  DS.FieldByName('PREV_NORM').Value:=0;
-//               end;
-//            end
-//            else
-//               if DS.FieldByName('DEL_NORM').Value<0 then
-//                  begin
-//                  DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
-//                  DS.FieldByName('DEL_NORM').Value:=0;
-//                  end;
-
-       DS.FieldByName('VID_POK').Value:=vid;
-       DS.FieldByName('DATE_POK').Value:=date;
-       DS.FieldByName('SCH_CUR').Value:=lastpokazn;
-
-//       if (DS.FieldByName('WID').Value>=46) then
-//       begin
-//         if (DS.FieldByName('WID').Value>46) then
-//             DS.FieldByName('NOR_RAZN').Value:=0;
-//         DS.FieldByName('SCH_RAZN').Value:=0;
-//       end
-//       else
-//       begin
-//         if (IBQuery3.RecordCount<>0) then
-//         begin
-//               if DS.FieldByName('PREV_NORM').Value>0 then
-//               begin
-//                  DS.FieldByName('DEL_NORM').Value:=DS.FieldByName('PREV_NORM').Value*-1;
-//                  DS.FieldByName('PREV_NORM').Value:=0;
-//               end;
-//
-//
-//            if (DS.FieldByName('WID').Value=45) or (DS.FieldByName('WID').Value=42) then
-//            begin
-//                DS.FieldByName('SCH_RAZN').Value:=0;
-//                DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
-//            end
-//            else
-//            begin
-//                  DS.FieldByName('SCH_RAZN').Value:=kol;
-//                if (DS.FieldByName('WID').Value<>43) then
-//                begin
-//                  DS.FieldByName('NOR_RAZN').Value:=0;
-//                  DS.FieldByName('WID').Value:=41;
-//                end;
-//            end;
-//         end
-//         else
-//         begin
-//            DS.FieldByName('SCH_RAZN').Value:=0;
-//               if DS.FieldByName('DEL_NORM').Value<0 then
-//                  begin
-//                  DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
-//                  DS.FieldByName('DEL_NORM').Value:=0;
-//                  end;
-//
-//
-//
-//            if (DS.FieldByName('WID').Value<>43) then
-//                DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
-//
-//
-//
-//              if (DS.FieldByName('LICH_TO').Value=0) then
-//                   DS.FieldByName('WID').Value:=42
-//
-//              else if (DS.FieldByName('WID').Value=41) then
-//                   DS.FieldByName('WID').Value:=44;
-//         end;
-//
-//       end;
-
-       //46,47,48
-       if (DS.FieldByName('WID').Value>=46) then
-       begin
-       if (DS.FieldByName('WID').Value>46) then
-            DS.FieldByName('NOR_RAZN').Value:=0;
-            DS.FieldByName('R_NACH').Value:='';
-            DS.FieldByName('SCH_RAZN').Value:=0;
-
-         if DS.FieldByName('DEL_NORM').Value<0 then
-                  begin
-                  DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
-                  DS.FieldByName('DEL_NORM').Value:=0;
-                  end;
-       end
-       else
-       begin //41,42,43,44,45
-         if (DS.FieldByName('LICH_TO').Value=0) or (DS.FieldByName('LICH_TO').Value=Null) then
-                  DS.FieldByName('WID').Value:=42
-         else
-         begin
-            if DS.FieldByName('WID').Value=42 then
-               DS.FieldByName('WID').Value:=41;
-         end;
-
-
-
-
-         if (DS.FieldByName('LICH_YEARMON').Value<MainForm.period) and (DS.FieldByName('WID').Value<>43) and (DS.FieldByName('WID').Value<>42) then
-                  DS.FieldByName('WID').Value:=45;
-
-         //45,42
-         if (DS.FieldByName('WID').Value=45) or (DS.FieldByName('WID').Value=42) then
-         begin
-
-                if DS.FieldByName('ORG').Value=0 then
-                begin
-                  DS.FieldByName('SCH_RAZN').Value:=0;
-                  DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
-                  DS.FieldByName('R_NACH').Value:='Споживання по нормі: к-ть зареєстров.('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
-                end
-                else
-                begin
-                  kub12:=Form2.CubAvg12(DS.FieldByName('SCHET').Value);
-                  daymonth:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
-                  kubavg:=SimpleRoundTo(kub12*daymonth,-3);
-                  DS.FieldByName('NOR_RAZN').Value:=kubavg;
-                  DS.FieldByName('R_NACH').Value:='Середнє споживання: к-ть днів за місяць('+inttostr(daymonth)+') * середнє спожив. в день за рік('+CurrToStr(kub12)+')';
-                end;
-                if DS.FieldByName('DEL_NORM').Value<0 then
-                    begin
-                    DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
-                    DS.FieldByName('DEL_NORM').Value:=0;
-                    end;
-
-         end
-         else if (IBQuery3.RecordCount<>0) then  //41,43,44
-         begin
-               if DS.FieldByName('PREV_NORM').Value>0 then
-               begin
-                  DS.FieldByName('DEL_NORM').Value:=DS.FieldByName('PREV_NORM').Value*-1;
-                  DS.FieldByName('PREV_NORM').Value:=0;
-               end;
-
-
-                  DS.FieldByName('SCH_RAZN').Value:=kol;
-             //   if (DS.FieldByName('WID').Value<>43) then
-             //   begin
-                  DS.FieldByName('NOR_RAZN').Value:=0;
-                  DS.FieldByName('R_NACH').Value:='';
-                  DS.FieldByName('WID').Value:=41;
-              //  end;
-
-         end
-         else
-         begin      //41,43,44
-            DS.FieldByName('SCH_RAZN').Value:=0;
-               if DS.FieldByName('DEL_NORM').Value<0 then
-                  begin
-                  DS.FieldByName('PREV_NORM').Value:=DS.FieldByName('DEL_NORM').Value*-1;
-                  DS.FieldByName('DEL_NORM').Value:=0;
-                  end;
-
-
-
-         //   if (DS.FieldByName('WID').Value<>43) then
-         //   begin
-               if DS.FieldByName('ORG').Value=0 then
-               begin
-                 IBQuery5.Close;
-                 IBQuery5.SQL.Text:='select yearmon from pokazn where schet=:sch and yearmon>=(select first 1 skip 3 yearmon from data order by yearmon desc)';
-                 IBQuery5.ParamByName('sch').Value:=DS.FieldByName('schet').value;
-                 IBQuery5.Open;
-
-                 if IBQuery5.RecordCount>0 then
-                 begin
-                  kub12:=Form2.CubAvg12(DS.FieldByName('SCHET').Value);
-                  daymonth:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
-                  kubavg:=SimpleRoundTo(kub12*daymonth,-3);
-                  DS.FieldByName('NOR_RAZN').Value:=kubavg;
-                  DS.FieldByName('R_NACH').Value:='Середнє споживання: к-ть днів за місяць('+inttostr(daymonth)+') * середнє спожив. в день за рік('+CurrToStr(kub12)+')';
-                 end
-                 else
-                 begin
-                   DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
-                   DS.FieldByName('R_NACH').Value:='Споживання по нормі коли 3 міс. не було показників: к-ть зареєстров.('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
-                 end;
-               end
-               else
-               begin
-                  kub12:=Form2.CubAvg12(DS.FieldByName('SCHET').Value);
-                  daymonth:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
-                  kubavg:=SimpleRoundTo(kub12*daymonth,-3);
-                  DS.FieldByName('NOR_RAZN').Value:=kubavg;
-                  DS.FieldByName('R_NACH').Value:='Середнє споживання: к-ть днів за місяць('+inttostr(daymonth)+') * середнє спожив. в день за рік('+CurrToStr(kub12)+')';
-               end;
-
-         //   end;
-
-
-            if (DS.FieldByName('WID').Value=41) then
-                   DS.FieldByName('WID').Value:=44;
-         end;
-
-       end;
-
-
-
-       DS.Post;
-       MainForm.IBTransaction1.CommitRetaining;
-
-end;
 
 
 
@@ -764,7 +484,7 @@ begin
 
   if not AddPokaz(trim(cxTextEdit9.Text),cxDateEdit6.EditValue,cxLookupComboBox2.EditValue,cxCalcEdit1.Value) then exit;
 
-  calcpok2(MainForm.DSet);
+  Form2.calcpok2(MainForm.DSet);
   Form2.calclich(MainForm.DSet);
 
 
@@ -795,7 +515,7 @@ begin
      begin
        IBQuery3.Close;
        IBQuery3.SQL.Text:='select first 1 schet,org from h_voda where yearmon=:ym and schet=:sch';
-       IBQuery3.ParamByName('ym').Value:=MainForm.curYM;
+       IBQuery3.ParamByName('ym').Value:=MainForm.period;;
        IBQuery3.ParamByName('sch').Value:=trim(cxTextEdit6.Text);
        IBQuery3.Open;
 
@@ -819,7 +539,7 @@ begin
      MainForm.orgORG.Value:=1;
      MainForm.orgLICH_TO.Value:=0;
      MainForm.org.post;
-     calcpok2(MainForm.org);
+     Form2.calcpok2(MainForm.org);
      Form2.calclich(MainForm.org);
   end;
 
@@ -855,11 +575,11 @@ begin
   then
   begin
 
-     if (cxLookupComboBox5.EditValue<>MainForm.grp.FieldByName('UL').Value) or (cxLookupComboBox6.EditValue<>MainForm.grp.FieldByName('N_DOM').Value) then
+     if (adddomlich) or (cxLookupComboBox5.EditValue<>MainForm.grp.FieldByName('UL').Value) or (cxLookupComboBox6.EditValue<>MainForm.grp.FieldByName('N_DOM').Value) then
      begin
        IBQuery3.Close;
-       IBQuery3.SQL.Text:='select first 1 ul,n_dom from grp where yearmon=:ym and ul=:ull and n_dom=:nd';
-       IBQuery3.ParamByName('ym').Value:=MainForm.curYM;
+       IBQuery3.SQL.Text:='select first 1 ul,n_dom from hvgrp where yearmon=:ym and ul=:ull and n_dom=:nd';
+       IBQuery3.ParamByName('ym').Value:=MainForm.period;
        IBQuery3.ParamByName('ull').Value:=cxLookupComboBox5.EditValue;
        IBQuery3.ParamByName('nd').Value:=trim(cxLookupComboBox6.EditValue);
        IBQuery3.Open;
@@ -965,10 +685,10 @@ procedure TFormAddkart.cxLookupComboBox5PropertiesEditValueChanged(
 begin
 DOMDataSet.Close;
 DOMDataSet.ParamByName('yearmon').Value:=MainForm.curYM;
-DOMDataSet.ParamByName('ull').Value:=cxLookupComboBox3.EditValue;;
+DOMDataSet.ParamByName('ull').Value:=cxLookupComboBox5.EditValue;;
 DOMDataSet.Open;
 
-cxLookupComboBox4.EditValue:='';
+cxLookupComboBox6.EditValue:='';
 end;
 
 procedure TFormAddkart.cxTabSheet4Show(Sender: TObject);

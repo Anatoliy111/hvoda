@@ -184,24 +184,6 @@ type
     DBGrid3SCH_CUR: TcxGridDBColumn;
     DBGrid3SCH_RAZN: TcxGridDBColumn;
     DBGrid3SCH_KUB: TcxGridDBColumn;
-    DBGrid3SCH_FACT: TcxGridDBColumn;
-    grpKL: TIntegerField;
-    grpYEARMON: TIntegerField;
-    grpDOM: TIBStringField;
-    grpPOD: TIntegerField;
-    grpSCH0: TIBStringField;
-    grpSCH1: TIBStringField;
-    grpSCH_OLD: TIBBCDField;
-    grpSCH_CUR: TIBBCDField;
-    grpSCH_FACT: TIBBCDField;
-    grpNORMA: TIBBCDField;
-    grpRAZN: TIBBCDField;
-    grpNOTE: TIBStringField;
-    grpSCH_KUB: TIBBCDField;
-    grpSCH_RAZN: TIBBCDField;
-    grpNORMA_BL: TIBBCDField;
-    grpSCH_FOP: TIBBCDField;
-    DBGrid3SCH_FOP: TcxGridDBColumn;
     pokaznSource: TDataSource;
     pokazn: TIBDataSet;
     lichznDataSource: TDataSource;
@@ -510,14 +492,8 @@ type
     dxBarButton35: TdxBarButton;
     dxBarButton36: TdxBarButton;
     dxBarButton37: TdxBarButton;
-    grpN_LICH: TIBStringField;
-    grpTIP: TIBStringField;
-    grpKL_UL: TIntegerField;
-    grpUL: TIBStringField;
-    grpN_DOM: TIBStringField;
     DBGrid3UL: TcxGridDBColumn;
     DBGrid3N_DOM: TcxGridDBColumn;
-    cxGridDBBandedTableView1Column1: TcxGridDBBandedColumn;
     dxBarEdit1: TdxBarEdit;
     DBGrid1R_NACH: TcxGridDBBandedColumn;
     cxGridDBBandedTableView1PERE_DAY: TcxGridDBBandedColumn;
@@ -528,6 +504,34 @@ type
     cxGridDBBandedTableView1NOTE: TcxGridDBBandedColumn;
     cxBarEditItem3: TcxBarEditItem;
     dxBarButton38: TdxBarButton;
+    DBGrid3N_LICH: TcxGridDBColumn;
+    DBGrid3TIP: TcxGridDBColumn;
+    DBGrid3SCH_NAS: TcxGridDBColumn;
+    DBGrid3SCH_UR: TcxGridDBColumn;
+    DBGrid3SCH_SUMABON: TcxGridDBColumn;
+    grpKL: TIntegerField;
+    grpYEARMON: TIntegerField;
+    grpSCH0: TIBStringField;
+    grpSCH1: TIBStringField;
+    grpRAZN: TFloatField;
+    grpNORMA: TFloatField;
+    grpNOTE: TIBStringField;
+    grpDOM: TIBStringField;
+    grpPOD: TIntegerField;
+    grpSCH_OLD: TFloatField;
+    grpSCH_CUR: TFloatField;
+    grpSCH_NAS: TFloatField;
+    grpSCH_KUB: TFloatField;
+    grpSCH_RAZN: TFloatField;
+    grpNORMA_BL: TFloatField;
+    grpSCH_UR: TFloatField;
+    grpN_LICH: TIBStringField;
+    grpTIP: TIBStringField;
+    grpKL_UL: TIntegerField;
+    grpUL: TIBStringField;
+    grpN_DOM: TIBStringField;
+    grpSCH_SUMABON: TFloatField;
+    dxBarButton39: TdxBarButton;
     hvdKL: TIntegerField;
     hvdYEARMON: TIntegerField;
     hvdPLOMB: TSmallintField;
@@ -580,6 +584,9 @@ type
     hvdEDRPOU: TIntegerField;
     hvdKL_UL: TIntegerField;
     hvdR_NACH: TIBStringField;
+    hvdNORM_BLICH: TFloatField;
+    hvdKUB_NOBALANS: TFloatField;
+    hvdKUB_ALL: TSmallintField;
     orgKL: TIntegerField;
     orgYEARMON: TIntegerField;
     orgPLOMB: TSmallintField;
@@ -632,6 +639,9 @@ type
     orgEDRPOU: TIntegerField;
     orgKL_UL: TIntegerField;
     orgR_NACH: TIBStringField;
+    orgNORM_BLICH: TFloatField;
+    orgKUB_NOBALANS: TFloatField;
+    orgKUB_ALL: TSmallintField;
     hvdallKL: TIntegerField;
     hvdallYEARMON: TIntegerField;
     hvdallPLOMB: TSmallintField;
@@ -684,7 +694,16 @@ type
     hvdallEDRPOU: TIntegerField;
     hvdallKL_UL: TIntegerField;
     hvdallR_NACH: TIBStringField;
+    hvdallNORM_BLICH: TFloatField;
+    hvdallKUB_NOBALANS: TFloatField;
+    hvdallKUB_ALL: TSmallintField;
     hvdallLICHUPD: TIntegerField;
+    DBGrid1NORM_BLICH: TcxGridDBBandedColumn;
+    DBGrid1KUB_NOBALANS: TcxGridDBBandedColumn;
+    DBGrid1KUB_ALL: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1NORM_BLICH: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1KUB_NOBALANS: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1KUB_ALL: TcxGridDBBandedColumn;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -785,6 +804,9 @@ type
     procedure dxBarButton35Click(Sender: TObject);
     procedure dxBarButton36Click(Sender: TObject);
     procedure dxBarButton37Click(Sender: TObject);
+    procedure DBGrid3SCH_CURPropertiesValidate(Sender: TObject;
+      var DisplayValue: Variant; var ErrorText: TCaption; var Error: Boolean);
+    procedure grpSCH_CURChange(Sender: TField);
 
   private
     { Private declarations }
@@ -809,6 +831,7 @@ type
     procedure allcalclich2;
     procedure allcalcnorm;
     procedure update;
+    procedure RaschLichDom;
 
   end;
 
@@ -883,7 +906,7 @@ begin
     Form4.Label4.Caption:=hvdallSCHET.Value;
     application.ProcessMessages;
 
-         FormAddkart.calcpok2(hvdall);
+         Form2.calcpok2(hvdall);
 
          Form2.calclich(hvdall);
 
@@ -1455,8 +1478,8 @@ FormAddkart.Show;
 FormAddkart.cxLookupComboBox5.EditValue:=MainForm.grp.FieldByName('UL').Value;
 FormAddkart.cxLookupComboBox6.EditValue:=MainForm.grp.FieldByName('N_DOM').Value;
 FormAddkart.cxCalcEdit8.EditValue:=MainForm.grp.FieldByName('SCH_OLD').Value;
-FormAddkart.cxTextEdit13.Text:=MainForm.DSet.FieldByName('TIP').Value;
-FormAddkart.cxTextEdit14.Text:=MainForm.DSet.FieldByName('N_LICH').Value;
+FormAddkart.cxTextEdit13.Text:=MainForm.grp.FieldByName('TIP').Value;
+FormAddkart.cxTextEdit14.Text:=MainForm.grp.FieldByName('N_LICH').Value;
 
 //FormAddkart.cxTextEdit11.Text:=MainForm.DSet.FieldByName('NOTE').Value;
 end;
@@ -1951,6 +1974,11 @@ begin
 
 end;
 
+procedure TMainForm.grpSCH_CURChange(Sender: TField);
+begin
+RaschLichDom;
+end;
+
 procedure TMainForm.ActionPrintExecute(Sender: TObject);
 begin
 //  hvd_rep.Open;
@@ -2014,6 +2042,29 @@ begin
 //      DBGrid1NOR_RAZN.Options.Editing:=false;
 //      DBGrid1NOR_RAZN.Properties.ReadOnly:=true;
 //    end;
+end;
+
+procedure TMainForm.DBGrid3SCH_CURPropertiesValidate(Sender: TObject;
+  var DisplayValue: Variant; var ErrorText: TCaption; var Error: Boolean);
+begin
+if DisplayValue-MainForm.grp.FieldByName('SCH_OLD').Value<0 then
+begin
+//    ShowMessage('Теперішній показник меньший за минулий! Перевірте правильність введених даних!');
+    ErrorText:='Теперішній показник меньший за минулий! Перевірте правильність введених даних!';
+    Error:=true;
+end;
+
+end;
+
+procedure TMainForm.RaschLichDom;
+begin
+   MainForm.grp.Edit;
+   MainForm.grp.FieldByName('SCH_KUB').Value:=MainForm.grp.FieldByName('SCH_CUR').Value-MainForm.grp.FieldByName('SCH_OLD').Value;
+ //  MainForm.grp.FieldByName('SCH_SUMABON').Value:=MainForm.grp.FieldByName('SCH_UR').Value+MainForm.grp.FieldByName('SCH_NAS').Value;
+ //  MainForm.grp.FieldByName('SCH_RAZN').Value:=MainForm.grp.FieldByName('SCH_KUB').Value-MainForm.grp.FieldByName('SCH_SUMABON').Value;
+   MainForm.grp.Post;
+   MainForm.IBTransaction1.CommitRetaining;
+
 end;
 
 procedure TMainForm.ActionPrintTotalExecute(Sender: TObject);

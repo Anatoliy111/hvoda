@@ -494,37 +494,10 @@ object FormAddkart: TFormAddkart
         Top = 9
         Caption = #1042#1091#1083#1080#1094#1103
       end
-      object cxLookupComboBox5: TcxLookupComboBox
-        Left = 15
-        Top = 29
-        Properties.KeyFieldNames = 'KL_UL'
-        Properties.ListColumns = <
-          item
-            FieldName = 'UL'
-          end>
-        Properties.ListSource = UlSource
-        Properties.OnEditValueChanged = cxLookupComboBox5PropertiesEditValueChanged
-        Style.Color = clMoneyGreen
-        TabOrder = 1
-        Width = 191
-      end
       object cxLabel37: TcxLabel
         Left = 15
         Top = 57
         Caption = #1041#1091#1076#1080#1085#1086#1082
-      end
-      object cxLookupComboBox6: TcxLookupComboBox
-        Left = 15
-        Top = 80
-        Properties.KeyFieldNames = 'N_DOM'
-        Properties.ListColumns = <
-          item
-            FieldName = 'N_DOM'
-          end>
-        Properties.ListSource = DomSource
-        Style.Color = clMoneyGreen
-        TabOrder = 3
-        Width = 57
       end
       object cxLabel38: TcxLabel
         Left = 15
@@ -537,7 +510,7 @@ object FormAddkart: TFormAddkart
         EditValue = 0.000000000000000000
         Properties.OnEditValueChanged = cxCalcEdit1PropertiesEditValueChanged
         Style.Color = clMoneyGreen
-        TabOrder = 5
+        TabOrder = 3
         Width = 169
       end
       object cxLabel28: TcxLabel
@@ -549,7 +522,7 @@ object FormAddkart: TFormAddkart
         Left = 15
         Top = 189
         Style.Color = clMoneyGreen
-        TabOrder = 7
+        TabOrder = 5
         Width = 169
       end
       object cxLabel39: TcxLabel
@@ -561,8 +534,39 @@ object FormAddkart: TFormAddkart
         Left = 15
         Top = 235
         Style.Color = clMoneyGreen
-        TabOrder = 9
+        TabOrder = 7
         Width = 169
+      end
+      object cxLookupComboBox5: TcxLookupComboBox
+        Left = 15
+        Top = 29
+        Properties.KeyFieldNames = 'UL'
+        Properties.ListColumns = <
+          item
+            FieldName = 'UL'
+          end>
+        Properties.ListSource = UlSource
+        Properties.OnEditValueChanged = cxLookupComboBox5PropertiesEditValueChanged
+        Style.Color = clMoneyGreen
+        TabOrder = 8
+        Width = 191
+      end
+      object cxLookupComboBox6: TcxLookupComboBox
+        Left = 15
+        Top = 80
+        Properties.DropDownAutoSize = True
+        Properties.DropDownListStyle = lsEditList
+        Properties.KeyFieldNames = 'N_DOM'
+        Properties.ListColumns = <
+          item
+            FieldName = 'N_DOM'
+          end>
+        Properties.ListSource = DomSource
+        Properties.MaxLength = 5
+        EditValue = ''
+        Style.Color = clMoneyGreen
+        TabOrder = 9
+        Width = 57
       end
     end
   end

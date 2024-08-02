@@ -46,7 +46,7 @@ var
 
 implementation
 
-uses main, addkart,mytools;
+uses main, addkart,mytools, kart;
 
 {$R *.dfm}
 
@@ -124,7 +124,7 @@ begin
   MainForm.pokaznVID_POK.Value:=21;
   MainForm.pokazn.Post;
 
-  FormAddkart.calcpok2(MainForm.viber_pokazn);
+    Form2.calcpok2(MainForm.viber_pokazn);
 
     MainForm.viber_pokazn.Edit;
     MainForm.viber_pokaznSTATUS.Value:='Показник додано успішно!!!';
