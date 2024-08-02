@@ -399,6 +399,13 @@ begin
        end;
 
 
+  DS.FieldByName('KUB_ALL').Value:=DS.FieldByName('SCH_RAZN').Value+
+  DS.FieldByName('NOR_RAZN').Value+
+  DS.FieldByName('NORM_BLICH').Value+
+  DS.FieldByName('KUB_NOBALANS').Value;
+
+
+
 
        DS.Post;
        MainForm.IBTransaction1.CommitRetaining;
@@ -621,6 +628,14 @@ begin
            DS.Post;
 
   end;
+
+  DS.Edit;
+  DS.FieldByName('KUB_ALL').Value:=DS.FieldByName('SCH_RAZN').Value+
+  DS.FieldByName('NOR_RAZN').Value+
+  DS.FieldByName('NORM_BLICH').Value+
+  DS.FieldByName('KUB_NOBALANS').Value;
+  DS.Post;
+
 
   MainForm.IBTransaction1.CommitRetaining;
 

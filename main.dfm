@@ -23,12 +23,11 @@ object MainForm: TMainForm
     Top = 112
     Width = 1017
     Height = 521
-    ActivePage = cxTabSheet4
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 0
     OnPageChanging = cxPageControl1PageChanging
     ExplicitTop = 41
-    ExplicitWidth = 864
     ExplicitHeight = 592
     ClientRectBottom = 521
     ClientRectRight = 1017
@@ -37,7 +36,7 @@ object MainForm: TMainForm
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
       OnShow = cxTabSheet1Show
-      ExplicitHeight = 468
+      ExplicitHeight = 568
       object Image1: TImage
         Left = 608
         Top = 232
@@ -59,7 +58,6 @@ object MainForm: TMainForm
         Height = 469
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 864
         object DBGrid1: TcxGridDBBandedTableView
           OnKeyDown = DBGrid1KeyDown
           NavigatorButtons.OnButtonClick = DBGrid1NavigatorButtonsButtonClick
@@ -522,7 +520,7 @@ object MainForm: TMainForm
       Caption = #1070#1088'.'#1086#1089#1086#1073#1080'/'#1060#1054#1055
       ImageIndex = 1
       OnShow = cxTabSheet4Show
-      ExplicitHeight = 468
+      ExplicitHeight = 568
       object Image2: TImage
         Left = 608
         Top = 232
@@ -546,7 +544,6 @@ object MainForm: TMainForm
         Height = 469
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 864
         object cxGridDBBandedTableView1: TcxGridDBBandedTableView
           OnKeyDown = cxGridDBBandedTableView1KeyDown
           NavigatorButtons.ConfirmDelete = False
@@ -864,7 +861,7 @@ object MainForm: TMainForm
     object cxTabSheet3: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1110' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 3
-      ExplicitHeight = 468
+      ExplicitHeight = 568
       object dxBarDockControl3: TdxBarDockControl
         Left = 0
         Top = 0
@@ -880,7 +877,6 @@ object MainForm: TMainForm
         Height = 469
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 864
         object DBGrid3: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
@@ -988,7 +984,7 @@ object MainForm: TMainForm
     object cxTabSheet2: TcxTabSheet
       Caption = #1055#1088#1086#1087#1080#1089#1082#1072
       ImageIndex = 2
-      ExplicitHeight = 468
+      ExplicitHeight = 568
       object dxBarDockControl2: TdxBarDockControl
         Left = 0
         Top = 0
@@ -1004,7 +1000,6 @@ object MainForm: TMainForm
         Height = 471
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 864
         object DBGrid2: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
@@ -1072,7 +1067,6 @@ object MainForm: TMainForm
     BorderStyle = bsSingle
     Color = clCream
     TabOrder = 1
-    ExplicitWidth = 864
   end
   object Panel2: TPanel
     Left = 0
@@ -7580,13 +7574,13 @@ object MainForm: TMainForm
       FieldName = 'KUB_NOBALANS'
       Origin = '"H_VODA"."KUB_NOBALANS"'
     end
-    object hvdallKUB_ALL: TSmallintField
-      FieldName = 'KUB_ALL'
-      Origin = '"H_VODA"."KUB_ALL"'
-    end
     object hvdallLICHUPD: TIntegerField
       FieldName = 'LICHUPD'
       ProviderFlags = []
+    end
+    object hvdallKUB_ALL: TFloatField
+      FieldName = 'KUB_ALL'
+      Origin = '"H_VODA"."KUB_ALL"'
     end
   end
   object hvdallSource: TDataSource
@@ -9367,7 +9361,7 @@ object MainForm: TMainForm
       FieldName = 'KUB_NOBALANS'
       Origin = '"H_VODA"."KUB_NOBALANS"'
     end
-    object orgKUB_ALL: TSmallintField
+    object orgKUB_ALL: TFloatField
       FieldName = 'KUB_ALL'
       Origin = '"H_VODA"."KUB_ALL"'
     end
@@ -11309,7 +11303,7 @@ object MainForm: TMainForm
       FieldName = 'KUB_NOBALANS'
       Origin = '"H_VODA"."KUB_NOBALANS"'
     end
-    object hvdKUB_ALL: TSmallintField
+    object hvdKUB_ALL: TFloatField
       FieldName = 'KUB_ALL'
       Origin = '"H_VODA"."KUB_ALL"'
     end
