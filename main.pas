@@ -1575,6 +1575,8 @@ begin
     imp.Post;
     IBTransaction1.CommitRetaining;
 
+    ShowMessage('Повний розрахунок завершено!');
+
 end;
 
 procedure TMainForm.dxBarButton39Click(Sender: TObject);
@@ -2706,6 +2708,9 @@ begin
   Application.ProcessMessages;
   IBtransaction1.CommitRetaining;
   //allcalclich;
+  imp.Close;
+  imp.Open;
+
   if impLASTROZR.Value=0 then
   begin
      ShowMessage('Ви не виконували повний розрахунок. Виконайте повний розрахунок і повторіть операцію знову!!!');

@@ -913,6 +913,8 @@ procedure TForm2.cxButton5Click(Sender: TObject);
 begin
 Form2.calcpok2(MainForm.DSet);
 Form2.calclich(MainForm.DSet);
+     ShowMessage('Розрахунок завершено!');
+
 
 end;
 
