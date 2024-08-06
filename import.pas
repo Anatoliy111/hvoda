@@ -45,6 +45,7 @@ type
     cxGrid1DBTableView1ADDPLOMB: TcxGridDBColumn;
     cxGrid1DBTableView1ENDMES: TcxGridDBColumn;
     cxGrid1DBTableView1USER_NAIM: TcxGridDBColumn;
+    Button4: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);

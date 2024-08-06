@@ -34,6 +34,7 @@ object Form1: TForm1
     Height = 25
     Caption = 'Connect'
     TabOrder = 0
+    Visible = False
     OnClick = Button1Click
   end
   object Button2: TButton
@@ -43,6 +44,7 @@ object Form1: TForm1
     Height = 25
     Caption = 'exec'
     TabOrder = 1
+    Visible = False
     OnClick = Button2Click
   end
   object cxProgressBar2: TcxProgressBar
@@ -58,6 +60,7 @@ object Form1: TForm1
     Height = 25
     Caption = 'UpdateKartAbon'
     TabOrder = 3
+    Visible = False
     OnClick = Button3Click
   end
   object cxGrid1: TcxGrid
@@ -113,6 +116,16 @@ object Form1: TForm1
     object cxGrid1Level1: TcxGridLevel
       GridView = cxGrid1DBTableView1
     end
+  end
+  object Button4: TButton
+    Left = 89
+    Top = 0
+    Width = 97
+    Height = 25
+    Caption = 'UpdateKartAbon'
+    TabOrder = 5
+    Visible = False
+    OnClick = Button3Click
   end
   object hvd: TIBDataSet
     Database = MainForm.IBDatabase

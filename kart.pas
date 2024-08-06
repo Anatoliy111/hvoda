@@ -232,13 +232,14 @@ begin
 end;
 
 procedure TForm2.calcpok2(DS:TIBDataSet);
-var kol,kol2,lastpokazn,endpokazn,nextkub,vid,daymonth:integer;
+var kol,kol2,lastpokazn,endpokazn,nextkub,vid,daymonth,inpokazn:integer;
     date:tdate;
     kub12,kubavg:Currency;
 begin
 
     IBQuery5.Close;
-    IBQuery5.SQL.Text:='select first 1 * from pokazn where yearmon<:per and schet=:sch order by date_pok desc, id desc';
+    IBQuery5.SQL.Text:='select pkk.id,pkk.schet,pkk.yearmon,pkk.pokazn,pkk.vid_pok,pkk.date_pok from pokazn pkk '+
+                       'join (select schet, max(date_pok) date_pok, max(id) id from pokazn where yearmon<:per and schet=:sch group by schet) as pok1 on pok1.id=pkk.id';
     IBQuery5.ParamByName('per').Value:=MainForm.period;
     IBQuery5.ParamByName('sch').Value:=DS.FieldByName('schet').value;
     IBQuery5.Open;
@@ -279,6 +280,56 @@ begin
      end;
 
 
+//    IBQuery5.Close;
+//    IBQuery5.SQL.Text:='select * from '+
+//                       '(select schet,yearmon,pokazn,vid_pok,date_pok from (select first 1 schet,yearmon,pokazn,vid_pok,date_pok from pokazn where yearmon<:per and schet=:sch order by date_pok desc,id desc)'+
+//                       'union all '+
+//                       'select schet,yearmon,pokazn,vid_pok,date_pok from (select schet,yearmon,pokazn,vid_pok,date_pok from pokazn where yearmon=:per and schet=:sch order by date_pok,id))';
+//
+//    IBQuery5.ParamByName('per').Value:=MainForm.period;
+//    IBQuery5.ParamByName('sch').Value:=DS.FieldByName('schet').value;
+//    IBQuery5.Open;
+//
+//    lastpokazn:=0;
+//    kol:=0;
+//    kol2:=0;
+//    inpokazn:=0;
+//    if IBQuery5.RecordCount<>0 then
+//    begin
+//      while not IBQuery5.eof do
+//      begin
+//         if IBQuery5.FieldByName('yearmon').Value<>MainForm.period then
+//         begin
+//           if IBQuery5.FieldByName('POKAZN').IsNull then
+//              lastpokazn:=0
+//           else
+//              lastpokazn:=IBQuery5.FieldByName('POKAZN').Value;
+//
+//              date:=IBQuery5.FieldByName('date_pok').Value;
+//              vid:=IBQuery5.FieldByName('VID_POK').Value;
+//         end
+//         else
+//         begin
+//           if (IBQuery5.FieldByName('VID_POK').Value<>17) and (IBQuery5.FieldByName('VID_POK').Value<>26) then
+//               kol:=kol+IBQuery5.FieldByName('POKAZN').Value-lastpokazn;
+//              inpokazn:=1;
+//              lastpokazn:=IBQuery5.FieldByName('POKAZN').Value;
+//              date:=IBQuery5.FieldByName('date_pok').Value;
+//              vid:=IBQuery5.FieldByName('VID_POK').Value;
+//
+//
+//         end;
+//
+//      IBQuery5.Next;
+//      end;
+//    end;
+
+//select * from
+//(select pkk.id,pkk.schet,pkk.yearmon,pkk.pokazn,pkk.vid_pok,pkk.date_pok from pokazn pkk
+//join (select schet, max(date_pok) date_pok, max(id) id from pokazn where yearmon<:per group by schet) as pok1 on pok1.id=pkk.id
+//union all
+//select id,schet,yearmon,pokazn,vid_pok,date_pok from pokazn where yearmon=:per)
+//order by schet,date_pok,id
 
     DS.Edit;
 
