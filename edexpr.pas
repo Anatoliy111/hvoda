@@ -141,6 +141,16 @@ type
     hvd_repNORMA: TFloatField;
     hvd_repDEL_NORM: TFloatField;
     hvd_repPREV_NORM: TFloatField;
+    hvd_repOLD_NORM: TFloatField;
+    hvd_repLICH_YEARMON: TIntegerField;
+    hvd_repEDRPOU: TIntegerField;
+    hvd_repKL_UL: TIntegerField;
+    hvd_repR_NACH: TIBStringField;
+    hvd_repNORM_BLICH: TFloatField;
+    hvd_repKUB_NOBALANS: TFloatField;
+    hvd_repKUB_ALL: TFloatField;
+    hvd_repPLOSCH_UR: TFloatField;
+    hvd_repPERERAH: TFloatField;
     procedure FormShow(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure dxBarButton1Click(Sender: TObject);

@@ -149,7 +149,7 @@ begin
               MainForm.hvdall.edit;
               MainForm.hvdallwid.Value:=48;
               MainForm.hvdall.post;
-              Form2.calcpok2(MainForm.hvdall);
+              Form2.calcpok2(MainForm.hvdall,1);
 
             end;
            // if (oo1.fieldbyname('koef').AsInteger=1) and (MainForm.hvdallwid.Value<=46) then

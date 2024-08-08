@@ -141,8 +141,8 @@ begin
       if cxLookupComboBox1.EditValue=39 then
       begin
         MainForm.DSet.Edit;
-        MainForm.DSet.FieldByName('LICH_TO').Value:=MainForm.DSet.FieldByName('LICH_TO').Value-1;
-        if MainForm.DSet.FieldByName('LICH_TO').Value=0 then
+        MainForm.DSet.FieldByName('LICH_TO').AsInteger:=MainForm.DSet.FieldByName('LICH_TO').AsInteger-1;
+        if MainForm.DSet.FieldByName('LICH_TO').AsInteger=0 then
            MainForm.DSet.FieldByName('WID').Value:=42;
       end
       else if cxLookupComboBox1.EditValue=6 then
@@ -154,7 +154,9 @@ begin
 
       MainForm.IBTransaction1.CommitRetaining;
 
-      Form2.cxButton5.Click;
+
+Form2.calcpok2(MainForm.DSet,1);
+Form2.calclich(MainForm.DSet);
      // Form2.calclich(MainForm.DSet);
 
 //  IBQuery4.Close;

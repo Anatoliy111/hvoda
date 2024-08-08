@@ -113,6 +113,12 @@ type
     cxTextEdit11: TcxTextEdit;
     cxLookupComboBox5: TcxLookupComboBox;
     cxLookupComboBox6: TcxLookupComboBox;
+    cxLabel40: TcxLabel;
+    cxLabel41: TcxLabel;
+    cxCalcEdit7: TcxCalcEdit;
+    cxCalcEdit9: TcxCalcEdit;
+    cxLabel42: TcxLabel;
+    cxCalcEdit10: TcxCalcEdit;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxDateEdit2PropertiesChange(Sender: TObject);
@@ -126,6 +132,7 @@ type
     procedure cxTabSheet4Show(Sender: TObject);
     procedure cxLookupComboBox5PropertiesEditValueChanged(Sender: TObject);
     procedure cxTabSheet5Show(Sender: TObject);
+    procedure cxCalcEdit7PropertiesEditValueChanged(Sender: TObject);
   private
     { Private declarations }
   public
@@ -190,7 +197,7 @@ begin
 
   if trim(MainForm.DSet.FieldByName('schet').Value)=trim(sch) then
   begin
-     Form2.calcpok2(MainForm.DSet);
+     Form2.calcpok2(MainForm.DSet,1);
   end
   else
   begin                                     
@@ -312,8 +319,8 @@ begin
 
   MainForm.DSet.Edit;
 
-  if MainForm.lich.RecordCount>MainForm.DSet.FieldByName('LICH_TO').Value then
-    MainForm.DSet.FieldByName('LICH_TO').Value:=MainForm.DSet.FieldByName('LICH_TO').Value+1;
+  if MainForm.lich.RecordCount>MainForm.DSet.FieldByName('LICH_TO').AsInteger then
+    MainForm.DSet.FieldByName('LICH_TO').AsInteger:=MainForm.DSet.FieldByName('LICH_TO').AsInteger+1;
 
   MainForm.DSet.FieldByName('WID').Value:=41;
   MainForm.DSet.Post;
@@ -362,7 +369,9 @@ begin
 
   end;
 
-  Form2.cxButton5.Click;
+
+Form2.calcpok2(MainForm.DSet,1);
+Form2.calclich(MainForm.DSet);
 
  // FormAddkart.calcpok2(MainForm.DSet);
 
@@ -484,7 +493,7 @@ begin
 
   if not AddPokaz(trim(cxTextEdit9.Text),cxDateEdit6.EditValue,cxLookupComboBox2.EditValue,cxCalcEdit1.Value) then exit;
 
-  Form2.calcpok2(MainForm.DSet);
+  Form2.calcpok2(MainForm.DSet,1);
   Form2.calclich(MainForm.DSet);
 
 
@@ -508,6 +517,8 @@ begin
    and (cxTextEdit6.Text<>'')
    and (cxTextEdit10.Text<>'')
    and (cxLookupComboBox4.EditValue<>null)
+   and (cxCalcEdit7.EditValue<>0)
+   and (cxCalcEdit10.EditValue<>0)
   then
   begin
 
@@ -537,10 +548,8 @@ begin
      MainForm.orgWID.Value:=42;
      MainForm.orgSCHET.Value:=trim(cxTextEdit6.Text);
      MainForm.orgORG.Value:=1;
-     MainForm.orgLICH_TO.Value:=0;
+     MainForm.orgLICH_TO.AsInteger:=0;
      MainForm.org.post;
-     Form2.calcpok2(MainForm.org);
-     Form2.calclich(MainForm.org);
   end;
 
 
@@ -552,7 +561,16 @@ begin
   MainForm.orgN_DOM.Value:=trim(cxLookupComboBox4.EditValue);
   MainForm.orgKV.Value:=trim(cxTextEdit12.Text);
   MainForm.orgNOTE.Value:=trim(cxTextEdit11.Text);
+  MainForm.orgPLOSCH_UR.Value:=cxCalcEdit7.EditValue;
+  MainForm.orgKOLI_P.Value:=cxCalcEdit9.EditValue;
+  MainForm.orgNORMA.Value:=cxCalcEdit10.EditValue;
+
   MainForm.org.post;
+
+  MainForm.IBTransaction1.CommitRetaining;
+
+     Form2.calcpok2(MainForm.org,1);
+     Form2.calclich(MainForm.org);
 
 
 
@@ -570,7 +588,7 @@ begin
   if (cxLookupComboBox5.EditValue<>null)
    and (cxTextEdit13.Text<>'')
    and (cxTextEdit14.Text<>'')
-   and (cxCalcEdit8.Text<>'')
+   and (cxCalcEdit8.EditValue<>0)
    and (cxLookupComboBox6.EditValue<>null)
   then
   begin
@@ -634,6 +652,12 @@ end;
 procedure TFormAddkart.cxCalcEdit1PropertiesEditValueChanged(Sender: TObject);
 begin
 cxCalcEdit3.EditValue:=cxCalcEdit1.EditValue-cxCalcEdit2.EditValue;
+end;
+
+procedure TFormAddkart.cxCalcEdit7PropertiesEditValueChanged(Sender: TObject);
+begin
+cxCalcEdit9.EditValue:=RoundTo(cxCalcEdit7.EditValue/10,0);
+
 end;
 
 procedure TFormAddkart.cxCheckBox1PropertiesChange(Sender: TObject);
@@ -721,7 +745,7 @@ begin
    if Components[i] is TcxdateEdit then
       (Components[i] as TcxdateEdit).EditValue:=null;
    if Components[i] is TcxCalcEdit then
-      (Components[i] as TcxCalcEdit).EditValue:=null;
+      (Components[i] as TcxCalcEdit).EditValue:=0;
    if Components[i] is TcxLookupComboBox then
       (Components[i] as TcxLookupComboBox).EditValue:=null;
 end;
@@ -776,15 +800,15 @@ begin
   begin
     FormAddkart.cxDateEdit6.EditValue:=Date();
 
-    if (FormAddkart.cxTabSheet3.Visible) and (MainForm.DSet.FieldByName('LICH_TO').Value=0) then
+    if (FormAddkart.cxTabSheet3.Visible) and (MainForm.DSet.FieldByName('LICH_TO').AsInteger=0) then
     begin
       ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
       exit;
     end;
 
-  FormAddkart.IBQuery1.Close;
-  FormAddkart.IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
-  FormAddkart.IBQuery1.open;
+    FormAddkart.IBQuery1.Close;
+    FormAddkart.IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
+    FormAddkart.IBQuery1.open;
 
   end;
 

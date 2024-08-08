@@ -22,7 +22,7 @@ object FormAddkart: TFormAddkart
     Top = 0
     Width = 438
     Height = 391
-    ActivePage = cxTabSheet5
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 0
     ClientRectBottom = 391
@@ -483,6 +483,47 @@ object FormAddkart: TFormAddkart
         Top = 317
         TabOrder = 11
         Width = 401
+      end
+      object cxLabel40: TcxLabel
+        Left = 15
+        Top = 226
+        Caption = #1055#1083#1086#1097#1072' '#1084'2'
+      end
+      object cxLabel41: TcxLabel
+        Left = 95
+        Top = 226
+        Caption = #1050'-'#1090#1100' '#1086#1089#1110#1073' '#1087#1086' '#1087#1083#1086#1097#1110
+      end
+      object cxCalcEdit7: TcxCalcEdit
+        Left = 15
+        Top = 249
+        EditValue = 0.000000000000000000
+        Properties.OnEditValueChanged = cxCalcEdit7PropertiesEditValueChanged
+        Style.Color = clMoneyGreen
+        TabOrder = 14
+        Width = 58
+      end
+      object cxCalcEdit9: TcxCalcEdit
+        Left = 95
+        Top = 249
+        EditValue = 0.000000000000000000
+        Properties.ReadOnly = True
+        Style.Color = clWindow
+        TabOrder = 15
+        Width = 53
+      end
+      object cxLabel42: TcxLabel
+        Left = 207
+        Top = 226
+        Caption = #1053#1086#1088#1084#1072
+      end
+      object cxCalcEdit10: TcxCalcEdit
+        Left = 207
+        Top = 249
+        EditValue = 0.000000000000000000
+        Style.Color = clMoneyGreen
+        TabOrder = 17
+        Width = 74
       end
     end
     object cxTabSheet5: TcxTabSheet

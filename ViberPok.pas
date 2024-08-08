@@ -124,7 +124,7 @@ begin
   MainForm.pokaznVID_POK.Value:=21;
   MainForm.pokazn.Post;
 
-    Form2.calcpok2(MainForm.viber_pokazn);
+    Form2.calcpok2(MainForm.viber_pokazn,1);
 
     MainForm.viber_pokazn.Edit;
     MainForm.viber_pokaznSTATUS.Value:='Показник додано успішно!!!';

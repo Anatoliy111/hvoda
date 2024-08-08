@@ -85,7 +85,7 @@ object Form2: TForm2
       Left = 24
       Top = 118
       DataBinding.DataField = 'KOLI_P'
-      DataBinding.DataSource = DataAllSource
+      DataBinding.DataSource = MainForm.DataAllSource
       Properties.ReadOnly = True
       TabOrder = 0
       Width = 79
@@ -94,7 +94,7 @@ object Form2: TForm2
       Left = 24
       Top = 72
       DataBinding.DataField = 'UL'
-      DataBinding.DataSource = DataAllSource
+      DataBinding.DataSource = MainForm.DataAllSource
       Properties.ReadOnly = True
       TabOrder = 1
       Width = 249
@@ -103,7 +103,7 @@ object Form2: TForm2
       Left = 296
       Top = 72
       DataBinding.DataField = 'N_DOM'
-      DataBinding.DataSource = DataAllSource
+      DataBinding.DataSource = MainForm.DataAllSource
       Properties.ReadOnly = True
       TabOrder = 2
       Width = 49
@@ -112,7 +112,7 @@ object Form2: TForm2
       Left = 24
       Top = 27
       DataBinding.DataField = 'SCHET'
-      DataBinding.DataSource = DataAllSource
+      DataBinding.DataSource = MainForm.DataAllSource
       Properties.ReadOnly = True
       TabOrder = 3
       Width = 201
@@ -121,7 +121,7 @@ object Form2: TForm2
       Left = 375
       Top = 72
       DataBinding.DataField = 'KV'
-      DataBinding.DataSource = DataAllSource
+      DataBinding.DataSource = MainForm.DataAllSource
       Properties.ReadOnly = True
       TabOrder = 4
       Width = 49
@@ -131,7 +131,7 @@ object Form2: TForm2
       Top = 118
       Caption = #1054#1088#1075#1072#1085#1110#1079#1072#1094#1110#1103
       DataBinding.DataField = 'ORG'
-      DataBinding.DataSource = DataAllSource
+      DataBinding.DataSource = MainForm.DataAllSource
       Properties.ValueChecked = '1'
       Properties.ValueUnchecked = '0'
       TabOrder = 5
@@ -141,17 +141,17 @@ object Form2: TForm2
       Left = 241
       Top = 26
       DataBinding.DataField = 'FIO'
-      DataBinding.DataSource = DataAllSource
+      DataBinding.DataSource = MainForm.DataAllSource
       Properties.ReadOnly = True
       TabOrder = 6
       Width = 315
     end
     object cxDBCheckBox2: TcxDBCheckBox
-      Left = 382
+      Left = 375
       Top = 118
       Caption = #1060#1110#1083#1100#1090#1088
       DataBinding.DataField = 'FILTR'
-      DataBinding.DataSource = DataAllSource
+      DataBinding.DataSource = MainForm.DataAllSource
       Properties.NullStyle = nssUnchecked
       Properties.ValueChecked = '1'
       Properties.ValueUnchecked = '0'
@@ -163,7 +163,7 @@ object Form2: TForm2
       Top = 118
       Caption = #1055#1086#1084#1087#1072
       DataBinding.DataField = 'POMPA'
-      DataBinding.DataSource = DataAllSource
+      DataBinding.DataSource = MainForm.DataAllSource
       Properties.NullStyle = nssUnchecked
       Properties.ValueChecked = '1'
       Properties.ValueUnchecked = '0'
@@ -175,7 +175,7 @@ object Form2: TForm2
       Top = 158
       AutoSize = False
       DataBinding.DataField = 'WID'
-      DataBinding.DataSource = DataAllSource
+      DataBinding.DataSource = MainForm.DataAllSource
       Enabled = False
       ParentShowHint = False
       Properties.AutoSelect = False
@@ -247,7 +247,7 @@ object Form2: TForm2
         Left = 93
         Top = 16
         DataBinding.DataField = 'PERE_DAY'
-        DataBinding.DataSource = DataAllSource
+        DataBinding.DataSource = MainForm.DataAllSource
         Height = 21
         Width = 19
       end
@@ -255,7 +255,7 @@ object Form2: TForm2
         Left = 191
         Top = 15
         DataBinding.DataField = 'NOR_RAZN'
-        DataBinding.DataSource = DataAllSource
+        DataBinding.DataSource = MainForm.DataAllSource
         Height = 19
         Width = 59
       end
@@ -263,7 +263,7 @@ object Form2: TForm2
         Left = 135
         Top = 35
         DataBinding.DataField = 'PREV_NORM'
-        DataBinding.DataSource = DataAllSource
+        DataBinding.DataSource = MainForm.DataAllSource
         Height = 20
         Width = 42
       end
@@ -271,7 +271,7 @@ object Form2: TForm2
         Left = 303
         Top = 35
         DataBinding.DataField = 'DEL_NORM'
-        DataBinding.DataSource = DataAllSource
+        DataBinding.DataSource = MainForm.DataAllSource
         Height = 20
         Width = 42
       end
@@ -309,7 +309,7 @@ object Form2: TForm2
         Left = 105
         Top = 16
         DataBinding.DataField = 'SCH_CUR'
-        DataBinding.DataSource = DataAllSource
+        DataBinding.DataSource = MainForm.DataAllSource
         Height = 21
         Width = 35
       end
@@ -317,18 +317,18 @@ object Form2: TForm2
         Left = 236
         Top = 15
         DataBinding.DataField = 'SCH_RAZN'
-        DataBinding.DataSource = DataAllSource
+        DataBinding.DataSource = MainForm.DataAllSource
         Height = 19
-        Width = 21
+        Width = 37
       end
       object cxDBLabel7: TcxDBLabel
         Left = 236
         Top = 36
         DataBinding.DataField = 'SCH_RAZN2'
-        DataBinding.DataSource = DataAllSource
+        DataBinding.DataSource = MainForm.DataAllSource
         Visible = False
         Height = 19
-        Width = 21
+        Width = 37
       end
     end
   end
@@ -478,7 +478,7 @@ object Form2: TForm2
               Left = 137
               Top = 30
               DataBinding.DataField = 'LICH_TO'
-              DataBinding.DataSource = DataAllSource
+              DataBinding.DataSource = MainForm.DataAllSource
               Height = 21
               Width = 19
             end
@@ -549,9 +549,6 @@ object Form2: TForm2
         object cxTabSheet6: TcxTabSheet
           Caption = #1030#1089#1090#1086#1088#1110#1103
           ImageIndex = 2
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object cxGrid5: TcxGrid
             Left = 0
             Top = 41
@@ -654,9 +651,6 @@ object Form2: TForm2
     object cxTabSheet2: TcxTabSheet
       Caption = #1055#1083#1086#1084#1073#1080
       ImageIndex = 1
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object cxPageControl3: TcxPageControl
         Left = 0
         Top = 0
@@ -671,9 +665,6 @@ object Form2: TForm2
         object cxTabSheet5: TcxTabSheet
           Caption = #1055#1086#1090#1086#1095#1085#1110' '#1087#1083#1086#1084#1073#1080
           ImageIndex = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Panel3: TPanel
             Left = 0
             Top = 0
@@ -753,9 +744,6 @@ object Form2: TForm2
         object cxTabSheet7: TcxTabSheet
           Caption = #1030#1089#1090#1086#1088#1110#1103
           ImageIndex = 2
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object cxGrid2: TcxGrid
             Left = 0
             Top = 0
@@ -816,9 +804,6 @@ object Form2: TForm2
     object cxTabSheet3: TcxTabSheet
       Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
       ImageIndex = 2
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel4: TPanel
         Left = 0
         Top = 0
@@ -865,7 +850,7 @@ object Form2: TForm2
           Left = 432
           Top = 20
           DataBinding.DataField = 'SCH_RAZN'
-          DataBinding.DataSource = DataAllSource
+          DataBinding.DataSource = MainForm.DataAllSource
           TabOrder = 2
           Width = 121
         end
@@ -936,9 +921,6 @@ object Form2: TForm2
     object cxTabSheet8: TcxTabSheet
       Caption = #1047#1084#1110#1085#1072' '#1074#1080#1076#1091' '#1085#1072#1088#1072#1093#1091#1074#1072#1085#1085#1103
       ImageIndex = 3
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 0
         Top = 0
@@ -1162,10 +1144,6 @@ object Form2: TForm2
       '')
     Left = 568
     Top = 136
-  end
-  object DataAllSource: TDataSource
-    Left = 640
-    Top = 16
   end
   object IBQuery6: TIBQuery
     Database = MainForm.IBDatabase

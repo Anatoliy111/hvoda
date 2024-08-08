@@ -474,116 +474,6 @@ type
     cxGridDBBandedTableView1NORM_BLICH: TcxGridDBBandedColumn;
     cxGridDBBandedTableView1KUB_NOBALANS: TcxGridDBBandedColumn;
     cxGridDBBandedTableView1KUB_ALL: TcxGridDBBandedColumn;
-    hvdKL: TIntegerField;
-    hvdYEARMON: TIntegerField;
-    hvdPLOMB: TSmallintField;
-    hvdFIO: TIBStringField;
-    hvdWID: TSmallintField;
-    hvdDOM: TIBStringField;
-    hvdKVART: TIBStringField;
-    hvdSCHET: TIBStringField;
-    hvdN_SCH: TIBStringField;
-    hvdSCH_OLD: TIBBCDField;
-    hvdSCH_CUR: TIBBCDField;
-    hvdSCH_RAZN: TIBBCDField;
-    hvdSCH_RAZN2: TIBBCDField;
-    hvdKOLI_P: TIBBCDField;
-    hvdKOLI_P0: TIntegerField;
-    hvdKOLI_P1: TIntegerField;
-    hvdNOR_RAZN: TIBBCDField;
-    hvdGRP_RAZN: TIBBCDField;
-    hvdPERE_DAY: TIntegerField;
-    hvdPERE_RAZN: TIBBCDField;
-    hvdID_KONTR: TSmallintField;
-    hvdUL: TIBStringField;
-    hvdN_DOM: TIBStringField;
-    hvdKV: TIBStringField;
-    hvdNOTE: TIBStringField;
-    hvdKOLI_F: TLargeintField;
-    hvdRASCH_KUB: TIBBCDField;
-    hvdRASCH_NOR: TIBBCDField;
-    hvdPOD: TIntegerField;
-    hvdRASCH_NOTE: TIBStringField;
-    hvdDATE_POK: TDateField;
-    hvdVID_POK: TIntegerField;
-    hvdKUB_MES: TIBBCDField;
-    hvdLICH_POV: TDateField;
-    hvdORG: TIntegerField;
-    hvdVID_RN: TIntegerField;
-    hvdFILTR: TIntegerField;
-    hvdPOMPA: TIntegerField;
-    hvdZN_LICH: TIntegerField;
-    hvdZNOLD_LICH: TIntegerField;
-    hvdDATE_ZN: TDateField;
-    hvdLICH_TO: TIntegerField;
-    hvdKLNTAR: TIntegerField;
-    hvdTARIF_NAME: TIBStringField;
-    hvdNORMA: TFloatField;
-    hvdOLD_NORM: TFloatField;
-    hvdDEL_NORM: TFloatField;
-    hvdPREV_NORM: TFloatField;
-    hvdLICH_YEARMON: TIntegerField;
-    hvdEDRPOU: TIntegerField;
-    hvdKL_UL: TIntegerField;
-    hvdR_NACH: TIBStringField;
-    hvdNORM_BLICH: TFloatField;
-    hvdKUB_NOBALANS: TFloatField;
-    hvdKUB_ALL: TFloatField;
-    orgKL: TIntegerField;
-    orgYEARMON: TIntegerField;
-    orgPLOMB: TSmallintField;
-    orgFIO: TIBStringField;
-    orgWID: TSmallintField;
-    orgDOM: TIBStringField;
-    orgKVART: TIBStringField;
-    orgSCHET: TIBStringField;
-    orgN_SCH: TIBStringField;
-    orgSCH_OLD: TIBBCDField;
-    orgSCH_CUR: TIBBCDField;
-    orgSCH_RAZN: TIBBCDField;
-    orgSCH_RAZN2: TIBBCDField;
-    orgKOLI_P: TIBBCDField;
-    orgKOLI_P0: TIntegerField;
-    orgKOLI_P1: TIntegerField;
-    orgNOR_RAZN: TIBBCDField;
-    orgGRP_RAZN: TIBBCDField;
-    orgPERE_DAY: TIntegerField;
-    orgPERE_RAZN: TIBBCDField;
-    orgID_KONTR: TSmallintField;
-    orgUL: TIBStringField;
-    orgN_DOM: TIBStringField;
-    orgKV: TIBStringField;
-    orgNOTE: TIBStringField;
-    orgKOLI_F: TLargeintField;
-    orgRASCH_KUB: TIBBCDField;
-    orgRASCH_NOR: TIBBCDField;
-    orgPOD: TIntegerField;
-    orgRASCH_NOTE: TIBStringField;
-    orgDATE_POK: TDateField;
-    orgVID_POK: TIntegerField;
-    orgKUB_MES: TIBBCDField;
-    orgLICH_POV: TDateField;
-    orgORG: TIntegerField;
-    orgVID_RN: TIntegerField;
-    orgFILTR: TIntegerField;
-    orgPOMPA: TIntegerField;
-    orgZN_LICH: TIntegerField;
-    orgZNOLD_LICH: TIntegerField;
-    orgDATE_ZN: TDateField;
-    orgLICH_TO: TIntegerField;
-    orgKLNTAR: TIntegerField;
-    orgTARIF_NAME: TIBStringField;
-    orgNORMA: TFloatField;
-    orgOLD_NORM: TFloatField;
-    orgDEL_NORM: TFloatField;
-    orgPREV_NORM: TFloatField;
-    orgLICH_YEARMON: TIntegerField;
-    orgEDRPOU: TIntegerField;
-    orgKL_UL: TIntegerField;
-    orgR_NACH: TIBStringField;
-    orgNORM_BLICH: TFloatField;
-    orgKUB_NOBALANS: TFloatField;
-    orgKUB_ALL: TFloatField;
     cxStyle2: TcxStyle;
     hvdrozpdom: TIBDataSet;
     hvdrozpdomSource: TDataSource;
@@ -774,6 +664,132 @@ type
     hvdallNORM_BLICH: TFloatField;
     hvdallKUB_NOBALANS: TFloatField;
     hvdallKUB_ALL: TFloatField;
+    DataAllSource: TDataSource;
+    hvdallPLOSCH_UR: TFloatField;
+    cxGridDBBandedTableView1KOLI_P: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1PLOSCH_UR: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1NORMA: TcxGridDBBandedColumn;
+    hvdrozpdomPLOSCH_UR: TFloatField;
+    hvdrozpdomPERERAH: TFloatField;
+    hvd12PLOSCH_UR: TFloatField;
+    hvd12PERERAH: TFloatField;
+    hvdallPERERAH: TFloatField;
+    hvdKL: TIntegerField;
+    hvdYEARMON: TIntegerField;
+    hvdPLOMB: TSmallintField;
+    hvdFIO: TIBStringField;
+    hvdWID: TSmallintField;
+    hvdDOM: TIBStringField;
+    hvdKVART: TIBStringField;
+    hvdSCHET: TIBStringField;
+    hvdN_SCH: TIBStringField;
+    hvdSCH_OLD: TIBBCDField;
+    hvdSCH_CUR: TIBBCDField;
+    hvdSCH_RAZN: TIBBCDField;
+    hvdSCH_RAZN2: TIBBCDField;
+    hvdKOLI_P: TIBBCDField;
+    hvdKOLI_P0: TIntegerField;
+    hvdKOLI_P1: TIntegerField;
+    hvdNOR_RAZN: TIBBCDField;
+    hvdGRP_RAZN: TIBBCDField;
+    hvdPERE_DAY: TIntegerField;
+    hvdPERE_RAZN: TIBBCDField;
+    hvdID_KONTR: TSmallintField;
+    hvdUL: TIBStringField;
+    hvdN_DOM: TIBStringField;
+    hvdKV: TIBStringField;
+    hvdNOTE: TIBStringField;
+    hvdKOLI_F: TLargeintField;
+    hvdRASCH_KUB: TIBBCDField;
+    hvdRASCH_NOR: TIBBCDField;
+    hvdPOD: TIntegerField;
+    hvdRASCH_NOTE: TIBStringField;
+    hvdDATE_POK: TDateField;
+    hvdVID_POK: TIntegerField;
+    hvdKUB_MES: TIBBCDField;
+    hvdLICH_POV: TDateField;
+    hvdORG: TIntegerField;
+    hvdVID_RN: TIntegerField;
+    hvdFILTR: TIntegerField;
+    hvdPOMPA: TIntegerField;
+    hvdZN_LICH: TIntegerField;
+    hvdZNOLD_LICH: TIntegerField;
+    hvdDATE_ZN: TDateField;
+    hvdLICH_TO: TIntegerField;
+    hvdKLNTAR: TIntegerField;
+    hvdTARIF_NAME: TIBStringField;
+    hvdNORMA: TFloatField;
+    hvdOLD_NORM: TFloatField;
+    hvdDEL_NORM: TFloatField;
+    hvdPREV_NORM: TFloatField;
+    hvdLICH_YEARMON: TIntegerField;
+    hvdEDRPOU: TIntegerField;
+    hvdKL_UL: TIntegerField;
+    hvdR_NACH: TIBStringField;
+    hvdNORM_BLICH: TFloatField;
+    hvdKUB_NOBALANS: TFloatField;
+    hvdKUB_ALL: TFloatField;
+    hvdPLOSCH_UR: TFloatField;
+    hvdPERERAH: TFloatField;
+    orgKL: TIntegerField;
+    orgYEARMON: TIntegerField;
+    orgPLOMB: TSmallintField;
+    orgFIO: TIBStringField;
+    orgWID: TSmallintField;
+    orgDOM: TIBStringField;
+    orgKVART: TIBStringField;
+    orgSCHET: TIBStringField;
+    orgN_SCH: TIBStringField;
+    orgSCH_OLD: TIBBCDField;
+    orgSCH_CUR: TIBBCDField;
+    orgSCH_RAZN: TIBBCDField;
+    orgSCH_RAZN2: TIBBCDField;
+    orgKOLI_P: TIBBCDField;
+    orgKOLI_P0: TIntegerField;
+    orgKOLI_P1: TIntegerField;
+    orgNOR_RAZN: TIBBCDField;
+    orgGRP_RAZN: TIBBCDField;
+    orgPERE_DAY: TIntegerField;
+    orgPERE_RAZN: TIBBCDField;
+    orgID_KONTR: TSmallintField;
+    orgUL: TIBStringField;
+    orgN_DOM: TIBStringField;
+    orgKV: TIBStringField;
+    orgNOTE: TIBStringField;
+    orgKOLI_F: TLargeintField;
+    orgRASCH_KUB: TIBBCDField;
+    orgRASCH_NOR: TIBBCDField;
+    orgPOD: TIntegerField;
+    orgRASCH_NOTE: TIBStringField;
+    orgDATE_POK: TDateField;
+    orgVID_POK: TIntegerField;
+    orgKUB_MES: TIBBCDField;
+    orgLICH_POV: TDateField;
+    orgORG: TIntegerField;
+    orgVID_RN: TIntegerField;
+    orgFILTR: TIntegerField;
+    orgPOMPA: TIntegerField;
+    orgZN_LICH: TIntegerField;
+    orgZNOLD_LICH: TIntegerField;
+    orgDATE_ZN: TDateField;
+    orgLICH_TO: TIntegerField;
+    orgKLNTAR: TIntegerField;
+    orgTARIF_NAME: TIBStringField;
+    orgNORMA: TFloatField;
+    orgOLD_NORM: TFloatField;
+    orgDEL_NORM: TFloatField;
+    orgPREV_NORM: TFloatField;
+    orgLICH_YEARMON: TIntegerField;
+    orgEDRPOU: TIntegerField;
+    orgKL_UL: TIntegerField;
+    orgR_NACH: TIBStringField;
+    orgNORM_BLICH: TFloatField;
+    orgKUB_NOBALANS: TFloatField;
+    orgKUB_ALL: TFloatField;
+    orgPLOSCH_UR: TFloatField;
+    orgPERERAH: TFloatField;
+    DBGrid1PERERAH: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1PERERAH: TcxGridDBBandedColumn;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -889,7 +905,7 @@ type
     lchSQL,lchznSQL,plSQL,plznSQL,pokSQL,why_pokSQL,url,urlsend,startimport,sendmessbefoimp:string;
     PathKvart:string;
     iniFile:TIniFile;
-    period:integer;
+    period,LASTROZR,back3month:integer;
     fl_startprog:boolean;
     DSet:TIBDataSet;
     function curYM:integer;
@@ -973,6 +989,19 @@ begin
  Form4.cxProgressBar1.Properties.Max:=MainForm.hvdall.RecordCount-1;
  //Form4.Label1.Caption:='allcalclich';
 
+    Form2.IBQuery6.Close;
+    Form2.IBQuery6.SQL.Text:='select * from '+
+    '(select pkk.id,trim(pkk.schet) schet,pkk.yearmon,pkk.pokazn,pkk.vid_pok,pkk.date_pok from pokazn pkk '+
+    'join (select schet, max(date_pok) date_pok, max(id) id from pokazn where yearmon<:per group by schet) as pok1 on pok1.id=pkk.id '+
+    'union all '+
+    'select id,trim(schet) schet,yearmon,pokazn,vid_pok,date_pok from pokazn where yearmon=:per) '+
+    'order by schet,yearmon,date_pok,id';
+
+   // Form2.IBQuery6.ParamByName('sch').Value:=MainForm.period;
+    Form2.IBQuery6.ParamByName('per').Value:=MainForm.period;
+    Form2.IBQuery6.Open;
+    Form2.IBQuery6.FetchAll;
+
 
     Form4.cxProgressBar1.Position:=0;
     while not hvdall.eof do
@@ -980,8 +1009,11 @@ begin
     Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
     Form4.Label4.Caption:=hvdallSCHET.Value;
     application.ProcessMessages;
+    if hvdallSCHET.Value='0080088' then
+       hvdallSCHET.Value;
+    
 
-         Form2.calcpok2(hvdall);
+         Form2.calcpok2(hvdall,2);
          Form2.calclich(hvdall);
          if not Form4.Visible then
          begin
@@ -1301,6 +1333,12 @@ if not IBDatabase.Connected then exit;
   dxBarLookupCombo1.KeyValue:=domDOM.AsString;
 
   period:=dataYEARMON.Value;
+    IBQuery2.Close;
+    IBQuery2.SQL.Text:='select first 1 skip 3 yearmon from data order by yearmon desc';
+    IBQuery2.Open;
+    back3month:=IBQuery2.FieldByName('yearmon').Value;
+
+
   ul.close;
   ul.ParamByName('yearmon').AsInteger:=dataYEARMON.Value;
   ul.open;
@@ -1449,13 +1487,17 @@ FormAddkart.cxTabSheet2.TabVisible:=false;
 FormAddkart.cxTabSheet3.TabVisible:=false;
 FormAddkart.cxTabSheet4.TabVisible:=true;
 FormAddkart.cxTabSheet5.TabVisible:=false;
-FormAddkart.Show;
+
 FormAddkart.cxTextEdit6.Text:=MainForm.DSet.FieldByName('SCHET').Value;
 FormAddkart.cxTextEdit10.Text:=MainForm.DSet.FieldByName('FIO').Value;
 FormAddkart.cxLookupComboBox3.EditValue:=MainForm.DSet.FieldByName('UL').Value;
 FormAddkart.cxLookupComboBox4.EditValue:=MainForm.DSet.FieldByName('N_DOM').Value;
 FormAddkart.cxTextEdit12.Text:=MainForm.DSet.FieldByName('KV').Value;
 FormAddkart.cxTextEdit11.Text:=MainForm.DSet.FieldByName('NOTE').AsString;
+FormAddkart.cxCalcEdit9.EditValue:=MainForm.DSet.FieldByName('KOLI_P').AsInteger;
+FormAddkart.cxCalcEdit7.EditValue:=MainForm.DSet.FieldByName('PLOSCH_UR').AsFloat;
+FormAddkart.cxCalcEdit10.EditValue:=MainForm.DSet.FieldByName('NORMA').AsFloat;
+FormAddkart.Show;
 end;
 
 procedure TMainForm.dxBarButton25Click(Sender: TObject);
@@ -1586,10 +1628,13 @@ begin
       imp.Edit;
       impLASTROZR.Value:=2;
       imp.Post;
-    end;
+      ShowMessage('Повний розрахунок завершено!');
+    end
+    else
+      ShowMessage('Повний розрахунок перервано!');
+
     IBTransaction1.CommitRetaining;
 
-    ShowMessage('Повний розрахунок завершено!');
 
 end;
 
@@ -1714,7 +1759,7 @@ begin
               hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kollud').Value)*iif(hvdrozpdomKOLI_P.Value>0,hvdrozpdomKOLI_P.Value,1),-3);
               hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
               hvdrozpdomNORM_BLICH.Value:=0;
-              hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно к-ті людей';
+             // hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно к-ті людей';
               hvdrozpdom.Post;
               hvdrozpdom.Next;
             end;
@@ -1748,7 +1793,7 @@ begin
               hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kuball').Value)*(hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value),-3);
               hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value+hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value;
               hvdrozpdomNORM_BLICH.Value:=0;
-              hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно споживанню';
+          //    hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно споживанню';
               hvdrozpdom.Post;
               hvdrozpdom.Next;
             end;
@@ -1785,8 +1830,8 @@ end;
 procedure TMainForm.DBGrid1Column1PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
+
      Form2.Find(DSet.FieldByName('SCHET').Value);
-     Form2.DataAllSource.DataSet:=DSet;
      Form2.Show;
 end;
 
@@ -1831,7 +1876,7 @@ FormAddkart.cxTextEdit9.Text:=DSet.FieldByName('SCHET').Value;
 FormAddkart.cxLabel15.Caption:=DSet.FieldByName('FIO').Value;
 FormAddkart.cxCalcEdit6.EditValue:=DSet.FieldByName('NOR_RAZN').Value;
 
-  if (FormAddkart.cxTabSheet3.Visible) and (DSet.FieldByName('LICH_TO').Value=0) then
+  if (FormAddkart.cxTabSheet3.Visible) and (DSet.FieldByName('LICH_TO').AsInteger=0) then
   begin
     ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
     exit;
@@ -2191,10 +2236,13 @@ begin
 
         imp.Close;
        imp.Open;
-       if (cxLabel1.Visible) and (impLASTROZR.Value=0) then
-            update;
-        if (not cxLabel1.Visible) and (impLASTROZR.Value>0) then
-           update;
+       if LASTROZR<>impLASTROZR.Value then
+          update;
+
+//       if (cxLabel1.Visible) and (impLASTROZR.Value=0) then
+//            update;
+//        if (not cxLabel1.Visible) and (impLASTROZR.Value>0) then
+//           update;
       end;
 //  except
 //   on E : Exception do
@@ -2481,7 +2529,7 @@ IBTransaction1.CommitRetaining;
 
   imp.Close;
   imp.Open;
-
+  LASTROZR:=impLASTROZR.Value;
 
   if (data.Active)then
   begin
@@ -2516,12 +2564,12 @@ IBTransaction1.CommitRetaining;
    begin
      if isArchive then
         cxLabel1.Caption:='Увага! Редагування даних закрито. Ви в архіві!'
-     else if impLASTEXP.Value=1 then
+     else if impLASTROZR.Value=1 then
         cxLabel1.Caption:='Увага! Редагування даних закрито. Розпочато процедуру повного розрахунку!'
-     else if impLASTEXP.Value=2 then
+     else if impLASTROZR.Value=2 then
         cxLabel1.Caption:='Увага! Редагування даних закрито. Виконано повний розрахунок даних, чекайте закриття місяця!';
 
-
+     Application.ProcessMessages;
      cxLabel1.Visible:=true;
      dxBarButton6.Enabled:=false;
      DBGrid1.OptionsData.Deleting:=false;
@@ -2622,11 +2670,13 @@ end;
 procedure TMainForm.cxTabSheet1Show(Sender: TObject);
 begin
 DSet:=hvd;
+DataAllSource.DataSet:=DSet;
 end;
 
 procedure TMainForm.cxTabSheet4Show(Sender: TObject);
 begin
 DSet:=org;
+DataAllSource.DataSet:=DSet;
 end;
 
 procedure TMainForm.dxBarButton7Click(Sender: TObject);
