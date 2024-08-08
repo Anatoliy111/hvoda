@@ -28,7 +28,7 @@ object MainForm: TMainForm
     TabOrder = 0
     OnPageChanging = cxPageControl1PageChanging
     ExplicitTop = 41
-    ExplicitHeight = 592
+    ExplicitHeight = 590
     ClientRectBottom = 519
     ClientRectRight = 1017
     ClientRectTop = 24
@@ -36,7 +36,7 @@ object MainForm: TMainForm
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
       OnShow = cxTabSheet1Show
-      ExplicitHeight = 568
+      ExplicitHeight = 566
       object Image1: TImage
         Left = 608
         Top = 232
@@ -58,7 +58,6 @@ object MainForm: TMainForm
         Height = 467
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 469
         object DBGrid1: TcxGridDBBandedTableView
           OnKeyDown = DBGrid1KeyDown
           NavigatorButtons.OnButtonClick = DBGrid1NavigatorButtonsButtonClick
@@ -84,7 +83,6 @@ object MainForm: TMainForm
           OnEditKeyDown = DBGrid1EditKeyDown
           DataController.DataSource = DataAllSource
           DataController.KeyFieldNames = 'KL'
-          DataController.Options = [dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding, dcoImmediatePost]
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <
             item
@@ -533,6 +531,7 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'KUB_ALL'
             Options.Editing = False
             Styles.Content = cxStyle2
+            Styles.OnGetContentStyle = DBGrid1KUB_ALLStylesGetContentStyle
             Width = 83
             Position.BandIndex = 2
             Position.ColIndex = 5
@@ -558,7 +557,7 @@ object MainForm: TMainForm
       Caption = #1070#1088'.'#1086#1089#1086#1073#1080'/'#1060#1054#1055
       ImageIndex = 1
       OnShow = cxTabSheet4Show
-      ExplicitHeight = 568
+      ExplicitHeight = 566
       object Image2: TImage
         Left = 608
         Top = 232
@@ -582,7 +581,6 @@ object MainForm: TMainForm
         Height = 467
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 469
         object cxGridDBBandedTableView1: TcxGridDBBandedTableView
           OnKeyDown = cxGridDBBandedTableView1KeyDown
           NavigatorButtons.ConfirmDelete = False
@@ -652,7 +650,39 @@ object MainForm: TMainForm
             end
             item
               Kind = skSum
+              Column = cxGridDBBandedTableView1NOR_RAZN
+            end
+            item
+              Kind = skSum
+              Column = cxGridDBBandedTableView1NORM_BLICH
+            end
+            item
+              Kind = skSum
+              Column = cxGridDBBandedTableView1DEL_NORM
+            end
+            item
+              Kind = skSum
+              Column = cxGridDBBandedTableView1KUB_NOBALANS
+            end
+            item
+              Kind = skSum
               Column = cxGridDBBandedTableView1PERERAH
+            end
+            item
+              Kind = skSum
+              Column = cxGridDBBandedTableView1KUB_ALL
+            end
+            item
+              Kind = skSum
+              Column = cxGridDBBandedTableView1PREV_NORM
+            end
+            item
+              Kind = skSum
+              Column = cxGridDBBandedTableView1KOLI_P
+            end
+            item
+              Kind = skCount
+              Column = cxGridDBBandedColumn2
             end>
           DataController.Summary.SummaryGroups = <>
           OptionsBehavior.AlwaysShowEditor = True
@@ -891,6 +921,8 @@ object MainForm: TMainForm
           object cxGridDBBandedTableView1KUB_ALL: TcxGridDBBandedColumn
             Caption = #1042#1089#1100#1086#1075#1086
             DataBinding.FieldName = 'KUB_ALL'
+            Styles.Content = cxStyle2
+            Styles.OnGetContentStyle = cxGridDBBandedTableView1KUB_ALLStylesGetContentStyle
             Position.BandIndex = 2
             Position.ColIndex = 5
             Position.RowIndex = 0
@@ -939,7 +971,7 @@ object MainForm: TMainForm
     object cxTabSheet3: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1110' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 3
-      ExplicitHeight = 568
+      ExplicitHeight = 566
       object dxBarDockControl3: TdxBarDockControl
         Left = 0
         Top = 0
@@ -955,7 +987,6 @@ object MainForm: TMainForm
         Height = 467
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 469
         object DBGrid3: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
@@ -2136,7 +2167,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000E00114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000E40114001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000050000000400100000100180000000000002C
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4664,6 +4695,7 @@ object MainForm: TMainForm
       000000000000}
   end
   object IBDatabase: TIBDatabase
+    Connected = True
     DatabaseName = 'C:\TEMP\GKU.GDB'
     Params.Strings = (
       'user_name=sysdba'
@@ -6091,13 +6123,21 @@ object MainForm: TMainForm
       TextColor = clBlack
     end
     object cxStyle2: TcxStyle
-      AssignedValues = [svColor, svFont, svTextColor]
+      AssignedValues = [svColor, svFont]
       Color = clWindow
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -15
+      Font.Height = -13
       Font.Name = 'Tahoma'
-      Font.Style = []
+      Font.Style = [fsBold]
+    end
+    object cxStyle3: TcxStyle
+      AssignedValues = [svFont, svTextColor]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
       TextColor = clRed
     end
   end
@@ -11245,7 +11285,6 @@ object MainForm: TMainForm
     Top = 384
   end
   object DataAllSource: TDataSource
-    DataSet = hvd
     Left = 544
     Top = 8
   end

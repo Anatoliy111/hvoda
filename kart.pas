@@ -212,19 +212,20 @@ uses main, addkart, delkart, mytools, math;
 procedure TForm2.kub_all(DS:TIBDataSet);
 var sum,sum2:Currency;
 begin
-  sum:=DS.FieldByName('SCH_RAZN').AsCurrency+
-  DS.FieldByName('NOR_RAZN').AsCurrency+
-  DS.FieldByName('NORM_BLICH').AsCurrency;
-
-  sum2:=DS.FieldByName('KUB_ALL').AsCurrency-DS.FieldByName('KUB_NOBALANS').AsCurrency;
-
+//  sum:=DS.FieldByName('SCH_RAZN').AsCurrency+
+//  DS.FieldByName('NOR_RAZN').AsCurrency+
+//  DS.FieldByName('NORM_BLICH').AsCurrency;
+//
+//  sum2:=DS.FieldByName('KUB_ALL').AsCurrency-DS.FieldByName('KUB_NOBALANS').AsCurrency;
+//
+//  DS.Edit;
+//  if sum<>sum2 then
+//     DS.FieldByName('KUB_NOBALANS').AsCurrency:=0;
   DS.Edit;
-  if sum<>sum2 then
-     DS.FieldByName('KUB_NOBALANS').AsCurrency:=0;
-
   DS.FieldByName('KUB_ALL').AsCurrency:=DS.FieldByName('SCH_RAZN').AsCurrency+
   DS.FieldByName('NOR_RAZN').AsCurrency+
   DS.FieldByName('NORM_BLICH').AsCurrency+
+  DS.FieldByName('DEL_NORM').AsCurrency+
   DS.FieldByName('KUB_NOBALANS').AsCurrency;
   DS.Post;
 
@@ -461,11 +462,14 @@ begin
 
 //                if DS.FieldByName('ORG').Value=0 then
 //                begin
-                  DS.FieldByName('SCH_RAZN').Value:=0;
-                  DS.FieldByName('NORM_BLICH').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
-                  DS.FieldByName('NOR_RAZN').Value:=0;
-                  DS.FieldByName('R_NACH').Value:='Споживання по нормі: к-ть зареєстров.('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
-//                end
+                  if DS.FieldByName('KUB_NOBALANS').AsFloat=0 then
+                  begin
+                    DS.FieldByName('SCH_RAZN').Value:=0;
+                    DS.FieldByName('NORM_BLICH').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+                    DS.FieldByName('NOR_RAZN').Value:=0;
+                    DS.FieldByName('R_NACH').Value:='Споживання по нормі: к-ть зареєстров.('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
+                  end;
+                  //                end
 //                else
 //                begin
 //                  kub12:=Form2.CubAvg12(trim(DS.FieldByName('schet').value));
@@ -767,6 +771,7 @@ begin
                DS.FieldByName('NORM_BLICH').Value:=0;
                DS.FieldByName('NOR_RAZN').Value:=0;
                DS.FieldByName('KUB_ALL').Value:=0;
+               DS.FieldByName('KUB_NOBALANS').Value:=0;
                DS.FieldByName('R_NACH').Value:='';
              end;
 

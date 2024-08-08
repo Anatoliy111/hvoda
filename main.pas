@@ -790,6 +790,7 @@ type
     orgPERERAH: TFloatField;
     DBGrid1PERERAH: TcxGridDBBandedColumn;
     cxGridDBBandedTableView1PERERAH: TcxGridDBBandedColumn;
+    cxStyle3: TcxStyle;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -893,6 +894,12 @@ type
       var DisplayValue: Variant; var ErrorText: TCaption; var Error: Boolean);
     procedure grpSCH_CURChange(Sender: TField);
     procedure dxBarButton39Click(Sender: TObject);
+    procedure DBGrid1KUB_ALLStylesGetContentStyle(
+      Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
+      AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
+    procedure cxGridDBBandedTableView1KUB_ALLStylesGetContentStyle(
+      Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
+      AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
 
   private
     { Private declarations }
@@ -1438,6 +1445,15 @@ begin
   formInplaces.onPopupProp;
 end;
 
+procedure TMainForm.DBGrid1KUB_ALLStylesGetContentStyle(
+  Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
+  AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
+begin
+ if (ARecord.Values[DBGrid1KUB_ALL.Index] < 0) then
+     AStyle:=cxStyle3
+ else AStyle:=cxStyle2;
+end;
+
 procedure TMainForm.DBGrid1KOLI_PPropertiesCloseUp(Sender: TObject);
 begin
   formInplaces.onCloseupProp;
@@ -1665,6 +1681,13 @@ begin
  //Form4.Label1.Caption:='allcalclich';
     application.ProcessMessages;
 
+    IBQuery2.Close;
+    IBQuery2.SQL.Text:='update h_voda set kub_nobalans=0 where yearmon=:ym';
+    IBQuery2.ParamByName('ym').Value:=MainForm.period;
+    IBQuery2.ExecSQL;
+
+    IBTransaction1.CommitRetaining;
+
     Form4.cxProgressBar1.Position:=0;
     while not grp.eof do
     begin
@@ -1705,6 +1728,9 @@ procedure TMainForm.calcdomlich(DS:TIBDataSet);
 var sumabon:Currency;
     kol_lud:integer;
 begin
+
+
+
     IBQuery2.Close;
     IBQuery2.SQL.Text:='select org,sum(sch_razn+nor_razn) kuball from h_voda where wid<46 and wid<>42 and wid<>45 and ul=:uul and n_dom=:ndom and yearmon=:ym group by org';
     IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
@@ -1757,10 +1783,11 @@ begin
             begin
               hvdrozpdom.Edit;
               hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kollud').Value)*iif(hvdrozpdomKOLI_P.Value>0,hvdrozpdomKOLI_P.Value,1),-3);
-              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
+//              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
               hvdrozpdomNORM_BLICH.Value:=0;
-             // hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно к-ті людей';
+              hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно к-ті людей';
               hvdrozpdom.Post;
+              Form2.kub_all(hvdrozpdom);
               hvdrozpdom.Next;
             end;
       end
@@ -1791,10 +1818,11 @@ begin
             begin
               hvdrozpdom.Edit;
               hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kuball').Value)*(hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value),-3);
-              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value+hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value;
+             // hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value+hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value;
               hvdrozpdomNORM_BLICH.Value:=0;
           //    hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно споживанню';
               hvdrozpdom.Post;
+              Form2.kub_all(hvdrozpdom);
               hvdrozpdom.Next;
             end;
 
@@ -2644,6 +2672,15 @@ procedure TMainForm.cxGridDBBandedTableView1KeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
  if Key=VK_INSERT then abort;
+end;
+
+procedure TMainForm.cxGridDBBandedTableView1KUB_ALLStylesGetContentStyle(
+  Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
+  AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
+begin
+ if (ARecord.Values[cxGridDBBandedTableView1KUB_ALL.Index] < 0) then
+     AStyle:=cxStyle3
+ else AStyle:=cxStyle2;
 end;
 
 procedure TMainForm.cxPageControl1PageChanging(Sender: TObject;
