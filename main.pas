@@ -985,6 +985,16 @@ begin
  //MainForm.hvdallSource.Enabled:=false;
 // pokaznall.Open;
 // pokaznall.FetchAll;
+
+    IBQuery2.Close;
+    IBQuery2.SQL.Text:='update h_voda set kub_nobalans=0 where yearmon=:ym';
+    IBQuery2.ParamByName('ym').Value:=MainForm.period;
+    IBQuery2.ExecSQL;
+
+    IBTransaction1.CommitRetaining;
+
+
+
  MainForm.hvdallSource.Enabled:=false;
  MainForm.hvdall.Close;
  MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
@@ -1008,6 +1018,7 @@ begin
     Form2.IBQuery6.ParamByName('per').Value:=MainForm.period;
     Form2.IBQuery6.Open;
     Form2.IBQuery6.FetchAll;
+
 
 
     Form4.cxProgressBar1.Position:=0;
