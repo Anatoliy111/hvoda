@@ -458,7 +458,7 @@ begin
 
 
 
-         if (DS.FieldByName('LICH_YEARMON').Value<MainForm.period) and (DS.FieldByName('WID').Value<>43) and (DS.FieldByName('WID').Value<>42) then
+         if (not DS.FieldByName('LICH_YEARMON').IsNull) and (DS.FieldByName('LICH_YEARMON').Value<MainForm.period) and (DS.FieldByName('WID').Value<>43) and (DS.FieldByName('WID').Value<>42) then
                   DS.FieldByName('WID').Value:=45;
 
          //45,42
@@ -574,7 +574,7 @@ end;
 
 procedure TForm2.calclich(DS:TIBDataSet);
 var date_zn,date_vs,date_stzn,lastdate_zn:TDate;
-    kol,vs,zn,daynorm,raschday,kolmes,lastmes,firstmes,fl_adderr,newlich:integer;
+    kol,kol_to,vs,zn,daynorm,raschday,kolmes,lastmes,firstmes,fl_adderr,newlich:integer;
     kub12,kubavg,kubavgday,kubnorm:currency;
     lastvid:string;
     startvs:boolean;
@@ -595,6 +595,8 @@ begin
 
   MainForm.lichzn.Close;
   MainForm.lichzn.Open;
+
+  kol_to:=DS.FieldByName('lich_to').value;
 
   IBQuery3.Close;
   IBQuery3.ParamByName('sch').Value:=trim(DS.FieldByName('schet').value);
@@ -646,6 +648,8 @@ begin
         fl_adderr:=fl_adderr+1;
         lastdate_zn:=IBQuery3.FieldByName('data_l').Value;
         kol:=kol+1;
+        if (kol_to>0) and (kol>kol_to) then kol:=kol_to;
+        
         if date_zn<>0 then
         begin
            daynorm:=daynorm+DaysBetween(date_zn,IBQuery3.FieldByName('data_l').Value)
