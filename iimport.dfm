@@ -60,6 +60,7 @@ object Form4: TForm4
     Height = 25
     Caption = 'Close'
     TabOrder = 1
+    Visible = False
     OnClick = cxButton1Click
   end
   object cxButton2: TcxButton

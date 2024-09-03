@@ -791,6 +791,44 @@ type
     DBGrid1PERERAH: TcxGridDBBandedColumn;
     cxGridDBBandedTableView1PERERAH: TcxGridDBBandedColumn;
     cxStyle3: TcxStyle;
+    hvdR_NOBAL: TIBStringField;
+    orgR_NOBAL: TIBStringField;
+    hvdallR_NOBAL: TIBStringField;
+    hvd12R_NOBAL: TIBStringField;
+    hvdrozpdomR_NOBAL: TIBStringField;
+    cxGridDBBandedTableView1R_NOBAL: TcxGridDBBandedColumn;
+    DBGrid1R_NOBAL: TcxGridDBBandedColumn;
+    DBGrid3RAZN: TcxGridDBColumn;
+    cxTabSheet2: TcxTabSheet;
+    hvddom2Source: TDataSource;
+    hvddom2: TIBDataSet;
+    hvddom2UL: TIBStringField;
+    hvddom2N_DOM: TIBStringField;
+    hvddom2SCH_RAZN: TIBBCDField;
+    hvddom2NOR_RAZN: TIBBCDField;
+    hvddom2NORM_BLICH: TFloatField;
+    hvddom2DEL_NORM: TFloatField;
+    hvddom2KUB_NOBALANS: TFloatField;
+    hvddom2PERERAH: TFloatField;
+    hvddom2KUB_ALL: TFloatField;
+    hvddom2PREV_NORM: TFloatField;
+    hvddom2SCH_KUB: TFloatField;
+    hvddom2SCH_RAZNDOM: TFloatField;
+    cxGrid3DBTableView1: TcxGridDBTableView;
+    cxGrid3Level1: TcxGridLevel;
+    cxGrid3: TcxGrid;
+    cxGrid3DBTableView1UL: TcxGridDBColumn;
+    cxGrid3DBTableView1N_DOM: TcxGridDBColumn;
+    cxGrid3DBTableView1SCH_RAZN: TcxGridDBColumn;
+    cxGrid3DBTableView1NOR_RAZN: TcxGridDBColumn;
+    cxGrid3DBTableView1NORM_BLICH: TcxGridDBColumn;
+    cxGrid3DBTableView1DEL_NORM: TcxGridDBColumn;
+    cxGrid3DBTableView1KUB_NOBALANS: TcxGridDBColumn;
+    cxGrid3DBTableView1PERERAH: TcxGridDBColumn;
+    cxGrid3DBTableView1KUB_ALL: TcxGridDBColumn;
+    cxGrid3DBTableView1PREV_NORM: TcxGridDBColumn;
+    cxGrid3DBTableView1SCH_KUB: TcxGridDBColumn;
+    cxGrid3DBTableView1SCH_RAZNDOM: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -898,6 +936,13 @@ type
       Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
       AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
     procedure cxGridDBBandedTableView1KUB_ALLStylesGetContentStyle(
+      Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
+      AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
+    procedure hvddom2BeforeOpen(DataSet: TDataSet);
+    procedure cxGrid3DBTableView1KUB_ALLStylesGetContentStyle(
+      Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
+      AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
+    procedure cxGrid3DBTableView1SCH_RAZNDOMStylesGetContentStyle(
       Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
       AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
 
@@ -1245,12 +1290,9 @@ end;
 procedure TMainForm.orgNewRecord(DataSet: TDataSet);
 begin
        orgYEARMON.Value:=CurYM;
-  orgWID.Value:=1;    // счетчик по умолчанию
+   // счетчик по умолчанию
 
-    DBGrid1SCHET.Options.Editing:=true;
-    DBGrid1FIO.Options.Editing:=true;
-    //DBGrid1n_sch.Options.Editing:=true;
-    DBGrid1SCHET.Focused:=true;
+
 end;
 
 function TMainForm.curYM:integer;
@@ -1640,15 +1682,20 @@ end;
 
 procedure TMainForm.dxBarButton38Click(Sender: TObject);
 begin
-//    Form4.ImKart;
+
 
    if application.MessageBox('Увага!!! Почати процедуру повного розрахунку? Редагування інформації буде закрито!','Підтвердження',MB_YESNO)=IDNO then
       exit;
 
-    imp.Edit;
-    impLASTROZR.Value:=1;
-    imp.Post;
-    allcalclich;
+//    Form4.ImKart;
+//
+//    if Form4.Visible then
+//    begin
+      imp.Edit;
+      impLASTROZR.Value:=1;
+      imp.Post;
+      allcalclich;
+//    end;
 
     if impLASTROZR.Value=1 then
     begin
@@ -1707,6 +1754,18 @@ begin
     application.ProcessMessages;
 
          calcdomlich(grp);
+
+      IBQuery2.Close;
+      IBQuery2.SQL.Text:='select sum(kub_nobalans) nobal from h_voda where ul=:uul and n_dom=:ndom and yearmon=:ym group by ul,n_dom';
+      IBQuery2.ParamByName('uul').Value:=grp.FieldByName('UL').Value;
+      IBQuery2.ParamByName('ndom').Value:=grp.FieldByName('N_DOM').Value;
+      IBQuery2.ParamByName('ym').Value:=MainForm.period;
+      IBQuery2.Open;
+      grp.edit;
+      grpRAZN.Value:=IBQuery2.FieldByName('nobal').Value;
+     grp.Post;
+
+
          if not Form4.Visible then
          begin
 
@@ -1793,10 +1852,11 @@ begin
              while not hvdrozpdom.Eof do
             begin
               hvdrozpdom.Edit;
-              hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kollud').Value)*iif(hvdrozpdomKOLI_P.Value>0,hvdrozpdomKOLI_P.Value,1),-3);
+              hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kollud').Value)*iif(hvdrozpdomKOLI_P.AsInteger>0,hvdrozpdomKOLI_P.AsInteger,1),-3);
 //              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
               hvdrozpdomNORM_BLICH.Value:=0;
-              hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно к-ті людей';
+              hvdrozpdomR_NACH.Value:='';
+              hvdrozpdomR_NOBAL.Value:='Розподіл небалансу кубів водопостачання по будинку, абонентам без лічильника або без повірки, пропорційно к-ті людей або квартир.';
               hvdrozpdom.Post;
               Form2.kub_all(hvdrozpdom);
               hvdrozpdom.Next;
@@ -1831,7 +1891,7 @@ begin
               hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kuball').Value)*(hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value),-3);
              // hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value+hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value;
               hvdrozpdomNORM_BLICH.Value:=0;
-          //    hvdrozpdomR_NACH.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно споживанню';
+              hvdrozpdomR_NOBAL.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно споживанню';
               hvdrozpdom.Post;
               Form2.kub_all(hvdrozpdom);
               hvdrozpdom.Next;
@@ -2219,14 +2279,13 @@ end;
 procedure TMainForm.hvdNewRecord(DataSet: TDataSet);
 begin
   hvdYEARMON.Value:=CurYM;
-  hvdWID.Value:=1;    // счетчик по умолчанию
+   // счетчик по умолчанию
 
  //   DBGrid1SCHET.Options.Editing:=true;
  //   DBGrid1FIO.Options.Editing:=true;
     //DBGrid1n_sch.Options.Editing:=true;
  //   DBGrid1SCHET.Focused:=true;
-end;
-
+end;         
 procedure TMainForm.hvdBeforePost(DataSet: TDataSet);
 begin
   if hvdYEARMON.Value=0 then hvdYEARMON.Value:=CurYM;
@@ -2237,6 +2296,11 @@ begin
  //   hvdNOR_RAZN.Value:=0;
  // end;
 
+end;
+
+procedure TMainForm.hvddom2BeforeOpen(DataSet: TDataSet);
+begin
+  hvddom2.ParamByName('yearmon').AsInteger:=CurYM;
 end;
 
 procedure TMainForm.execSql(s:string);
@@ -2581,6 +2645,9 @@ IBTransaction1.CommitRetaining;
   hvd.Close;
   hvd.open;
 
+  hvddom2.Close;
+  hvddom2.Open;
+
   vid_rn.close;
   vid_nach.close;
   vid_nach46.close;
@@ -2669,6 +2736,24 @@ IBTransaction1.CommitRetaining;
    // SplashForm.Hide;
    // SplashForm.Free;
   end;  
+end;
+
+procedure TMainForm.cxGrid3DBTableView1KUB_ALLStylesGetContentStyle(
+  Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
+  AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
+begin
+ if (ARecord.Values[cxGrid3DBTableView1KUB_ALL.Index] < 0) then
+     AStyle:=cxStyle3
+ else AStyle:=cxStyle2;
+end;
+
+procedure TMainForm.cxGrid3DBTableView1SCH_RAZNDOMStylesGetContentStyle(
+  Sender: TcxCustomGridTableView; ARecord: TcxCustomGridRecord;
+  AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
+begin
+ if (ARecord.Values[cxGrid3DBTableView1SCH_RAZNDOM.Index] < 0) then
+     AStyle:=cxStyle3
+ else AStyle:=cxStyle2;
 end;
 
 procedure TMainForm.cxGridDBBandedTableView1EditKeyDown(

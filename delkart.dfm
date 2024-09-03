@@ -2,8 +2,8 @@ object FormDelkart: TFormDelkart
   Left = 0
   Top = 0
   Caption = #1042#1080#1076#1072#1083#1080#1090#1080
-  ClientHeight = 349
-  ClientWidth = 434
+  ClientHeight = 427
+  ClientWidth = 492
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,17 +19,21 @@ object FormDelkart: TFormDelkart
   object cxPageControl1: TcxPageControl
     Left = 0
     Top = 0
-    Width = 434
-    Height = 314
+    Width = 492
+    Height = 392
     ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 0
-    ClientRectBottom = 314
-    ClientRectRight = 434
+    ExplicitWidth = 434
+    ExplicitHeight = 314
+    ClientRectBottom = 392
+    ClientRectRight = 492
     ClientRectTop = 24
     object cxTabSheet1: TcxTabSheet
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
+      ExplicitWidth = 434
+      ExplicitHeight = 290
       object cxTextEdit1: TcxTextEdit
         Left = 24
         Top = 123
@@ -38,7 +42,7 @@ object FormDelkart: TFormDelkart
         Width = 169
       end
       object cxLabel1: TcxLabel
-        Left = 101
+        Left = 24
         Top = 26
         Caption = #1055#1077#1088#1077#1076' '#1079#1085#1103#1090#1090#1103#1084' '#1086#1073#1077#1088#1110#1090#1100' '#1087#1088#1080#1095#1080#1085#1091'.'
       end
@@ -94,8 +98,8 @@ object FormDelkart: TFormDelkart
         Width = 121
       end
       object cxLabel17: TcxLabel
-        Left = 199
-        Top = 124
+        Left = 151
+        Top = 105
         Caption = 'fio'
       end
       object cxLabel4: TcxLabel
@@ -126,10 +130,81 @@ object FormDelkart: TFormDelkart
         TabOrder = 14
         Width = 191
       end
+      object cxCheckBox1: TcxCheckBox
+        Left = 232
+        Top = 119
+        Caption = #1044#1086#1076#1072#1090#1080' '#1087#1086#1082#1072#1079#1085#1080#1082
+        Properties.OnChange = cxCheckBox1PropertiesChange
+        TabOrder = 15
+        Width = 201
+      end
+      object cxLabel21: TcxLabel
+        Left = 232
+        Top = 146
+        Caption = #1076#1086#1076#1072#1108#1090#1100#1089#1103' '#1087#1088#1080' '#1079#1085#1103#1090#1090#1110' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072
+        Properties.WordWrap = True
+        Width = 177
+      end
+      object cxLabel30: TcxLabel
+        Left = 199
+        Top = 184
+        Caption = #1044#1072#1090#1072' '#1086#1089#1090#1072#1085#1085#1100#1086#1075#1086' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+      end
+      object cxDateEdit8: TcxDateEdit
+        Left = 225
+        Top = 203
+        Properties.ReadOnly = True
+        Properties.SaveTime = False
+        TabOrder = 18
+        Width = 121
+      end
+      object cxLabel31: TcxLabel
+        Left = 352
+        Top = 184
+        Caption = #1054#1089#1090#1072#1085#1085#1110#1081' '#1087#1086#1082#1072#1079#1085#1080#1082
+      end
+      object cxCalcEdit5: TcxCalcEdit
+        Left = 352
+        Top = 203
+        EditValue = 0.000000000000000000
+        Properties.ReadOnly = True
+        TabOrder = 20
+        Width = 121
+      end
+      object cxLabel32: TcxLabel
+        Left = 352
+        Top = 230
+        Caption = #1053#1086#1074#1080#1081' '#1087#1086#1082#1072#1079#1085#1080#1082
+      end
+      object cxCalcEdit4: TcxCalcEdit
+        Left = 352
+        Top = 253
+        EditValue = 0.000000000000000000
+        Properties.OnEditValueChanged = cxCalcEdit4PropertiesEditValueChanged
+        Style.Color = clMoneyGreen
+        TabOrder = 22
+        Width = 121
+      end
+      object cxLabel33: TcxLabel
+        Left = 352
+        Top = 283
+        Caption = #1056#1110#1079#1085#1080#1094#1103
+      end
+      object cxCalcEdit2: TcxCalcEdit
+        Left = 352
+        Top = 306
+        EditValue = 0.000000000000000000
+        Properties.ReadOnly = True
+        Style.Color = clWindow
+        TabOrder = 24
+        Width = 121
+      end
     end
     object cxTabSheet2: TcxTabSheet
       Caption = #1055#1083#1086#1084#1073#1080
       ImageIndex = 1
+      ExplicitWidth = 434
+      ExplicitHeight = 290
       object cxLabel8: TcxLabel
         Left = 16
         Top = 96
@@ -227,6 +302,8 @@ object FormDelkart: TFormDelkart
     object cxTabSheet3: TcxTabSheet
       Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
       ImageIndex = 2
+      ExplicitWidth = 434
+      ExplicitHeight = 290
       object cxLabel13: TcxLabel
         Left = 40
         Top = 189
@@ -341,13 +418,15 @@ object FormDelkart: TFormDelkart
   end
   object Panel1: TPanel
     Left = 0
-    Top = 314
-    Width = 434
+    Top = 392
+    Width = 492
     Height = 35
     Align = alBottom
     TabOrder = 1
+    ExplicitTop = 314
+    ExplicitWidth = 434
     object cxButton3: TcxButton
-      Left = 207
+      Left = 247
       Top = 6
       Width = 106
       Height = 25
@@ -357,7 +436,7 @@ object FormDelkart: TFormDelkart
       LookAndFeel.Kind = lfUltraFlat
     end
     object cxButton1: TcxButton
-      Left = 319
+      Left = 367
       Top = 6
       Width = 106
       Height = 25
@@ -401,8 +480,8 @@ object FormDelkart: TFormDelkart
       '  ID = :OLD_ID')
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_SPR_ZN_ID'
-    Left = 352
-    Top = 128
+    Left = 408
+    Top = 40
     object IBVIDZNID: TIntegerField
       FieldName = 'ID'
       Origin = '"SPR_ZN"."ID"'
@@ -426,15 +505,31 @@ object FormDelkart: TFormDelkart
   end
   object VIDZNSource: TDataSource
     DataSet = IBVIDZN
-    Left = 352
-    Top = 160
+    Left = 408
+    Top = 104
   end
   object IBQuery4: TIBQuery
     Database = MainForm.IBDatabase
     Transaction = MainForm.IBTransaction1
     SQL.Strings = (
       '')
-    Left = 352
-    Top = 200
+    Left = 408
+    Top = 72
+  end
+  object IBQuery1: TIBQuery
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    SQL.Strings = (
+      
+        'select first 1 *  from POKAZN where schet=:sch and date_zn is nu' +
+        'll order by DATE_POK desc')
+    Left = 376
+    Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'sch'
+        ParamType = ptUnknown
+      end>
   end
 end

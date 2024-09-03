@@ -221,12 +221,15 @@ begin
 //  DS.Edit;
 //  if sum<>sum2 then
 //     DS.FieldByName('KUB_NOBALANS').AsCurrency:=0;
-  DS.Edit;
-  DS.FieldByName('KUB_ALL').AsCurrency:=DS.FieldByName('SCH_RAZN').AsCurrency+
+
+  sum:=DS.FieldByName('SCH_RAZN').AsCurrency+
   DS.FieldByName('NOR_RAZN').AsCurrency+
   DS.FieldByName('NORM_BLICH').AsCurrency+
   DS.FieldByName('DEL_NORM').AsCurrency+
   DS.FieldByName('KUB_NOBALANS').AsCurrency;
+  DS.Edit;
+  DS.FieldByName('KUB_ALL').AsCurrency:=SimpleRoundTo(sum,-3);
+
   DS.Post;
 
 end;
@@ -422,6 +425,8 @@ begin
        DS.FieldByName('VID_POK').Value:=vid;
        DS.FieldByName('DATE_POK').Value:=date;
        DS.FieldByName('SCH_CUR').Value:=lastpokazn;
+       DS.FieldByName('R_NACH').Value:='';
+       DS.FieldByName('R_NOBAL').Value:='';
 
        //46,47,48
        if (DS.FieldByName('WID').Value>=46) then
@@ -465,9 +470,9 @@ begin
                   if DS.FieldByName('KUB_NOBALANS').AsFloat=0 then
                   begin
                     DS.FieldByName('SCH_RAZN').Value:=0;
-                    DS.FieldByName('NORM_BLICH').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+                    DS.FieldByName('NORM_BLICH').Value:=iif(DS.FieldByName('KOLI_P').AsInteger<>0,DS.FieldByName('KOLI_P').AsInteger,1)*DS.FieldByName('NORMA').Value;
                     DS.FieldByName('NOR_RAZN').Value:=0;
-                    DS.FieldByName('R_NACH').Value:='Споживання по нормі: к-ть зареєстров.('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
+                    DS.FieldByName('R_NACH').Value:='Споживання по нормі: к-ть людей або квартира('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
                   end;
                   //                end
 //                else
@@ -536,9 +541,9 @@ begin
                  end
                  else
                  begin
-                   DS.FieldByName('NOR_RAZN').Value:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+                   DS.FieldByName('NOR_RAZN').Value:=iif(DS.FieldByName('KOLI_P').AsInteger<>0,DS.FieldByName('KOLI_P').AsInteger,1)*DS.FieldByName('NORMA').Value;
                    DS.FieldByName('NORM_BLICH').Value:=0;
-                   DS.FieldByName('R_NACH').Value:='Споживання по нормі коли 3 міс. не було показників: к-ть зареєстров.('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
+                   DS.FieldByName('R_NACH').Value:='Споживання по нормі коли 3 міс. не було показників: к-ть людей або квартир('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
                  end;
 //               end;
 //               else
@@ -743,7 +748,7 @@ begin
               end
               else
               begin
-                kubnorm:=DS.FieldByName('KOLI_P').Value*DS.FieldByName('NORMA').Value;
+                kubnorm:=iif(DS.FieldByName('KOLI_P').AsInteger<>0,DS.FieldByName('KOLI_P').AsInteger,1)*DS.FieldByName('NORMA').Value;
                 raschday:=DaysBetween(YearMon2Date(MainForm.period),EndOfTheMonth(YearMon2Date(MainForm.period)));
                 kubavgday:=(kubnorm/raschday);
                 kubavg:=SimpleRoundTo(daynorm*kubavgday,-3);
@@ -1043,6 +1048,10 @@ FormDelkart.cxTextEdit1.Text:=MainForm.DSet.FieldByName('SCHET').Value;
 FormDelkart.cxLabel17.Caption:=MainForm.DSet.FieldByName('FIO').Value;
 
 FormDelkart.Show;
+
+
+
+
 
 FormDelkart.cxTextEdit2.Text:=MainForm.lichTIP.Value;
 FormDelkart.cxTextEdit3.Text:=MainForm.lichN_LICH.Value;

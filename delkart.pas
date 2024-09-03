@@ -7,7 +7,7 @@ uses
   Dialogs, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons, ExtCtrls, cxPC,
   cxControls, cxMaskEdit, cxDropDownEdit, cxCalendar, cxLabel, cxContainer,
   cxEdit, cxTextEdit, cxGraphics, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox, DB, IBCustomDataSet, cxCalc, IBQuery;
+  cxDBLookupComboBox, DB, IBCustomDataSet, cxCalc, IBQuery, cxCheckBox;
 
 type
   TFormDelkart = class(TForm)
@@ -72,11 +72,24 @@ type
     IBVIDZNVID_ZN: TIBStringField;
     IBVIDZNVID_OB: TIntegerField;
     IBVIDZNVID_SP: TIBStringField;
+    cxCheckBox1: TcxCheckBox;
+    cxLabel21: TcxLabel;
+    cxLabel30: TcxLabel;
+    cxDateEdit8: TcxDateEdit;
+    cxLabel31: TcxLabel;
+    cxCalcEdit5: TcxCalcEdit;
+    cxLabel32: TcxLabel;
+    cxCalcEdit4: TcxCalcEdit;
+    IBQuery1: TIBQuery;
+    cxLabel33: TcxLabel;
+    cxCalcEdit2: TcxCalcEdit;
     procedure FormShow(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure cxCheckBox1PropertiesChange(Sender: TObject);
+    procedure cxCalcEdit4PropertiesEditValueChanged(Sender: TObject);
   private
     { Private declarations }
   public
@@ -90,7 +103,7 @@ var
 
 implementation
 
-uses main, mytools, kart;
+uses main, mytools, kart, myform, addkart;
 
 {$R *.dfm}
 
@@ -127,6 +140,12 @@ begin
          exit;
       end;
 
+      if (cxCheckBox1.Checked) and (cxCalcEdit4.EditValue=null) then
+      begin
+        ShowMessage('Введіть новий показник');
+        exit;
+      end;
+
       MainForm.lich.Edit;
       MainForm.lichVID_ZN.Value:=cxLookupComboBox1.EditValue;
       MainForm.lichDATA_ZN.Value:=cxDateEdit1.EditValue;
@@ -153,6 +172,18 @@ begin
       MainForm.DSet.Post;
 
       MainForm.IBTransaction1.CommitRetaining;
+
+   if cxCheckBox1.Checked then
+  begin
+  if not FormAddkart.AddPokaz(trim(cxTextEdit1.Text),cxDateEdit1.EditValue,20,cxCalcEdit4.EditValue) then exit;
+
+  MainForm.pokazn.Edit;
+  MainForm.pokaznID_LICH.Value:=MainForm.lichID.Value;
+  MainForm.pokazn.Post;
+
+  MainForm.pokazn.Close;
+  MainForm.pokazn.Open;
+  end;
 
 
 Form2.calcpok2(MainForm.DSet,1);
@@ -238,6 +269,47 @@ close;
 
 end;
 
+procedure TFormDelkart.cxCalcEdit4PropertiesEditValueChanged(Sender: TObject);
+begin
+cxCalcEdit2.EditValue:=cxCalcEdit4.EditValue-cxCalcEdit5.EditValue;
+end;
+
+procedure TFormDelkart.cxCheckBox1PropertiesChange(Sender: TObject);
+var ympok:integer;
+begin
+if cxCheckBox1.Checked then
+begin
+  ympok:=Date2YearMon(IBQuery1.FieldByName('DATE_POK').Value);
+  if (ympok<MainForm.back3month) and (MainForm.DSet.FieldByName('WID').Value=45) then
+  begin
+  ShowMessage('При не повіреному лічильнику, дата останнього показника більше ніж 3 місяці. Додавання показника закрито!');
+  cxCheckBox1.Checked:=false;
+  exit;
+  end;
+
+
+  FormDelkart.cxDateEdit8.Visible:=true;
+  FormDelkart.cxCalcEdit5.Visible:=true;
+  FormDelkart.cxCalcEdit4.Visible:=true;
+  FormDelkart.cxCalcEdit2.Visible:=true;
+  FormDelkart.cxLabel30.Visible:=true;
+  FormDelkart.cxLabel31.Visible:=true;
+  FormDelkart.cxLabel32.Visible:=true;
+  FormDelkart.cxLabel33.Visible:=true;
+end
+else
+begin
+  FormDelkart.cxDateEdit8.Visible:=false;
+  FormDelkart.cxCalcEdit5.Visible:=false;
+  FormDelkart.cxCalcEdit4.Visible:=false;
+  FormDelkart.cxCalcEdit2.Visible:=false;
+  FormDelkart.cxLabel30.Visible:=false;
+  FormDelkart.cxLabel31.Visible:=false;
+  FormDelkart.cxLabel32.Visible:=false;
+  FormDelkart.cxLabel33.Visible:=false;
+end;
+end;
+
 procedure TFormDelkart.FormClose(Sender: TObject; var Action: TCloseAction);
 var i:integer;
 begin
@@ -266,6 +338,29 @@ begin
   if cxTabSheet1.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''dellich''';
   if cxTabSheet2.Visible then IBVIDZN.SelectSQL.Text:=spvidSQL+' where vid_sp=''delpl''';
   IBVIDZN.Open;
+
+  if cxTabSheet1.Visible then
+  begin
+
+  IBQuery1.Close;
+  IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
+  IBQuery1.open;
+
+  cxCheckBox1.Checked:=false;
+  cxCheckBox1PropertiesChange(cxCheckBox1);
+
+    if IBQuery1.RecordCount<>0 then
+    begin
+      cxDateEdit8.EditValue:=IBQuery1.FieldByName('date_pok').Value;
+      if IBQuery1.FieldByName('pokazn').IsNull then
+        cxCalcEdit5.Text:='0'
+      else
+        cxCalcEdit5.Text:=IBQuery1.FieldByName('pokazn').Value;
+
+end;
+
+  end;
+
 end;
 
 end.

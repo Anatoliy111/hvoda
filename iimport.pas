@@ -94,6 +94,14 @@ begin
     sss:= MainForm.hvdall.SelectSQL.Text;
     while not oo1.Eof do
     begin
+
+         if not Form4.Visible then
+         begin
+            MainForm.IBTransaction1.CommitRetaining;
+           // MainForm.Update;
+         Break;
+         end;
+
        if oo1.fieldbyname('wid').AsString='hv' then
        begin
        sch:=dos2win(trim(oo1.fieldbyname('schet').AsString));
@@ -115,6 +123,7 @@ begin
 
           MainForm.hvdallORG.Value:=0;
           MainForm.hvdall.post;
+          Form2.calcpok2(MainForm.hvdall,1);
    //       hvd1.first;
    //       pok:=0;
    //       while (not hvd1.Eof) and (pok=0) do
@@ -204,6 +213,13 @@ begin
     kk.First;
     while not kk.Eof do
     begin
+
+         if not Form4.Visible then
+         begin
+       //     MainForm.IBTransaction1.CommitRetaining;
+       //     MainForm.Update;
+         Break;
+         end;
     //   if  kk.fieldbyname('schet').AsString='0014016' then
      //     MainForm.hvdall.First;
 
