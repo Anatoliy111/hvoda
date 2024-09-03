@@ -393,7 +393,7 @@ object Form2: TForm2
     Top = 271
     Width = 699
     Height = 407
-    ActivePage = cxTabSheet1
+    ActivePage = cxTabSheet3
     Align = alClient
     TabOrder = 2
     ClientRectBottom = 407
