@@ -971,6 +971,7 @@ type
     procedure update;
     procedure calcdomlich(DS:TIBDataSet);
     procedure calcalldomlich;
+    procedure calcalldompere;
 
   end;
 
@@ -1096,6 +1097,7 @@ begin
   IBTransaction1.CommitRetaining;
 
   if impLASTROZR.Value=1 then calcalldomlich;
+  if impLASTROZR.Value=1 then calcalldompere;
 
   MainForm.hvdallSource.Enabled:=true;
 
@@ -1717,6 +1719,84 @@ begin
 calcalldomlich;
 end;
 
+procedure TMainForm.calcalldompere;
+begin
+    Form4.Show;
+   //  Form4.Label3.Caption:='Start -'+DateTimeToStr(now());
+
+     MainForm.Enabled:=false;
+     Form4.Label2.Caption:='Розрахунок перерахунку...';
+     Form4.cxProgressBar1.Properties.Min:=0;
+     Form4.cxProgressBar1.Properties.Max:=0;
+     application.ProcessMessages;
+
+    grp.Close;
+    grp.ParamByName('yearmon').Value:=MainForm.period;
+    grp.Open;
+    grp.FetchAll;
+
+
+    Form4.cxProgressBar1.Properties.Max:=grp.RecordCount-1;
+ //Form4.Label1.Caption:='allcalclich';
+    application.ProcessMessages;
+
+    IBQuery2.Close;
+    IBQuery2.SQL.Text:='update h_voda set kub_nobalans=0 where yearmon=:ym';
+    IBQuery2.ParamByName('ym').Value:=MainForm.period;
+    IBQuery2.ExecSQL;
+
+    IBTransaction1.CommitRetaining;
+
+    Form4.cxProgressBar1.Position:=0;
+    while not grp.eof do
+    begin
+    Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
+    Form4.Label4.Caption:=grpUL.Value+' '+grpN_DOM.Value;
+    application.ProcessMessages;
+
+         calcdomlich(grp);
+
+      IBQuery2.Close;
+      IBQuery2.SQL.Text:='select sum(kub_nobalans) nobal from h_voda where ul=:uul and n_dom=:ndom and yearmon=:ym group by ul,n_dom';
+      IBQuery2.ParamByName('uul').Value:=grp.FieldByName('UL').Value;
+      IBQuery2.ParamByName('ndom').Value:=grp.FieldByName('N_DOM').Value;
+      IBQuery2.ParamByName('ym').Value:=MainForm.period;
+      IBQuery2.Open;
+      grp.edit;
+      grpRAZN.Value:=IBQuery2.FieldByName('nobal').Value;
+     grp.Post;
+
+
+         if not Form4.Visible then
+         begin
+            imp.edit;
+            impLASTROZR.Value:=0;
+            imp.Post;
+            IBTransaction1.CommitRetaining;
+            Update;
+
+         Break;
+         end;
+
+
+
+      grp.Next;
+    end;
+
+  IBTransaction1.CommitRetaining;
+
+  Update;
+
+   Form4.Label3.Caption:=Form4.Label3.Caption+' End-'+DateTimeToStr(now());
+   Form4.Label4.Caption:='';
+   Form4.Label2.Caption:='';
+
+  Form4.Close;
+   MainForm.Enabled:=true;
+
+
+end;
+
 procedure TMainForm.calcalldomlich;
 begin
 
@@ -1768,6 +1848,11 @@ begin
 
          if not Form4.Visible then
          begin
+            imp.edit;
+            impLASTROZR.Value:=0;
+            imp.Post;
+            IBTransaction1.CommitRetaining;
+            Update;
 
          Break;
          end;
