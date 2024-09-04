@@ -60,6 +60,7 @@ function int2str(i:integer):string;
 function LastDayMon(date:TDate): TDate;
 function FirstDayMon(date:TDate): TDate;
 function YearMon2Date(yearmon:integer): TDate;
+function CountMonth2YearMon(YM1,YM2:Integer): integer;
 function Date2YearMon(dt:TDate): integer;
 function DaysPerMonth(Date: Integer): Integer;overload;
 function DaysPerMonth(AYear, AMonth: Integer): Integer;overload;
@@ -106,7 +107,10 @@ implementation
 
 uses DateUtils,Windows,Dialogs,activex,comobj,variants,math,Registry;
 
-
+function CountMonth2YearMon(YM1,YM2:Integer): integer;
+begin
+  Result:=MonthsBetween(YearMon2Date(YM1), YearMon2Date(YM2));
+end;
 
 function dos2win(s:string):string;
 var c:STRING;
