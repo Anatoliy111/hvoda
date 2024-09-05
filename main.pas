@@ -82,7 +82,6 @@ type
     dxBarButton7: TdxBarButton;
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
-    DBGrid3NOTE: TcxGridDBColumn;
     data: TIBDataSet;
     dataYEARMON: TIntegerField;
     dataNORMA_HVD: TIBBCDField;
@@ -858,6 +857,30 @@ type
     hv_perNOTEWID: TIBStringField;
     hv_perNOTE: TIBStringField;
     IBQuery3: TIBQuery;
+    grpall: TIBDataSet;
+    DataSource2: TDataSource;
+    grpallKL: TIntegerField;
+    grpallYEARMON: TIntegerField;
+    grpallSCH0: TIBStringField;
+    grpallSCH1: TIBStringField;
+    grpallRAZN: TFloatField;
+    grpallNORMA: TFloatField;
+    grpallNOTE: TIBStringField;
+    grpallDOM: TIBStringField;
+    grpallPOD: TIntegerField;
+    grpallSCH_OLD: TFloatField;
+    grpallSCH_CUR: TFloatField;
+    grpallSCH_RAZN: TFloatField;
+    grpallNORMA_BL: TFloatField;
+    grpallN_LICH: TIBStringField;
+    grpallTIP: TIBStringField;
+    grpallKL_UL: TIntegerField;
+    grpallUL: TIBStringField;
+    grpallN_DOM: TIBStringField;
+    grpallSCH_NAS: TFloatField;
+    grpallSCH_UR: TFloatField;
+    grpallSCH_SUMABON: TFloatField;
+    grpallSCH_KUB: TFloatField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -1750,7 +1773,8 @@ calcalldomlich;
 end;
 
 procedure TMainForm.calcalldompere;
-var firstpereym,countpereym:integer;
+var firstpereym,countpereym,kol_mes:integer;
+    sumabon,kub_rozp:Currency;
 begin
     Form4.Show;
    //  Form4.Label3.Caption:='Start -'+DateTimeToStr(now());
@@ -1761,23 +1785,23 @@ begin
      Form4.cxProgressBar1.Properties.Max:=0;
      application.ProcessMessages;
 
-    grp.Close;
-    grp.ParamByName('yearmon').Value:=MainForm.period;
-    grp.Open;
-    grp.FetchAll;
 
 
-    Form4.cxProgressBar1.Properties.Max:=grp.RecordCount-1;
- //Form4.Label1.Caption:='allcalclich';
-    application.ProcessMessages;
-
+    //видаляємо небаланс
     IBQuery2.Close;
     IBQuery2.SQL.Text:='update h_voda set kub_nobalans=0 where yearmon=:ym';
     IBQuery2.ParamByName('ym').Value:=MainForm.period;
     IBQuery2.ExecSQL;
 
+    //видаляємо перерахунки
+    IBQuery2.Close;
+    IBQuery2.SQL.Text:='update h_voda set pererah=0 where yearmon=:ym';
+    IBQuery2.ParamByName('ym').Value:=MainForm.period;
+    IBQuery2.ExecSQL;
+
     IBTransaction1.CommitRetaining;
 
+    //видаляємо поточний місяць з таблиці перерахунків і переносимо поточний місяць в таблицю перерахунків
     IBQuery2.Close;
     IBQuery2.SQL.Text:='execute procedure COPY_DOMPERE :ym,:notestr';
     IBQuery2.ParamByName('ym').Value:=MainForm.period;
@@ -1786,6 +1810,7 @@ begin
 
     IBTransaction1.CommitRetaining;
 
+    //початковий місяць перерахунків по небалансу
       IBQuery2.Close;
       IBQuery2.SQL.Text:='select yearmon from hv_per where yearmon in (select first 12 yearmon from data order by yearmon desc) group by yearmon order by yearmon';
       IBQuery2.Open;
@@ -1795,6 +1820,99 @@ begin
 
     hv_per.Close;
     hv_per.Open;
+
+    grpall.close;
+    grpall.Open;
+
+    //абоненти в яких зявився показник і які є в таблиці перерахунків не більше ніж 12 місяців
+    IBQuery2.Close;
+    IBQuery2.SQL.Text:='select h_voda.*,(select first 1 yearmon from pokazn where yearmon<>:ym and pokazn.schet=h_voda.schet order by yearmon desc) ympok_prev from h_voda'+
+                       'where (wid=41 or wid=43) and sch_razn<>0 and wid_prev=44 and yearmon=:ym and schet in (select schet from hv_per where yearmon in (select first 12 yearmon from data order by yearmon desc)) order by schet';
+
+    IBQuery2.ParamByName('ym').Value:=MainForm.period;
+    IBQuery2.Open;
+    IBQuery2.FetchAll;
+
+    Form4.cxProgressBar1.Properties.Max:=IBQuery2.RecordCount-1;
+    Form4.Label2.Caption:='Перерахунок споживання за попередні періоди';
+    application.ProcessMessages;
+
+    while not IBQuery2.Eof do
+    begin
+      kol_mes:=0;
+      //розрахунок в яких місяцях провести перерахунок споживання по абоненту згідно попереднього показника але не більше 12 місяців
+      IBQuery3.Close;
+      IBQuery3.SQL.Text:='select first 12 * from hv_per where schet=:sch and yearmon>=:ym and yearmon=yearmonp order by yearmon';
+      IBQuery3.ParamByName('sch').Value:=IBQuery2.FieldByName('schet').AsString;
+      IBQuery3.ParamByName('ym').Value:=IBQuery2.FieldByName('ympok_prev').AsInteger;
+      IBQuery3.Open;
+      IBQuery3.FetchAll;
+
+      //розрахунок середнього споживання по кільк. місяців між показниками
+      kol_mes:=CountMonth2YearMon(IBQuery2.FieldByName('ympok_prev').AsInteger,MainForm.period);
+      if kol_mes>12 then
+         kub_rozp:=SimpleRoundTo(IBQuery2.FieldByName('sch_razn').AsInteger/12,-3)
+      else
+         kub_rozp:=SimpleRoundTo(IBQuery2.FieldByName('sch_razn').AsInteger/kol_mes,-3);
+
+      //
+      while not IBQuery3.Eof do
+      begin
+        hv_per.First;
+        hv_per.Append;
+        hv_per.Edit;
+        hv_perYEARMON.Value:=MainForm.period;
+        hv_perYEARMONP.Value:=IBQuery3.FieldByName('yearmonp').Value;
+        hv_perSCHET.Value:=IBQuery3.FieldByName('SCHET').Value;
+        if IBQuery3.FieldByName('SCH_RAZN').Value<>0 then
+           hv_perSCH_RAZN.Value:=IBQuery3.FieldByName('SCH_RAZN').Value*-1;
+        if IBQuery3.FieldByName('NOR_RAZN').Value<>0 then
+           hv_perNOR_RAZN.Value:=IBQuery3.FieldByName('NOR_RAZN').Value*-1;
+        if IBQuery3.FieldByName('DEL_NORM').Value<>0 then
+           hv_perNOR_RAZN.Value:=IBQuery3.FieldByName('DEL_NORM').Value*-1;
+        if IBQuery3.FieldByName('KUB_ALL').Value<>0 then
+           hv_perKUB_ALL.Value:=IBQuery3.FieldByName('KUB_ALL').Value*-1;
+
+        hv_perKOLI_P.Value:=IBQuery3.FieldByName('KOLI_P').Value*-1;
+        hv_perWID.Value:=IBQuery3.FieldByName('WID').Value;
+        hv_perUL.Value:=IBQuery3.FieldByName('UL').Value;
+        hv_perN_DOM.Value:=IBQuery3.FieldByName('N_DOM').Value;
+        hv_perKV.Value:=IBQuery3.FieldByName('KV').Value;
+        hv_perNOTEWID.Value:='Перерахунок споживання '+IntToStr(IBQuery3.FieldByName('yearmonp').Value);
+        hv_perNOTEWID.Value:='Відміна попереднього нарахування';
+        hv_per.Post;
+
+        hv_per.Append;
+        hv_per.Edit;
+        hv_perYEARMON.Value:=MainForm.period;
+        hv_perYEARMONP.Value:=IBQuery3.FieldByName('yearmonp').Value;
+        hv_perSCHET.Value:=IBQuery3.FieldByName('SCHET').Value;
+        hv_perSCH_RAZN.Value:=kub_rozp;
+        hv_perKUB_ALL.Value:=kub_rozp;
+        hv_perWID.Value:=41;
+        hv_perKOLI_P.Value:=IBQuery3.FieldByName('KOLI_P').Value;
+        hv_perUL.Value:=IBQuery3.FieldByName('UL').Value;
+        hv_perN_DOM.Value:=IBQuery3.FieldByName('N_DOM').Value;
+        hv_perKV.Value:=IBQuery3.FieldByName('KV').Value;
+        hv_perNOTEWID.Value:='Перерахунок споживання '+IntToStr(IBQuery3.FieldByName('yearmonp').Value);
+        hv_perNOTEWID.Value:='Додавання середньго нарахування';
+        hv_per.Post;
+
+      IBQuery3.Next;
+      end;
+
+
+
+
+    IBQuery2.Next;
+    end;
+
+    IBTransaction1.CommitRetaining;
+
+
+
+
+
 
     Form4.cxProgressBar1.Position:=0;
     while not grp.eof do
@@ -1851,7 +1969,12 @@ procedure TMainForm.calcdomlichpere(DS:TIBDataSet;firstpereym:integer;countperey
 var sumabon,kub_rozp:Currency;
     kol_lud,kolmonth:integer;
 begin
+
+
+
     kolmonth:=0;
+
+    //search for subscribers with an indicator in this month and without an indicator in the previous month
     IBQuery2.Close;
     IBQuery2.SQL.Text:='select hv_per.*,'+'(select first 1 yearmon from pokazn where yearmon<>:ym and pokazn.schet=hv_per.schet order by yearmon desc) ympok_prev from hv_per where (wid=41 or wid=43) and sch_razn<>0 and wid_prev=44 and ul=:uul and n_dom=:ndom and yearmon=:ym and yearmonp=:ym';
     IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
@@ -1860,24 +1983,6 @@ begin
     IBQuery2.Open;
     IBQuery2.FetchAll;
 
-    while not IBQuery2.Eof do
-    begin
-      IBQuery3.Close;
-      IBQuery3.SQL.Text:='select first 12 yearmon from data where yearmon>=:ym and yearmon in (select yearmon from hv_per)';
-      IBQuery3.ParamByName('ym').Value:=IBQuery2.FieldByName('ympok_prev').AsInteger;
-      IBQuery3.Open;
-      IBQuery3.FetchAll;
-
-      kub_rozp:=SimpleRoundTo(IBQuery2.FieldByName('sch_razn').AsInteger/IBQuery3.RecordCount,-3);
-
-      while not IBQuery3.Eof do
-      begin
-        hv_per.lo
-
-      end;
-
-
-    end;
 
 
 
@@ -1908,6 +2013,14 @@ begin
     DS.FieldByName('sch_sumabon').Value:=sumabon;
     DS.FieldByName('sch_kub').Value:=DS.FieldByName('sch_cur').Value-DS.FieldByName('sch_old').Value;
     DS.FieldByName('sch_razn').Value:=DS.FieldByName('sch_kub').Value-DS.FieldByName('sch_sumabon').Value;
+
+
+
+
+
+
+
+
 
     if DS.FieldByName('sch_razn').Value>0 then
     begin
