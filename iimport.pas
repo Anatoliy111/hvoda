@@ -203,7 +203,7 @@ begin
        begin
           tarnam:=dos2win(trim(ntar.fieldbyname('name').AsString));
           IBQuery2.Close;
-          IBQuery2.SQL.Text:='update h_voda set tarif_name=:tn, norma=:nor where yearmon=:ym and klntar=:kltar';
+          IBQuery2.SQL.Text:='update h_voda set tarif_name=:tn, norma=:nor, tafif=:tar where yearmon=:ym and klntar=:kltar';
           IBQuery2.ParamByName('tn').AsString:=tarnam;
           IBQuery2.ParamByName('nor').AsCurrency:=ntar.fieldbyname('norma').AsCurrency;
           IBQuery2.ParamByName('ym').AsInteger:=mainform.dataYEARMON.Value;

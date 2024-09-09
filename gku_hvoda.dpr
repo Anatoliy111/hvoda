@@ -27,7 +27,8 @@ uses
   LichPlomb in 'LichPlomb.pas' {FormLichPlomb},
   ViberPokDmkg in 'ViberPokDmkg.pas' {FormViberPokDmkg},
   Conn in 'Conn.pas' {FormConn},
-  Pererah in 'Pererah.pas' {FormPererah};
+  Pererah in 'Pererah.pas' {FormPererah},
+  Users in 'Users.pas' {FormUsers};
 
 {$R *.res}
 
@@ -61,6 +62,7 @@ begin
   Application.CreateForm(TFormViberPokDmkg, FormViberPokDmkg);
   Application.CreateForm(TFormConn, FormConn);
   Application.CreateForm(TFormPererah, FormPererah);
+  Application.CreateForm(TFormUsers, FormUsers);
   // Application.CreateForm(TSplashForm, SplashForm);
 //    SplashForm.Hide;
 //  SplashForm.Free;

@@ -366,14 +366,6 @@ type
     DBGrid1NORMA: TcxGridDBBandedColumn;
     users: TIBDataSet;
     usersSource: TDataSource;
-    usersID: TIntegerField;
-    usersPW: TIBStringField;
-    usersADDLICH: TIntegerField;
-    usersADDPOKAZ: TIntegerField;
-    usersADDPLOMB: TIntegerField;
-    usersENDMES: TIntegerField;
-    usersDEL: TIntegerField;
-    usersUSER_NAIM: TIBStringField;
     dxBarButton32: TdxBarButton;
     vid_nach: TIBDataSet;
     IntegerField22: TIntegerField;
@@ -883,6 +875,15 @@ type
     hv_prhNOTEWID: TIBStringField;
     hv_prhFACT: TIntegerField;
     hv_prhNOTERAW: TIBStringField;
+    usersID: TIntegerField;
+    usersUSER_NAIM: TIBStringField;
+    usersPW: TIBStringField;
+    usersADDLICH: TIntegerField;
+    usersADDPOKAZ: TIntegerField;
+    usersADDPLOMB: TIntegerField;
+    usersENDMES: TIntegerField;
+    usersDEL: TIntegerField;
+    usersADM: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -1467,6 +1468,9 @@ if not IBDatabase.Connected then exit;
   ul.close;
   ul.ParamByName('yearmon').AsInteger:=dataYEARMON.Value;
   ul.open;
+
+  users.Open;
+  
 
 
 //Update;

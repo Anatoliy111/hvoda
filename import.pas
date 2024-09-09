@@ -91,6 +91,7 @@ type
     hvdKUB_ALL: TFloatField;
     hvdPLOSCH_UR: TFloatField;
     hvdPERERAH: TFloatField;
+    cxGrid1DBTableView1ADM: TcxGridDBColumn;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);

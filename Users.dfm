@@ -1,0 +1,73 @@
+object FormUsers: TFormUsers
+  Left = 0
+  Top = 0
+  Caption = #1042#1093#1110#1076
+  ClientHeight = 163
+  ClientWidth = 218
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnClose = FormClose
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label16: TLabel
+    Left = 27
+    Top = 19
+    Width = 112
+    Height = 13
+    Alignment = taCenter
+    Caption = #1042#1080#1073#1077#1088#1110#1090#1100' '#1082#1086#1088#1080#1089#1090#1091#1074#1072#1095#1072
+  end
+  object Label1: TLabel
+    Left = 27
+    Top = 65
+    Width = 78
+    Height = 13
+    Alignment = taCenter
+    Caption = #1042#1074#1077#1076#1110#1090#1100' '#1087#1072#1088#1086#1083#1100
+  end
+  object cxLookupComboBox1: TcxLookupComboBox
+    Left = 27
+    Top = 38
+    Properties.KeyFieldNames = 'ID'
+    Properties.ListColumns = <
+      item
+        FieldName = 'USER_NAIM'
+      end>
+    Properties.ListSource = MainForm.usersSource
+    TabOrder = 0
+    Width = 166
+  end
+  object cxMaskEdit1: TcxMaskEdit
+    Left = 27
+    Top = 84
+    TabOrder = 1
+    Width = 166
+  end
+  object cxButton1: TcxButton
+    Left = 27
+    Top = 120
+    Width = 75
+    Height = 25
+    Caption = #1054#1050
+    TabOrder = 2
+    OnClick = cxButton1Click
+    LookAndFeel.Kind = lfUltraFlat
+  end
+  object cxButton2: TcxButton
+    Left = 115
+    Top = 120
+    Width = 78
+    Height = 25
+    Caption = #1042#1080#1093#1110#1076
+    TabOrder = 3
+    OnClick = cxButton2Click
+    LookAndFeel.Kind = lfUltraFlat
+  end
+end

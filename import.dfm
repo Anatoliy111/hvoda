@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 114
   Caption = 'Form1'
   ClientHeight = 358
-  ClientWidth = 648
+  ClientWidth = 754
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -66,10 +66,11 @@ object Form1: TForm1
   object cxGrid1: TcxGrid
     Left = 0
     Top = 93
-    Width = 648
+    Width = 754
     Height = 265
     Align = alBottom
     TabOrder = 4
+    ExplicitWidth = 648
     object cxGrid1DBTableView1: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = MainForm.usersSource
@@ -91,25 +92,46 @@ object Form1: TForm1
         Caption = #1055#1072#1088#1086#1083#1100
         DataBinding.FieldName = 'PW'
       end
+      object cxGrid1DBTableView1ADM: TcxGridDBColumn
+        Caption = #1040#1076#1084#1110#1085#1110#1089#1090#1088#1072#1090#1086#1088
+        DataBinding.FieldName = 'ADM'
+        PropertiesClassName = 'TcxCheckBoxProperties'
+        Properties.ValueChecked = 1
+        Properties.ValueGrayed = '0'
+        Properties.ValueUnchecked = 0
+        Width = 82
+      end
       object cxGrid1DBTableView1ADDLICH: TcxGridDBColumn
         Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
         DataBinding.FieldName = 'ADDLICH'
         PropertiesClassName = 'TcxCheckBoxProperties'
-        Properties.ValueChecked = '1'
+        Properties.ValueChecked = 1
         Properties.ValueGrayed = 0
-        Properties.ValueUnchecked = '0'
+        Properties.ValueUnchecked = 0
       end
       object cxGrid1DBTableView1ADDPOKAZ: TcxGridDBColumn
         Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
         DataBinding.FieldName = 'ADDPOKAZ'
+        PropertiesClassName = 'TcxCheckBoxProperties'
+        Properties.ValueChecked = 1
+        Properties.ValueGrayed = '0'
+        Properties.ValueUnchecked = 0
       end
       object cxGrid1DBTableView1ADDPLOMB: TcxGridDBColumn
         Caption = #1055#1083#1086#1084#1073#1080
         DataBinding.FieldName = 'ADDPLOMB'
+        PropertiesClassName = 'TcxCheckBoxProperties'
+        Properties.ValueChecked = 1
+        Properties.ValueGrayed = '0'
+        Properties.ValueUnchecked = 0
       end
       object cxGrid1DBTableView1ENDMES: TcxGridDBColumn
         Caption = #1047#1072#1082#1088#1080#1090#1090#1103' '#1084#1110#1089'.'
         DataBinding.FieldName = 'ENDMES'
+        PropertiesClassName = 'TcxCheckBoxProperties'
+        Properties.ValueChecked = 1
+        Properties.ValueGrayed = '0'
+        Properties.ValueUnchecked = 0
         Width = 91
       end
     end
@@ -585,7 +607,6 @@ object Form1: TForm1
     Top = 16
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultDatabase = MainForm.IBDatabase
     Left = 288
     Top = 16
