@@ -226,6 +226,7 @@ begin
   DS.FieldByName('NOR_RAZN').AsCurrency+
   DS.FieldByName('NORM_BLICH').AsCurrency+
   DS.FieldByName('DEL_NORM').AsCurrency+
+  DS.FieldByName('PERERAH').AsCurrency+
   DS.FieldByName('KUB_NOBALANS').AsCurrency;
   DS.Edit;
   DS.FieldByName('KUB_ALL').AsCurrency:=SimpleRoundTo(sum,-3);
@@ -269,9 +270,9 @@ begin
 
 
     IBQuery6.Close;
-    IBQuery6.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch order by date_pok,id';
+    IBQuery6.SQL.Text:='select * from pokazn where yearmon=:ym and schet=:sch order by date_pok,id';
     IBQuery6.ParamByName('sch').Value:=trim(DS.FieldByName('schet').value);
-    IBQuery6.ParamByName('per').Value:=MainForm.period;
+    IBQuery6.ParamByName('ym').Value:=MainForm.period;
     IBQuery6.Open;
 
      while not IBQuery6.eof do
@@ -472,7 +473,7 @@ begin
                     DS.FieldByName('SCH_RAZN').Value:=0;
                     DS.FieldByName('NORM_BLICH').Value:=iif(DS.FieldByName('KOLI_P').AsInteger<>0,DS.FieldByName('KOLI_P').AsInteger,1)*DS.FieldByName('NORMA').Value;
                     DS.FieldByName('NOR_RAZN').Value:=0;
-                    DS.FieldByName('R_NACH').Value:='Споживання по нормі: к-ть людей або квартира('+inttostr(DS.FieldByName('KOLI_P').Value)+') * норма('+CurrToStr(DS.FieldByName('NORMA').Value)+')';
+                    DS.FieldByName('R_NACH').Value:='Споживання по нормі: к-ть людей або квартира('+inttostr(iif(DS.FieldByName('KOLI_P').AsInteger<>0,DS.FieldByName('KOLI_P').AsInteger,1))+') * норма('+CurrToStr(DS.FieldByName('NORMA').AsCurrency)+')';
                   end;
                   //                end
 //                else

@@ -26,7 +26,8 @@ uses
   EditNormaForm in 'EditNormaForm.pas' {EditNorma},
   LichPlomb in 'LichPlomb.pas' {FormLichPlomb},
   ViberPokDmkg in 'ViberPokDmkg.pas' {FormViberPokDmkg},
-  Conn in 'Conn.pas' {FormConn};
+  Conn in 'Conn.pas' {FormConn},
+  Pererah in 'Pererah.pas' {FormPererah};
 
 {$R *.res}
 
@@ -59,6 +60,7 @@ begin
   Application.CreateForm(TFormLichPlomb, FormLichPlomb);
   Application.CreateForm(TFormViberPokDmkg, FormViberPokDmkg);
   Application.CreateForm(TFormConn, FormConn);
+  Application.CreateForm(TFormPererah, FormPererah);
   // Application.CreateForm(TSplashForm, SplashForm);
 //    SplashForm.Hide;
 //  SplashForm.Free;

@@ -60,7 +60,7 @@ ImKart;
 end;
 
 procedure TForm4.ImKart;
-var pok:integer;                        
+var pok:integer;
     sch,sss,tarnam:string;
 begin
  MainForm.hvdall.Close;
@@ -90,6 +90,8 @@ begin
 
 
     Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
+    Form4.Label4.Caption:='Пошук нових абонентів з послугою водопостачання';
+    application.ProcessMessages;
     oo1.First;
     sss:= MainForm.hvdall.SelectSQL.Text;
     while not oo1.Eof do
@@ -114,16 +116,23 @@ begin
           MainForm.hvdallSCHET.Value:=sch;
           MainForm.hvdallKLNTAR.Value:=oo1.fieldbyname('kl_ntar').AsInteger;
           MainForm.hvdallYEARMON.Value:=main.MainForm.dataYEARMON.Value;
-          MainForm.hvdall.edit;
+          MainForm.hvdallSCH_RAZN.AsCurrency:=0;
+          MainForm.hvdallNOR_RAZN.AsCurrency:=0;
+          MainForm.hvdallDEL_NORM.AsCurrency:=0;
+          MainForm.hvdallNORM_BLICH.AsCurrency:=0;
+          MainForm.hvdallPERERAH.AsCurrency:=0;
+          MainForm.hvdallKOLI_P.Value:=0;
+          MainForm.hvdallKUB_NOBALANS.AsCurrency:=0;
+          MainForm.hvdallKUB_ALL.AsCurrency:=0;
  //         if (oo1.fieldbyname('koef').AsInteger=0) then
  //             MainForm.hvdallwid.Value:=48
  //         else
- //           MainForm.hvdallWID.Value:=42;
+          MainForm.hvdallWID.Value:=0;
 
 
           MainForm.hvdallORG.Value:=0;
           MainForm.hvdall.post;
-          Form2.calcpok2(MainForm.hvdall,1);
+   //       Form2.calcpok2(MainForm.hvdall,1);
    //       hvd1.first;
    //       pok:=0;
    //       while (not hvd1.Eof) and (pok=0) do
@@ -184,6 +193,9 @@ begin
   //   IBPokazn.Close;
      MainForm.IBTransaction1.CommitRetaining;
 
+     Form4.Label4.Caption:='Оновлення норм та тарифів';
+     application.ProcessMessages;
+
      ntar.First;
      while not ntar.Eof do
      begin
@@ -210,6 +222,8 @@ begin
      MainForm.hvdall.Open;
 
     Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
+    Form4.Label4.Caption:='Оновлення карток';
+    application.ProcessMessages;
     kk.First;
     while not kk.Eof do
     begin
@@ -234,14 +248,27 @@ begin
           MainForm.hvdallN_DOM.Value:=dos2win(kk.fieldbyname('NOMDOM').AsString);
           MainForm.hvdallKV.Value:=dos2win(kk.fieldbyname('NOMKV').AsString);
           MainForm.hvdall.post;
+
+          if MainForm.hvdallWID.Value=0 then
+          begin
+            MainForm.hvdall.Edit;
+            MainForm.hvdallWID.Value:=42;
+            MainForm.hvdall.Post;
+            Form2.calcpok2(MainForm.hvdall,1);
+          end;
+
        end;
       kk.Next;
       cxProgressBar1.Position:=kk.RecNo/kk.RecordCount*100;
       application.ProcessMessages;
     end;
-    MainForm.IBTransaction1.CommitRetaining;
 
     kk.Free;
+    MainForm.IBTransaction1.CommitRetaining;
+
+
+    MainForm.IBTransaction1.CommitRetaining;
+
 //    MessageDlg('Імпорт виконано', mtConfirmation, [mbOK], 0);
     MainForm.execSQL('execute procedure new_dom');
     MainForm.dom.Close;
