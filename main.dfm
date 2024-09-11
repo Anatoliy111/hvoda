@@ -1537,6 +1537,10 @@ object MainForm: TMainForm
         item
           Visible = True
           ItemName = 'dxBarButtonExit'
+        end
+        item
+          Visible = True
+          ItemName = 'cxBarEditItem5'
         end>
       OldName = 'Custom 1'
       OneOnRow = True
@@ -2388,6 +2392,7 @@ object MainForm: TMainForm
     object dxBarButton39: TdxBarButton
       Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1088#1086#1079#1087#1086#1076#1110#1083#1091
       Category = 0
+      Enabled = False
       Hint = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1088#1086#1079#1087#1086#1076#1110#1083#1091
       Visible = ivAlways
       ImageIndex = 34
@@ -2400,6 +2405,22 @@ object MainForm: TMainForm
       Hint = #1056#1086#1079#1073#1083#1086#1082#1091#1074#1072#1090#1080' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
       Visible = ivAlways
       OnClick = dxBarButton25Click
+    end
+    object cxBarEditItem4: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      Width = 100
+      PropertiesClassName = 'TcxTextEditProperties'
+    end
+    object cxBarEditItem5: TcxBarEditItem
+      Caption = '       New Item'
+      Category = 0
+      Hint = '       New Item'
+      Visible = ivAlways
+      Width = 100
+      PropertiesClassName = 'TcxLabelProperties'
     end
     object dxBarButton1: TdxBarButton
       Action = ActionEdCalcs
@@ -2446,7 +2467,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E0040002C0214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000300214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5787,7 +5808,6 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'
@@ -11154,9 +11174,6 @@ object MainForm: TMainForm
   object users: TIBDataSet
     Database = IBDatabase
     Transaction = IBTransaction1
-    AfterClose = dataAfterClose
-    AfterOpen = dataAfterOpen
-    AfterScroll = dataAfterScroll
     OnCalcFields = dataCalcFields
     DeleteSQL.Strings = (
       'delete from USERS'
@@ -11186,7 +11203,7 @@ object MainForm: TMainForm
       'where'
       '  ID = :ID')
     SelectSQL.Strings = (
-      'SELECT * from USERS where del<>1 order by ID')
+      'SELECT * from USERS where del is null order by ID')
     ModifySQL.Strings = (
       'update USERS'
       'set'

@@ -76,13 +76,8 @@ begin
           Timer1.Enabled:=true;
          // result:=false;
         end;
-   end
-   else
-    // result:=true;
-
-
-
-   
+   end;
+ 
 
 end;
 

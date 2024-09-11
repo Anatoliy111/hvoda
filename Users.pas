@@ -6,16 +6,16 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxGraphics, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons,
   cxMaskEdit, cxControls, cxContainer, cxEdit, cxTextEdit, cxDropDownEdit,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox;
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox,inifiles;
 
 type
   TFormUsers = class(TForm)
-    cxLookupComboBox1: TcxLookupComboBox;
     Label16: TLabel;
     Label1: TLabel;
     cxMaskEdit1: TcxMaskEdit;
     cxButton1: TcxButton;
     cxButton2: TcxButton;
+    cxLookupComboBox1: TcxLookupComboBox;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxButton2Click(Sender: TObject);
@@ -28,10 +28,11 @@ type
 
 var
   FormUsers: TFormUsers;
+  iniFile:TIniFile;
 
 implementation
 
-uses main;
+uses main;//, SHFolder;
 
 {$R *.dfm}
 
@@ -39,7 +40,7 @@ procedure TFormUsers.cxButton1Click(Sender: TObject);
 begin
 if (cxLookupComboBox1.EditValue <> null) or (Length(cxLookupComboBox1.EditValue)<>0) then
 begin
-     MainForm.USERS.Locate('user_naim',cxLookupComboBox1.EditValue,[]);
+     MainForm.USERS.Locate('ID',cxLookupComboBox1.EditValue,[]);
      if cxMaskEdit1.Text=MainForm.usersPW.Value then
      begin
      MainForm.ActiveUser:=MainForm.usersID.Value;
@@ -60,13 +61,13 @@ end;
 
 procedure TFormUsers.cxButton2Click(Sender: TObject);
 begin
-MainForm.close;
 Close;
 end;
 
 procedure TFormUsers.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-MainForm.Enabled:=true;
+//MainForm.Enabled:=true;
+MainForm.close;
 end;
 
 procedure TFormUsers.FormShow(Sender: TObject);

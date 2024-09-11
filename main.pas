@@ -1,6 +1,6 @@
 unit main;
 
-interface
+interface      
 
 uses
   Windows, Messages, SysUtils, DateUtils, Variants, Classes, Graphics, Controls, Forms,
@@ -884,6 +884,8 @@ type
     usersENDMES: TIntegerField;
     usersDEL: TIntegerField;
     usersADM: TIntegerField;
+    cxBarEditItem4: TcxBarEditItem;
+    cxBarEditItem5: TcxBarEditItem;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -1014,7 +1016,7 @@ type
     lchSQL,lchznSQL,plSQL,plznSQL,pokSQL,why_pokSQL,url,urlsend,startimport,sendmessbefoimp:string;
     PathKvart:string;
     iniFile:TIniFile;
-    period,LASTROZR,back3month,first12ym:integer;
+    period,LASTROZR,back3month,first12ym,ActiveUser:integer;
     fl_startprog:boolean;
     DSet:TIBDataSet;
     function curYM:integer;
@@ -1041,7 +1043,7 @@ implementation
 
 uses inpedpro, edexpr, import, mytools, itoghvd,ComObj,dbf,dbf_lang,
   edplomb, kart, lichall, iimport, sprzn, addkart, ViberTask, ViberPok,
-  ViberSendOrders, LichPlomb, splash, Conn, math, Pererah;
+  ViberSendOrders, LichPlomb, splash, Conn, math, Pererah, Users;
 
 {$R *.dfm}
 
@@ -1455,6 +1457,11 @@ FormConn.TestConn;
 
 if not IBDatabase.Connected then exit;
 
+  users.Open;
+
+  FormUsers.show;
+
+
   dxBarLookupCombo1.Enabled:=false;
   dxBarLookupCombo1.KeyValue:=domDOM.AsString;
 
@@ -1469,7 +1476,7 @@ if not IBDatabase.Connected then exit;
   ul.ParamByName('yearmon').AsInteger:=dataYEARMON.Value;
   ul.open;
 
-  users.Open;
+
   
 
 

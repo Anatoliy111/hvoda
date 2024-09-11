@@ -1,17 +1,19 @@
 object FormUsers: TFormUsers
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = #1042#1093#1110#1076
-  ClientHeight = 163
-  ClientWidth = 218
+  ClientHeight = 167
+  ClientWidth = 215
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  FormStyle = fsStayOnTop
   OldCreateOrder = False
-  Position = poMainFormCenter
+  Position = poDesktopCenter
   OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
@@ -32,22 +34,10 @@ object FormUsers: TFormUsers
     Alignment = taCenter
     Caption = #1042#1074#1077#1076#1110#1090#1100' '#1087#1072#1088#1086#1083#1100
   end
-  object cxLookupComboBox1: TcxLookupComboBox
-    Left = 27
-    Top = 38
-    Properties.KeyFieldNames = 'ID'
-    Properties.ListColumns = <
-      item
-        FieldName = 'USER_NAIM'
-      end>
-    Properties.ListSource = MainForm.usersSource
-    TabOrder = 0
-    Width = 166
-  end
   object cxMaskEdit1: TcxMaskEdit
     Left = 27
     Top = 84
-    TabOrder = 1
+    TabOrder = 0
     Width = 166
   end
   object cxButton1: TcxButton
@@ -56,7 +46,7 @@ object FormUsers: TFormUsers
     Width = 75
     Height = 25
     Caption = #1054#1050
-    TabOrder = 2
+    TabOrder = 1
     OnClick = cxButton1Click
     LookAndFeel.Kind = lfUltraFlat
   end
@@ -66,8 +56,20 @@ object FormUsers: TFormUsers
     Width = 78
     Height = 25
     Caption = #1042#1080#1093#1110#1076
-    TabOrder = 3
+    TabOrder = 2
     OnClick = cxButton2Click
     LookAndFeel.Kind = lfUltraFlat
+  end
+  object cxLookupComboBox1: TcxLookupComboBox
+    Left = 27
+    Top = 38
+    Properties.KeyFieldNames = 'ID'
+    Properties.ListColumns = <
+      item
+        FieldName = 'USER_NAIM'
+      end>
+    Properties.ListSource = MainForm.usersSource
+    TabOrder = 3
+    Width = 166
   end
 end

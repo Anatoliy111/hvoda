@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 202
   Top = 114
   Caption = 'Form1'
-  ClientHeight = 358
-  ClientWidth = 754
+  ClientHeight = 397
+  ClientWidth = 677
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,6 +11,8 @@ object Form1: TForm1
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -65,21 +67,21 @@ object Form1: TForm1
   end
   object cxGrid1: TcxGrid
     Left = 0
-    Top = 93
-    Width = 754
-    Height = 265
+    Top = 111
+    Width = 677
+    Height = 286
     Align = alBottom
     TabOrder = 4
-    ExplicitWidth = 648
+    ExplicitWidth = 810
     object cxGrid1DBTableView1: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
-      DataController.DataSource = MainForm.usersSource
+      DataController.DataSource = usersSource
       DataController.DetailKeyFieldNames = 'ID'
       DataController.KeyFieldNames = 'ID'
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
-      OptionsView.Navigator = True
+      OptionsView.GroupByBox = False
       object cxGrid1DBTableView1ID: TcxGridDBColumn
         DataBinding.FieldName = 'ID'
       end
@@ -97,7 +99,6 @@ object Form1: TForm1
         DataBinding.FieldName = 'ADM'
         PropertiesClassName = 'TcxCheckBoxProperties'
         Properties.ValueChecked = 1
-        Properties.ValueGrayed = '0'
         Properties.ValueUnchecked = 0
         Width = 82
       end
@@ -106,7 +107,6 @@ object Form1: TForm1
         DataBinding.FieldName = 'ADDLICH'
         PropertiesClassName = 'TcxCheckBoxProperties'
         Properties.ValueChecked = 1
-        Properties.ValueGrayed = 0
         Properties.ValueUnchecked = 0
       end
       object cxGrid1DBTableView1ADDPOKAZ: TcxGridDBColumn
@@ -114,7 +114,6 @@ object Form1: TForm1
         DataBinding.FieldName = 'ADDPOKAZ'
         PropertiesClassName = 'TcxCheckBoxProperties'
         Properties.ValueChecked = 1
-        Properties.ValueGrayed = '0'
         Properties.ValueUnchecked = 0
       end
       object cxGrid1DBTableView1ADDPLOMB: TcxGridDBColumn
@@ -122,7 +121,6 @@ object Form1: TForm1
         DataBinding.FieldName = 'ADDPLOMB'
         PropertiesClassName = 'TcxCheckBoxProperties'
         Properties.ValueChecked = 1
-        Properties.ValueGrayed = '0'
         Properties.ValueUnchecked = 0
       end
       object cxGrid1DBTableView1ENDMES: TcxGridDBColumn
@@ -130,7 +128,6 @@ object Form1: TForm1
         DataBinding.FieldName = 'ENDMES'
         PropertiesClassName = 'TcxCheckBoxProperties'
         Properties.ValueChecked = 1
-        Properties.ValueGrayed = '0'
         Properties.ValueUnchecked = 0
         Width = 91
       end
@@ -148,6 +145,26 @@ object Form1: TForm1
     TabOrder = 5
     Visible = False
     OnClick = Button3Click
+  end
+  object cxButton1: TcxButton
+    Left = 8
+    Top = 80
+    Width = 75
+    Height = 25
+    Caption = #1044#1086#1076#1072#1090#1080
+    TabOrder = 6
+    OnClick = cxButton1Click
+    LookAndFeel.Kind = lfUltraFlat
+  end
+  object cxButton2: TcxButton
+    Left = 89
+    Top = 80
+    Width = 75
+    Height = 25
+    Caption = #1042#1080#1076#1072#1083#1080#1090#1080
+    TabOrder = 7
+    OnClick = cxButton2Click
+    LookAndFeel.Kind = lfUltraFlat
   end
   object hvd: TIBDataSet
     Database = MainForm.IBDatabase
@@ -607,6 +624,7 @@ object Form1: TForm1
     Top = 16
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultDatabase = MainForm.IBDatabase
     Left = 288
     Top = 16
@@ -616,5 +634,103 @@ object Form1: TForm1
     Transaction = IBTransaction1
     Left = 320
     Top = 16
+  end
+  object users: TIBDataSet
+    Database = MainForm.IBDatabase
+    Transaction = MainForm.IBTransaction1
+    DeleteSQL.Strings = (
+      'delete from USERS'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into USERS'
+      
+        '  (ADDLICH, ADDPLOMB, ADDPOKAZ, ADM, DEL, ENDMES, ID, PW, USER_N' +
+        'AIM)'
+      'values'
+      
+        '  (:ADDLICH, :ADDPLOMB, :ADDPOKAZ, :ADM, :DEL, :ENDMES, :ID, :PW' +
+        ', :USER_NAIM)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  USER_NAIM,'
+      '  PW,'
+      '  ADDLICH,'
+      '  ADDPOKAZ,'
+      '  ADDPLOMB,'
+      '  ENDMES,'
+      '  DEL,'
+      '  ADM'
+      'from USERS '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      'SELECT * from USERS where del is null order by ID')
+    ModifySQL.Strings = (
+      'update USERS'
+      'set'
+      '  ADDLICH = :ADDLICH,'
+      '  ADDPLOMB = :ADDPLOMB,'
+      '  ADDPOKAZ = :ADDPOKAZ,'
+      '  ADM = :ADM,'
+      '  DEL = :DEL,'
+      '  ENDMES = :ENDMES,'
+      '  ID = :ID,'
+      '  PW = :PW,'
+      '  USER_NAIM = :USER_NAIM'
+      'where'
+      '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_USERS_ID'
+    Left = 248
+    Top = 50
+    object usersID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"USERS"."ID"'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object usersUSER_NAIM: TIBStringField
+      FieldName = 'USER_NAIM'
+      Origin = '"USERS"."USER_NAIM"'
+      Required = True
+      Size = 50
+    end
+    object usersPW: TIBStringField
+      FieldName = 'PW'
+      Origin = '"USERS"."PW"'
+      Size = 10
+    end
+    object usersADDLICH: TIntegerField
+      FieldName = 'ADDLICH'
+      Origin = '"USERS"."ADDLICH"'
+    end
+    object usersADDPOKAZ: TIntegerField
+      FieldName = 'ADDPOKAZ'
+      Origin = '"USERS"."ADDPOKAZ"'
+    end
+    object usersADDPLOMB: TIntegerField
+      FieldName = 'ADDPLOMB'
+      Origin = '"USERS"."ADDPLOMB"'
+    end
+    object usersENDMES: TIntegerField
+      FieldName = 'ENDMES'
+      Origin = '"USERS"."ENDMES"'
+    end
+    object usersDEL: TIntegerField
+      FieldName = 'DEL'
+      Origin = '"USERS"."DEL"'
+    end
+    object usersADM: TIntegerField
+      FieldName = 'ADM'
+      Origin = '"USERS"."ADM"'
+      OnChange = usersADMChange
+    end
+  end
+  object usersSource: TDataSource
+    DataSet = users
+    Left = 280
+    Top = 50
   end
 end

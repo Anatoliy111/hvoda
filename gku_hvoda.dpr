@@ -66,6 +66,6 @@ begin
   // Application.CreateForm(TSplashForm, SplashForm);
 //    SplashForm.Hide;
 //  SplashForm.Free;
-
+  
   Application.Run;
 end.

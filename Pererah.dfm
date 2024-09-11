@@ -10,6 +10,7 @@ object FormPererah: TFormPererah
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  FormStyle = fsStayOnTop
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
@@ -20,7 +21,6 @@ object FormPererah: TFormPererah
     Height = 33
     Align = alTop
     TabOrder = 0
-    ExplicitTop = -6
     object Label16: TLabel
       Left = 8
       Top = 10
@@ -45,10 +45,6 @@ object FormPererah: TFormPererah
     Height = 238
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 120
-    ExplicitTop = 157
-    ExplicitWidth = 949
-    ExplicitHeight = 481
     object cxGrid3DBTableView1: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = grppererahSource
@@ -506,7 +502,6 @@ object FormPererah: TFormPererah
     Height = 33
     Align = alTop
     TabOrder = 4
-    ExplicitTop = 382
     object Label2: TLabel
       Left = 8
       Top = 10

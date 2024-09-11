@@ -92,9 +92,27 @@ type
     hvdPLOSCH_UR: TFloatField;
     hvdPERERAH: TFloatField;
     cxGrid1DBTableView1ADM: TcxGridDBColumn;
+    users: TIBDataSet;
+    usersSource: TDataSource;
+    cxButton1: TcxButton;
+    cxButton2: TcxButton;
+    usersID: TIntegerField;
+    usersUSER_NAIM: TIBStringField;
+    usersPW: TIBStringField;
+    usersADDLICH: TIntegerField;
+    usersADDPOKAZ: TIntegerField;
+    usersADDPLOMB: TIntegerField;
+    usersENDMES: TIntegerField;
+    usersDEL: TIntegerField;
+    usersADM: TIntegerField;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cxButton1Click(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
+    procedure usersADMChange(Sender: TField);
   private
     { Private declarations }
   public
@@ -116,6 +134,40 @@ begin
   qry.SQL.Clear;
   qry.SQL.Add(s);
   qry.ExecSQL;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+if users.State in [dsInsert,dsEdit] then users.Post;
+mainform.IBTransaction1.CommitRetaining;
+end;
+
+procedure TForm1.FormShow(Sender: TObject);
+begin
+users.Close;
+users.Open;
+end;
+
+procedure TForm1.usersADMChange(Sender: TField);
+begin
+  if usersADM.Value=1 then
+  begin
+  users.Edit;
+  usersADDLICH.Value:=1;
+  usersADDPOKAZ.Value:=1;
+  usersADDPLOMB.Value:=1;
+  usersENDMES.Value:=1;
+  users.Post;
+  end
+  else
+  begin
+  users.Edit;
+  usersADDLICH.Value:=0;
+  usersADDPOKAZ.Value:=0;
+  usersADDPLOMB.Value:=0;
+  usersENDMES.Value:=0;
+  users.Post;
+  end;
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -360,6 +412,28 @@ begin
    MainForm.Enabled:=true;
 
 
+end;
+
+procedure TForm1.cxButton1Click(Sender: TObject);
+begin
+users.Append;
+users.Edit;
+usersADDLICH.Value:=0;
+usersADDPOKAZ.Value:=0;
+usersADDPLOMB.Value:=0;
+usersENDMES.Value:=0;
+usersADM.Value:=0;
+users.Post;
+
+end;
+
+procedure TForm1.cxButton2Click(Sender: TObject);
+begin
+users.Edit;
+usersDEL.Value:=1;
+users.Post;
+users.close;
+users.open
 end;
 
 end.
