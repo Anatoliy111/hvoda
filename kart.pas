@@ -25,18 +25,7 @@ type
     cxDBTextEdit3: TcxDBTextEdit;
     cxDBTextEdit6: TcxDBTextEdit;
     cxDBTextEdit10: TcxDBTextEdit;
-    cxGrid1: TcxGrid;
-    cxGrid1DBTableView1: TcxGridDBTableView;
-    cxGrid1Level1: TcxGridLevel;
     cxDBTextEdit2: TcxDBTextEdit;
-    cxGrid1DBTableView1TIP: TcxGridDBColumn;
-    cxGrid1DBTableView1N_LICH: TcxGridDBColumn;
-    cxGrid1DBTableView1DATA_VIP: TcxGridDBColumn;
-    cxGrid1DBTableView1DATA_POV: TcxGridDBColumn;
-    cxGrid1DBTableView1N_INPLOMB: TcxGridDBColumn;
-    cxGrid1DBTableView1N_MGPLOMB: TcxGridDBColumn;
-    cxGrid1DBTableView1DATA_INP: TcxGridDBColumn;
-    cxGrid1DBTableView1DATA_MGP: TcxGridDBColumn;
     cxPageControl1: TcxPageControl;
     cxTabSheet1: TcxTabSheet;
     cxTabSheet2: TcxTabSheet;
@@ -53,10 +42,6 @@ type
     cxButton6: TcxButton;
     cxButton7: TcxButton;
     cxTabSheet7: TcxTabSheet;
-    Panel4: TPanel;
-    cxButton8: TcxButton;
-    cxButton9: TcxButton;
-    Label1: TLabel;
     cxGrid2DBTableView1: TcxGridDBTableView;
     cxGrid2Level1: TcxGridLevel;
     cxGrid2: TcxGrid;
@@ -66,9 +51,6 @@ type
     cxGrid5: TcxGrid;
     cxGridDBTableView2: TcxGridDBTableView;
     cxGridLevel2: TcxGridLevel;
-    cxGrid6: TcxGrid;
-    cxGridDBTableView3: TcxGridDBTableView;
-    cxGridLevel3: TcxGridLevel;
     cxGrid2DBTableView1SCHET: TcxGridDBColumn;
     cxGrid2DBTableView1DATE_VS: TcxGridDBColumn;
     cxGrid2DBTableView1DATE_ZN: TcxGridDBColumn;
@@ -90,9 +72,6 @@ type
     cxButton1: TcxButton;
     cxGridDBTableView1DATA_VIG: TcxGridDBColumn;
     cxGridDBTableView2DATA_VIG: TcxGridDBColumn;
-    cxGridDBTableView3YEARMON: TcxGridDBColumn;
-    cxGridDBTableView3POKAZN: TcxGridDBColumn;
-    cxGridDBTableView3DATE_POK: TcxGridDBColumn;
     cxGridDBTableView2ZN: TcxGridDBColumn;
     cxGrid2DBTableView1PL: TcxGridDBColumn;
     cxGrid2DBTableView1ZN: TcxGridDBColumn;
@@ -104,10 +83,6 @@ type
     cxGrid3DBTableView1DATE_VS: TcxGridDBColumn;
     cxGrid3DBTableView1NOTE: TcxGridDBColumn;
     cxGrid3Level1: TcxGridLevel;
-    cxDBTextEdit4: TcxDBTextEdit;
-    Label3: TLabel;
-    cxGridDBTableView3PKZ: TcxGridDBColumn;
-    cxGridDBTableView3LICH: TcxGridDBColumn;
     cxGridDBTableView1ID: TcxGridDBColumn;
     cxButton2: TcxButton;
     cxGridDBTableView1DATA_STPOV: TcxGridDBColumn;
@@ -124,7 +99,6 @@ type
     IBQuery5: TIBQuery;
     Label11: TLabel;
     cxGridDBTableView2RASCH_DAY: TcxGridDBColumn;
-    cxButton10: TcxButton;
     Shape1: TShape;
     Label13: TLabel;
     cxTabSheet8: TcxTabSheet;
@@ -152,7 +126,6 @@ type
     Label20: TLabel;
     cxDBLabel4: TcxDBLabel;
     cxDBLabel5: TcxDBLabel;
-    cxGridDBTableView3DATE_USER: TcxGridDBColumn;
     Label22: TLabel;
     cxDBLabel6: TcxDBLabel;
     Label23: TLabel;
@@ -173,8 +146,40 @@ type
     cxGrid3DBTableView1DATE_USER: TcxGridDBColumn;
     cxGrid2DBTableView1ID_USER: TcxGridDBColumn;
     cxGrid2DBTableView1DATE_USER: TcxGridDBColumn;
-    cxGridDBTableView3ID_USER: TcxGridDBColumn;
     cxGridDBTableView4ID_USER: TcxGridDBColumn;
+    cxPageControl4: TcxPageControl;
+    cxTabSheet9: TcxTabSheet;
+    cxTabSheet10: TcxTabSheet;
+    cxGrid8: TcxGrid;
+    cxGridDBTableView5: TcxGridDBTableView;
+    cxGridDBColumn1: TcxGridDBColumn;
+    cxGridDBColumn2: TcxGridDBColumn;
+    cxGridDBColumn3: TcxGridDBColumn;
+    cxGridDBColumn4: TcxGridDBColumn;
+    cxGridDBColumn5: TcxGridDBColumn;
+    cxGridDBColumn6: TcxGridDBColumn;
+    cxGridDBColumn7: TcxGridDBColumn;
+    cxGridLevel5: TcxGridLevel;
+    Panel9: TPanel;
+    Label27: TLabel;
+    Label28: TLabel;
+    cxButton16: TcxButton;
+    cxButton17: TcxButton;
+    cxDBTextEdit7: TcxDBTextEdit;
+    cxButton18: TcxButton;
+    cxGrid1: TcxGrid;
+    cxGridDBTableView3: TcxGridDBTableView;
+    cxGridDBColumn8: TcxGridDBColumn;
+    cxGridDBColumn9: TcxGridDBColumn;
+    cxGridDBColumn10: TcxGridDBColumn;
+    cxGridDBColumn11: TcxGridDBColumn;
+    cxGridDBColumn12: TcxGridDBColumn;
+    cxGridDBColumn13: TcxGridDBColumn;
+    cxGridDBColumn14: TcxGridDBColumn;
+    cxGridLevel3: TcxGridLevel;
+    Panel4: TPanel;
+    Label1: TLabel;
+    Label3: TLabel;
     procedure cxButton1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -191,6 +196,9 @@ type
       ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
       var ADone: Boolean);
     procedure cxButton11Click(Sender: TObject);
+    procedure cxButton16Click(Sender: TObject);
+    procedure cxButton17Click(Sender: TObject);
+    procedure cxButton18Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -260,7 +268,7 @@ begin
   begin
 
     IBQuery5.Close;
-    IBQuery5.SQL.Text:='select first 1 schet,yearmon,pokazn,vid_pok,date_pok from pokazn where yearmon<:per and schet=:sch order by date_pok desc,id desc';
+    IBQuery5.SQL.Text:='select first 1 schet,yearmon,pokazn,vid_pok,date_pok from pokazn where yearmon<:per and schet=:sch and (del=0 or del is null) order by date_pok desc,id desc';
     IBQuery5.ParamByName('per').Value:=MainForm.period;
     IBQuery5.ParamByName('sch').Value:=trim(DS.FieldByName('schet').value);
     IBQuery5.Open;
@@ -280,7 +288,7 @@ begin
 
 
     IBQuery6.Close;
-    IBQuery6.SQL.Text:='select * from pokazn where yearmon=:ym and schet=:sch order by date_pok,id';
+    IBQuery6.SQL.Text:='select * from pokazn where yearmon=:ym and schet=:sch and (del=0 or del is null) order by date_pok,id';
     IBQuery6.ParamByName('sch').Value:=trim(DS.FieldByName('schet').value);
     IBQuery6.ParamByName('ym').Value:=MainForm.period;
     IBQuery6.Open;
@@ -940,6 +948,143 @@ end;
 
 end;
 
+procedure TForm2.cxButton16Click(Sender: TObject);
+begin
+  if mainform.usersADDPOKAZ.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
+
+   if MainForm.DSet.FieldByName('WID').Value=45 then
+   begin
+     ShowMessage('Лічильник не повірений! Введення показників закрито');
+     exit;
+   end;
+
+   if MainForm.DSet.FieldByName('WID').Value=42 then
+   begin
+     ShowMessage('Лічильник не встановлений! Введення показників закрито');
+     exit;
+   end;
+
+   if MainForm.DSet.FieldByName('WID').Value>=46 then
+   begin
+     ShowMessage('При цьому виді нарахувань введення показників не пердбачувано! Введення показників закрито');
+     exit;
+   end;
+
+
+FormAddkart.cxTabSheet1.TabVisible:=false;
+FormAddkart.cxTabSheet2.TabVisible:=false;
+FormAddkart.cxTabSheet3.TabVisible:=true;
+FormAddkart.cxTabSheet4.TabVisible:=false;
+FormAddkart.cxTabSheet5.TabVisible:=false;
+FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet3;
+FormAddkart.cxTextEdit9.Text:=MainForm.DSet.FieldByName('SCHET').Value;
+FormAddkart.cxLabel15.Caption:=MainForm.DSet.FieldByName('FIO').Value;
+FormAddkart.cxCalcEdit6.EditValue:=MainForm.DSet.FieldByName('NOR_RAZN').Value;
+
+  if (FormAddkart.cxTabSheet3.Visible) and (MainForm.DSet.FieldByName('LICH_TO').AsInteger=0) then
+  begin
+    ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
+    exit;
+  end;
+
+FormAddkart.Show;
+
+if FormAddkart.IBQuery1.RecordCount<>0 then
+begin
+  FormAddkart.cxDateEdit5.EditValue:=FormAddkart.IBQuery1.FieldByName('date_pok').Value;
+  if FormAddkart.IBQuery1.FieldByName('pokazn').IsNull then
+    FormAddkart.cxCalcEdit2.Text:='0'
+  else
+    FormAddkart.cxCalcEdit2.Text:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
+
+end;
+
+end;
+
+procedure TForm2.cxButton17Click(Sender: TObject);
+begin
+  if mainform.usersADDPOKAZ.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
+  if (MainForm.pokaznYEARMON.Value<MainForm.period) then
+  begin
+    ShowMessage('Неможливо видалити показник попереднього періоду');
+    exit;
+  end;
+
+
+   if (MainForm.pokaznID_LICH.Value<>0) then
+  begin
+  IBQuery1.Close;
+  IBQuery1.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch and id>=:id  and (del=0 or del is null) order by date_pok';
+  IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
+  IBQuery1.ParamByName('per').Value:=MainForm.period;
+  IBQuery1.ParamByName('id').Value:=MainForm.pokaznID.Value;
+  IBQuery1.Open;
+  IBQuery1.last;
+    if IBQuery1.RecordCount>1 then
+    begin
+      ShowMessage('Неможливо видалити показник, бо існують показники після показника встановлення ');
+      exit;
+    end;
+  end;
+
+  if (MainForm.pokaznID_LICH.Value<>0) then
+  begin
+  IBQuery1.Close;
+  IBQuery1.SQL.Text:='select * from lich where schet=:sch and id=:id and DATA_ZN is null';
+  IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
+  IBQuery1.ParamByName('id').Value:=MainForm.pokaznID_LICH.Value;
+  IBQuery1.Open;
+
+    if IBQuery1.RecordCount<>0 then
+    begin
+      ShowMessage('Видаліть спочатку лічильник цього показника - тип '+IBQuery1.FieldByName('tip').Value+' №'+IBQuery1.FieldByName('n_lich').Value+' id'+IntToStr(IBQuery1.FieldByName('id').Value));
+      exit;
+    end;
+  end;
+
+
+  if application.MessageBox('Ви дійсно бажаєте видалити показник?','Підтвердження',MB_YESNO)=IDYES then
+  begin
+  if (MainForm.pokazn.RecordCount<>0) then
+     MainForm.pokazn.edit;
+     MainForm.pokaznDEL.Value:=1;
+     MainForm.pokazn.post;
+     MainForm.pokazn.Close;
+     MainForm.pokazn.Open;
+     MainForm.delpokazn.Close;
+     MainForm.delpokazn.Open;
+     Form2.calcpok2(MainForm.DSet,1);
+     Form2.calclich(MainForm.DSet);
+  end;
+end;
+
+procedure TForm2.cxButton18Click(Sender: TObject);
+begin
+  if mainform.usersADDPOKAZ.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
+    IBQuery5.close;
+    IBQuery5.SQL.Text:='execute procedure calc_pok :schet';
+    IBQuery5.ParamByName('schet').Value:=MainForm.DSet.FieldByName('SCHET').Value;
+    IBQuery5.ExecSQL;
+    IBQuery5.close;
+    MainForm.DSet.close;
+    MainForm.DSet.open;
+end;
+
 procedure TForm2.cxButton1Click(Sender: TObject);
 begin
   if mainform.usersADDLICH.Value<>1 then
@@ -1241,7 +1386,7 @@ begin
    if (MainForm.pokaznID_LICH.Value<>0) then
   begin
   IBQuery1.Close;
-  IBQuery1.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch and id>=:id order by date_pok';
+  IBQuery1.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch and id>=:id  and (del=0 or del is null) order by date_pok';
   IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
   IBQuery1.ParamByName('per').Value:=MainForm.period;
   IBQuery1.ParamByName('id').Value:=MainForm.pokaznID.Value;
@@ -1311,10 +1456,15 @@ begin
     MainForm.plombszn.Close;
     MainForm.plombszn.open;
 
-    MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch order by id desc';
+    MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch and (del=0 or del is null) order by id desc';
     MainForm.pokazn.ParamByName('sch').Value:=sch;
     MainForm.pokazn.Close;
     MainForm.pokazn.open;
+
+    MainForm.delpokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch and del=1 and del is not null order by id desc';
+    MainForm.delpokazn.ParamByName('sch').Value:=sch;
+    MainForm.delpokazn.Close;
+    MainForm.delpokazn.open;
 
     MainForm.why_pok.SelectSQL.Text:=MainForm.why_pokSQL+' where why_pok.schet=:sch order by id desc';
     MainForm.why_pok.ParamByName('sch').Value:=sch;

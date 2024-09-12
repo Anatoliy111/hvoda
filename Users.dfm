@@ -63,12 +63,16 @@ object FormUsers: TFormUsers
   object cxLookupComboBox1: TcxLookupComboBox
     Left = 27
     Top = 38
+    Properties.IncrementalFiltering = False
     Properties.KeyFieldNames = 'ID'
     Properties.ListColumns = <
       item
         FieldName = 'USER_NAIM'
       end>
+    Properties.ListOptions.ColumnSorting = False
+    Properties.ListOptions.ShowHeader = False
     Properties.ListSource = MainForm.usersSource
+    Properties.ReadOnly = False
     TabOrder = 3
     Width = 166
   end

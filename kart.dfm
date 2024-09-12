@@ -332,70 +332,16 @@ object Form2: TForm2
       end
     end
   end
-  object cxGrid1: TcxGrid
-    Left = 0
-    Top = 271
-    Width = 699
-    Height = 407
-    Align = alClient
-    TabOrder = 1
-    object cxGrid1DBTableView1: TcxGridDBTableView
-      NavigatorButtons.ConfirmDelete = False
-      DataController.DetailKeyFieldNames = 'ID'
-      DataController.KeyFieldNames = 'ID'
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
-      OptionsView.GroupByBox = False
-      object cxGrid1DBTableView1TIP: TcxGridDBColumn
-        Caption = #1058#1080#1087' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072' '
-        DataBinding.FieldName = 'TIP'
-      end
-      object cxGrid1DBTableView1N_LICH: TcxGridDBColumn
-        Caption = #8470' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072
-        DataBinding.FieldName = 'N_LICH'
-        Width = 115
-      end
-      object cxGrid1DBTableView1DATA_VIP: TcxGridDBColumn
-        Caption = #1044#1072#1090#1072' '#1074#1089#1090#1072#1085'.'
-        DataBinding.FieldName = 'DATA_VIP'
-        Width = 87
-      end
-      object cxGrid1DBTableView1DATA_POV: TcxGridDBColumn
-        Caption = #1058#1077#1088#1084#1110#1085' '#1087#1086#1074#1110#1088#1082#1080' '
-        DataBinding.FieldName = 'DATA_POV'
-        Width = 100
-      end
-      object cxGrid1DBTableView1DATA_INP: TcxGridDBColumn
-        Caption = #1044#1072#1090#1072' '#1110#1085#1076'.'#1087#1083'.'
-        DataBinding.FieldName = 'DATA_INP'
-      end
-      object cxGrid1DBTableView1N_INPLOMB: TcxGridDBColumn
-        Caption = #8470' '#1110#1085#1076#1080#1082#1072#1090#1086#1088#1085#1086#1111' '#1087#1083#1086#1084#1073#1080
-        DataBinding.FieldName = 'N_INPLOMB'
-        Width = 131
-      end
-      object cxGrid1DBTableView1DATA_MGP: TcxGridDBColumn
-        Caption = #1044#1072#1090#1072' '#1084#1072#1075'.'#1087#1083'.'
-        DataBinding.FieldName = 'DATA_MGP'
-      end
-      object cxGrid1DBTableView1N_MGPLOMB: TcxGridDBColumn
-        Caption = #8470' '#1072#1085#1090#1080#1084#1072#1075#1085#1110#1090#1085#1086#1111' '#1087#1083#1086#1084#1073#1080
-        DataBinding.FieldName = 'N_MGPLOMB'
-      end
-    end
-    object cxGrid1Level1: TcxGridLevel
-      GridView = cxGrid1DBTableView1
-    end
-  end
   object cxPageControl1: TcxPageControl
     Left = 0
     Top = 271
     Width = 699
     Height = 407
-    ActivePage = cxTabSheet8
+    ActivePage = cxTabSheet1
     Align = alClient
-    TabOrder = 2
+    TabOrder = 1
+    ExplicitLeft = 88
+    ExplicitTop = 319
     ClientRectBottom = 407
     ClientRectRight = 699
     ClientRectTop = 24
@@ -407,7 +353,7 @@ object Form2: TForm2
         Top = 0
         Width = 699
         Height = 383
-        ActivePage = cxTabSheet6
+        ActivePage = cxTabSheet4
         Align = alClient
         TabOrder = 0
         ClientRectBottom = 383
@@ -543,11 +489,20 @@ object Form2: TForm2
               object cxGridDBTableView1ID_USER: TcxGridDBColumn
                 Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
                 DataBinding.FieldName = 'ID_USER'
+                PropertiesClassName = 'TcxLookupComboBoxProperties'
+                Properties.KeyFieldNames = 'ID'
+                Properties.ListColumns = <
+                  item
+                    FieldName = 'USER_NAIM'
+                  end>
+                Properties.ListSource = MainForm.usersSource
+                Options.Editing = False
                 Width = 80
               end
               object cxGridDBTableView1DATE_USER: TcxGridDBColumn
                 Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
                 DataBinding.FieldName = 'DATE_USER'
+                Options.Editing = False
               end
             end
             object cxGridLevel1: TcxGridLevel
@@ -619,11 +574,20 @@ object Form2: TForm2
               object cxGridDBTableView2ID_USER: TcxGridDBColumn
                 Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
                 DataBinding.FieldName = 'ID_USER'
+                PropertiesClassName = 'TcxLookupComboBoxProperties'
+                Properties.KeyFieldNames = 'ID'
+                Properties.ListColumns = <
+                  item
+                    FieldName = 'USER_NAIM'
+                  end>
+                Properties.ListSource = MainForm.usersSource
+                Options.Editing = False
                 Width = 76
               end
               object cxGridDBTableView2DATE_USER: TcxGridDBColumn
                 Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
                 DataBinding.FieldName = 'DATE_USER'
+                Options.Editing = False
               end
             end
             object cxGridLevel2: TcxGridLevel
@@ -674,7 +638,7 @@ object Form2: TForm2
         Top = 0
         Width = 699
         Height = 383
-        ActivePage = cxTabSheet7
+        ActivePage = cxTabSheet5
         Align = alClient
         TabOrder = 0
         ClientRectBottom = 383
@@ -718,6 +682,8 @@ object Form2: TForm2
             Height = 318
             Align = alClient
             TabOrder = 1
+            ExplicitLeft = 112
+            ExplicitTop = 47
             object cxGrid3DBTableView1: TcxGridDBTableView
               NavigatorButtons.ConfirmDelete = False
               DataController.DataSource = MainForm.plombsDataSource
@@ -756,11 +722,20 @@ object Form2: TForm2
               object cxGrid3DBTableView1ID_USER: TcxGridDBColumn
                 Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
                 DataBinding.FieldName = 'ID_USER'
+                PropertiesClassName = 'TcxLookupComboBoxProperties'
+                Properties.KeyFieldNames = 'ID'
+                Properties.ListColumns = <
+                  item
+                    FieldName = 'USER_NAIM'
+                  end>
+                Properties.ListSource = MainForm.usersSource
+                Options.Editing = False
                 Width = 79
               end
               object cxGrid3DBTableView1DATE_USER: TcxGridDBColumn
                 Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
                 DataBinding.FieldName = 'DATE_USER'
+                Options.Editing = False
               end
             end
             object cxGrid3Level1: TcxGridLevel
@@ -823,11 +798,20 @@ object Form2: TForm2
               object cxGrid2DBTableView1ID_USER: TcxGridDBColumn
                 Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
                 DataBinding.FieldName = 'ID_USER'
+                PropertiesClassName = 'TcxLookupComboBoxProperties'
+                Properties.KeyFieldNames = 'ID'
+                Properties.ListColumns = <
+                  item
+                    FieldName = 'USER_NAIM'
+                  end>
+                Properties.ListSource = MainForm.usersSource
+                Options.Editing = False
                 Width = 85
               end
               object cxGrid2DBTableView1DATE_USER: TcxGridDBColumn
                 Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
                 DataBinding.FieldName = 'DATE_USER'
+                Options.Editing = False
               end
             end
             object cxGrid2Level1: TcxGridLevel
@@ -840,122 +824,247 @@ object Form2: TForm2
     object cxTabSheet3: TcxTabSheet
       Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
       ImageIndex = 2
-      object Panel4: TPanel
+      object cxPageControl4: TcxPageControl
         Left = 0
         Top = 0
         Width = 699
-        Height = 49
-        Align = alTop
-        TabOrder = 0
-        object Label1: TLabel
-          Left = 15
-          Top = 12
-          Width = 3
-          Height = 13
-          Alignment = taCenter
-        end
-        object Label3: TLabel
-          Left = 432
-          Top = 5
-          Width = 124
-          Height = 13
-          Alignment = taCenter
-          Caption = #1050#1091#1073#1080' '#1079#1072' '#1087#1086#1090#1086#1095#1085#1080#1081' '#1084#1110#1089#1103#1094#1100
-        end
-        object cxButton8: TcxButton
-          Left = 15
-          Top = 16
-          Width = 106
-          Height = 25
-          Caption = #1044#1086#1076#1072#1090#1080' '#1087#1086#1082#1072#1079#1085#1080#1082
-          TabOrder = 0
-          OnClick = cxButton8Click
-          LookAndFeel.Kind = lfUltraFlat
-        end
-        object cxButton9: TcxButton
-          Left = 127
-          Top = 16
-          Width = 114
-          Height = 25
-          Caption = #1042#1080#1076#1072#1083#1080#1090#1080' '#1087#1086#1082#1072#1079#1085#1080#1082
-          TabOrder = 1
-          OnClick = cxButton9Click
-          LookAndFeel.Kind = lfUltraFlat
-        end
-        object cxDBTextEdit4: TcxDBTextEdit
-          Left = 432
-          Top = 20
-          DataBinding.DataField = 'SCH_RAZN'
-          DataBinding.DataSource = MainForm.DataAllSource
-          Properties.ReadOnly = True
-          TabOrder = 2
-          Width = 121
-        end
-        object cxButton10: TcxButton
-          Left = 278
-          Top = 16
-          Width = 98
-          Height = 25
-          Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082
-          TabOrder = 3
-          Visible = False
-          OnClick = cxButton10Click
-          LookAndFeel.Kind = lfUltraFlat
-        end
-      end
-      object cxGrid6: TcxGrid
-        Left = 0
-        Top = 49
-        Width = 699
-        Height = 334
+        Height = 383
+        ActivePage = cxTabSheet9
         Align = alClient
-        TabOrder = 1
-        object cxGridDBTableView3: TcxGridDBTableView
-          NavigatorButtons.ConfirmDelete = False
-          DataController.DataSource = MainForm.pokaznSource
-          DataController.DetailKeyFieldNames = 'ID'
-          DataController.KeyFieldNames = 'ID'
-          DataController.Summary.DefaultGroupSummaryItems = <>
-          DataController.Summary.FooterSummaryItems = <>
-          DataController.Summary.SummaryGroups = <>
-          OptionsData.Editing = False
-          OptionsView.GroupByBox = False
-          OptionsView.Indicator = True
-          object cxGridDBTableView3YEARMON: TcxGridDBColumn
-            Caption = #1055#1077#1088#1110#1086#1076
-            DataBinding.FieldName = 'YEARMON'
+        TabOrder = 0
+        ExplicitLeft = 3
+        ExplicitTop = 15
+        ClientRectBottom = 383
+        ClientRectRight = 699
+        ClientRectTop = 24
+        object cxTabSheet9: TcxTabSheet
+          Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
+          ImageIndex = 0
+          object cxGrid8: TcxGrid
+            Left = 0
+            Top = 49
+            Width = 699
+            Height = 310
+            Align = alClient
+            TabOrder = 0
+            ExplicitHeight = 334
+            object cxGridDBTableView5: TcxGridDBTableView
+              NavigatorButtons.ConfirmDelete = False
+              DataController.DataSource = MainForm.pokaznSource
+              DataController.DetailKeyFieldNames = 'ID'
+              DataController.KeyFieldNames = 'ID'
+              DataController.Summary.DefaultGroupSummaryItems = <>
+              DataController.Summary.FooterSummaryItems = <>
+              DataController.Summary.SummaryGroups = <>
+              OptionsData.Editing = False
+              OptionsView.GroupByBox = False
+              OptionsView.Indicator = True
+              object cxGridDBColumn1: TcxGridDBColumn
+                Caption = #1055#1077#1088#1110#1086#1076
+                DataBinding.FieldName = 'YEARMON'
+              end
+              object cxGridDBColumn2: TcxGridDBColumn
+                Caption = #1044#1072#1090#1072' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+                DataBinding.FieldName = 'DATE_POK'
+                SortIndex = 0
+                SortOrder = soDescending
+              end
+              object cxGridDBColumn3: TcxGridDBColumn
+                Caption = #1055#1086#1082#1072#1079#1085#1080#1082
+                DataBinding.FieldName = 'POKAZN'
+              end
+              object cxGridDBColumn4: TcxGridDBColumn
+                Caption = #1042#1080#1076' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+                DataBinding.FieldName = 'PKZ'
+                Width = 193
+              end
+              object cxGridDBColumn5: TcxGridDBColumn
+                Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
+                DataBinding.FieldName = 'LICH'
+                Width = 172
+              end
+              object cxGridDBColumn6: TcxGridDBColumn
+                Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+                DataBinding.FieldName = 'ID_USER'
+                PropertiesClassName = 'TcxLookupComboBoxProperties'
+                Properties.KeyFieldNames = 'ID'
+                Properties.ListColumns = <
+                  item
+                    FieldName = 'USER_NAIM'
+                  end>
+                Properties.ListSource = MainForm.usersSource
+                Options.Editing = False
+              end
+              object cxGridDBColumn7: TcxGridDBColumn
+                Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
+                DataBinding.FieldName = 'DATE_USER'
+                Options.Editing = False
+              end
+            end
+            object cxGridLevel5: TcxGridLevel
+              GridView = cxGridDBTableView5
+            end
           end
-          object cxGridDBTableView3DATE_POK: TcxGridDBColumn
-            Caption = #1044#1072#1090#1072' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
-            DataBinding.FieldName = 'DATE_POK'
-            SortIndex = 0
-            SortOrder = soDescending
-          end
-          object cxGridDBTableView3POKAZN: TcxGridDBColumn
-            Caption = #1055#1086#1082#1072#1079#1085#1080#1082
-            DataBinding.FieldName = 'POKAZN'
-          end
-          object cxGridDBTableView3PKZ: TcxGridDBColumn
-            Caption = #1042#1080#1076' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
-            DataBinding.FieldName = 'PKZ'
-            Width = 193
-          end
-          object cxGridDBTableView3LICH: TcxGridDBColumn
-            Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
-            DataBinding.FieldName = 'LICH'
-            Width = 172
-          end
-          object cxGridDBTableView3ID_USER: TcxGridDBColumn
-            Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
-            DataBinding.FieldName = 'ID_USER'
-          end
-          object cxGridDBTableView3DATE_USER: TcxGridDBColumn
-            Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
-            DataBinding.FieldName = 'DATE_USER'
+          object Panel9: TPanel
+            Left = 0
+            Top = 0
+            Width = 699
+            Height = 49
+            Align = alTop
+            TabOrder = 1
+            ExplicitLeft = 38
+            ExplicitTop = 3
+            object Label27: TLabel
+              Left = 15
+              Top = 12
+              Width = 3
+              Height = 13
+              Alignment = taCenter
+            end
+            object Label28: TLabel
+              Left = 432
+              Top = 5
+              Width = 124
+              Height = 13
+              Alignment = taCenter
+              Caption = #1050#1091#1073#1080' '#1079#1072' '#1087#1086#1090#1086#1095#1085#1080#1081' '#1084#1110#1089#1103#1094#1100
+            end
+            object cxButton16: TcxButton
+              Left = 15
+              Top = 16
+              Width = 106
+              Height = 25
+              Caption = #1044#1086#1076#1072#1090#1080' '#1087#1086#1082#1072#1079#1085#1080#1082
+              TabOrder = 0
+              OnClick = cxButton16Click
+              LookAndFeel.Kind = lfUltraFlat
+            end
+            object cxButton17: TcxButton
+              Left = 127
+              Top = 16
+              Width = 114
+              Height = 25
+              Caption = #1042#1080#1076#1072#1083#1080#1090#1080' '#1087#1086#1082#1072#1079#1085#1080#1082
+              TabOrder = 1
+              OnClick = cxButton17Click
+              LookAndFeel.Kind = lfUltraFlat
+            end
+            object cxDBTextEdit7: TcxDBTextEdit
+              Left = 432
+              Top = 20
+              DataBinding.DataField = 'SCH_RAZN'
+              DataBinding.DataSource = MainForm.DataAllSource
+              Properties.ReadOnly = True
+              TabOrder = 2
+              Width = 121
+            end
+            object cxButton18: TcxButton
+              Left = 278
+              Top = 16
+              Width = 98
+              Height = 25
+              Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082
+              TabOrder = 3
+              Visible = False
+              OnClick = cxButton18Click
+              LookAndFeel.Kind = lfUltraFlat
+            end
           end
         end
-        object cxGridLevel3: TcxGridLevel
-          GridView = cxGridDBTableView3
+        object cxTabSheet10: TcxTabSheet
+          Caption = #1030#1089#1090#1086#1088#1110#1103
+          ImageIndex = 2
+          ExplicitHeight = 310
+          object cxGrid1: TcxGrid
+            Left = 0
+            Top = 25
+            Width = 699
+            Height = 334
+            Align = alClient
+            TabOrder = 0
+            ExplicitTop = 49
+            object cxGridDBTableView3: TcxGridDBTableView
+              NavigatorButtons.ConfirmDelete = False
+              DataController.DataSource = MainForm.delpokaznSource
+              DataController.DetailKeyFieldNames = 'ID'
+              DataController.KeyFieldNames = 'ID'
+              DataController.Summary.DefaultGroupSummaryItems = <>
+              DataController.Summary.FooterSummaryItems = <>
+              DataController.Summary.SummaryGroups = <>
+              OptionsData.Editing = False
+              OptionsView.GroupByBox = False
+              OptionsView.Indicator = True
+              object cxGridDBColumn8: TcxGridDBColumn
+                Caption = #1055#1077#1088#1110#1086#1076
+                DataBinding.FieldName = 'YEARMON'
+              end
+              object cxGridDBColumn9: TcxGridDBColumn
+                Caption = #1044#1072#1090#1072' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+                DataBinding.FieldName = 'DATE_POK'
+                SortIndex = 0
+                SortOrder = soDescending
+                Width = 107
+              end
+              object cxGridDBColumn10: TcxGridDBColumn
+                Caption = #1055#1086#1082#1072#1079#1085#1080#1082
+                DataBinding.FieldName = 'POKAZN'
+              end
+              object cxGridDBColumn11: TcxGridDBColumn
+                Caption = #1042#1080#1076' '#1087#1086#1082#1072#1079#1085#1080#1082#1072
+                DataBinding.FieldName = 'PKZ'
+                Width = 193
+              end
+              object cxGridDBColumn12: TcxGridDBColumn
+                Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
+                DataBinding.FieldName = 'LICH'
+                Width = 150
+              end
+              object cxGridDBColumn13: TcxGridDBColumn
+                Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+                DataBinding.FieldName = 'ID_USER'
+                PropertiesClassName = 'TcxLookupComboBoxProperties'
+                Properties.KeyFieldNames = 'ID'
+                Properties.ListColumns = <
+                  item
+                    FieldName = 'USER_NAIM'
+                  end>
+                Properties.ListSource = MainForm.usersSource
+                Options.Editing = False
+                Width = 72
+              end
+              object cxGridDBColumn14: TcxGridDBColumn
+                Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
+                DataBinding.FieldName = 'DATE_USER'
+                Options.Editing = False
+              end
+            end
+            object cxGridLevel3: TcxGridLevel
+              GridView = cxGridDBTableView3
+            end
+          end
+          object Panel4: TPanel
+            Left = 0
+            Top = 0
+            Width = 699
+            Height = 25
+            Align = alTop
+            TabOrder = 1
+            object Label1: TLabel
+              Left = 15
+              Top = 12
+              Width = 3
+              Height = 13
+              Alignment = taCenter
+            end
+            object Label3: TLabel
+              Left = 15
+              Top = 6
+              Width = 101
+              Height = 13
+              Alignment = taCenter
+              Caption = #1042#1080#1076#1072#1083#1077#1085#1110' '#1087#1086#1082#1072#1079#1085#1080#1082#1080
+            end
+          end
         end
       end
     end
@@ -1070,11 +1179,20 @@ object Form2: TForm2
           object cxGridDBTableView4ID_USER: TcxGridDBColumn
             Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
             DataBinding.FieldName = 'ID_USER'
+            PropertiesClassName = 'TcxLookupComboBoxProperties'
+            Properties.KeyFieldNames = 'ID'
+            Properties.ListColumns = <
+              item
+                FieldName = 'USER_NAIM'
+              end>
+            Properties.ListSource = MainForm.usersSource
+            Options.Editing = False
             Width = 72
           end
           object cxGridDBTableView4DATE_USER: TcxGridDBColumn
             Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
             DataBinding.FieldName = 'DATE_USER'
+            Options.Editing = False
             Width = 86
           end
         end
@@ -1089,8 +1207,8 @@ object Form2: TForm2
     Transaction = MainForm.IBTransaction1
     SQL.Strings = (
       
-        'select first 1 *  from POKAZN where schet=:sch and date_zn is nu' +
-        'll order by DATE_POK desc')
+        'select first 1 *  from POKAZN where schet=:sch and (del=0 or del' +
+        ' is null) order by DATE_POK desc')
     Left = 512
     Top = 88
     ParamData = <
@@ -1105,8 +1223,8 @@ object Form2: TForm2
     Transaction = MainForm.IBTransaction1
     SQL.Strings = (
       
-        'select first 1 *  from POKAZN where schet=:sch and date_zn is nu' +
-        'll order by DATE_POK desc')
+        'select first 1 *  from POKAZN where schet=:sch and (del=0 or del' +
+        ' is null) order by DATE_POK desc')
     Left = 544
     Top = 88
     ParamData = <

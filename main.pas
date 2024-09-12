@@ -903,6 +903,28 @@ type
     plombsDATE_USER: TDateTimeField;
     plombsznID_USER: TSmallintField;
     plombsznDATE_USER: TDateTimeField;
+    delpokazn: TIBDataSet;
+    IntegerField6: TIntegerField;
+    IntegerField7: TIntegerField;
+    DateField4: TDateField;
+    IntegerField8: TIntegerField;
+    IntegerField9: TIntegerField;
+    DateField5: TDateField;
+    IntegerField10: TIntegerField;
+    IBStringField9: TIBStringField;
+    IntegerField24: TIntegerField;
+    IBStringField10: TIBStringField;
+    IBStringField11: TIBStringField;
+    IBBCDField8: TIBBCDField;
+    IBBCDField9: TIBBCDField;
+    IBStringField12: TIBStringField;
+    IntegerField25: TIntegerField;
+    IBStringField13: TIBStringField;
+    SmallintField4: TSmallintField;
+    DateTimeField1: TDateTimeField;
+    IBStringField14: TIBStringField;
+    IntegerField26: TIntegerField;
+    delpokaznSource: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -1022,6 +1044,22 @@ type
     procedure DBGrid3Column1PropertiesButtonClick(Sender: TObject;
       AButtonIndex: Integer);
     procedure usersAfterOpen(DataSet: TDataSet);
+    procedure plombsAfterEdit(DataSet: TDataSet);
+    procedure plombsAfterInsert(DataSet: TDataSet);
+    procedure lichAfterEdit(DataSet: TDataSet);
+    procedure lichAfterInsert(DataSet: TDataSet);
+    procedure lichznAfterEdit(DataSet: TDataSet);
+    procedure lichznAfterInsert(DataSet: TDataSet);
+    procedure plombsznAfterEdit(DataSet: TDataSet);
+    procedure plombsznAfterInsert(DataSet: TDataSet);
+    procedure pokaznAfterEdit(DataSet: TDataSet);
+    procedure pokaznAfterInsert(DataSet: TDataSet);
+    procedure why_pokAfterEdit(DataSet: TDataSet);
+    procedure why_pokAfterInsert(DataSet: TDataSet);
+    procedure grpAfterEdit(DataSet: TDataSet);
+    procedure grpAfterInsert(DataSet: TDataSet);
+    procedure delpokaznAfterEdit(DataSet: TDataSet);
+    procedure delpokaznAfterInsert(DataSet: TDataSet);
 
   private
     { Private declarations }
@@ -1140,9 +1178,10 @@ begin
     Form2.IBQuery6.Close;
     Form2.IBQuery6.SQL.Text:='select * from '+
     '(select pkk.id,trim(pkk.schet) schet,pkk.yearmon,pkk.pokazn,pkk.vid_pok,pkk.date_pok from pokazn pkk '+
-    'join (select schet, max(date_pok) date_pok from pokazn where yearmon<:per group by schet) as pok1 on pok1.date_pok=pkk.date_pok and pok1.schet=pkk.schet '+
+    'join (select schet, max(date_pok) date_pok from pokazn where yearmon<:per and (del=0 or del is null) group by schet) as pok1 on pok1.date_pok=pkk.date_pok and pok1.schet=pkk.schet '+
+    'where (del=0 or del is null) '+
     'union all '+
-    'select id,trim(schet) schet,yearmon,pokazn,vid_pok,date_pok from pokazn where yearmon=:per) '+
+    'select id,trim(schet) schet,yearmon,pokazn,vid_pok,date_pok from pokazn where yearmon=:per and (del=0 or del is null)) '+
     'order by schet,yearmon,date_pok,id';
 
    // Form2.IBQuery6.ParamByName('sch').Value:=MainForm.period;
@@ -1309,6 +1348,16 @@ begin
   result := data.RecNo<>1;  
 end;
 
+procedure TMainForm.lichAfterEdit(DataSet: TDataSet);
+begin
+lichID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.lichAfterInsert(DataSet: TDataSet);
+begin
+lichID_USER.Value:=ActiveUser;
+end;
+
 procedure TMainForm.lichAfterPost(DataSet: TDataSet);
 begin
 
@@ -1362,6 +1411,16 @@ begin
  lich.edit;
  lichSCHET.Value:=DSet.FieldByName('SCHET').Value;
  lich.post;
+end;
+
+procedure TMainForm.lichznAfterEdit(DataSet: TDataSet);
+begin
+lichID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.lichznAfterInsert(DataSet: TDataSet);
+begin
+lichID_USER.Value:=ActiveUser;
 end;
 
 procedure TMainForm.orgBeforeOpen(DataSet: TDataSet);
@@ -1970,7 +2029,7 @@ begin
 
     //абоненти в €ких з€вивс€ показник ≥ €к≥ Ї в таблиц≥ перерахунк≥в не б≥льше н≥ж 12 м≥с€ц≥в
     IBQuery2.Close;
-    IBQuery2.SQL.Text:='select h_voda.*,(select first 1 yearmon from pokazn where yearmon<>:ym and pokazn.schet=h_voda.schet order by yearmon desc) ympok_prev from h_voda'+
+    IBQuery2.SQL.Text:='select h_voda.*,(select first 1 yearmon from pokazn where yearmon<>:ym and pokazn.schet=h_voda.schet and (del=0 or del is null) order by yearmon desc) ympok_prev from h_voda'+
                        ' where (wid=41 or wid=43) and sch_razn<>0 and wid_prev=44 and yearmon=:ym and schet in (select schet from hv_prh where yearmon>=:firstym) order by schet';
     IBQuery2.ParamByName('ym').Value:=MainForm.period;
     IBQuery2.ParamByName('firstym').Value:=first12ym;
@@ -3182,6 +3241,36 @@ begin
   StopWait;
 end;
 
+procedure TMainForm.plombsAfterEdit(DataSet: TDataSet);
+begin
+plombsID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.plombsAfterInsert(DataSet: TDataSet);
+begin
+plombsID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.plombsznAfterEdit(DataSet: TDataSet);
+begin
+plombsID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.plombsznAfterInsert(DataSet: TDataSet);
+begin
+plombsID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.pokaznAfterEdit(DataSet: TDataSet);
+begin
+pokaznID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.pokaznAfterInsert(DataSet: TDataSet);
+begin
+pokaznID_USER.Value:=ActiveUser;
+end;
+
 procedure TMainForm.prop1DDSetText(Sender: TField; const Text: String);
 begin
   if (str2int(Text)<1) or (str2int(Text)>31) then
@@ -3198,6 +3287,16 @@ begin
   else
     Sender.AsString:=Text;
 
+end;
+
+procedure TMainForm.delpokaznAfterEdit(DataSet: TDataSet);
+begin
+pokaznID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.delpokaznAfterInsert(DataSet: TDataSet);
+begin
+pokaznID_USER.Value:=ActiveUser;
 end;
 
 procedure TMainForm.domBeforeOpen(DataSet: TDataSet);
@@ -3246,6 +3345,16 @@ begin
   finally
     qry.Free;
   end;
+end;
+
+procedure TMainForm.grpAfterEdit(DataSet: TDataSet);
+begin
+grpID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.grpAfterInsert(DataSet: TDataSet);
+begin
+grpID_USER.Value:=ActiveUser;
 end;
 
 procedure TMainForm.grpBeforeOpen(DataSet: TDataSet);
@@ -3664,7 +3773,7 @@ IBTransaction1.CommitRetaining;
      Form2.Panel1.Enabled:=false;
      Form2.Panel5.Enabled:=false;
      Form2.Panel3.Enabled:=false;
-     Form2.Panel4.Enabled:=false;
+     Form2.Panel9.Enabled:=false;
      Form2.Panel2.Enabled:=false;
      Form2.Panel6.Enabled:=false;
 
@@ -3691,7 +3800,7 @@ IBTransaction1.CommitRetaining;
      Form2.Panel1.Enabled:=true;
      Form2.Panel5.Enabled:=true;
      Form2.Panel3.Enabled:=true;
-     Form2.Panel4.Enabled:=true;
+     Form2.Panel9.Enabled:=true;
      Form2.Panel2.Enabled:=true;
      Form2.Panel6.Enabled:=true;
 
@@ -3721,6 +3830,16 @@ procedure TMainForm.usersAfterOpen(DataSet: TDataSet);
 begin
 if ActiveUser<>0 then
   users.Locate('id',ActiveUser,[]);
+end;
+
+procedure TMainForm.why_pokAfterEdit(DataSet: TDataSet);
+begin
+why_pokID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.why_pokAfterInsert(DataSet: TDataSet);
+begin
+why_pokID_USER.Value:=ActiveUser;
 end;
 
 procedure TMainForm.cxGrid3DBTableView1KUB_ALLStylesGetContentStyle(

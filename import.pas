@@ -417,7 +417,6 @@ end;
 procedure TForm1.cxButton1Click(Sender: TObject);
 begin
 users.Append;
-users.Edit;
 usersADDLICH.Value:=0;
 usersADDPOKAZ.Value:=0;
 usersADDPLOMB.Value:=0;

@@ -223,6 +223,7 @@ end;
 procedure TFormAddkart.cxButton3Click(Sender: TObject);
 var dd25:TDate;
     strdd:string;
+    DSEdit:TIBDataset;
 begin
 
 if cxTabSheet1.TabVisible then

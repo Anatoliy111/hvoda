@@ -72,7 +72,6 @@ object Form1: TForm1
     Height = 286
     Align = alBottom
     TabOrder = 4
-    ExplicitWidth = 810
     object cxGrid1DBTableView1: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = usersSource
@@ -624,7 +623,6 @@ object Form1: TForm1
     Top = 16
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultDatabase = MainForm.IBDatabase
     Left = 288
     Top = 16

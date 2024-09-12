@@ -22,7 +22,7 @@ object FormAddkart: TFormAddkart
     Top = 0
     Width = 438
     Height = 391
-    ActivePage = cxTabSheet3
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 0
     ClientRectBottom = 391
@@ -713,8 +713,8 @@ object FormAddkart: TFormAddkart
     Transaction = MainForm.IBTransaction1
     SQL.Strings = (
       
-        'select first 1 *  from POKAZN where schet=:sch and date_zn is nu' +
-        'll order by DATE_POK desc')
+        'select first 1 *  from POKAZN where schet=:sch and (del=0 or del' +
+        ' is null) order by DATE_POK desc')
     Left = 376
     Top = 40
     ParamData = <
@@ -729,8 +729,8 @@ object FormAddkart: TFormAddkart
     Transaction = MainForm.IBTransaction1
     SQL.Strings = (
       
-        'select first 1 *  from POKAZN where schet=:sch and date_zn is nu' +
-        'll order by DATE_POK desc')
+        'select first 1 *  from POKAZN where schet=:sch and (del=0 or del' +
+        ' is null) order by DATE_POK desc')
     Left = 376
     Top = 80
     ParamData = <
