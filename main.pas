@@ -16,7 +16,7 @@ uses
   cxPC, frxExportPDF, frxExportRTF, frxExportXML, cxSplitter,
   cxLookAndFeelPainters, dxSkinsCore, cxButtonEdit, cxDBLookupComboBox,
   cxTextEdit, cxBarEditItem, cxLabel, Menus, StdCtrls, cxButtons, cxContainer,
-  cxMemo, cxBlobEdit;
+  cxMemo, cxBlobEdit, cxDBLabel;
 
 type
   TMainForm = class(TForm)
@@ -199,7 +199,6 @@ type
     lichznNOTE: TIBStringField;
     lichznVID_ZN: TIntegerField;
     lichznDATA_VIG: TDateField;
-    lichznZN: TIBStringField;
     DBGrid1DATE_POK: TcxGridDBBandedColumn;
     DBGrid1Column2: TcxGridDBBandedColumn;
     pokaznID: TIntegerField;
@@ -886,6 +885,24 @@ type
     usersADM: TIntegerField;
     cxBarEditItem4: TcxBarEditItem;
     cxBarEditItem5: TcxBarEditItem;
+    cxBarEditItem6: TcxBarEditItem;
+    dxBarEdit2: TdxBarEdit;
+    dxBarLookupCombo3: TdxBarLookupCombo;
+    cxBarEditItem7: TcxBarEditItem;
+    dxBarEdit3: TdxBarEdit;
+    grpID_USER: TIntegerField;
+    grpDATE_USER: TDateTimeField;
+    DBGrid3ID_USER: TcxGridDBColumn;
+    DBGrid3DATE_USER: TcxGridDBColumn;
+    lichID_USER: TIntegerField;
+    lichDATE_USER: TDateTimeField;
+    lichznID_USER: TIntegerField;
+    lichznDATE_USER: TDateTimeField;
+    lichznZN: TIBStringField;
+    plombsID_USER: TSmallintField;
+    plombsDATE_USER: TDateTimeField;
+    plombsznID_USER: TSmallintField;
+    plombsznDATE_USER: TDateTimeField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -1004,6 +1021,7 @@ type
       AItem: TcxCustomGridTableItem; out AStyle: TcxStyle);
     procedure DBGrid3Column1PropertiesButtonClick(Sender: TObject;
       AButtonIndex: Integer);
+    procedure usersAfterOpen(DataSet: TDataSet);
 
   private
     { Private declarations }
@@ -1028,6 +1046,7 @@ type
     procedure allcalclich2;
     procedure allcalcnorm;
     procedure update;
+    procedure startprog;
     procedure calcdomlich(DS:TIBDataSet);
     procedure calcalldomlich;
     procedure calcalldompere;
@@ -1433,34 +1452,10 @@ fl_startprog:=true;
 // // ActiveControl:=cxGrid2;
 end;
 
-procedure TMainForm.FormShow(Sender: TObject);
+procedure TMainForm.startprog;
 var dd:integer;
     dt:TDate;
-    ss,fvid:string;
 begin
-//cxButton1.Click;
-
-//  dxBarLookupCombo1.Enabled:=true;
-
-
-
-
-
-
-  ss:=GetAppVersionStr;
-  MainForm.Caption:=MainForm.Caption+' '+ss;
-
-
-
-
-FormConn.TestConn;
-
-if not IBDatabase.Connected then exit;
-
-  users.Open;
-
-  FormUsers.show;
-
 
   dxBarLookupCombo1.Enabled:=false;
   dxBarLookupCombo1.KeyValue:=domDOM.AsString;
@@ -1477,7 +1472,7 @@ if not IBDatabase.Connected then exit;
   ul.open;
 
 
-  
+
 
 
 //Update;
@@ -1526,7 +1521,40 @@ if not IBDatabase.Connected then exit;
 
   end;
 
-fl_startprog:=false;
+
+
+end;
+
+procedure TMainForm.FormShow(Sender: TObject);
+var  ss,fvid:string;
+begin
+//cxButton1.Click;
+
+//  dxBarLookupCombo1.Enabled:=true;
+
+
+
+
+
+
+  ss:=GetAppVersionStr;
+  MainForm.Caption:=MainForm.Caption+' '+ss;
+
+
+
+
+FormConn.TestConn;
+
+if not IBDatabase.Connected then exit;
+
+
+
+  FormUsers.show;
+
+
+
+
+
 end;
 
 procedure TMainForm.ExportGrid(AGrid: TcxGrid;Filename:string='Table.xls');
@@ -1590,6 +1618,12 @@ end;
 
 procedure TMainForm.ActionEdCalcsExecute(Sender: TObject);
 begin
+  if mainform.usersADM.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
   if InputBox('пароль', '', '')=IniFile.ReadString('Security', 'EdCalcs', #0) then FormEdExpr.ShowModal;
 end;
 
@@ -1600,6 +1634,12 @@ end;
 
 procedure TMainForm.dxBarButton21Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 FormAddkart.addurabon:=true;
 FormAddkart.cxTabSheet1.TabVisible:=false;
 FormAddkart.cxTabSheet2.TabVisible:=false;
@@ -1611,6 +1651,12 @@ end;
 
 procedure TMainForm.dxBarButton22Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
   //  if application.MessageBox('Увага!!! Ви дійсно бажаєте видалити абонента '+DSet.FieldByName('SCHET').Value+' '+DSet.FieldByName('FIO').Value+' ?','Підтвердження',MB_YESNO)=IDNO then
     if application.MessageBox(PAnsiChar(AnsiString('Ви дійсно бажаєте видалити абонента '+DSet.FieldByName('SCHET').AsString+' '+DSet.FieldByName('FIO').AsString+' ?')),'Підтвердження',MB_YESNO)=IDNO then
     exit;
@@ -1619,6 +1665,12 @@ end;
 
 procedure TMainForm.dxBarButton23Click(Sender: TObject);
 begin
+  if mainform.usersENDMES.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 spr_zn.vidspr:='addrn';
 spr_zn.Caption:=dxBarButton23.Caption;
 spr_zn.Show;
@@ -1626,6 +1678,12 @@ end;
 
 procedure TMainForm.dxBarButton24Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 FormAddkart.addurabon:=false;
 FormAddkart.cxTabSheet1.TabVisible:=false;
 FormAddkart.cxTabSheet2.TabVisible:=false;
@@ -1647,6 +1705,12 @@ end;
 
 procedure TMainForm.dxBarButton25Click(Sender: TObject);
 begin
+  if mainform.usersENDMES.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 
 if InputBox('пароль', '', '')=IniFile.ReadString('Security', 'EdCalcs', #0) then
 begin
@@ -1693,6 +1757,12 @@ begin
 
 procedure TMainForm.dxBarButton2Click(Sender: TObject);
 begin
+  if mainform.usersADM.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
     if InputBox('пароль', '', '')=IniFile.ReadString('Security', 'Import', #0) then Form1.showmodal;
 end;
 
@@ -1710,6 +1780,12 @@ end;
 
 procedure TMainForm.dxBarButton32Click(Sender: TObject);
 begin
+  if mainform.usersENDMES.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 spr_zn.vidspr:='widnach';
 spr_zn.Caption:=dxBarButton32.Caption;
 spr_zn.Show;
@@ -1722,6 +1798,12 @@ end;
 
 procedure TMainForm.dxBarButton35Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 FormAddkart.adddomlich:=true;
 FormAddkart.cxTabSheet1.TabVisible:=false;
 FormAddkart.cxTabSheet2.TabVisible:=false;
@@ -1733,6 +1815,12 @@ end;
 
 procedure TMainForm.dxBarButton36Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 FormAddkart.adddomlich:=false;
 FormAddkart.cxTabSheet1.TabVisible:=false;
 FormAddkart.cxTabSheet2.TabVisible:=false;
@@ -1751,6 +1839,12 @@ end;
 
 procedure TMainForm.dxBarButton37Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
     if application.MessageBox(PAnsiChar(AnsiString('Ви дійсно бажаєте видалити будинковий лічильник за адресою '+grp.FieldByName('UL').AsString+' '+grp.FieldByName('N_DOM').AsString+' ?')),'Підтвердження',MB_YESNO)=IDNO then
     exit;
     grp.delete;
@@ -1758,7 +1852,11 @@ end;
 
 procedure TMainForm.dxBarButton38Click(Sender: TObject);
 begin
-
+  if mainform.usersENDMES.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
 
    if application.MessageBox('Увага!!! Почати процедуру повного розрахунку? Редагування інформації буде закрито!','Підтвердження',MB_YESNO)=IDNO then
       exit;
@@ -2739,6 +2837,12 @@ end;
 
 procedure TMainForm.dxBarButton3Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
     if application.MessageBox(PAnsiChar(AnsiString('Ви дійсно бажаєте видалити абонента '+DSet.FieldByName('SCHET').AsString+' '+DSet.FieldByName('FIO').AsString+' ?')),'Підтвердження',MB_YESNO)=IDNO then
     exit;
     DSet.delete;
@@ -2756,6 +2860,12 @@ end;
 procedure TMainForm.DBGrid1Column2PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
+  if mainform.usersADDPOKAZ.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
    if (isArchive) or (impLASTROZR.Value>0) then
       exit;
 
@@ -3104,7 +3214,7 @@ begin
  //   DBGrid1FIO.Options.Editing:=true;
     //DBGrid1n_sch.Options.Editing:=true;
  //   DBGrid1SCHET.Focused:=true;
-end;         
+end;
 procedure TMainForm.hvdBeforePost(DataSet: TDataSet);
 begin
   if hvdYEARMON.Value=0 then hvdYEARMON.Value:=CurYM;
@@ -3472,6 +3582,7 @@ begin
 end;
 
 procedure TMainForm.Update;
+var fl_review:boolean;
 begin
 if hvd.State in [dsInsert,dsEdit] then hvd.Post;
 if org.State in [dsInsert,dsEdit] then org.Post;
@@ -3511,6 +3622,11 @@ IBTransaction1.CommitRetaining;
     IBQuery2.Last;
     first12ym:=IBQuery2.FieldByName('yearmon').AsInteger;
 
+    fl_review:=false;
+
+    if (usersADDLICH.Value=0) and (usersADDPOKAZ.Value=0) and (usersADDPLOMB.Value=0) and (usersENDMES.Value=0) then fl_review:=true;
+
+
 //   if hvd.State in [dsInsert,dsEdit] then hvd.Post;
 //   if cxPageControl1.ActivePage=cxTabSheet1 then hvd.Close
 //   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.close
@@ -3521,14 +3637,22 @@ IBTransaction1.CommitRetaining;
 //   else if cxPageControl1.ActivePage=cxTabSheet2 then prop.open
 //   else if cxPageControl1.ActivePage=cxTabSheet3 then grp.open;
 
-   if (isArchive) or (impLASTROZR.Value>0) then
+
+
+
+
+   if (isArchive) or (impLASTROZR.Value>0) or (fl_review) then
    begin
      if isArchive then
         cxLabel1.Caption:='Увага! Редагування даних закрито. Ви в архіві!'
      else if impLASTROZR.Value=1 then
         cxLabel1.Caption:='Увага! Редагування даних закрито. Розпочато процедуру повного розрахунку!'
      else if impLASTROZR.Value=2 then
-        cxLabel1.Caption:='Увага! Редагування даних закрито. Виконано повний розрахунок даних, чекайте закриття місяця!';
+        cxLabel1.Caption:='Увага! Редагування даних закрито. Виконано повний розрахунок даних, чекайте закриття місяця!'
+     else if fl_review then
+        cxLabel1.Caption:='Редагування даних закрито. Режим перегляду!';
+
+
 
      Application.ProcessMessages;
      cxLabel1.Visible:=true;
@@ -3591,6 +3715,12 @@ IBTransaction1.CommitRetaining;
    // SplashForm.Hide;
    // SplashForm.Free;
   end;  
+end;
+
+procedure TMainForm.usersAfterOpen(DataSet: TDataSet);
+begin
+if ActiveUser<>0 then
+  users.Locate('id',ActiveUser,[]);
 end;
 
 procedure TMainForm.cxGrid3DBTableView1KUB_ALLStylesGetContentStyle(
@@ -3699,11 +3829,23 @@ end;
 
 procedure TMainForm.dxBarButton8Click(Sender: TObject);
 begin
+  if mainform.usersADM.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
   frxReport3.DesignReport;
 end;
 
 procedure TMainForm.dxBarButton9Click(Sender: TObject);
 begin
+  if mainform.usersENDMES.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
    if impLASTEXP.Value<>1 then
    begin
      ShowMessage('Перед закриттям, виконайте передачу показників бухгалтеру і повторіть операцію знову!!!');
@@ -3757,6 +3899,12 @@ end;
 
 procedure TMainForm.dxBarButton10Click(Sender: TObject);
 begin
+  if mainform.usersENDMES.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
   Application.ProcessMessages;
   IBtransaction1.CommitRetaining;
   //allcalclich;
@@ -3800,6 +3948,12 @@ end;
 
 procedure TMainForm.dxBarButton11Click(Sender: TObject);
 begin
+  if mainform.usersADDPLOMB.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
   FormEdPlomb.showmodal;
   plomb.Close;
   plomb.Open;
@@ -3807,6 +3961,12 @@ end;
 
 procedure TMainForm.dxBarButton12Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 Form4.ImKart;
 end;
 
@@ -3817,6 +3977,12 @@ end;
 
 procedure TMainForm.dxBarButton14Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 spr_zn.vidspr:='dellich';
 spr_zn.Caption:=dxBarButton14.Caption;
 spr_zn.Show;
@@ -3824,6 +3990,12 @@ end;
 
 procedure TMainForm.dxBarButton15Click(Sender: TObject);
 begin
+  if mainform.usersADDPLOMB.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 spr_zn.vidspr:='delpl';
 spr_zn.Caption:=dxBarButton15.Caption;
 spr_zn.Show;
@@ -3831,6 +4003,12 @@ end;
 
 procedure TMainForm.dxBarButton16Click(Sender: TObject);
 begin
+  if mainform.usersADDPOKAZ.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 spr_zn.vidspr:='delpk';
 spr_zn.Caption:=dxBarButton16.Caption;
 spr_zn.Show;
@@ -3838,6 +4016,12 @@ end;
 
 procedure TMainForm.dxBarButton17Click(Sender: TObject);
 begin
+  if mainform.usersADDPOKAZ.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 spr_zn.vidspr:='addpk';
 spr_zn.Caption:=dxBarButton17.Caption;
 spr_zn.Show;
@@ -3845,6 +4029,12 @@ end;
 
 procedure TMainForm.dxBarButton18Click(Sender: TObject);
 begin
+  if mainform.usersADDPLOMB.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 spr_zn.vidspr:='pl';
 spr_zn.Caption:=dxBarButton18.Caption;
 spr_zn.Show;
@@ -3852,6 +4042,12 @@ end;
 
 procedure TMainForm.dxBarButton19Click(Sender: TObject);
 begin
+  if mainform.usersADDPOKAZ.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 viber_task.Close;
 viber_task.ParamByName('yearmon').Value:=CurYM;
 viber_task.Open;

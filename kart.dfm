@@ -393,7 +393,7 @@ object Form2: TForm2
     Top = 271
     Width = 699
     Height = 407
-    ActivePage = cxTabSheet1
+    ActivePage = cxTabSheet8
     Align = alClient
     TabOrder = 2
     ClientRectBottom = 407
@@ -407,7 +407,7 @@ object Form2: TForm2
         Top = 0
         Width = 699
         Height = 383
-        ActivePage = cxTabSheet4
+        ActivePage = cxTabSheet6
         Align = alClient
         TabOrder = 0
         ClientRectBottom = 383
@@ -540,6 +540,15 @@ object Form2: TForm2
                 Caption = #1055#1088#1080#1084#1110#1090#1082#1080
                 DataBinding.FieldName = 'NOTE'
               end
+              object cxGridDBTableView1ID_USER: TcxGridDBColumn
+                Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+                DataBinding.FieldName = 'ID_USER'
+                Width = 80
+              end
+              object cxGridDBTableView1DATE_USER: TcxGridDBColumn
+                Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
+                DataBinding.FieldName = 'DATE_USER'
+              end
             end
             object cxGridLevel1: TcxGridLevel
               GridView = cxGridDBTableView1
@@ -607,6 +616,15 @@ object Form2: TForm2
                 Caption = #1056#1086#1079#1088#1072#1093'. '#1076#1085#1110
                 DataBinding.FieldName = 'RASCH_DAY'
               end
+              object cxGridDBTableView2ID_USER: TcxGridDBColumn
+                Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+                DataBinding.FieldName = 'ID_USER'
+                Width = 76
+              end
+              object cxGridDBTableView2DATE_USER: TcxGridDBColumn
+                Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
+                DataBinding.FieldName = 'DATE_USER'
+              end
             end
             object cxGridLevel2: TcxGridLevel
               GridView = cxGridDBTableView2
@@ -656,7 +674,7 @@ object Form2: TForm2
         Top = 0
         Width = 699
         Height = 383
-        ActivePage = cxTabSheet5
+        ActivePage = cxTabSheet7
         Align = alClient
         TabOrder = 0
         ClientRectBottom = 383
@@ -735,6 +753,15 @@ object Form2: TForm2
                 Caption = #1055#1088#1080#1084#1110#1090#1082#1080
                 DataBinding.FieldName = 'NOTE'
               end
+              object cxGrid3DBTableView1ID_USER: TcxGridDBColumn
+                Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+                DataBinding.FieldName = 'ID_USER'
+                Width = 79
+              end
+              object cxGrid3DBTableView1DATE_USER: TcxGridDBColumn
+                Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
+                DataBinding.FieldName = 'DATE_USER'
+              end
             end
             object cxGrid3Level1: TcxGridLevel
               GridView = cxGrid3DBTableView1
@@ -792,6 +819,15 @@ object Form2: TForm2
               object cxGrid2DBTableView1NOTE: TcxGridDBColumn
                 Caption = #1055#1088#1080#1084#1110#1090#1082#1080
                 DataBinding.FieldName = 'NOTE'
+              end
+              object cxGrid2DBTableView1ID_USER: TcxGridDBColumn
+                Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+                DataBinding.FieldName = 'ID_USER'
+                Width = 85
+              end
+              object cxGrid2DBTableView1DATE_USER: TcxGridDBColumn
+                Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
+                DataBinding.FieldName = 'DATE_USER'
               end
             end
             object cxGrid2Level1: TcxGridLevel
@@ -909,6 +945,10 @@ object Form2: TForm2
             DataBinding.FieldName = 'LICH'
             Width = 172
           end
+          object cxGridDBTableView3ID_USER: TcxGridDBColumn
+            Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+            DataBinding.FieldName = 'ID_USER'
+          end
           object cxGridDBTableView3DATE_USER: TcxGridDBColumn
             Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
             DataBinding.FieldName = 'DATE_USER'
@@ -1015,21 +1055,27 @@ object Form2: TForm2
           OptionsView.Indicator = True
           object cxGridDBTableView4ID: TcxGridDBColumn
             DataBinding.FieldName = 'ID'
-            Width = 48
+            Width = 43
           end
           object cxGridDBTableView4VID_ZN: TcxGridDBColumn
             Caption = #1042#1080#1076
             DataBinding.FieldName = 'VID_ZN'
-            Width = 217
+            Width = 196
           end
           object cxGridDBTableView4NOTE: TcxGridDBColumn
             Caption = #1055#1088#1080#1095#1080#1085#1072' '#1079#1084#1110#1085#1080
             DataBinding.FieldName = 'NOTE'
-            Width = 320
+            Width = 288
+          end
+          object cxGridDBTableView4ID_USER: TcxGridDBColumn
+            Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+            DataBinding.FieldName = 'ID_USER'
+            Width = 72
           end
           object cxGridDBTableView4DATE_USER: TcxGridDBColumn
             Caption = #1044#1072#1090#1072' '#1088#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103
             DataBinding.FieldName = 'DATE_USER'
+            Width = 86
           end
         end
         object cxGridLevel4: TcxGridLevel

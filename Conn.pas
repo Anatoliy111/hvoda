@@ -52,8 +52,9 @@ begin
            MainForm.IBTransaction1.Active:=true;
            MainForm.dom.Open;
            MainForm.data.Open;
-           if MainForm.fl_startprog then
-             MainForm.Update;
+           MainForm.users.Open;
+//           if MainForm.fl_startprog then
+//             MainForm.Update;
            FormConn.close;
            MainForm.Enabled:=true;
            MainForm.Timer1.Enabled:=true;

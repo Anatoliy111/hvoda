@@ -1212,6 +1212,15 @@ object MainForm: TMainForm
             Visible = False
             Options.Editing = False
           end
+          object DBGrid3ID_USER: TcxGridDBColumn
+            Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+            DataBinding.FieldName = 'ID_USER'
+            Width = 94
+          end
+          object DBGrid3DATE_USER: TcxGridDBColumn
+            Caption = #1044#1072#1090#1072
+            DataBinding.FieldName = 'DATE_USER'
+          end
         end
         object cxGridLevel9: TcxGridLevel
           Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080' '#1087#1086' '#1087#1110#1076#1111#1079#1076#1072#1084
@@ -1535,12 +1544,15 @@ object MainForm: TMainForm
           ItemName = 'dxBarButton20'
         end
         item
+          UserDefine = [udWidth]
+          UserWidth = 132
           Visible = True
-          ItemName = 'dxBarButtonExit'
+          ItemName = 'dxBarEdit3'
         end
         item
+          BeginGroup = True
           Visible = True
-          ItemName = 'cxBarEditItem5'
+          ItemName = 'dxBarButtonExit'
         end>
       OldName = 'Custom 1'
       OneOnRow = True
@@ -1580,10 +1592,6 @@ object MainForm: TMainForm
         item
           Visible = True
           ItemName = 'dxBarButton3'
-        end
-        item
-          Visible = True
-          ItemName = 'dxBarButton33'
         end
         item
           Visible = True
@@ -2422,6 +2430,67 @@ object MainForm: TMainForm
       Width = 100
       PropertiesClassName = 'TcxLabelProperties'
     end
+    object cxBarEditItem6: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      Width = 100
+      PropertiesClassName = 'TcxLabelProperties'
+    end
+    object dxBarEdit2: TdxBarEdit
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      Width = 100
+    end
+    object dxBarLookupCombo3: TdxBarLookupCombo
+      Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+      Category = 0
+      Hint = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+      Visible = ivAlways
+      Glyph.Data = {
+        F6000000424DF600000000000000760000002800000010000000100000000100
+        0400000000008000000000000000000000001000000000000000000000000000
+        8000008000000080800080000000800080008080000080808000C0C0C0000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDDD
+        DDDD000000000000000D0FFFF0FFFFFFFF0D0F77F0F777777F0D0CCCC0CCCCCC
+        CC0D0C77C0C777777C0D0CCCC0CCCCCCCC0D0F77F0F777777F0D0FFFF0FFFFFF
+        FF0D0F77F0F777777F0D0FFFF0FFFFFFFF0D000000000000000D0FFFCCCCFFF0
+        DDDD0F777777FFF0DDDD0FFFCCCCFFF0DDDD000000000000DDDD}
+      ShowCaption = True
+      Width = 100
+      ReadOnly = True
+      KeyField = 'ID'
+      ListField = 'USER_NAIM'
+      ListSource = usersSource
+      RowCount = 7
+    end
+    object cxBarEditItem7: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      Width = 100
+      PropertiesClassName = 'TcxLookupComboBoxProperties'
+      Properties.KeyFieldNames = 'ID'
+      Properties.ListColumns = <
+        item
+          FieldName = 'USER_NAIM'
+        end>
+      Properties.ListSource = usersSource
+    end
+    object dxBarEdit3: TdxBarEdit
+      Align = iaRight
+      Caption = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+      Category = 0
+      Hint = #1050#1086#1088#1080#1089#1090#1091#1074#1072#1095
+      Visible = ivAlways
+      ShowCaption = True
+      Width = 100
+      ReadOnly = True
+    end
     object dxBarButton1: TdxBarButton
       Action = ActionEdCalcs
       Category = 1
@@ -2467,7 +2536,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000300214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000340214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5808,6 +5877,7 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'
@@ -5826,7 +5896,7 @@ object MainForm: TMainForm
   object cxLookAndFeelController1: TcxLookAndFeelController
     Kind = lfOffice11
     Left = 536
-    Top = 144
+    Top = 168
   end
   object dom: TIBDataSet
     Database = IBDatabase
@@ -6344,20 +6414,20 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into HVGRP'
       
-        '  (DOM, KL, KL_UL, N_DOM, N_LICH, NORMA, NORMA_BL, NOTE, POD, RA' +
-        'ZN, SCH_CUR, '
+        '  (DATE_USER, DOM, ID_USER, KL, KL_UL, N_DOM, N_LICH, NORMA, NOR' +
+        'MA_BL, '
       
-        '   SCH_KUB, SCH_NAS, SCH_OLD, SCH_RAZN, SCH_SUMABON, SCH_UR, SCH' +
-        '0, SCH1, '
-      '   TIP, UL, YEARMON)'
+        '   NOTE, POD, RAZN, SCH_CUR, SCH_KUB, SCH_NAS, SCH_OLD, SCH_RAZN' +
+        ', SCH_SUMABON, '
+      '   SCH_UR, SCH0, SCH1, TIP, UL, YEARMON)'
       'values'
       
-        '  (:DOM, :KL, :KL_UL, :N_DOM, :N_LICH, :NORMA, :NORMA_BL, :NOTE,' +
-        ' :POD, '
+        '  (:DATE_USER, :DOM, :ID_USER, :KL, :KL_UL, :N_DOM, :N_LICH, :NO' +
+        'RMA, :NORMA_BL, '
       
-        '   :RAZN, :SCH_CUR, :SCH_KUB, :SCH_NAS, :SCH_OLD, :SCH_RAZN, :SC' +
-        'H_SUMABON, '
-      '   :SCH_UR, :SCH0, :SCH1, :TIP, :UL, :YEARMON)')
+        '   :NOTE, :POD, :RAZN, :SCH_CUR, :SCH_KUB, :SCH_NAS, :SCH_OLD, :' +
+        'SCH_RAZN, '
+      '   :SCH_SUMABON, :SCH_UR, :SCH0, :SCH1, :TIP, :UL, :YEARMON)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -6381,7 +6451,9 @@ object MainForm: TMainForm
       '  SCH_NAS,'
       '  SCH_UR,'
       '  SCH_SUMABON,'
-      '  SCH_KUB'
+      '  SCH_KUB,'
+      '  ID_USER,'
+      '  DATE_USER'
       'from HVGRP '
       'where'
       '  KL = :KL')
@@ -6393,7 +6465,9 @@ object MainForm: TMainForm
     ModifySQL.Strings = (
       'update HVGRP'
       'set'
+      '  DATE_USER = :DATE_USER,'
       '  DOM = :DOM,'
+      '  ID_USER = :ID_USER,'
       '  KL = :KL,'
       '  KL_UL = :KL_UL,'
       '  N_DOM = :N_DOM,'
@@ -6521,6 +6595,14 @@ object MainForm: TMainForm
       FieldName = 'SCH_SUMABON'
       Origin = '"HVGRP"."SCH_SUMABON"'
     end
+    object grpID_USER: TIntegerField
+      FieldName = 'ID_USER'
+      Origin = '"HVGRP"."ID_USER"'
+    end
+    object grpDATE_USER: TDateTimeField
+      FieldName = 'DATE_USER'
+      Origin = '"HVGRP"."DATE_USER"'
+    end
   end
   object grpSource: TDataSource
     DataSet = grp
@@ -6531,7 +6613,7 @@ object MainForm: TMainForm
     Interval = 10000
     OnTimer = Timer1Timer
     Left = 496
-    Top = 144
+    Top = 168
   end
   object frxDesigner1: TfrxDesigner
     DefaultScriptLanguage = 'PascalScript'
@@ -8621,16 +8703,17 @@ object MainForm: TMainForm
         '  (DATA_INP, DATA_MGP, DATA_POV, DATA_STPOV, DATA_VIG, DATA_VIP,' +
         ' DATA_ZN, '
       
-        '   ID, N_INPLOMB, N_LICH, N_MGPLOMB, NOTE, RASCH_DAY, SCHET, TIP' +
-        ', VID_ZN)'
+        '   DATE_USER, ID, ID_USER, N_INPLOMB, N_LICH, N_MGPLOMB, NOTE, R' +
+        'ASCH_DAY, '
+      '   SCHET, TIP, USER_NAIM, VID_ZN)'
       'values'
       
         '  (:DATA_INP, :DATA_MGP, :DATA_POV, :DATA_STPOV, :DATA_VIG, :DAT' +
         'A_VIP, '
       
-        '   :DATA_ZN, :ID, :N_INPLOMB, :N_LICH, :N_MGPLOMB, :NOTE, :RASCH' +
-        '_DAY, :SCHET, '
-      '   :TIP, :VID_ZN)')
+        '   :DATA_ZN, :DATE_USER, :ID, :ID_USER, :N_INPLOMB, :N_LICH, :N_' +
+        'MGPLOMB, '
+      '   :NOTE, :RASCH_DAY, :SCHET, :TIP, :USER_NAIM, :VID_ZN)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -8648,7 +8731,10 @@ object MainForm: TMainForm
       '  VID_ZN,'
       '  DATA_VIG,'
       '  DATA_STPOV,'
-      '  RASCH_DAY'
+      '  RASCH_DAY,'
+      '  USER_NAIM,'
+      '  ID_USER,'
+      '  DATE_USER'
       'from LICH '
       'where'
       '  ID = :ID')
@@ -8667,7 +8753,9 @@ object MainForm: TMainForm
       '  DATA_VIG = :DATA_VIG,'
       '  DATA_VIP = :DATA_VIP,'
       '  DATA_ZN = :DATA_ZN,'
+      '  DATE_USER = :DATE_USER,'
       '  ID = :ID,'
+      '  ID_USER = :ID_USER,'
       '  N_INPLOMB = :N_INPLOMB,'
       '  N_LICH = :N_LICH,'
       '  N_MGPLOMB = :N_MGPLOMB,'
@@ -8675,6 +8763,7 @@ object MainForm: TMainForm
       '  RASCH_DAY = :RASCH_DAY,'
       '  SCHET = :SCHET,'
       '  TIP = :TIP,'
+      '  USER_NAIM = :USER_NAIM,'
       '  VID_ZN = :VID_ZN'
       'where'
       '  ID = :OLD_ID')
@@ -8741,11 +8830,6 @@ object MainForm: TMainForm
       FieldName = 'DATA_VIG'
       Origin = '"LICH"."DATA_VIG"'
     end
-    object lichznZN: TIBStringField
-      FieldName = 'ZN'
-      Origin = '"SPR_ZN"."VID_ZN"'
-      Size = 50
-    end
     object lichznDATA_STPOV: TDateField
       FieldName = 'DATA_STPOV'
       Origin = '"LICH"."DATA_STPOV"'
@@ -8753,6 +8837,19 @@ object MainForm: TMainForm
     object lichznRASCH_DAY: TIntegerField
       FieldName = 'RASCH_DAY'
       Origin = '"LICH"."RASCH_DAY"'
+    end
+    object lichznID_USER: TIntegerField
+      FieldName = 'ID_USER'
+      Origin = '"LICH"."ID_USER"'
+    end
+    object lichznDATE_USER: TDateTimeField
+      FieldName = 'DATE_USER'
+      Origin = '"LICH"."DATE_USER"'
+    end
+    object lichznZN: TIBStringField
+      FieldName = 'ZN'
+      Origin = '"SPR_ZN"."VID_ZN"'
+      Size = 50
     end
   end
   object lichDataSource: TDataSource
@@ -8775,15 +8872,18 @@ object MainForm: TMainForm
       
         '  (DATA_INP, DATA_MGP, DATA_POV, DATA_STPOV, DATA_VIG, DATA_VIP,' +
         ' DATA_ZN, '
-      '   ID, N_INPLOMB, N_LICH, N_MGPLOMB, NOTE, SCHET, TIP, VID_ZN)'
+      
+        '   DATE_USER, ID, ID_USER, N_INPLOMB, N_LICH, N_MGPLOMB, NOTE, R' +
+        'ASCH_DAY, '
+      '   SCHET, TIP, USER_NAIM, VID_ZN)'
       'values'
       
         '  (:DATA_INP, :DATA_MGP, :DATA_POV, :DATA_STPOV, :DATA_VIG, :DAT' +
         'A_VIP, '
       
-        '   :DATA_ZN, :ID, :N_INPLOMB, :N_LICH, :N_MGPLOMB, :NOTE, :SCHET' +
-        ', :TIP, '
-      '   :VID_ZN)')
+        '   :DATA_ZN, :DATE_USER, :ID, :ID_USER, :N_INPLOMB, :N_LICH, :N_' +
+        'MGPLOMB, '
+      '   :NOTE, :RASCH_DAY, :SCHET, :TIP, :USER_NAIM, :VID_ZN)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -8791,7 +8891,6 @@ object MainForm: TMainForm
       '  TIP,'
       '  N_LICH,'
       '  DATA_VIP,'
-      '  DATA_STPOV,'
       '  DATA_POV,'
       '  N_INPLOMB,'
       '  N_MGPLOMB,'
@@ -8800,7 +8899,12 @@ object MainForm: TMainForm
       '  DATA_ZN,'
       '  NOTE,'
       '  VID_ZN,'
-      '  DATA_VIG'
+      '  DATA_VIG,'
+      '  DATA_STPOV,'
+      '  RASCH_DAY,'
+      '  USER_NAIM,'
+      '  ID_USER,'
+      '  DATE_USER'
       'from LICH '
       'where'
       '  ID = :ID')
@@ -8816,13 +8920,17 @@ object MainForm: TMainForm
       '  DATA_VIG = :DATA_VIG,'
       '  DATA_VIP = :DATA_VIP,'
       '  DATA_ZN = :DATA_ZN,'
+      '  DATE_USER = :DATE_USER,'
       '  ID = :ID,'
+      '  ID_USER = :ID_USER,'
       '  N_INPLOMB = :N_INPLOMB,'
       '  N_LICH = :N_LICH,'
       '  N_MGPLOMB = :N_MGPLOMB,'
       '  NOTE = :NOTE,'
+      '  RASCH_DAY = :RASCH_DAY,'
       '  SCHET = :SCHET,'
       '  TIP = :TIP,'
+      '  USER_NAIM = :USER_NAIM,'
       '  VID_ZN = :VID_ZN'
       'where'
       '  ID = :OLD_ID')
@@ -8893,6 +9001,14 @@ object MainForm: TMainForm
       FieldName = 'DATA_STPOV'
       Origin = '"LICH"."DATA_STPOV"'
     end
+    object lichID_USER: TIntegerField
+      FieldName = 'ID_USER'
+      Origin = '"LICH"."ID_USER"'
+    end
+    object lichDATE_USER: TDateTimeField
+      FieldName = 'DATE_USER'
+      Origin = '"LICH"."DATE_USER"'
+    end
   end
   object plombsznDataSource: TDataSource
     DataSet = plombszn
@@ -8909,13 +9025,14 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into PLOMBS'
       
-        '  (DATE_VS, DATE_ZN, ID, N_PLOMB, NOTE, SCHET, VID_PL, VID_PLOMB' +
-        ', VID_ZN)'
+        '  (DATE_USER, DATE_VS, DATE_ZN, ID, ID_USER, N_PLOMB, NOTE, SCHE' +
+        'T, USER_NAIM, '
+      '   VID_PL, VID_PLOMB, VID_ZN)'
       'values'
       
-        '  (:DATE_VS, :DATE_ZN, :ID, :N_PLOMB, :NOTE, :SCHET, :VID_PL, :V' +
-        'ID_PLOMB, '
-      '   :VID_ZN)')
+        '  (:DATE_USER, :DATE_VS, :DATE_ZN, :ID, :ID_USER, :N_PLOMB, :NOT' +
+        'E, :SCHET, '
+      '   :USER_NAIM, :VID_PL, :VID_PLOMB, :VID_ZN)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -8926,7 +9043,10 @@ object MainForm: TMainForm
       '  NOTE,'
       '  N_PLOMB,'
       '  VID_ZN,'
-      '  VID_PL'
+      '  VID_PL,'
+      '  USER_NAIM,'
+      '  ID_USER,'
+      '  DATE_USER'
       'from PLOMBS '
       'where'
       '  ID = :ID')
@@ -8938,12 +9058,15 @@ object MainForm: TMainForm
     ModifySQL.Strings = (
       'update PLOMBS'
       'set'
+      '  DATE_USER = :DATE_USER,'
       '  DATE_VS = :DATE_VS,'
       '  DATE_ZN = :DATE_ZN,'
       '  ID = :ID,'
+      '  ID_USER = :ID_USER,'
       '  N_PLOMB = :N_PLOMB,'
       '  NOTE = :NOTE,'
       '  SCHET = :SCHET,'
+      '  USER_NAIM = :USER_NAIM,'
       '  VID_PL = :VID_PL,'
       '  VID_PLOMB = :VID_PLOMB,'
       '  VID_ZN = :VID_ZN'
@@ -9003,6 +9126,14 @@ object MainForm: TMainForm
       Origin = '"SPR_ZN"."VID_ZN"'
       Size = 50
     end
+    object plombsznID_USER: TSmallintField
+      FieldName = 'ID_USER'
+      Origin = '"PLOMBS"."ID_USER"'
+    end
+    object plombsznDATE_USER: TDateTimeField
+      FieldName = 'DATE_USER'
+      Origin = '"PLOMBS"."DATE_USER"'
+    end
   end
   object plombsDataSource: TDataSource
     DataSet = plombs
@@ -9019,13 +9150,14 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into PLOMBS'
       
-        '  (DATE_VS, DATE_ZN, ID, N_PLOMB, NOTE, SCHET, VID_PL, VID_PLOMB' +
-        ', VID_ZN)'
+        '  (DATE_USER, DATE_VS, DATE_ZN, ID, ID_USER, N_PLOMB, NOTE, SCHE' +
+        'T, USER_NAIM, '
+      '   VID_PL, VID_PLOMB, VID_ZN)'
       'values'
       
-        '  (:DATE_VS, :DATE_ZN, :ID, :N_PLOMB, :NOTE, :SCHET, :VID_PL, :V' +
-        'ID_PLOMB, '
-      '   :VID_ZN)')
+        '  (:DATE_USER, :DATE_VS, :DATE_ZN, :ID, :ID_USER, :N_PLOMB, :NOT' +
+        'E, :SCHET, '
+      '   :USER_NAIM, :VID_PL, :VID_PLOMB, :VID_ZN)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
@@ -9036,7 +9168,10 @@ object MainForm: TMainForm
       '  NOTE,'
       '  N_PLOMB,'
       '  VID_ZN,'
-      '  VID_PL'
+      '  VID_PL,'
+      '  USER_NAIM,'
+      '  ID_USER,'
+      '  DATE_USER'
       'from PLOMBS '
       'where'
       '  ID = :ID')
@@ -9048,12 +9183,15 @@ object MainForm: TMainForm
     ModifySQL.Strings = (
       'update PLOMBS'
       'set'
+      '  DATE_USER = :DATE_USER,'
       '  DATE_VS = :DATE_VS,'
       '  DATE_ZN = :DATE_ZN,'
       '  ID = :ID,'
+      '  ID_USER = :ID_USER,'
       '  N_PLOMB = :N_PLOMB,'
       '  NOTE = :NOTE,'
       '  SCHET = :SCHET,'
+      '  USER_NAIM = :USER_NAIM,'
       '  VID_PL = :VID_PL,'
       '  VID_PLOMB = :VID_PLOMB,'
       '  VID_ZN = :VID_ZN'
@@ -9112,6 +9250,14 @@ object MainForm: TMainForm
       FieldName = 'ZN'
       Origin = '"SPR_ZN"."VID_ZN"'
       Size = 50
+    end
+    object plombsID_USER: TSmallintField
+      FieldName = 'ID_USER'
+      Origin = '"PLOMBS"."ID_USER"'
+    end
+    object plombsDATE_USER: TDateTimeField
+      FieldName = 'DATE_USER'
+      Origin = '"PLOMBS"."DATE_USER"'
     end
   end
   object viber_task: TIBDataSet
@@ -11174,6 +11320,7 @@ object MainForm: TMainForm
   object users: TIBDataSet
     Database = IBDatabase
     Transaction = IBTransaction1
+    AfterOpen = usersAfterOpen
     OnCalcFields = dataCalcFields
     DeleteSQL.Strings = (
       'delete from USERS'

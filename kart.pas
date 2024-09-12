@@ -165,6 +165,16 @@ type
     cxGridDBTableView4VID_ZN: TcxGridDBColumn;
     IBQuery6: TIBQuery;
     IBQuery7: TIBQuery;
+    cxGridDBTableView2ID_USER: TcxGridDBColumn;
+    cxGridDBTableView2DATE_USER: TcxGridDBColumn;
+    cxGridDBTableView1ID_USER: TcxGridDBColumn;
+    cxGridDBTableView1DATE_USER: TcxGridDBColumn;
+    cxGrid3DBTableView1ID_USER: TcxGridDBColumn;
+    cxGrid3DBTableView1DATE_USER: TcxGridDBColumn;
+    cxGrid2DBTableView1ID_USER: TcxGridDBColumn;
+    cxGrid2DBTableView1DATE_USER: TcxGridDBColumn;
+    cxGridDBTableView3ID_USER: TcxGridDBColumn;
+    cxGridDBTableView4ID_USER: TcxGridDBColumn;
     procedure cxButton1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -864,6 +874,12 @@ end;
 
 procedure TForm2.cxButton10Click(Sender: TObject);
 begin
+  if mainform.usersADDPOKAZ.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
     IBQuery5.close;
     IBQuery5.SQL.Text:='execute procedure calc_pok :schet';
     IBQuery5.ParamByName('schet').Value:=MainForm.DSet.FieldByName('SCHET').Value;
@@ -876,6 +892,12 @@ end;
 
 procedure TForm2.cxButton11Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 if cxLookupComboBox1.EditValue=null then
 begin
    ShowMessage('Виберіть вид нарахування!');
@@ -920,6 +942,12 @@ end;
 
 procedure TForm2.cxButton1Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 if MainForm.lich.RecordCount>=2 then
 begin
     ShowMessage('Можливо додати максимум два лічильники');
@@ -968,6 +996,12 @@ end;
 
 procedure TForm2.cxButton2Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 if MainForm.lich.RecordCount=0 then
 begin
   ShowMessage('Немає лічильників!');
@@ -1001,6 +1035,12 @@ end;
 
 procedure TForm2.cxButton3Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 if MainForm.lich.RecordCount>=2 then
 begin
     ShowMessage('Можливо додати максимум два лічильники');
@@ -1039,6 +1079,12 @@ end;
 
 procedure TForm2.cxButton4Click(Sender: TObject);
 begin
+  if mainform.usersADDLICH.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 if MainForm.lich.RecordCount=0 then
 begin
   ShowMessage('Немає лічильників!');
@@ -1075,6 +1121,12 @@ end;
 
 procedure TForm2.cxButton6Click(Sender: TObject);
 begin
+  if mainform.usersADDPLOMB.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 
 FormAddkart.cxTabSheet1.TabVisible:=false;
 FormAddkart.cxTabSheet2.TabVisible:=true;
@@ -1089,6 +1141,12 @@ end;
 
 procedure TForm2.cxButton7Click(Sender: TObject);
 begin
+  if mainform.usersADDPLOMB.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 FormDelkart.cxTabSheet1.TabVisible:=false;
 FormDelkart.cxTabSheet2.TabVisible:=true;
 FormDelkart.cxTabSheet2.Show;
@@ -1107,6 +1165,12 @@ end;
 
 procedure TForm2.cxButton8Click(Sender: TObject);
 begin
+  if mainform.usersADDPOKAZ.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
 
    if MainForm.DSet.FieldByName('WID').Value=45 then
    begin
@@ -1161,6 +1225,12 @@ end;
 
 procedure TForm2.cxButton9Click(Sender: TObject);
 begin
+  if mainform.usersADDPOKAZ.Value<>1 then
+  begin
+    ShowMessage('У вас немає доступу!');
+    exit;
+  end;
+
   if (MainForm.pokaznYEARMON.Value<MainForm.period) then
   begin
     ShowMessage('Неможливо видалити показник попереднього періоду');

@@ -44,10 +44,14 @@ begin
      if cxMaskEdit1.Text=MainForm.usersPW.Value then
      begin
      MainForm.ActiveUser:=MainForm.usersID.Value;
+     MainForm.dxBarEdit3.Text:=MainForm.usersUSER_NAIM.Value;
 
         if iniFile<>nil then
         IniFile.WriteString('User','Login',trim(cxLookupComboBox1.Text));
 
+     MainForm.Update;
+     MainForm.startprog;
+     MainForm.fl_startprog:=false;
      MainForm.Enabled:=true;
      FormUsers.Hide;
      end
