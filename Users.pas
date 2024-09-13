@@ -20,6 +20,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cxButton2Click(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,7 +33,7 @@ var
 
 implementation
 
-uses main;//, SHFolder;
+uses main, SHFolder;
 
 {$R *.dfm}
 
@@ -40,23 +41,56 @@ procedure TFormUsers.cxButton1Click(Sender: TObject);
 begin
 if (cxLookupComboBox1.EditValue <> null) or (Length(cxLookupComboBox1.EditValue)<>0) then
 begin
-     MainForm.USERS.Locate('ID',cxLookupComboBox1.EditValue,[]);
-     if cxMaskEdit1.Text=MainForm.usersPW.Value then
+     if MainForm.USERS.Locate('USER_NAIM',cxLookupComboBox1.EditValue,[]) then
      begin
-     MainForm.ActiveUser:=MainForm.usersID.Value;
-     MainForm.dxBarEdit3.Text:=MainForm.usersUSER_NAIM.Value;
+       if cxMaskEdit1.Text=MainForm.usersPW.Value then
+       begin
+       MainForm.ActiveUser:=MainForm.usersID.Value;
+       MainForm.dxBarEdit3.Text:=MainForm.usersUSER_NAIM.Value;
 
-        if iniFile<>nil then
-        IniFile.WriteString('User','Login',trim(cxLookupComboBox1.Text));
+          if iniFile<>nil then
+          IniFile.WriteString('User','Login',trim(cxLookupComboBox1.Text));
 
-     MainForm.Update;
-     MainForm.startprog;
-     MainForm.fl_startprog:=false;
-     MainForm.Enabled:=true;
-     FormUsers.Hide;
+       MainForm.Update;
+       MainForm.startprog;
+       MainForm.fl_startprog:=false;
+       MainForm.Enabled:=true;
+       FormUsers.Hide;
+       end
+       else
+       ShowMessage('Неправильний пароль!');
      end
      else
-     ShowMessage('Неправильний пароль!');
+     begin
+       if MainForm.users.RecordCount=0 then
+       begin
+         MainForm.users.Append;
+         MainForm.usersUSER_NAIM.Value:='admin';
+          MainForm.usersADDLICH.Value:=1;
+          MainForm.usersADDPOKAZ.Value:=1;
+          MainForm.usersADDPLOMB.Value:=1;
+          MainForm.usersENDMES.Value:=1;
+          MainForm.usersADM.Value:=1;
+          MainForm.users.Post;
+          MainForm.IBTransaction1.CommitRetaining;
+          MainForm.ActiveUser:=MainForm.usersID.Value;
+          MainForm.dxBarEdit3.Text:=MainForm.usersUSER_NAIM.Value;
+
+          if iniFile<>nil then
+            IniFile.WriteString('User','Login',trim('admin'));
+
+          ShowMessage('Додано користувачa admin!');
+       end
+       else
+         ShowMessage('Користувачa '+cxLookupComboBox1.EditValue+' не знайдено!');
+
+       
+       MainForm.Update;
+       MainForm.startprog;
+       MainForm.fl_startprog:=false;
+       MainForm.Enabled:=true;
+       FormUsers.Hide;       
+     end;
 end
 else
      ShowMessage('Виберіть користувача!');
@@ -72,6 +106,22 @@ procedure TFormUsers.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 //MainForm.Enabled:=true;
 MainForm.close;
+end;
+
+procedure TFormUsers.FormCreate(Sender: TObject);
+const
+  SHGFP_TYPE_CURRENT = 0;
+var folder : integer;
+    Result:string;
+path: array [0..MAX_PATH] of char;
+begin
+folder:=2;
+  if SUCCEEDED(SHGetFolderPath(0,folder,0,SHGFP_TYPE_CURRENT,@path[0])) then
+  begin
+    iniFile:=TIniFile.Create(path+'hv.ini');
+    Result:=iniFile.ReadString('User','Login','');
+    cxLookupComboBox1.EditValue:=Result;
+  end;
 end;
 
 procedure TFormUsers.FormShow(Sender: TObject);

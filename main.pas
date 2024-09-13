@@ -1545,7 +1545,7 @@ begin
 //    MainForm.Close;
 //  end;
 
-  if startimport='1' then
+  if (startimport='1') and (usersADDPOKAZ.Value=1) then
   begin
 
 //    if (impIMPALLOW.Value=1) then
@@ -1561,6 +1561,8 @@ begin
 //    end;
 
 //    if (impIMPALLOW.Value=1) and (impIMPLASTDATE.Value<Now) then
+
+
 
     viber_task.Close;
     viber_task.ParamByName('yearmon').Value:=CurYM;

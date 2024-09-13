@@ -15,6 +15,7 @@ object FormUsers: TFormUsers
   OldCreateOrder = False
   Position = poDesktopCenter
   OnClose = FormClose
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -37,6 +38,8 @@ object FormUsers: TFormUsers
   object cxMaskEdit1: TcxMaskEdit
     Left = 27
     Top = 84
+    Properties.EchoMode = eemPassword
+    Properties.MaxLength = 0
     TabOrder = 0
     Width = 166
   end
@@ -64,7 +67,7 @@ object FormUsers: TFormUsers
     Left = 27
     Top = 38
     Properties.IncrementalFiltering = False
-    Properties.KeyFieldNames = 'ID'
+    Properties.KeyFieldNames = 'USER_NAIM'
     Properties.ListColumns = <
       item
         FieldName = 'USER_NAIM'
@@ -72,7 +75,7 @@ object FormUsers: TFormUsers
     Properties.ListOptions.ColumnSorting = False
     Properties.ListOptions.ShowHeader = False
     Properties.ListSource = MainForm.usersSource
-    Properties.ReadOnly = False
+    EditValue = ''
     TabOrder = 3
     Width = 166
   end
