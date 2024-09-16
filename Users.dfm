@@ -41,6 +41,7 @@ object FormUsers: TFormUsers
     Properties.EchoMode = eemPassword
     Properties.MaxLength = 0
     TabOrder = 0
+    OnKeyPress = cxMaskEdit1KeyPress
     Width = 166
   end
   object cxButton1: TcxButton

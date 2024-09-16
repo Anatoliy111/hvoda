@@ -1408,9 +1408,9 @@ end;
 
 procedure TMainForm.lichNewRecord(DataSet: TDataSet);
 begin
- lich.edit;
- lichSCHET.Value:=DSet.FieldByName('SCHET').Value;
- lich.post;
+// lich.edit;
+// lichSCHET.Value:=DSet.FieldByName('SCHET').Value;
+// lich.post;
 end;
 
 procedure TMainForm.lichznAfterEdit(DataSet: TDataSet);
@@ -1691,6 +1691,7 @@ end;
 procedure TMainForm.dxBarButton20Click(Sender: TObject);
 begin
 FormViberSendOrders.Show;
+
 end;
 
 procedure TMainForm.dxBarButton21Click(Sender: TObject);

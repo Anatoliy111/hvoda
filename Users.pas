@@ -21,6 +21,7 @@ type
     procedure cxButton2Click(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure cxMaskEdit1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -100,6 +101,11 @@ end;
 procedure TFormUsers.cxButton2Click(Sender: TObject);
 begin
 Close;
+end;
+
+procedure TFormUsers.cxMaskEdit1KeyPress(Sender: TObject; var Key: Char);
+begin
+if Key = #13 then cxButton1.Click;
 end;
 
 procedure TFormUsers.FormClose(Sender: TObject; var Action: TCloseAction);

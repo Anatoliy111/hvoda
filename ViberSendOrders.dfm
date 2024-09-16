@@ -11,6 +11,7 @@ object FormViberSendOrders: TFormViberSendOrders
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel2: TPanel
@@ -20,7 +21,6 @@ object FormViberSendOrders: TFormViberSendOrders
     Height = 49
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 536
     object cxButton8: TcxButton
       Left = 15
       Top = 13
@@ -59,7 +59,6 @@ object FormViberSendOrders: TFormViberSendOrders
     Height = 386
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 536
     object cxGridDBTableView3: TcxGridDBTableView
       OnDblClick = cxGridDBTableView3DblClick
       NavigatorButtons.ConfirmDelete = False

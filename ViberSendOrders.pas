@@ -28,6 +28,7 @@ type
     procedure cxButton1Click(Sender: TObject);
     procedure cxButton8Click(Sender: TObject);
     procedure cxGridDBTableView3DblClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -80,6 +81,16 @@ procedure TFormViberSendOrders.cxGridDBTableView3DblClick(Sender: TObject);
 begin
   FormViberSend.Show;
   FormViberSend.cxMemo1.Text:=MainForm.viber_sendTEXT.Value;
+end;
+
+procedure TFormViberSendOrders.FormShow(Sender: TObject);
+begin
+if not MainForm.viber_send.Active then
+  MainForm.viber_send.Open;
+
+if not MainForm.viber_send.Active then
+  MainForm.viber_send.Open;
+  
 end;
 
 end.
