@@ -46,6 +46,7 @@ begin
 
        js := TlkJSONobject.Create;
        js.Add('org','dmkg');
+       js.Add('vidmess','mess');
        js.Add('mess',cxMemo1.Text);
 //       js.Add('mess','testtest');
        s:=TlkJSON.GenerateText(js);
