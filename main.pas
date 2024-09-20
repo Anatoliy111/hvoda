@@ -925,6 +925,15 @@ type
     IBStringField14: TIBStringField;
     IntegerField26: TIntegerField;
     delpokaznSource: TDataSource;
+    spis: TIBDataSet;
+    spisSource: TDataSource;
+    spisID: TIntegerField;
+    spisSCHET: TIBStringField;
+    spisYEARMON: TIntegerField;
+    spisNOTE: TIBStringField;
+    spisID_USER: TIntegerField;
+    spisDATE_USER: TDateTimeField;
+    spisSUMMA: TFloatField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;

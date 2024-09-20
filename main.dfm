@@ -567,7 +567,6 @@ object MainForm: TMainForm
         Height = 487
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 467
         object cxGridDBBandedTableView1: TcxGridDBBandedTableView
           OnKeyDown = cxGridDBBandedTableView1KeyDown
           NavigatorButtons.ConfirmDelete = False
@@ -982,7 +981,6 @@ object MainForm: TMainForm
         Height = 487
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 467
         object DBGrid3: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
@@ -1152,14 +1150,11 @@ object MainForm: TMainForm
     object cxTabSheet2: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1077' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
       ImageIndex = 4
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object cxGrid3: TcxGrid
         Left = 0
         Top = 0
         Width = 1017
-        Height = 495
+        Height = 515
         Align = alClient
         TabOrder = 0
         object cxGrid3DBTableView1: TcxGridDBTableView
@@ -2460,7 +2455,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000480214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E0040004C0214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -13396,6 +13391,91 @@ object MainForm: TMainForm
   object delpokaznSource: TDataSource
     DataSet = delpokazn
     Left = 376
+    Top = 464
+  end
+  object spis: TIBDataSet
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    AfterEdit = why_pokAfterEdit
+    AfterInsert = why_pokAfterInsert
+    DeleteSQL.Strings = (
+      'delete from SPIS'
+      'where'
+      '  ID = :OLD_ID')
+    InsertSQL.Strings = (
+      'insert into SPIS'
+      '  (DATE_USER, ID, ID_USER, NOTE, SCHET, SUMMA, YEARMON)'
+      'values'
+      '  (:DATE_USER, :ID, :ID_USER, :NOTE, :SCHET, :SUMMA, :YEARMON)')
+    RefreshSQL.Strings = (
+      'Select '
+      '  ID,'
+      '  SCHET,'
+      '  SUMMA,'
+      '  YEARMON,'
+      '  NOTE,'
+      '  ID_USER,'
+      '  DATE_USER'
+      'from SPIS '
+      'where'
+      '  ID = :ID')
+    SelectSQL.Strings = (
+      
+        'select * from SPIS where schet=:sch order by yearmon desc, date_' +
+        'user desc'
+      ''
+      '')
+    ModifySQL.Strings = (
+      'update SPIS'
+      'set'
+      '  DATE_USER = :DATE_USER,'
+      '  ID = :ID,'
+      '  ID_USER = :ID_USER,'
+      '  NOTE = :NOTE,'
+      '  SCHET = :SCHET,'
+      '  SUMMA = :SUMMA,'
+      '  YEARMON = :YEARMON'
+      'where'
+      '  ID = :OLD_ID')
+    GeneratorField.Field = 'ID'
+    GeneratorField.Generator = 'GEN_WHY_POK_ID'
+    Left = 576
+    Top = 432
+    object spisID: TIntegerField
+      FieldName = 'ID'
+      Origin = '"SPIS"."ID"'
+      Required = True
+    end
+    object spisSCHET: TIBStringField
+      FieldName = 'SCHET'
+      Origin = '"SPIS"."SCHET"'
+      Size = 10
+    end
+    object spisYEARMON: TIntegerField
+      FieldName = 'YEARMON'
+      Origin = '"SPIS"."YEARMON"'
+    end
+    object spisNOTE: TIBStringField
+      FieldName = 'NOTE'
+      Origin = '"SPIS"."NOTE"'
+      Size = 300
+    end
+    object spisID_USER: TIntegerField
+      FieldName = 'ID_USER'
+      Origin = '"SPIS"."ID_USER"'
+    end
+    object spisDATE_USER: TDateTimeField
+      FieldName = 'DATE_USER'
+      Origin = '"SPIS"."DATE_USER"'
+    end
+    object spisSUMMA: TFloatField
+      FieldName = 'SUMMA'
+      Origin = '"SPIS"."SUMMA"'
+    end
+  end
+  object spisSource: TDataSource
+    DataSet = spis
+    Left = 576
     Top = 464
   end
 end

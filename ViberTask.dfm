@@ -24,7 +24,7 @@ object FormViberTask: TFormViberTask
     TabOrder = 0
     object cxButton8: TcxButton
       Left = 15
-      Top = 13
+      Top = 18
       Width = 146
       Height = 25
       Caption = 'Viber '#1087#1088#1080#1081#1085#1103#1090#1080' '#1087#1086#1082#1072#1079#1085#1080#1082#1080

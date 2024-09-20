@@ -56,6 +56,13 @@ begin
         HTTP1.Request.ContentType := 'application/json';
         HTTP1.Request.ContentEncoding := 'utf-8';
 
+            FST.ShortDateFormat := 'yyyy-mm-dd';
+            Fst.ShortTimeFormat := 'hh24:mi:ss';
+            Fst.TimeSeparator := ':';
+            FST.DateSeparator := '-';
+             FS.ShortDateFormat := 'yyyy-mm-dd';
+             FS.DateSeparator := '-';
+
         JsonToSend := TStringStream.Create(s);
 
     try
