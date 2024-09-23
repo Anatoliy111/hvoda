@@ -10,7 +10,7 @@ uses
   cxClasses, cxGridCustomView, cxGrid, cxDBEdit, ExtCtrls, cxStyles, cxEdit,
   cxControls, cxContainer, cxTextEdit, cxPC, IBCustomDataSet, IBQuery,
   cxCheckBox, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox,DateUtils, cxGroupBox, cxLabel, cxDBLabel, cxMemo;
+  cxDBLookupComboBox,DateUtils, cxGroupBox, cxLabel, cxDBLabel, cxMemo, cxCalc;
 
 type
   TForm2 = class(TForm)
@@ -197,6 +197,7 @@ type
     cxGridLevel6: TcxGridLevel;
     cxGridDBTableView6YEARMON: TcxGridDBColumn;
     cxGridDBTableView6SUMMA: TcxGridDBColumn;
+    cxCalcEdit5: TcxCalcEdit;
     procedure cxButton1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -262,6 +263,7 @@ begin
   DS.FieldByName('NORM_BLICH').AsCurrency+
   DS.FieldByName('DEL_NORM').AsCurrency+
   DS.FieldByName('PERERAH').AsCurrency+
+  DS.FieldByName('SPIS').AsCurrency+
   DS.FieldByName('KUB_NOBALANS').AsCurrency;
   DS.Edit;
   DS.FieldByName('KUB_ALL').AsCurrency:=SimpleRoundTo(sum,-3);
@@ -469,6 +471,7 @@ begin
        begin
        if (DS.FieldByName('WID').Value>46) then
             DS.FieldByName('KUB_ALL').Value:=0;
+            DS.FieldByName('SPIS').Value:=0;
             DS.FieldByName('KUB_NOBALANS').Value:=0;
             DS.FieldByName('NORM_BLICH').Value:=0;
             DS.FieldByName('NOR_RAZN').Value:=0;
@@ -816,6 +819,7 @@ begin
                DS.FieldByName('NORM_BLICH').Value:=0;
                DS.FieldByName('NOR_RAZN').Value:=0;
                DS.FieldByName('KUB_ALL').Value:=0;
+               DS.FieldByName('SPIS').Value:=0;
                DS.FieldByName('KUB_NOBALANS').Value:=0;
                DS.FieldByName('R_NACH').Value:='';
              end;
@@ -1327,63 +1331,57 @@ end;
 
 procedure TForm2.cxButton8Click(Sender: TObject);
 begin
-  if mainform.usersADDPOKAZ.Value<>1 then
+  if mainform.usersADDSPIS.Value<>1 then
   begin
     ShowMessage('У вас немає доступу!');
     exit;
   end;
 
-
-   if MainForm.DSet.FieldByName('WID').Value=45 then
-   begin
-     ShowMessage('Лічильник не повірений! Введення показників закрито');
-     exit;
-   end;
-
-   if MainForm.DSet.FieldByName('WID').Value=42 then
-   begin
-     ShowMessage('Лічильник не встановлений! Введення показників закрито');
-     exit;
-   end;
-
-   if MainForm.DSet.FieldByName('WID').Value>=46 then
-   begin
-     ShowMessage('При цьому виді нарахувань введення показників не пердбачувано! Введення показників закрито');
-     exit;
-   end;
-
-
-FormAddkart.cxTabSheet1.TabVisible:=false;
-FormAddkart.cxTabSheet2.TabVisible:=false;
-FormAddkart.cxTabSheet3.TabVisible:=true;
-FormAddkart.cxTabSheet4.TabVisible:=false;
-FormAddkart.cxTabSheet5.TabVisible:=false;
-FormAddkart.cxPageControl1.ActivePage:=FormAddkart.cxTabSheet3;
-FormAddkart.cxTextEdit9.Text:=MainForm.DSet.FieldByName('SCHET').Value;
-FormAddkart.cxLabel15.Caption:=MainForm.DSet.FieldByName('FIO').Value;
-FormAddkart.cxCalcEdit6.EditValue:=MainForm.DSet.FieldByName('NOR_RAZN').Value;
-
-  if (FormAddkart.cxTabSheet3.Visible) and (MainForm.DSet.FieldByName('LICH_TO').AsInteger=0) then
-  begin
-    ShowMessage('Ви не можете додати показник, так як немає точки обліку!!!');
-    exit;
-  end;
-
-FormAddkart.Show;
-
-if FormAddkart.IBQuery1.RecordCount<>0 then
+if (cxCalcEdit5.EditValue=null) then
 begin
-  FormAddkart.cxDateEdit5.EditValue:=FormAddkart.IBQuery1.FieldByName('date_pok').Value;
-  if FormAddkart.IBQuery1.FieldByName('pokazn').IsNull then
-    FormAddkart.cxCalcEdit2.Text:='0'
-  else
-    FormAddkart.cxCalcEdit2.Text:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
+   ShowMessage('Введіть суму списання!');
+   exit;
+end;
+
+if Length(trim(cxMemo2.Text))=0 then
+begin
+   ShowMessage('Введіть причину зміни!');
+   exit;
+end;
+
+    MainForm.DSet.Edit;
+    MainForm.DSet.FieldByName('SPIS').Value:=cxCalcEdit5.EditValue;
+    MainForm.DSet.Post;
+
+    MainForm.spis.Append;
+    MainForm.spisYEARMON.Value:=MainForm.curYM;
+    MainForm.spisSUMMA.Value:=cxCalcEdit5.EditValue;
+    MainForm.spisNOTE.Value:=cxMemo2.Text;
+    MainForm.spisSCHET.Value:=MainForm.DSet.FieldByName('SCHET').Value;
+    MainForm.spis.Post;
+
+    MainForm.IBTransaction1.CommitRetaining;    
+
+    MainForm.spis.Close;
+    MainForm.spis.Open;
+
+
+
+
+    cxCalcEdit5.EditValue:=null;
+    cxMemo2.Clear;
+    Form2.calcpok2(MainForm.DSet,1);
+
+ // if cxCalcEdit6.EditValue<>0 then
+    Form2.calclich(MainForm.DSet);
+
+  MainForm.IBTransaction1.CommitRetaining;
 
 end;
 
 
 
-end;
+
 
 procedure TForm2.cxButton9Click(Sender: TObject);
 begin
@@ -1487,6 +1485,11 @@ begin
     MainForm.why_pok.ParamByName('sch').Value:=sch;
     MainForm.why_pok.Close;
     MainForm.why_pok.open;
+
+    MainForm.spis.SelectSQL.Text:=MainForm.spisSQL+' where spis.schet=:sch order by id desc';
+    MainForm.spis.ParamByName('sch').Value:=sch;
+    MainForm.spis.Close;
+    MainForm.spis.open;
 
 
 

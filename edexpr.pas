@@ -151,6 +151,9 @@ type
     hvd_repKUB_ALL: TFloatField;
     hvd_repPLOSCH_UR: TFloatField;
     hvd_repPERERAH: TFloatField;
+    hvd_repWID_PREV: TIntegerField;
+    hvd_repSPIS: TFloatField;
+    hvd_repR_NOBAL: TIBStringField;
     procedure FormShow(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure dxBarButton1Click(Sender: TObject);

@@ -105,6 +105,11 @@ type
     usersENDMES: TIntegerField;
     usersDEL: TIntegerField;
     usersADM: TIntegerField;
+    usersADDSPIS: TIntegerField;
+    cxGrid1DBTableView1ADDSPIS: TcxGridDBColumn;
+    hvdWID_PREV: TIntegerField;
+    hvdSPIS: TFloatField;
+    hvdR_NOBAL: TIBStringField;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -156,6 +161,7 @@ begin
   usersADDLICH.Value:=1;
   usersADDPOKAZ.Value:=1;
   usersADDPLOMB.Value:=1;
+  usersADDSPIS.Value:=1;
   usersENDMES.Value:=1;
   users.Post;
   end
@@ -165,6 +171,7 @@ begin
   usersADDLICH.Value:=0;
   usersADDPOKAZ.Value:=0;
   usersADDPLOMB.Value:=0;
+  usersADDSPIS.Value:=0;
   usersENDMES.Value:=0;
   users.Post;
   end;
@@ -420,6 +427,7 @@ users.Append;
 usersADDLICH.Value:=0;
 usersADDPOKAZ.Value:=0;
 usersADDPLOMB.Value:=0;
+usersADDSPIS.Value:=0;
 usersENDMES.Value:=0;
 usersADM.Value:=0;
 users.Post;

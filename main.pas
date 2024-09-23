@@ -934,6 +934,61 @@ type
     spisID_USER: TIntegerField;
     spisDATE_USER: TDateTimeField;
     spisSUMMA: TFloatField;
+    usersADDSPIS: TIntegerField;
+    hvdWID_PREV: TIntegerField;
+    hvdSPIS: TFloatField;
+    orgWID_PREV: TIntegerField;
+    orgSPIS: TFloatField;
+    hvdallWID_PREV: TIntegerField;
+    hvdallSPIS: TFloatField;
+    hvdrozpdomSPIS: TFloatField;
+    hvd_repWID_PREV: TIntegerField;
+    hvd_repN_SCH: TIBStringField;
+    hvd_repSCH_RAZN2: TIBBCDField;
+    hvd_repKOLI_P0: TIntegerField;
+    hvd_repKOLI_P1: TIntegerField;
+    hvd_repID_KONTR: TSmallintField;
+    hvd_repUL: TIBStringField;
+    hvd_repN_DOM: TIBStringField;
+    hvd_repKV: TIBStringField;
+    hvd_repNOTE: TIBStringField;
+    hvd_repRASCH_KUB: TIBBCDField;
+    hvd_repRASCH_NOR: TIBBCDField;
+    hvd_repPOD: TIntegerField;
+    hvd_repRASCH_NOTE: TIBStringField;
+    hvd_repDATE_POK: TDateField;
+    hvd_repVID_POK: TIntegerField;
+    hvd_repKUB_MES: TIBBCDField;
+    hvd_repLICH_POV: TDateField;
+    hvd_repORG: TIntegerField;
+    hvd_repVID_RN: TIntegerField;
+    hvd_repFILTR: TIntegerField;
+    hvd_repPOMPA: TIntegerField;
+    hvd_repZN_LICH: TIntegerField;
+    hvd_repZNOLD_LICH: TIntegerField;
+    hvd_repDATE_ZN: TDateField;
+    hvd_repLICH_TO: TIntegerField;
+    hvd_repKLNTAR: TIntegerField;
+    hvd_repTARIF_NAME: TIBStringField;
+    hvd_repNORMA: TFloatField;
+    hvd_repOLD_NORM: TFloatField;
+    hvd_repDEL_NORM: TFloatField;
+    hvd_repPREV_NORM: TFloatField;
+    hvd_repSPIS: TFloatField;
+    hvd_repLICH_YEARMON: TIntegerField;
+    hvd_repEDRPOU: TIntegerField;
+    hvd_repKL_UL: TIntegerField;
+    hvd_repR_NACH: TIBStringField;
+    hvd_repNORM_BLICH: TFloatField;
+    hvd_repKUB_NOBALANS: TFloatField;
+    hvd_repKUB_ALL: TFloatField;
+    hvd_repPLOSCH_UR: TFloatField;
+    hvd_repPERERAH: TFloatField;
+    hvd_repR_NOBAL: TIBStringField;
+    DBGrid1SPIS: TcxGridDBBandedColumn;
+    cxGridDBBandedTableView1SPIS: TcxGridDBBandedColumn;
+    hvddom2SPIS: TFloatField;
+    cxGrid3DBTableView1SPIS: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -1069,6 +1124,8 @@ type
     procedure grpAfterInsert(DataSet: TDataSet);
     procedure delpokaznAfterEdit(DataSet: TDataSet);
     procedure delpokaznAfterInsert(DataSet: TDataSet);
+    procedure spisAfterEdit(DataSet: TDataSet);
+    procedure spisAfterInsert(DataSet: TDataSet);
 
   private
     { Private declarations }
@@ -1078,7 +1135,7 @@ type
 
   public
     { Public declarations }
-    lchSQL,lchznSQL,plSQL,plznSQL,pokSQL,why_pokSQL,url,urlsend,startimport,sendmessbefoimp:string;
+    lchSQL,lchznSQL,plSQL,plznSQL,pokSQL,why_pokSQL,spisSQL,url,urlsend,startimport,sendmessbefoimp:string;
     PathKvart:string;
     iniFile:TIniFile;
     period,LASTROZR,back3month,first12ym,ActiveUser:integer;
@@ -1496,6 +1553,7 @@ fl_startprog:=true;
   plSQL:=plombs.SelectSQL.Text;
   pokSQL:=pokazn.SelectSQL.Text;
   why_pokSQL:=why_pok.SelectSQL.Text;
+  spisSQL:=spis.SelectSQL.Text;
 // // plombszn.Open;
   plznSQL:=plombszn.SelectSQL.Text;
 
@@ -1518,6 +1576,16 @@ fl_startprog:=true;
 // //dxBarLookupCombo1.Enabled:=false;
   cxPageControl1.ActivePage:=cxTabSheet1;
 // // ActiveControl:=cxGrid2;
+end;
+
+procedure TMainForm.spisAfterEdit(DataSet: TDataSet);
+begin
+spisID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.spisAfterInsert(DataSet: TDataSet);
+begin
+spisID_USER.Value:=ActiveUser;
 end;
 
 procedure TMainForm.startprog;

@@ -1264,6 +1264,14 @@ object Form2: TForm2
           Height = 89
           Width = 385
         end
+        object cxCalcEdit5: TcxCalcEdit
+          Left = 27
+          Top = 42
+          EditValue = 0.000000000000000000
+          Properties.ReadOnly = False
+          TabOrder = 2
+          Width = 129
+        end
       end
       object cxGrid6: TcxGrid
         Left = 0

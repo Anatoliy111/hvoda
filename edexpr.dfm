@@ -152,7 +152,7 @@ object FormEdExpr: TFormEdExpr
             ShowGutter = True
             OnChange = fsSyntaxMemo1Change
             ExplicitLeft = -1
-            ExplicitTop = 6
+            ExplicitTop = -1
           end
         end
       end
@@ -929,12 +929,15 @@ object FormEdExpr: TFormEdExpr
         '   NORM_BLICH, NORMA, NOTE, OLD_NORM, ORG, PERE_DAY, PERE_RAZN, ' +
         'PERERAH, '
       
-        '   PLOMB, PLOSCH_UR, POD, POMPA, PREV_NORM, R_NACH, RASCH_KUB, R' +
-        'ASCH_NOR, '
+        '   PLOMB, PLOSCH_UR, POD, POMPA, PREV_NORM, R_NACH, R_NOBAL, RAS' +
+        'CH_KUB, '
       
-        '   RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN, SCH_RAZN2, SCHET, TAR' +
-        'IF_NAME, '
-      '   UL, VID_POK, VID_RN, WID, YEARMON, ZN_LICH, ZNOLD_LICH)'
+        '   RASCH_NOR, RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN, SCH_RAZN2,' +
+        ' SCHET, '
+      
+        '   SPIS, TARIF_NAME, UL, VID_POK, VID_RN, WID, WID_PREV, YEARMON' +
+        ', ZN_LICH, '
+      '   ZNOLD_LICH)'
       'values'
       
         '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :EDRPOU, :FILTR, :FIO, :GRP_R' +
@@ -952,12 +955,12 @@ object FormEdExpr: TFormEdExpr
         '   :PERE_RAZN, :PERERAH, :PLOMB, :PLOSCH_UR, :POD, :POMPA, :PREV' +
         '_NORM, '
       
-        '   :R_NACH, :RASCH_KUB, :RASCH_NOR, :RASCH_NOTE, :SCH_CUR, :SCH_' +
-        'OLD, :SCH_RAZN, '
+        '   :R_NACH, :R_NOBAL, :RASCH_KUB, :RASCH_NOR, :RASCH_NOTE, :SCH_' +
+        'CUR, :SCH_OLD, '
       
-        '   :SCH_RAZN2, :SCHET, :TARIF_NAME, :UL, :VID_POK, :VID_RN, :WID' +
-        ', :YEARMON, '
-      '   :ZN_LICH, :ZNOLD_LICH)')
+        '   :SCH_RAZN, :SCH_RAZN2, :SCHET, :SPIS, :TARIF_NAME, :UL, :VID_' +
+        'POK, :VID_RN, '
+      '   :WID, :WID_PREV, :YEARMON, :ZN_LICH, :ZNOLD_LICH)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -965,6 +968,7 @@ object FormEdExpr: TFormEdExpr
       '  PLOMB,'
       '  FIO,'
       '  WID,'
+      '  WID_PREV,'
       '  DOM,'
       '  KVART,'
       '  SCHET,'
@@ -1008,6 +1012,7 @@ object FormEdExpr: TFormEdExpr
       '  OLD_NORM,'
       '  DEL_NORM,'
       '  PREV_NORM,'
+      '  SPIS,'
       '  LICH_YEARMON,'
       '  EDRPOU,'
       '  KL_UL,'
@@ -1016,7 +1021,8 @@ object FormEdExpr: TFormEdExpr
       '  KUB_NOBALANS,'
       '  KUB_ALL,'
       '  PLOSCH_UR,'
-      '  PERERAH'
+      '  PERERAH,'
+      '  R_NOBAL'
       'from H_VODA '
       'where'
       '  KL = :KL')
@@ -1067,6 +1073,7 @@ object FormEdExpr: TFormEdExpr
       '  POMPA = :POMPA,'
       '  PREV_NORM = :PREV_NORM,'
       '  R_NACH = :R_NACH,'
+      '  R_NOBAL = :R_NOBAL,'
       '  RASCH_KUB = :RASCH_KUB,'
       '  RASCH_NOR = :RASCH_NOR,'
       '  RASCH_NOTE = :RASCH_NOTE,'
@@ -1075,11 +1082,13 @@ object FormEdExpr: TFormEdExpr
       '  SCH_RAZN = :SCH_RAZN,'
       '  SCH_RAZN2 = :SCH_RAZN2,'
       '  SCHET = :SCHET,'
+      '  SPIS = :SPIS,'
       '  TARIF_NAME = :TARIF_NAME,'
       '  UL = :UL,'
       '  VID_POK = :VID_POK,'
       '  VID_RN = :VID_RN,'
       '  WID = :WID,'
+      '  WID_PREV = :WID_PREV,'
       '  YEARMON = :YEARMON,'
       '  ZN_LICH = :ZN_LICH,'
       '  ZNOLD_LICH = :ZNOLD_LICH'
@@ -1360,6 +1369,19 @@ object FormEdExpr: TFormEdExpr
     object hvd_repPERERAH: TFloatField
       FieldName = 'PERERAH'
       Origin = '"H_VODA"."PERERAH"'
+    end
+    object hvd_repWID_PREV: TIntegerField
+      FieldName = 'WID_PREV'
+      Origin = '"H_VODA"."WID_PREV"'
+    end
+    object hvd_repSPIS: TFloatField
+      FieldName = 'SPIS'
+      Origin = '"H_VODA"."SPIS"'
+    end
+    object hvd_repR_NOBAL: TIBStringField
+      FieldName = 'R_NOBAL'
+      Origin = '"H_VODA"."R_NOBAL"'
+      Size = 100
     end
   end
   object dom: TIBDataSet

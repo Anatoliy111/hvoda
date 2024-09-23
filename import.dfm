@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 114
   Caption = 'Form1'
   ClientHeight = 397
-  ClientWidth = 677
+  ClientWidth = 742
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -68,10 +68,11 @@ object Form1: TForm1
   object cxGrid1: TcxGrid
     Left = 0
     Top = 111
-    Width = 677
+    Width = 742
     Height = 286
     Align = alBottom
     TabOrder = 4
+    ExplicitWidth = 677
     object cxGrid1DBTableView1: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = usersSource
@@ -121,6 +122,13 @@ object Form1: TForm1
         PropertiesClassName = 'TcxCheckBoxProperties'
         Properties.ValueChecked = 1
         Properties.ValueUnchecked = 0
+      end
+      object cxGrid1DBTableView1ADDSPIS: TcxGridDBColumn
+        Caption = #1057#1087#1080#1089#1072#1085#1085#1103
+        DataBinding.FieldName = 'ADDSPIS'
+        PropertiesClassName = 'TcxCheckBoxProperties'
+        Properties.ValueChecked = '1'
+        Properties.ValueUnchecked = '0'
       end
       object cxGrid1DBTableView1ENDMES: TcxGridDBColumn
         Caption = #1047#1072#1082#1088#1080#1090#1090#1103' '#1084#1110#1089'.'
@@ -187,12 +195,15 @@ object Form1: TForm1
         '   NORM_BLICH, NORMA, NOTE, OLD_NORM, ORG, PERE_DAY, PERE_RAZN, ' +
         'PERERAH, '
       
-        '   PLOMB, PLOSCH_UR, POD, POMPA, PREV_NORM, R_NACH, RASCH_KUB, R' +
-        'ASCH_NOR, '
+        '   PLOMB, PLOSCH_UR, POD, POMPA, PREV_NORM, R_NACH, R_NOBAL, RAS' +
+        'CH_KUB, '
       
-        '   RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN, SCH_RAZN2, SCHET, TAR' +
-        'IF_NAME, '
-      '   UL, VID_POK, VID_RN, WID, YEARMON, ZN_LICH, ZNOLD_LICH)'
+        '   RASCH_NOR, RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN, SCH_RAZN2,' +
+        ' SCHET, '
+      
+        '   SPIS, TARIF_NAME, UL, VID_POK, VID_RN, WID, WID_PREV, YEARMON' +
+        ', ZN_LICH, '
+      '   ZNOLD_LICH)'
       'values'
       
         '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :EDRPOU, :FILTR, :FIO, :GRP_R' +
@@ -210,12 +221,12 @@ object Form1: TForm1
         '   :PERE_RAZN, :PERERAH, :PLOMB, :PLOSCH_UR, :POD, :POMPA, :PREV' +
         '_NORM, '
       
-        '   :R_NACH, :RASCH_KUB, :RASCH_NOR, :RASCH_NOTE, :SCH_CUR, :SCH_' +
-        'OLD, :SCH_RAZN, '
+        '   :R_NACH, :R_NOBAL, :RASCH_KUB, :RASCH_NOR, :RASCH_NOTE, :SCH_' +
+        'CUR, :SCH_OLD, '
       
-        '   :SCH_RAZN2, :SCHET, :TARIF_NAME, :UL, :VID_POK, :VID_RN, :WID' +
-        ', :YEARMON, '
-      '   :ZN_LICH, :ZNOLD_LICH)')
+        '   :SCH_RAZN, :SCH_RAZN2, :SCHET, :SPIS, :TARIF_NAME, :UL, :VID_' +
+        'POK, :VID_RN, '
+      '   :WID, :WID_PREV, :YEARMON, :ZN_LICH, :ZNOLD_LICH)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -223,6 +234,7 @@ object Form1: TForm1
       '  PLOMB,'
       '  FIO,'
       '  WID,'
+      '  WID_PREV,'
       '  DOM,'
       '  KVART,'
       '  SCHET,'
@@ -266,6 +278,7 @@ object Form1: TForm1
       '  OLD_NORM,'
       '  DEL_NORM,'
       '  PREV_NORM,'
+      '  SPIS,'
       '  LICH_YEARMON,'
       '  EDRPOU,'
       '  KL_UL,'
@@ -274,7 +287,8 @@ object Form1: TForm1
       '  KUB_NOBALANS,'
       '  KUB_ALL,'
       '  PLOSCH_UR,'
-      '  PERERAH'
+      '  PERERAH,'
+      '  R_NOBAL'
       'from H_VODA '
       'where'
       '  KL = :KL')
@@ -322,6 +336,7 @@ object Form1: TForm1
       '  POMPA = :POMPA,'
       '  PREV_NORM = :PREV_NORM,'
       '  R_NACH = :R_NACH,'
+      '  R_NOBAL = :R_NOBAL,'
       '  RASCH_KUB = :RASCH_KUB,'
       '  RASCH_NOR = :RASCH_NOR,'
       '  RASCH_NOTE = :RASCH_NOTE,'
@@ -330,11 +345,13 @@ object Form1: TForm1
       '  SCH_RAZN = :SCH_RAZN,'
       '  SCH_RAZN2 = :SCH_RAZN2,'
       '  SCHET = :SCHET,'
+      '  SPIS = :SPIS,'
       '  TARIF_NAME = :TARIF_NAME,'
       '  UL = :UL,'
       '  VID_POK = :VID_POK,'
       '  VID_RN = :VID_RN,'
       '  WID = :WID,'
+      '  WID_PREV = :WID_PREV,'
       '  YEARMON = :YEARMON,'
       '  ZN_LICH = :ZN_LICH,'
       '  ZNOLD_LICH = :ZNOLD_LICH'
@@ -616,6 +633,19 @@ object Form1: TForm1
       FieldName = 'PERERAH'
       Origin = '"H_VODA"."PERERAH"'
     end
+    object hvdWID_PREV: TIntegerField
+      FieldName = 'WID_PREV'
+      Origin = '"H_VODA"."WID_PREV"'
+    end
+    object hvdSPIS: TFloatField
+      FieldName = 'SPIS'
+      Origin = '"H_VODA"."SPIS"'
+    end
+    object hvdR_NOBAL: TIBStringField
+      FieldName = 'R_NOBAL'
+      Origin = '"H_VODA"."R_NOBAL"'
+      Size = 100
+    end
   end
   object OpenDialog1: TOpenDialog
     Filter = 'dbf|*.dbf'
@@ -623,6 +653,7 @@ object Form1: TForm1
     Top = 16
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultDatabase = MainForm.IBDatabase
     Left = 288
     Top = 16
@@ -643,23 +674,25 @@ object Form1: TForm1
     InsertSQL.Strings = (
       'insert into USERS'
       
-        '  (ADDLICH, ADDPLOMB, ADDPOKAZ, ADM, DEL, ENDMES, ID, PW, USER_N' +
-        'AIM)'
+        '  (ADDLICH, ADDPLOMB, ADDPOKAZ, ADDSPIS, ADM, DEL, ENDMES, ID, P' +
+        'W, USER_NAIM)'
       'values'
       
-        '  (:ADDLICH, :ADDPLOMB, :ADDPOKAZ, :ADM, :DEL, :ENDMES, :ID, :PW' +
-        ', :USER_NAIM)')
+        '  (:ADDLICH, :ADDPLOMB, :ADDPOKAZ, :ADDSPIS, :ADM, :DEL, :ENDMES' +
+        ', :ID, '
+      '   :PW, :USER_NAIM)')
     RefreshSQL.Strings = (
       'Select '
       '  ID,'
       '  USER_NAIM,'
       '  PW,'
+      '  ADM,'
       '  ADDLICH,'
       '  ADDPOKAZ,'
       '  ADDPLOMB,'
+      '  ADDSPIS,'
       '  ENDMES,'
-      '  DEL,'
-      '  ADM'
+      '  DEL'
       'from USERS '
       'where'
       '  ID = :ID')
@@ -671,6 +704,7 @@ object Form1: TForm1
       '  ADDLICH = :ADDLICH,'
       '  ADDPLOMB = :ADDPLOMB,'
       '  ADDPOKAZ = :ADDPOKAZ,'
+      '  ADDSPIS = :ADDSPIS,'
       '  ADM = :ADM,'
       '  DEL = :DEL,'
       '  ENDMES = :ENDMES,'
@@ -724,6 +758,10 @@ object Form1: TForm1
       FieldName = 'ADM'
       Origin = '"USERS"."ADM"'
       OnChange = usersADMChange
+    end
+    object usersADDSPIS: TIntegerField
+      FieldName = 'ADDSPIS'
+      Origin = '"USERS"."ADDSPIS"'
     end
   end
   object usersSource: TDataSource
