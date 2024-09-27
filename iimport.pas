@@ -124,10 +124,10 @@ begin
           MainForm.hvdallKOLI_P.Value:=0;
           MainForm.hvdallKUB_NOBALANS.AsCurrency:=0;
           MainForm.hvdallKUB_ALL.AsCurrency:=0;
- //         if (oo1.fieldbyname('koef').AsInteger=0) then
- //             MainForm.hvdallwid.Value:=48
- //         else
-          MainForm.hvdallWID.Value:=0;
+          if (oo1.fieldbyname('koef').AsInteger=0) then
+              MainForm.hvdallwid.Value:=48
+          else
+            MainForm.hvdallWID.Value:=0;
 
 
           MainForm.hvdallORG.Value:=0;
@@ -170,6 +170,7 @@ begin
               Form2.calcpok2(MainForm.hvdall,1);
 
             end;
+
            // if (oo1.fieldbyname('koef').AsInteger=1) and (MainForm.hvdallwid.Value<=46) then
           //  begin
             //  MainForm.hvdall.edit;
@@ -203,7 +204,7 @@ begin
        begin
           tarnam:=dos2win(trim(ntar.fieldbyname('name').AsString));
           IBQuery2.Close;
-          IBQuery2.SQL.Text:='update h_voda set tarif_name=:tn, norma=:nor, tafif=:tar where yearmon=:ym and klntar=:kltar';
+          IBQuery2.SQL.Text:='update h_voda set tarif_name=:tn, norma=:nor where yearmon=:ym and klntar=:kltar';
           IBQuery2.ParamByName('tn').AsString:=tarnam;
           IBQuery2.ParamByName('nor').AsCurrency:=ntar.fieldbyname('norma').AsCurrency;
           IBQuery2.ParamByName('ym').AsInteger:=mainform.dataYEARMON.Value;

@@ -9,7 +9,7 @@ uses
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,mytools, cxStyles,
   cxCustomData, cxFilter, cxData, cxDataStorage, cxDBData,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
-  cxClasses, cxGridCustomView, cxGrid, cxCheckBox, Menus, cxButtons;
+  cxClasses, cxGridCustomView, cxGrid, cxCheckBox, Menus, DateUtils, cxButtons;
 
 type
   TForm1 = class(TForm)
@@ -33,7 +33,6 @@ type
     hvdKOLI_P0: TIntegerField;
     hvdKOLI_P: TIBBCDField;
     hvdKOLI_P1: TIntegerField;
-    Button3: TButton;
     hvdKOLI_F: TLargeintField;
     cxGrid1DBTableView1: TcxGridDBTableView;
     cxGrid1Level1: TcxGridLevel;
@@ -131,7 +130,7 @@ var
 implementation
 
 {$R *.dfm}
-uses dbf, main,FileCtrl, iimport, addkart;
+uses dbf, main,FileCtrl, iimport, addkart, kart, math;
 var hh,kk,oo:TDbf;
 
 procedure TForm1.exec(s:string);
@@ -343,53 +342,62 @@ begin
    try
 
      oo1:=TDbf.Create(self);
-     oo1.TableName:=main.MainForm.PathKvart+'obor.dbf';
+     oo1.TableName:=main.MainForm.PathKvart+'lich.dbf';
      oo1.Open;
+     
+    MainForm.pokazn.Close;
+    MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL;
+    MainForm.pokazn.Open;
 
-
+    MainForm.lich.Close;
+    MainForm.lich.SelectSQL.Text:=MainForm.lchSQL;
+    MainForm.lich.Open;
 
     Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
     oo1.First;
     sss:= MainForm.hvdall.SelectSQL.Text;
 
-    while not MainForm.hvdall.Eof do
+    MainForm.DSet:=MainForm.hvdall;
+
+    while not oo1.Eof do
     begin
-       if oo1.fieldbyname('wid').AsString='hv' then
-       begin
        sch:=dos2win(trim(oo1.fieldbyname('schet').AsString));
 
        MainForm.hvdall.First;
-       if not MainForm.hvdall.Locate('schet',sch,[loCaseInsensitive, loPartialKey]) then
+       if MainForm.hvdall.Locate('schet',sch,[loCaseInsensitive, loPartialKey]) then
        begin
-          MainForm.hvdall.Insert;
-          MainForm.hvdall.edit;
-          MainForm.hvdallSCHET.Value:=sch;
-          MainForm.hvdallKLNTAR.Value:=oo1.fieldbyname('kl_ntar').AsInteger;
-          MainForm.hvdallYEARMON.Value:=main.MainForm.dataYEARMON.Value;
-          MainForm.hvdallORG.Value:=0;
-          MainForm.hvdall.post;
-          hvd1.first;
-          pok:=0;
-          while (not hvd1.Eof) and (pok=0) do
+          if oo1.fieldbyname('fl').AsString='p' then
           begin
-             if (hvd1.fieldbyname('schet').AsString=sch) and (hvd1.fieldbyname('fl').AsString<>'n') then
-             begin
-
-               FormAddkart.calcpok(MainForm.hvdallSCHET.Value);
-               pok:=1;
-             end;
-             hvd1.Next;
+             if not FormAddkart.AddPokaz(trim(sch),StrToDate('31.08.2024'),26,oo1.fieldbyname('old').AsFloat) then
+                exit;
           end;
- //         if hvd1.Locate('fl;schet',VarArrayOf([null,MainForm.hvdallSCHET.Value]),[]) then
-       end
-       else
-            if (oo1.fieldbyname('kl_ntar').AsInteger<>MainForm.hvdallKLNTAR.Value) then
-            begin
-              MainForm.hvdall.edit;
-              MainForm.hvdallKLNTAR.Value:=oo1.fieldbyname('kl_ntar').AsInteger;
-              MainForm.hvdall.post;
-            end;
+          if oo1.fieldbyname('fl').AsString='l' then
+          begin
+
+            MainForm.lich.Append;
+            MainForm.lichSCHET.Value:=trim(sch);
+            MainForm.lichTIP.Value:='lich';
+            MainForm.lichN_LICH.Value:='1';
+            MainForm.lichDATA_VIG.Value:=IncYear(oo1.fieldbyname('dlich1').AsDateTime,-4);
+            MainForm.lichDATA_VIP.Value:=IncYear(oo1.fieldbyname('dlich1').AsDateTime,-4);
+            MainForm.lichDATA_POV.Value:=oo1.fieldbyname('dlich1').AsDateTime;
+            MainForm.lichDATA_STPOV.Value:=IncYear(oo1.fieldbyname('dlich1').AsDateTime,-4);
+            MainForm.lich.Post;
+
+            MainForm.hvdall.Edit;
+
+            //if MainForm.lich.RecordCount>MainForm.DSet.FieldByName('LICH_TO').AsInteger then
+              MainForm.hvdall.FieldByName('LICH_TO').AsInteger:=MainForm.hvdall.FieldByName('LICH_TO').AsInteger+1;
+
+            MainForm.hvdall.FieldByName('WID').Value:=41;
+            MainForm.hvdall.Post;
+
+          end;
+
+          Form2.calcpok2(MainForm.hvdall,1);
+          Form2.calclich(MainForm.hvdall);
        end;
+
       oo1.Next;
       Form4.cxProgressBar1.Position:=oo1.RecNo/oo1.RecordCount*100;
       application.ProcessMessages;
@@ -398,9 +406,15 @@ begin
      oo1.Free;
 
      MainForm.IBTransaction1.CommitRetaining;
+//
+//    qry.Close;
+//    qry.SQL.Text:='update h_voda set date_pok is null where extract(year from date_pok)<2024';
 
-        MainForm.hvd.close;
+    MainForm.DSet:=MainForm.hvd;
+
+    MainForm.hvd.close;
     MainForm.hvd.open;
+
 
 
 

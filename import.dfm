@@ -55,24 +55,13 @@ object Form1: TForm1
     TabOrder = 2
     Width = 649
   end
-  object Button3: TButton
-    Left = 456
-    Top = 8
-    Width = 97
-    Height = 25
-    Caption = 'UpdateKartAbon'
-    TabOrder = 3
-    Visible = False
-    OnClick = Button3Click
-  end
   object cxGrid1: TcxGrid
     Left = 0
     Top = 111
     Width = 742
     Height = 286
     Align = alBottom
-    TabOrder = 4
-    ExplicitWidth = 677
+    TabOrder = 3
     object cxGrid1DBTableView1: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = usersSource
@@ -149,8 +138,7 @@ object Form1: TForm1
     Width = 97
     Height = 25
     Caption = 'UpdateKartAbon'
-    TabOrder = 5
-    Visible = False
+    TabOrder = 4
     OnClick = Button3Click
   end
   object cxButton1: TcxButton
@@ -159,7 +147,7 @@ object Form1: TForm1
     Width = 75
     Height = 25
     Caption = #1044#1086#1076#1072#1090#1080
-    TabOrder = 6
+    TabOrder = 5
     OnClick = cxButton1Click
     LookAndFeel.Kind = lfUltraFlat
   end
@@ -169,7 +157,7 @@ object Form1: TForm1
     Width = 75
     Height = 25
     Caption = #1042#1080#1076#1072#1083#1080#1090#1080
-    TabOrder = 7
+    TabOrder = 6
     OnClick = cxButton2Click
     LookAndFeel.Kind = lfUltraFlat
   end
@@ -653,14 +641,13 @@ object Form1: TForm1
     Top = 16
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultDatabase = MainForm.IBDatabase
     Left = 288
     Top = 16
   end
   object qry: TIBQuery
     Database = MainForm.IBDatabase
-    Transaction = IBTransaction1
+    Transaction = MainForm.IBTransaction1
     Left = 320
     Top = 16
   end

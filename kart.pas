@@ -461,7 +461,12 @@ begin
     DS.Edit;
 
        DS.FieldByName('VID_POK').Value:=vid;
-       DS.FieldByName('DATE_POK').Value:=date;
+       
+       if date=0 then
+          DS.FieldByName('DATE_POK').Value:=null
+       else
+          DS.FieldByName('DATE_POK').Value:=date;
+
        DS.FieldByName('SCH_CUR').Value:=lastpokazn;
        DS.FieldByName('R_NACH').Value:='';
        DS.FieldByName('R_NOBAL').Value:='';

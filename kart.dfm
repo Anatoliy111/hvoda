@@ -337,7 +337,7 @@ object Form2: TForm2
     Top = 271
     Width = 699
     Height = 407
-    ActivePage = cxTabSheet11
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 1
     ClientRectBottom = 407
@@ -351,7 +351,7 @@ object Form2: TForm2
         Top = 0
         Width = 699
         Height = 383
-        ActivePage = cxTabSheet6
+        ActivePage = cxTabSheet4
         Align = alClient
         TabOrder = 0
         ClientRectBottom = 383
@@ -469,7 +469,7 @@ object Form2: TForm2
               object cxGridDBTableView1DATA_STPOV: TcxGridDBColumn
                 Caption = #1044#1072#1090#1072' '#1087#1086#1087#1077#1088'. '#1087#1086#1074#1110#1088#1082#1080
                 DataBinding.FieldName = 'DATA_STPOV'
-                Width = 86
+                Width = 118
               end
               object cxGridDBTableView1DATA_POV: TcxGridDBColumn
                 Caption = #1044#1072#1090#1072' '#1087#1086#1074#1110#1088#1082#1080
@@ -511,6 +511,9 @@ object Form2: TForm2
         object cxTabSheet6: TcxTabSheet
           Caption = #1030#1089#1090#1086#1088#1110#1103
           ImageIndex = 2
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object cxGrid5: TcxGrid
             Left = 0
             Top = 41
@@ -631,6 +634,9 @@ object Form2: TForm2
     object cxTabSheet2: TcxTabSheet
       Caption = #1055#1083#1086#1084#1073#1080
       ImageIndex = 1
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object cxPageControl3: TcxPageControl
         Left = 0
         Top = 0
@@ -645,6 +651,9 @@ object Form2: TForm2
         object cxTabSheet5: TcxTabSheet
           Caption = #1055#1086#1090#1086#1095#1085#1110' '#1087#1083#1086#1084#1073#1080
           ImageIndex = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Panel3: TPanel
             Left = 0
             Top = 0
@@ -742,6 +751,9 @@ object Form2: TForm2
         object cxTabSheet7: TcxTabSheet
           Caption = #1030#1089#1090#1086#1088#1110#1103
           ImageIndex = 2
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object cxGrid2: TcxGrid
             Left = 0
             Top = 0
@@ -820,6 +832,9 @@ object Form2: TForm2
     object cxTabSheet3: TcxTabSheet
       Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
       ImageIndex = 2
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object cxPageControl4: TcxPageControl
         Left = 0
         Top = 0
@@ -834,6 +849,9 @@ object Form2: TForm2
         object cxTabSheet9: TcxTabSheet
           Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
           ImageIndex = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object cxGrid8: TcxGrid
             Left = 0
             Top = 49
@@ -970,6 +988,9 @@ object Form2: TForm2
         object cxTabSheet10: TcxTabSheet
           Caption = #1030#1089#1090#1086#1088#1110#1103
           ImageIndex = 2
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object cxGrid1: TcxGrid
             Left = 0
             Top = 25
@@ -1070,6 +1091,9 @@ object Form2: TForm2
     object cxTabSheet8: TcxTabSheet
       Caption = #1047#1084#1110#1085#1072' '#1074#1080#1076#1091' '#1085#1072#1088#1072#1093#1091#1074#1072#1085#1085#1103
       ImageIndex = 3
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 0
         Top = 0
@@ -1206,6 +1230,9 @@ object Form2: TForm2
     object cxTabSheet11: TcxTabSheet
       Caption = #1057#1087#1080#1089#1072#1085#1085#1103'\'#1055#1077#1088#1077#1088#1072#1093#1091#1085#1086#1082
       ImageIndex = 4
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel7: TPanel
         Left = 0
         Top = 0

@@ -180,7 +180,12 @@ begin
   MainForm.pokaznYEARMON.Value:=Mainform.period;
   MainForm.pokaznSCHET.Value:=sch;
   MainForm.pokaznPOKAZN.Value:=pok;
-  MainForm.pokaznDATE_POK.Value:=data;
+ // MainForm.pokaznDATE_POK.Value:=data;
+       if date=0 then
+          MainForm.pokaznDATE_POK.Value:=null
+       else
+          MainForm.pokaznDATE_POK.Value:=date;
+
   MainForm.pokaznVID_POK.Value:=vid;
   MainForm.pokazn.Post;
 
