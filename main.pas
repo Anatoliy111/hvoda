@@ -1263,9 +1263,7 @@ begin
     Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
     Form4.Label4.Caption:=hvdallSCHET.Value;
     application.ProcessMessages;
-    if hvdallSCHET.Value='0096009' then
-       hvdallSCHET.Value;
-    
+
 
          Form2.calcpok2(hvdall,2);
          Form2.calclich(hvdall);
@@ -2560,10 +2558,13 @@ begin
                   hvdall.First;
                   if hvdall.Locate('schet',IBQuery4.FieldByName('SCHET').Value,[]) then
                   begin
-                     hvdall.Edit;
-                     hvdallPERERAH.AsCurrency:=hvdallPERERAH.AsCurrency+SimpleRoundTo(IBQuery4.FieldByName('knob').AsCurrency,-3);
-                     hvdall.Post;
-                     Form2.kub_all(hvdall);
+                     if hvdallWID.Value<=45 then
+                     begin
+                       hvdall.Edit;
+                       hvdallPERERAH.AsCurrency:=hvdallPERERAH.AsCurrency+SimpleRoundTo(IBQuery4.FieldByName('knob').AsCurrency,-3);
+                       hvdall.Post;
+                       Form2.kub_all(hvdall);
+                     end;
                   end;
                 IBQuery4.Next;
                 end;
@@ -3856,6 +3857,7 @@ IBTransaction1.CommitRetaining;
      Form2.Panel9.Enabled:=false;
      Form2.Panel2.Enabled:=false;
      Form2.Panel6.Enabled:=false;
+     Form2.Panel7.Enabled:=false;
 
 //     DBGrid1.OptionsData.Editing:=false;
      DBGrid1.OptionsData.Inserting:=false;
@@ -3883,6 +3885,7 @@ IBTransaction1.CommitRetaining;
      Form2.Panel9.Enabled:=true;
      Form2.Panel2.Enabled:=true;
      Form2.Panel6.Enabled:=true;
+     Form2.Panel7.Enabled:=true;
 
      DBGrid1.OptionsData.Inserting:=true;
 
