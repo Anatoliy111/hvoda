@@ -169,9 +169,9 @@ begin
   
   MainForm.pokazn.First;
 //  if MainForm.pokazn.Lookup('date_pok',data,'date_pok')=null then
-  if data<=FormAddkart.IBQuery1.FieldByName('date_pok').Value then
+  if data<FormAddkart.IBQuery1.FieldByName('date_pok').Value then
   begin
-    ShowMessage('Дата нового показника не може бути меньшою або рівно дати останнього показника');
+    ShowMessage('Дата нового показника не може бути меньшою дати останнього показника');
     exit;
   end;
 
@@ -181,10 +181,10 @@ begin
   MainForm.pokaznSCHET.Value:=sch;
   MainForm.pokaznPOKAZN.Value:=pok;
  // MainForm.pokaznDATE_POK.Value:=data;
-       if date=0 then
-          MainForm.pokaznDATE_POK.Value:=null
+       if data=0 then
+          MainForm.pokaznDATE_POK.Value:=EndOfTheMonth(YearMon2Date(MainForm.period))
        else
-          MainForm.pokaznDATE_POK.Value:=date;
+          MainForm.pokaznDATE_POK.Value:=data;
 
   MainForm.pokaznVID_POK.Value:=vid;
   MainForm.pokazn.Post;
@@ -824,6 +824,12 @@ begin
   FormAddkart.IBQuery1.Close;
   FormAddkart.IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
   FormAddkart.IBQuery1.open;
+
+    if FormAddkart.IBQuery1.RecordCount<>0 then
+    begin
+      FormAddkart.cxDateEdit7.EditValue:=FormAddkart.IBQuery1.FieldByName('date_pok').Value;
+      FormAddkart.cxCalcEdit5.EditValue:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
+    end;
 
   FormAddkart.cxCheckBox1.Checked:=false;
   FormAddkart.cxCheckBox1PropertiesChange(FormAddkart.cxCheckBox1);

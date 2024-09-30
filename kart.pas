@@ -1050,7 +1050,7 @@ begin
    if (MainForm.pokaznID_LICH.Value<>0) then
   begin
   IBQuery1.Close;
-  IBQuery1.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch and id>=:id  and (del=0 or del is null) order by date_pok';
+  IBQuery1.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch and id>=:id  and (del=0 or del is null) order by date_pok,id';
   IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
   IBQuery1.ParamByName('per').Value:=MainForm.period;
   IBQuery1.ParamByName('id').Value:=MainForm.pokaznID.Value;
@@ -1157,11 +1157,7 @@ FormAddkart.cxTextEdit3.Text:=MainForm.lichznN_LICH.Value;
 FormAddkart.cxDateEdit1.EditValue:=MainForm.lichznDATA_VIG.Value;
 FormAddkart.cxTextEdit4.Text:=MainForm.lichznNOTE.Value;
 
-    if FormAddkart.IBQuery1.RecordCount<>0 then
-    begin
-      FormAddkart.cxDateEdit7.EditValue:=FormAddkart.IBQuery1.FieldByName('date_pok').Value;
-      FormAddkart.cxCalcEdit5.EditValue:=FormAddkart.IBQuery1.FieldByName('pokazn').Value;
-    end;
+
 end;
 end;
 
@@ -1476,7 +1472,7 @@ begin
     MainForm.plombszn.Close;
     MainForm.plombszn.open;
 
-    MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch and (del=0 or del is null) order by id desc';
+    MainForm.pokazn.SelectSQL.Text:=MainForm.pokSQL+' where pokazn.schet=:sch and (del=0 or del is null) order by date_pok desc,id desc';
     MainForm.pokazn.ParamByName('sch').Value:=sch;
     MainForm.pokazn.Close;
     MainForm.pokazn.open;

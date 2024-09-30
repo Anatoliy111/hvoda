@@ -24,16 +24,12 @@ object FormDelkart: TFormDelkart
     ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 434
-    ExplicitHeight = 314
     ClientRectBottom = 392
     ClientRectRight = 492
     ClientRectTop = 24
     object cxTabSheet1: TcxTabSheet
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
-      ExplicitWidth = 434
-      ExplicitHeight = 290
       object cxTextEdit1: TcxTextEdit
         Left = 24
         Top = 123
@@ -203,8 +199,6 @@ object FormDelkart: TFormDelkart
     object cxTabSheet2: TcxTabSheet
       Caption = #1055#1083#1086#1084#1073#1080
       ImageIndex = 1
-      ExplicitWidth = 434
-      ExplicitHeight = 290
       object cxLabel8: TcxLabel
         Left = 16
         Top = 96
@@ -302,8 +296,6 @@ object FormDelkart: TFormDelkart
     object cxTabSheet3: TcxTabSheet
       Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
       ImageIndex = 2
-      ExplicitWidth = 434
-      ExplicitHeight = 290
       object cxLabel13: TcxLabel
         Left = 40
         Top = 189
@@ -423,8 +415,6 @@ object FormDelkart: TFormDelkart
     Height = 35
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 314
-    ExplicitWidth = 434
     object cxButton3: TcxButton
       Left = 247
       Top = 6
@@ -521,8 +511,8 @@ object FormDelkart: TFormDelkart
     Transaction = MainForm.IBTransaction1
     SQL.Strings = (
       
-        'select first 1 *  from POKAZN where schet=:sch and date_zn is nu' +
-        'll order by DATE_POK desc')
+        'select first 1 *  from POKAZN where schet=:sch and (del=0 or del' +
+        ' is null) order by DATE_POK desc, id desc')
     Left = 376
     Top = 40
     ParamData = <

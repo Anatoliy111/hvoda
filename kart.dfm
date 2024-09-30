@@ -337,7 +337,7 @@ object Form2: TForm2
     Top = 271
     Width = 699
     Height = 407
-    ActivePage = cxTabSheet11
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 1
     ClientRectBottom = 407
@@ -1346,7 +1346,7 @@ object Form2: TForm2
     SQL.Strings = (
       
         'select first 1 *  from POKAZN where schet=:sch and (del=0 or del' +
-        ' is null) order by DATE_POK desc')
+        ' is null) order by DATE_POK desc,id desc')
     Left = 512
     Top = 88
     ParamData = <
@@ -1362,7 +1362,7 @@ object Form2: TForm2
     SQL.Strings = (
       
         'select first 1 *  from POKAZN where schet=:sch and (del=0 or del' +
-        ' is null) order by DATE_POK desc')
+        ' is null) order by DATE_POK desc,id desc')
     Left = 544
     Top = 88
     ParamData = <

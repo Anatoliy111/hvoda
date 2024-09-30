@@ -714,7 +714,7 @@ object FormAddkart: TFormAddkart
     SQL.Strings = (
       
         'select first 1 *  from POKAZN where schet=:sch and (del=0 or del' +
-        ' is null) order by DATE_POK desc')
+        ' is null) order by DATE_POK desc, id desc')
     Left = 376
     Top = 40
     ParamData = <
@@ -730,7 +730,7 @@ object FormAddkart: TFormAddkart
     SQL.Strings = (
       
         'select first 1 *  from POKAZN where schet=:sch and (del=0 or del' +
-        ' is null) order by DATE_POK desc')
+        ' is null) order by DATE_POK desc, id desc')
     Left = 376
     Top = 80
     ParamData = <
