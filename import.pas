@@ -109,6 +109,7 @@ type
     hvdWID_PREV: TIntegerField;
     hvdSPIS: TFloatField;
     hvdR_NOBAL: TIBStringField;
+    cxButton3: TcxButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -117,6 +118,7 @@ type
     procedure cxButton1Click(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
     procedure usersADMChange(Sender: TField);
+    procedure cxButton3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -455,6 +457,11 @@ usersDEL.Value:=1;
 users.Post;
 users.close;
 users.open
+end;
+
+procedure TForm1.cxButton3Click(Sender: TObject);
+begin
+MainForm.allcalclich;
 end;
 
 end.

@@ -3814,7 +3814,7 @@ IBTransaction1.CommitRetaining;
 
     fl_review:=false;
 
-    if (usersADDLICH.Value=0) and (usersADDPOKAZ.Value=0) and (usersADDPLOMB.Value=0) and (usersENDMES.Value=0) then fl_review:=true;
+    if (usersADDLICH.Value=0) and (usersADDPOKAZ.Value=0) and (usersADDPLOMB.Value=0) and (usersENDMES.Value=0) and (usersADDSPIS.Value=0) then fl_review:=true;
 
 
 //   if hvd.State in [dsInsert,dsEdit] then hvd.Post;

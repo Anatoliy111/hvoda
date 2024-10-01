@@ -169,12 +169,21 @@ object MainForm: TMainForm
               Width = 1022
             end
             item
-              Caption = #1053#1072#1088#1072#1093#1091#1074#1072#1085#1085#1103
-              Width = 263
+              Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082
+              Width = 150
             end
             item
-              Caption = #1044#1086#1076#1072#1090#1082#1086#1074#1086
-              Width = 572
+              Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1082#1086#1074#1086
+              Width = 150
+            end
+            item
+              Caption = #1053#1077#1073#1072#1083#1072#1085#1089
+            end
+            item
+              Caption = #1055#1077#1088#1077#1088#1072#1093#1091#1085#1086#1082
+            end
+            item
+              Caption = #1042#1089#1100#1086#1075#1086
             end
             item
               Caption = #1030#1085#1092#1086#1088#1084#1072#1094#1110#1103
@@ -220,7 +229,7 @@ object MainForm: TMainForm
             Properties.OnPopup = DBGrid1KOLI_PPropertiesPopup
             Options.Editing = False
             Width = 78
-            Position.BandIndex = 3
+            Position.BandIndex = 6
             Position.ColIndex = 0
             Position.RowIndex = 0
           end
@@ -231,8 +240,8 @@ object MainForm: TMainForm
             Properties.ReadOnly = False
             Properties.OnChange = DBGrid1NOR_RAZNPropertiesChange
             Width = 80
-            Position.BandIndex = 1
-            Position.ColIndex = 4
+            Position.BandIndex = 2
+            Position.ColIndex = 0
             Position.RowIndex = 0
           end
           object DBGrid1PERE_DAY: TcxGridDBBandedColumn
@@ -240,7 +249,7 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'PERE_DAY'
             Options.Editing = False
             Width = 74
-            Position.BandIndex = 3
+            Position.BandIndex = 6
             Position.ColIndex = 1
             Position.RowIndex = 0
           end
@@ -372,7 +381,7 @@ object MainForm: TMainForm
             Caption = #1055#1088#1080#1084#1110#1090#1082#1072
             DataBinding.FieldName = 'NOTE'
             Width = 228
-            Position.BandIndex = 3
+            Position.BandIndex = 6
             Position.ColIndex = 7
             Position.RowIndex = 0
           end
@@ -399,7 +408,7 @@ object MainForm: TMainForm
                 Value = 1
               end>
             Options.Editing = False
-            Position.BandIndex = 4
+            Position.BandIndex = 7
             Position.ColIndex = 0
             Position.RowIndex = 0
           end
@@ -417,7 +426,7 @@ object MainForm: TMainForm
                 Value = 1
               end>
             Options.Editing = False
-            Position.BandIndex = 4
+            Position.BandIndex = 7
             Position.ColIndex = 1
             Position.RowIndex = 0
           end
@@ -427,7 +436,7 @@ object MainForm: TMainForm
             PropertiesClassName = 'TcxTextEditProperties'
             Properties.ReadOnly = True
             Width = 186
-            Position.BandIndex = 3
+            Position.BandIndex = 6
             Position.ColIndex = 5
             Position.RowIndex = 0
           end
@@ -435,7 +444,7 @@ object MainForm: TMainForm
             Caption = #1053#1086#1088#1084#1072
             DataBinding.FieldName = 'NORMA'
             Options.Editing = False
-            Position.BandIndex = 3
+            Position.BandIndex = 6
             Position.ColIndex = 6
             Position.RowIndex = 0
           end
@@ -444,8 +453,8 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'DEL_NORM'
             Options.Editing = False
             Width = 105
-            Position.BandIndex = 2
-            Position.ColIndex = 1
+            Position.BandIndex = 4
+            Position.ColIndex = 0
             Position.RowIndex = 0
           end
           object DBGrid1SCH_RAZN2: TcxGridDBBandedColumn
@@ -461,7 +470,7 @@ object MainForm: TMainForm
             Caption = #1053#1072#1082#1086#1087#1080#1095#1077#1085#1077' '#1088#1086#1079#1088'. '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
             DataBinding.FieldName = 'PREV_NORM'
             Width = 127
-            Position.BandIndex = 3
+            Position.BandIndex = 6
             Position.ColIndex = 2
             Position.RowIndex = 0
           end
@@ -486,7 +495,7 @@ object MainForm: TMainForm
             Caption = #1052#1077#1090#1086#1076' '#1088#1086#1079#1088#1072#1093#1091#1085#1082#1091' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
             DataBinding.FieldName = 'R_NACH'
             Width = 216
-            Position.BandIndex = 3
+            Position.BandIndex = 6
             Position.ColIndex = 3
             Position.RowIndex = 0
           end
@@ -496,7 +505,7 @@ object MainForm: TMainForm
             Options.Editing = False
             Width = 86
             Position.BandIndex = 2
-            Position.ColIndex = 0
+            Position.ColIndex = 1
             Position.RowIndex = 0
           end
           object DBGrid1KUB_NOBALANS: TcxGridDBBandedColumn
@@ -504,8 +513,8 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'KUB_NOBALANS'
             Options.Editing = False
             Width = 96
-            Position.BandIndex = 2
-            Position.ColIndex = 2
+            Position.BandIndex = 3
+            Position.ColIndex = 0
             Position.RowIndex = 0
           end
           object DBGrid1KUB_ALL: TcxGridDBBandedColumn
@@ -515,8 +524,8 @@ object MainForm: TMainForm
             Styles.Content = cxStyle2
             Styles.OnGetContentStyle = DBGrid1KUB_ALLStylesGetContentStyle
             Width = 110
-            Position.BandIndex = 2
-            Position.ColIndex = 5
+            Position.BandIndex = 5
+            Position.ColIndex = 0
             Position.RowIndex = 0
           end
           object DBGrid1PERERAH: TcxGridDBBandedColumn
@@ -524,15 +533,15 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'PERERAH'
             Options.Editing = False
             Width = 102
-            Position.BandIndex = 2
-            Position.ColIndex = 3
+            Position.BandIndex = 4
+            Position.ColIndex = 1
             Position.RowIndex = 0
           end
           object DBGrid1R_NOBAL: TcxGridDBBandedColumn
             Caption = #1052#1077#1090#1086#1076' '#1088#1086#1079#1088#1072#1093#1091#1085#1082#1091' '#1085#1077#1073#1072#1083#1072#1085#1089#1091
             DataBinding.FieldName = 'R_NOBAL'
             Width = 265
-            Position.BandIndex = 3
+            Position.BandIndex = 6
             Position.ColIndex = 4
             Position.RowIndex = 0
           end
@@ -541,8 +550,8 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'SPIS'
             Options.Editing = False
             Width = 73
-            Position.BandIndex = 2
-            Position.ColIndex = 4
+            Position.BandIndex = 4
+            Position.ColIndex = 2
             Position.RowIndex = 0
           end
         end
@@ -2481,7 +2490,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E0040005C0214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000600214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5809,7 +5818,6 @@ object MainForm: TMainForm
       000000000000}
   end
   object IBDatabase: TIBDatabase
-    Connected = True
     DatabaseName = 'C:\TEMP\GKU.GDB'
     Params.Strings = (
       'user_name=sysdba'

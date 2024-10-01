@@ -495,7 +495,7 @@ begin
                   DS.FieldByName('WID').Value:=42
          else
          begin
-            if DS.FieldByName('WID').Value=42 then
+            if (DS.FieldByName('WID').Value=42) or (DS.FieldByName('WID').Value=43) then
                DS.FieldByName('WID').Value:=41;
          end;
 

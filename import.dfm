@@ -161,6 +161,16 @@ object Form1: TForm1
     OnClick = cxButton2Click
     LookAndFeel.Kind = lfUltraFlat
   end
+  object cxButton3: TcxButton
+    Left = 192
+    Top = 0
+    Width = 121
+    Height = 25
+    Caption = #1055#1086#1074#1085#1080#1081' '#1088#1086#1079#1088#1072#1093#1091#1085#1086#1082
+    TabOrder = 7
+    OnClick = cxButton3Click
+    LookAndFeel.Kind = lfUltraFlat
+  end
   object hvd: TIBDataSet
     Database = MainForm.IBDatabase
     Transaction = IBTransaction1
