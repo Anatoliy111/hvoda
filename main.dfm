@@ -435,6 +435,7 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'TARIF_NAME'
             PropertiesClassName = 'TcxTextEditProperties'
             Properties.ReadOnly = True
+            Options.Editing = False
             Width = 186
             Position.BandIndex = 6
             Position.ColIndex = 5
@@ -469,6 +470,7 @@ object MainForm: TMainForm
           object DBGrid1PREV_NORM: TcxGridDBBandedColumn
             Caption = #1053#1072#1082#1086#1087#1080#1095#1077#1085#1077' '#1088#1086#1079#1088'. '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
             DataBinding.FieldName = 'PREV_NORM'
+            Options.Editing = False
             Width = 127
             Position.BandIndex = 6
             Position.ColIndex = 2
@@ -494,6 +496,8 @@ object MainForm: TMainForm
           object DBGrid1R_NACH: TcxGridDBBandedColumn
             Caption = #1052#1077#1090#1086#1076' '#1088#1086#1079#1088#1072#1093#1091#1085#1082#1091' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
             DataBinding.FieldName = 'R_NACH'
+            PropertiesClassName = 'TcxTextEditProperties'
+            Properties.ReadOnly = True
             Width = 216
             Position.BandIndex = 6
             Position.ColIndex = 3
@@ -1180,6 +1184,9 @@ object MainForm: TMainForm
     object cxTabSheet2: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1077' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
       ImageIndex = 4
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object cxGrid3: TcxGrid
         Left = 0
         Top = 0
@@ -2490,7 +2497,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000640214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000680214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
