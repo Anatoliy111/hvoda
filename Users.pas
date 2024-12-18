@@ -39,59 +39,103 @@ uses main, SHFolder;
 {$R *.dfm}
 
 procedure TFormUsers.cxButton1Click(Sender: TObject);
+var strdt:string;
+
 begin
 if (cxLookupComboBox1.EditValue <> null) or (Length(cxLookupComboBox1.EditValue)<>0) then
 begin
-     if MainForm.USERS.Locate('USER_NAIM',cxLookupComboBox1.EditValue,[]) then
+     strdt:=datetostr(now());
+     if not MainForm.imp.Active then
+       MainForm.imp.Open;
+
+     if (now()>strtodate('01.01.2025')) and (MainForm.impEDRPOU.AsInteger=0) then
      begin
-       if cxMaskEdit1.Text=MainForm.usersPW.Value then
+       if MainForm.USERS.Locate('USER_NAIM','Перегляд',[]) then
        begin
-       MainForm.ActiveUser:=MainForm.usersID.Value;
-       MainForm.dxBarEdit3.Text:=MainForm.usersUSER_NAIM.Value;
+         MainForm.ActiveUser:=MainForm.usersID.Value;
+         MainForm.dxBarEdit3.Text:=MainForm.usersUSER_NAIM.Value;
 
-          if iniFile<>nil then
-          IniFile.WriteString('User','Login',trim(cxLookupComboBox1.Text));
+            if iniFile<>nil then
+            IniFile.WriteString('User','Login',trim(cxLookupComboBox1.Text));
 
-       MainForm.Update;
-       MainForm.startprog;
-       MainForm.fl_startprog:=false;
-       MainForm.Enabled:=true;
-       FormUsers.Hide;
+         MainForm.Update;
+         MainForm.startprog;
+         MainForm.fl_startprog:=false;
+         MainForm.Enabled:=true;
+         FormUsers.Hide;
        end
        else
-       ShowMessage('Неправильний пароль!');
-     end
-     else
-     begin
-       if MainForm.users.RecordCount=0 then
        begin
          MainForm.users.Append;
-         MainForm.usersUSER_NAIM.Value:='admin';
-          MainForm.usersADDLICH.Value:=1;
-          MainForm.usersADDPOKAZ.Value:=1;
-          MainForm.usersADDPLOMB.Value:=1;
-          MainForm.usersENDMES.Value:=1;
-          MainForm.usersADM.Value:=1;
+         MainForm.usersUSER_NAIM.Value:='Перегляд';
+          MainForm.usersADDLICH.Value:=0;
+          MainForm.usersADDPOKAZ.Value:=0;
+          MainForm.usersADDPLOMB.Value:=0;
+          MainForm.usersENDMES.Value:=0;
+          MainForm.usersADM.Value:=0;
+          MainForm.usersADDSPIS.Value:=0;
           MainForm.users.Post;
           MainForm.IBTransaction1.CommitRetaining;
           MainForm.ActiveUser:=MainForm.usersID.Value;
           MainForm.dxBarEdit3.Text:=MainForm.usersUSER_NAIM.Value;
+          MainForm.Update;
+          MainForm.startprog;
+          MainForm.fl_startprog:=false;
+          MainForm.Enabled:=true;
+          FormUsers.Hide;
+       end;
+     end
+     else
+       if MainForm.USERS.Locate('USER_NAIM',cxLookupComboBox1.EditValue,[]) then
+       begin
+         if cxMaskEdit1.Text=MainForm.usersPW.Value then
+         begin
+         MainForm.ActiveUser:=MainForm.usersID.Value;
+         MainForm.dxBarEdit3.Text:=MainForm.usersUSER_NAIM.Value;
 
-          if iniFile<>nil then
-            IniFile.WriteString('User','Login',trim('admin'));
+            if iniFile<>nil then
+            IniFile.WriteString('User','Login',trim(cxLookupComboBox1.Text));
 
-          ShowMessage('Додано користувачa admin!');
+         MainForm.Update;
+         MainForm.startprog;
+         MainForm.fl_startprog:=false;
+         MainForm.Enabled:=true;
+         FormUsers.Hide;
+         end
+         else
+         ShowMessage('Неправильний пароль!');
        end
        else
-         ShowMessage('Користувачa '+cxLookupComboBox1.EditValue+' не знайдено!');
+       begin
+         if MainForm.users.RecordCount=0 then
+         begin
+           MainForm.users.Append;
+           MainForm.usersUSER_NAIM.Value:='admin';
+            MainForm.usersADDLICH.Value:=1;
+            MainForm.usersADDPOKAZ.Value:=1;
+            MainForm.usersADDPLOMB.Value:=1;
+            MainForm.usersENDMES.Value:=1;
+            MainForm.usersADM.Value:=1;
+            MainForm.users.Post;
+            MainForm.IBTransaction1.CommitRetaining;
+            MainForm.ActiveUser:=MainForm.usersID.Value;
+            MainForm.dxBarEdit3.Text:=MainForm.usersUSER_NAIM.Value;
 
-       
-       MainForm.Update;
-       MainForm.startprog;
-       MainForm.fl_startprog:=false;
-       MainForm.Enabled:=true;
-       FormUsers.Hide;       
-     end;
+            if iniFile<>nil then
+              IniFile.WriteString('User','Login',trim('admin'));
+
+            ShowMessage('Додано користувачa admin!');
+         end
+         else
+           ShowMessage('Користувачa '+cxLookupComboBox1.EditValue+' не знайдено!');
+
+
+         MainForm.Update;
+         MainForm.startprog;
+         MainForm.fl_startprog:=false;
+         MainForm.Enabled:=true;
+         FormUsers.Hide;
+       end;
 end
 else
      ShowMessage('Виберіть користувача!');

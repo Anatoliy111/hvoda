@@ -717,18 +717,6 @@ type
     cxTabSheet2: TcxTabSheet;
     hvddom2Source: TDataSource;
     hvddom2: TIBDataSet;
-    hvddom2UL: TIBStringField;
-    hvddom2N_DOM: TIBStringField;
-    hvddom2SCH_RAZN: TIBBCDField;
-    hvddom2NOR_RAZN: TIBBCDField;
-    hvddom2NORM_BLICH: TFloatField;
-    hvddom2DEL_NORM: TFloatField;
-    hvddom2KUB_NOBALANS: TFloatField;
-    hvddom2PERERAH: TFloatField;
-    hvddom2KUB_ALL: TFloatField;
-    hvddom2PREV_NORM: TFloatField;
-    hvddom2SCH_KUB: TFloatField;
-    hvddom2SCH_RAZNDOM: TFloatField;
     cxGrid3DBTableView1: TcxGridDBTableView;
     cxGrid3Level1: TcxGridLevel;
     cxGrid3: TcxGrid;
@@ -782,7 +770,6 @@ type
     DBGrid3RAZN: TcxGridDBColumn;
     cxGridLevel9: TcxGridLevel;
     IBQuery4: TIBQuery;
-    hvddom2SUM_NACH: TIBBCDField;
     cxGrid3DBTableView1SUM_NACH: TcxGridDBColumn;
     DBGrid3Column1: TcxGridDBColumn;
     hvdrozpdomSource: TDataSource;
@@ -987,8 +974,24 @@ type
     hvd_repR_NOBAL: TIBStringField;
     DBGrid1SPIS: TcxGridDBBandedColumn;
     cxGridDBBandedTableView1SPIS: TcxGridDBBandedColumn;
-    hvddom2SPIS: TFloatField;
     cxGrid3DBTableView1SPIS: TcxGridDBColumn;
+    hvddom2CT: TIntegerField;
+    hvddom2YEARMON: TIntegerField;
+    hvddom2UL: TIBStringField;
+    hvddom2N_DOM: TIBStringField;
+    hvddom2SCH_RAZN: TIBBCDField;
+    hvddom2NOR_RAZN: TIBBCDField;
+    hvddom2SUM_NACH: TIBBCDField;
+    hvddom2NORM_BLICH: TFloatField;
+    hvddom2DEL_NORM: TFloatField;
+    hvddom2KUB_NOBALANS: TFloatField;
+    hvddom2PERERAH: TFloatField;
+    hvddom2SPIS: TFloatField;
+    hvddom2KUB_ALL: TFloatField;
+    hvddom2PREV_NORM: TFloatField;
+    hvddom2SCH_KUB: TFloatField;
+    hvddom2SCH_RAZNDOM: TFloatField;
+    impEDRPOU: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -1126,6 +1129,8 @@ type
     procedure delpokaznAfterInsert(DataSet: TDataSet);
     procedure spisAfterEdit(DataSet: TDataSet);
     procedure spisAfterInsert(DataSet: TDataSet);
+    procedure DBGrid1NOR_RAZNPropertiesValidate(Sender: TObject;
+      var DisplayValue: Variant; var ErrorText: TCaption; var Error: Boolean);
 
   private
     { Private declarations }
@@ -3574,6 +3579,25 @@ begin
  if DSet.FieldByName('WID').Value<>46 then
     DSet.Cancel;
 
+
+end;
+
+procedure TMainForm.DBGrid1NOR_RAZNPropertiesValidate(Sender: TObject;
+  var DisplayValue: Variant; var ErrorText: TCaption; var Error: Boolean);
+var sum,sum2:Currency;
+begin
+   DSet.Post;
+  sum:=DSet.FieldByName('SCH_RAZN').AsCurrency+
+  DisplayValue+
+  DSet.FieldByName('NORM_BLICH').AsCurrency+
+  DSet.FieldByName('DEL_NORM').AsCurrency+
+  DSet.FieldByName('PERERAH').AsCurrency+
+  DSet.FieldByName('SPIS').AsCurrency+
+  DSet.FieldByName('KUB_NOBALANS').AsCurrency;
+  DSet.Edit;
+  DSet.FieldByName('KUB_ALL').AsCurrency:=SimpleRoundTo(sum,-3);
+
+  DSet.Post;
 
 end;
 

@@ -239,6 +239,7 @@ object MainForm: TMainForm
             PropertiesClassName = 'TcxCalcEditProperties'
             Properties.ReadOnly = False
             Properties.OnChange = DBGrid1NOR_RAZNPropertiesChange
+            Properties.OnValidate = DBGrid1NOR_RAZNPropertiesValidate
             Width = 80
             Position.BandIndex = 2
             Position.ColIndex = 0
@@ -2497,7 +2498,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000680214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000700214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -11014,12 +11015,13 @@ object MainForm: TMainForm
     InsertSQL.Strings = (
       'insert into IMPEXP'
       
-        '  (IMPALLOW, IMPLASTDATE, IMPLASTDAY, KL, LASTEXP, LASTROZR, VPR' +
-        'OG)'
+        '  (EDRPOU, IMPALLOW, IMPLASTDATE, IMPLASTDAY, KL, LASTEXP, LASTR' +
+        'OZR, VPROG)'
       'values'
       
-        '  (:IMPALLOW, :IMPLASTDATE, :IMPLASTDAY, :KL, :LASTEXP, :LASTROZ' +
-        'R, :VPROG)')
+        '  (:EDRPOU, :IMPALLOW, :IMPLASTDATE, :IMPLASTDAY, :KL, :LASTEXP,' +
+        ' :LASTROZR, '
+      '   :VPROG)')
     RefreshSQL.Strings = (
       'Select '
       '  KL,'
@@ -11028,7 +11030,8 @@ object MainForm: TMainForm
       '  IMPLASTDAY,'
       '  VPROG,'
       '  LASTEXP,'
-      '  LASTROZR'
+      '  LASTROZR,'
+      '  EDRPOU'
       'from IMPEXP '
       'where'
       '  KL = :KL')
@@ -11037,6 +11040,7 @@ object MainForm: TMainForm
     ModifySQL.Strings = (
       'update IMPEXP'
       'set'
+      '  EDRPOU = :EDRPOU,'
       '  IMPALLOW = :IMPALLOW,'
       '  IMPLASTDATE = :IMPLASTDATE,'
       '  IMPLASTDAY = :IMPLASTDAY,'
@@ -11079,6 +11083,10 @@ object MainForm: TMainForm
     object impLASTROZR: TIntegerField
       FieldName = 'LASTROZR'
       Origin = '"IMPEXP"."LASTROZR"'
+    end
+    object impEDRPOU: TIntegerField
+      FieldName = 'EDRPOU'
+      Origin = '"IMPEXP"."EDRPOU"'
     end
   end
   object site_pokazn: TIBDataSet
@@ -12450,269 +12458,165 @@ object MainForm: TMainForm
     Transaction = IBTransaction1
     BeforeOpen = hvddom2BeforeOpen
     DeleteSQL.Strings = (
-      'delete from h_voda'
-      'where'
-      '  KL = :OLD_KL')
-    InsertSQL.Strings = (
-      'insert into h_voda'
-      
-        '  (DATE_POK, DATE_ZN, DEL_NORM, EDRPOU, FILTR, FIO, GRP_RAZN, ID' +
-        '_KONTR, '
-      
-        '   KL, KL_UL, KLNTAR, KOLI_F, KOLI_P, KOLI_P0, KOLI_P1, KUB_ALL,' +
-        ' KUB_MES, '
-      
-        '   KUB_NOBALANS, KV, LICH_POV, LICH_TO, LICH_YEARMON, N_DOM, N_S' +
-        'CH, NOR_RAZN, '
-      
-        '   NORM_BLICH, NORMA, NOTE, OLD_NORM, ORG, PERE_DAY, PERE_RAZN, ' +
-        'PERERAH, '
-      
-        '   PLOMB, PLOSCH_UR, POD, POMPA, PREV_NORM, R_NACH, R_NOBAL, RAS' +
-        'CH_KUB, '
-      
-        '   RASCH_NOR, RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN, SCH_RAZN2,' +
-        ' SCHET, '
-      
-        '   TARIF_NAME, UL, VID_POK, VID_RN, WID, YEARMON, ZN_LICH, ZNOLD' +
-        '_LICH,SPIS)'
-      'values'
-      
-        '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :EDRPOU, :FILTR, :FIO, :GRP_R' +
-        'AZN, :ID_KONTR, '
-      
-        '   :KL, :KL_UL, :KLNTAR, :KOLI_F, :KOLI_P, :KOLI_P0, :KOLI_P1, :' +
-        'KUB_ALL, '
-      
-        '   :KUB_MES, :KUB_NOBALANS, :KV, :LICH_POV, :LICH_TO, :LICH_YEAR' +
-        'MON, :N_DOM, '
-      
-        '   :N_SCH, :NOR_RAZN, :NORM_BLICH, :NORMA, :NOTE, :OLD_NORM, :OR' +
-        'G, :PERE_DAY, '
-      
-        '   :PERE_RAZN, :PERERAH, :PLOMB, :PLOSCH_UR, :POD, :POMPA, :PREV' +
-        '_NORM, '
-      
-        '   :R_NACH, :R_NOBAL, :RASCH_KUB, :RASCH_NOR, :RASCH_NOTE, :SCH_' +
-        'CUR, :SCH_OLD, '
-      
-        '   :SCH_RAZN, :SCH_RAZN2, :SCHET, :TARIF_NAME, :UL, :VID_POK, :V' +
-        'ID_RN, '
-      '   :WID, :YEARMON, :ZN_LICH, :ZNOLD_LICH,:SPIS)')
+      '')
     RefreshSQL.Strings = (
       'Select '
-      '  KL,'
+      '  CT,'
       '  YEARMON,'
-      '  PLOMB,'
-      '  FIO,'
-      '  WID,'
-      '  DOM,'
-      '  KVART,'
-      '  SCHET,'
-      '  N_SCH,'
-      '  SCH_OLD,'
-      '  SCH_CUR,'
-      '  SCH_RAZN,'
-      '  SCH_RAZN2,'
-      '  KOLI_P,'
-      '  KOLI_P0,'
-      '  KOLI_P1,'
-      '  NOR_RAZN,'
-      '  GRP_RAZN,'
-      '  PERE_DAY,'
-      '  PERE_RAZN,'
-      '  ID_KONTR,'
       '  UL,'
       '  N_DOM,'
-      '  KV,'
-      '  NOTE,'
-      '  KOLI_F,'
-      '  RASCH_KUB,'
-      '  RASCH_NOR,'
-      '  POD,'
-      '  RASCH_NOTE,'
-      '  DATE_POK,'
-      '  VID_POK,'
-      '  KUB_MES,'
-      '  LICH_POV,'
-      '  ORG,'
-      '  VID_RN,'
-      '  FILTR,'
-      '  POMPA,'
-      '  ZN_LICH,'
-      '  ZNOLD_LICH,'
-      '  DATE_ZN,'
-      '  LICH_TO,'
-      '  KLNTAR,'
-      '  TARIF_NAME,'
-      '  NORMA,'
-      '  OLD_NORM,'
-      '  DEL_NORM,'
-      '  PREV_NORM,'
-      '  LICH_YEARMON,'
-      '  EDRPOU,'
-      '  KL_UL,'
-      '  R_NACH,'
+      '  SCH_RAZN,'
+      '  NOR_RAZN,'
+      '  SUM_NACH,'
       '  NORM_BLICH,'
+      '  DEL_NORM,'
       '  KUB_NOBALANS,'
-      '  KUB_ALL,'
-      '  PLOSCH_UR,'
       '  PERERAH,'
-      '  R_NOBAL,'
-      '  SPIS'
-      'from h_voda '
+      '  SPIS,'
+      '  KUB_ALL,'
+      '  PREV_NORM,'
+      '  SCH_KUB,'
+      '  SCH_RAZNDOM'
+      'from hvdom '
       'where'
-      '  KL = :KL')
+      '  CT = :CT and'
+      '  DEL_NORM = :DEL_NORM and'
+      '  KUB_ALL = :KUB_ALL and'
+      '  KUB_NOBALANS = :KUB_NOBALANS and'
+      '  N_DOM = :N_DOM and'
+      '  NOR_RAZN = :NOR_RAZN and'
+      '  NORM_BLICH = :NORM_BLICH and'
+      '  PERERAH = :PERERAH and'
+      '  PREV_NORM = :PREV_NORM and'
+      '  SCH_KUB = :SCH_KUB and'
+      '  SCH_RAZN = :SCH_RAZN and'
+      '  SCH_RAZNDOM = :SCH_RAZNDOM and'
+      '  SPIS = :SPIS and'
+      '  SUM_NACH = :SUM_NACH and'
+      '  UL = :UL and'
+      '  YEARMON = :YEARMON')
     SelectSQL.Strings = (
-      'select hv.*, hvgrp.SCH_KUB, hvgrp.SCH_RAZN SCH_RAZNDOM  from'
-      '(select ul,n_dom,'
-      'sum(h_voda.sch_razn) sch_razn,'
-      'sum(h_voda.NOR_RAZN) NOR_RAZN,'
-      'sum(h_voda.sch_razn)+sum(h_voda.NOR_RAZN) sum_nach,'
-      'sum(h_voda.NORM_BLICH) NORM_BLICH,'
-      'sum(h_voda.DEL_NORM) DEL_NORM,'
-      'sum(h_voda.KUB_NOBALANS) KUB_NOBALANS,'
-      'sum(h_voda.PERERAH) PERERAH,'
-      'sum(h_voda.SPIS) SPIS,'
-      'sum(h_voda.KUB_ALL) KUB_ALL,'
-      'sum(h_voda.PREV_NORM) PREV_NORM'
-      'from h_voda'
-      'where h_voda.yearmon=:yearmon'
-      'group by ul,n_dom'
-      'order by ul,n_dom) hv'
-      
-        'left join hvgrp on hv.ul=hvgrp.ul and hv.n_dom=hvgrp.n_dom and h' +
-        'vgrp.yearmon=:yearmon')
+      'select * from hvdom where yearmon=:yearmon')
     ModifySQL.Strings = (
-      'update h_voda'
-      'set'
-      '  DATE_POK = :DATE_POK,'
-      '  DATE_ZN = :DATE_ZN,'
-      '  DEL_NORM = :DEL_NORM,'
-      '  EDRPOU = :EDRPOU,'
-      '  FILTR = :FILTR,'
-      '  FIO = :FIO,'
-      '  GRP_RAZN = :GRP_RAZN,'
-      '  ID_KONTR = :ID_KONTR,'
-      '  KL = :KL,'
-      '  KL_UL = :KL_UL,'
-      '  KLNTAR = :KLNTAR,'
-      '  KOLI_F = :KOLI_F,'
-      '  KOLI_P = :KOLI_P,'
-      '  KOLI_P0 = :KOLI_P0,'
-      '  KOLI_P1 = :KOLI_P1,'
-      '  KUB_ALL = :KUB_ALL,'
-      '  KUB_MES = :KUB_MES,'
-      '  KUB_NOBALANS = :KUB_NOBALANS,'
-      '  KV = :KV,'
-      '  LICH_POV = :LICH_POV,'
-      '  LICH_TO = :LICH_TO,'
-      '  LICH_YEARMON = :LICH_YEARMON,'
-      '  N_DOM = :N_DOM,'
-      '  N_SCH = :N_SCH,'
-      '  NOR_RAZN = :NOR_RAZN,'
-      '  NORM_BLICH = :NORM_BLICH,'
-      '  NORMA = :NORMA,'
-      '  NOTE = :NOTE,'
-      '  OLD_NORM = :OLD_NORM,'
-      '  ORG = :ORG,'
-      '  PERE_DAY = :PERE_DAY,'
-      '  PERE_RAZN = :PERE_RAZN,'
-      '  PERERAH = :PERERAH,'
-      '  PLOMB = :PLOMB,'
-      '  PLOSCH_UR = :PLOSCH_UR,'
-      '  POD = :POD,'
-      '  POMPA = :POMPA,'
-      '  PREV_NORM = :PREV_NORM,'
-      '  R_NACH = :R_NACH,'
-      '  R_NOBAL = :R_NOBAL,'
-      '  RASCH_KUB = :RASCH_KUB,'
-      '  RASCH_NOR = :RASCH_NOR,'
-      '  RASCH_NOTE = :RASCH_NOTE,'
-      '  SCH_CUR = :SCH_CUR,'
-      '  SCH_OLD = :SCH_OLD,'
-      '  SCH_RAZN = :SCH_RAZN,'
-      '  SCH_RAZN2 = :SCH_RAZN2,'
-      '  SCHET = :SCHET,'
-      '  TARIF_NAME = :TARIF_NAME,'
-      '  UL = :UL,'
-      '  VID_POK = :VID_POK,'
-      '  VID_RN = :VID_RN,'
-      '  WID = :WID,'
-      '  YEARMON = :YEARMON,'
-      '  ZN_LICH = :ZN_LICH,'
-      '  ZNOLD_LICH = :ZNOLD_LICH,'
-      '  SPIS = :SPIS'
-      'where'
-      '  KL = :OLD_KL')
+      '')
     GeneratorField.Field = 'KL'
     GeneratorField.Generator = 'GEN_H_VODA_ID'
     GeneratorField.ApplyEvent = gamOnServer
     Left = 264
     Top = 336
-    object hvddom2UL: TIBStringField
-      FieldName = 'UL'
+    object hvddom2CT: TIntegerField
+      FieldKind = fkInternalCalc
+      FieldName = 'CT'
+      Origin = '"HVDOM"."CT"'
       ProviderFlags = []
+      ReadOnly = True
+    end
+    object hvddom2YEARMON: TIntegerField
+      FieldKind = fkInternalCalc
+      FieldName = 'YEARMON'
+      Origin = '"HVDOM"."YEARMON"'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object hvddom2UL: TIBStringField
+      FieldKind = fkInternalCalc
+      FieldName = 'UL'
+      Origin = '"HVDOM"."UL"'
+      ProviderFlags = []
+      ReadOnly = True
       Size = 70
     end
     object hvddom2N_DOM: TIBStringField
+      FieldKind = fkInternalCalc
       FieldName = 'N_DOM'
+      Origin = '"HVDOM"."N_DOM"'
       ProviderFlags = []
+      ReadOnly = True
       Size = 10
     end
     object hvddom2SCH_RAZN: TIBBCDField
+      FieldKind = fkInternalCalc
       FieldName = 'SCH_RAZN'
+      Origin = '"HVDOM"."SCH_RAZN"'
       ProviderFlags = []
+      ReadOnly = True
       Precision = 18
       Size = 4
     end
     object hvddom2NOR_RAZN: TIBBCDField
+      FieldKind = fkInternalCalc
       FieldName = 'NOR_RAZN'
+      Origin = '"HVDOM"."NOR_RAZN"'
       ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 4
+    end
+    object hvddom2SUM_NACH: TIBBCDField
+      FieldKind = fkInternalCalc
+      FieldName = 'SUM_NACH'
+      Origin = '"HVDOM"."SUM_NACH"'
+      ProviderFlags = []
+      ReadOnly = True
       Precision = 18
       Size = 4
     end
     object hvddom2NORM_BLICH: TFloatField
+      FieldKind = fkInternalCalc
       FieldName = 'NORM_BLICH'
+      Origin = '"HVDOM"."NORM_BLICH"'
       ProviderFlags = []
+      ReadOnly = True
     end
     object hvddom2DEL_NORM: TFloatField
+      FieldKind = fkInternalCalc
       FieldName = 'DEL_NORM'
+      Origin = '"HVDOM"."DEL_NORM"'
       ProviderFlags = []
+      ReadOnly = True
     end
     object hvddom2KUB_NOBALANS: TFloatField
+      FieldKind = fkInternalCalc
       FieldName = 'KUB_NOBALANS'
+      Origin = '"HVDOM"."KUB_NOBALANS"'
       ProviderFlags = []
+      ReadOnly = True
     end
     object hvddom2PERERAH: TFloatField
+      FieldKind = fkInternalCalc
       FieldName = 'PERERAH'
+      Origin = '"HVDOM"."PERERAH"'
       ProviderFlags = []
+      ReadOnly = True
+    end
+    object hvddom2SPIS: TFloatField
+      FieldKind = fkInternalCalc
+      FieldName = 'SPIS'
+      Origin = '"HVDOM"."SPIS"'
+      ProviderFlags = []
+      ReadOnly = True
     end
     object hvddom2KUB_ALL: TFloatField
+      FieldKind = fkInternalCalc
       FieldName = 'KUB_ALL'
+      Origin = '"HVDOM"."KUB_ALL"'
       ProviderFlags = []
+      ReadOnly = True
     end
     object hvddom2PREV_NORM: TFloatField
+      FieldKind = fkInternalCalc
       FieldName = 'PREV_NORM'
+      Origin = '"HVDOM"."PREV_NORM"'
       ProviderFlags = []
+      ReadOnly = True
     end
     object hvddom2SCH_KUB: TFloatField
       FieldName = 'SCH_KUB'
-      Origin = '"HVGRP"."SCH_KUB"'
+      Origin = '"HVDOM"."SCH_KUB"'
     end
     object hvddom2SCH_RAZNDOM: TFloatField
       FieldName = 'SCH_RAZNDOM'
-      Origin = '"HVGRP"."SCH_RAZN"'
-    end
-    object hvddom2SUM_NACH: TIBBCDField
-      FieldName = 'SUM_NACH'
-      ProviderFlags = []
-      Precision = 18
-      Size = 4
-    end
-    object hvddom2SPIS: TFloatField
-      FieldName = 'SPIS'
-      ProviderFlags = []
+      Origin = '"HVDOM"."SCH_RAZNDOM"'
     end
   end
   object hvddom2Source: TDataSource
