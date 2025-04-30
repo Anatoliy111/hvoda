@@ -1269,7 +1269,8 @@ begin
     Form4.Label4.Caption:=hvdallSCHET.Value;
     application.ProcessMessages;
 
-
+//         if hvdallSCHET.Value='0018003' then
+//            hvdallSCHET.Value;
          Form2.calcpok2(hvdall,2);
          Form2.calclich(hvdall);
          if not Form4.Visible then

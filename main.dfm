@@ -1185,9 +1185,6 @@ object MainForm: TMainForm
     object cxTabSheet2: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1077' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
       ImageIndex = 4
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object cxGrid3: TcxGrid
         Left = 0
         Top = 0
@@ -2498,7 +2495,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000700214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000780214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5839,6 +5836,7 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'
@@ -6327,6 +6325,7 @@ object MainForm: TMainForm
       'PLOMB=PLOMB'
       'FIO=FIO'
       'WID=WID'
+      'WID_PREV=WID_PREV'
       'DOM=DOM'
       'KVART=KVART'
       'SCHET=SCHET'
@@ -6334,6 +6333,7 @@ object MainForm: TMainForm
       'SCH_OLD=SCH_OLD'
       'SCH_CUR=SCH_CUR'
       'SCH_RAZN=SCH_RAZN'
+      'SCH_RAZN2=SCH_RAZN2'
       'KOLI_P=KOLI_P'
       'KOLI_P0=KOLI_P0'
       'KOLI_P1=KOLI_P1'
@@ -6357,6 +6357,29 @@ object MainForm: TMainForm
       'LICH_POV=LICH_POV'
       'ORG=ORG'
       'VID_RN=VID_RN'
+      'FILTR=FILTR'
+      'POMPA=POMPA'
+      'ZN_LICH=ZN_LICH'
+      'ZNOLD_LICH=ZNOLD_LICH'
+      'DATE_ZN=DATE_ZN'
+      'LICH_TO=LICH_TO'
+      'KLNTAR=KLNTAR'
+      'TARIF_NAME=TARIF_NAME'
+      'NORMA=NORMA'
+      'OLD_NORM=OLD_NORM'
+      'DEL_NORM=DEL_NORM'
+      'PREV_NORM=PREV_NORM'
+      'SPIS=SPIS'
+      'LICH_YEARMON=LICH_YEARMON'
+      'EDRPOU=EDRPOU'
+      'KL_UL=KL_UL'
+      'R_NACH=R_NACH'
+      'NORM_BLICH=NORM_BLICH'
+      'KUB_NOBALANS=KUB_NOBALANS'
+      'KUB_ALL=KUB_ALL'
+      'PLOSCH_UR=PLOSCH_UR'
+      'PERERAH=PERERAH'
+      'R_NOBAL=R_NOBAL'
       'VID_ZN=VID_ZN')
     DataSet = IBQueryRep
     BCDToCurrency = False
@@ -6621,12 +6644,12 @@ object MainForm: TMainForm
     PrintOptions.Printer = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 39959.706495023100000000
-    ReportOptions.LastChange = 43292.420399351900000000
+    ReportOptions.LastChange = 45776.602651909720000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'function norm():variant;'
       'begin'
-      '  result := DaysPerMonth(<data."YEARMON">)*0.2;'
+      '  result := DaysPerMonth(<hvd."YEARMON">)*0.2;'
       'end;'
       ''
       'function DaysPerMonth(Date: Integer): Integer;'
@@ -6668,10 +6691,6 @@ object MainForm: TMainForm
       item
         DataSet = frxDBDataset1
         DataSetName = 'hvd'
-      end
-      item
-        DataSet = frxDBDataset3
-        DataSetName = 'hvd2'
       end>
     Variables = <>
     Style = <>
@@ -6742,8 +6761,7 @@ object MainForm: TMainForm
         Width = 718.110700000000000000
         ReprintOnNewPage = True
         object Memo3: TfrxMemoView
-          Left = 34.015770000000000000
-          Width = 60.472480000000000000
+          Width = 56.692950000000000000
           Height = 56.692950000000000000
           ShowHint = False
           Frame.Typ = [ftBottom]
@@ -6753,8 +6771,8 @@ object MainForm: TMainForm
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
-          Left = 102.047310000000000000
-          Width = 582.047620000000000000
+          Left = 56.692950000000000000
+          Width = 204.094620000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Frame.Typ = [ftBottom]
@@ -6764,9 +6782,9 @@ object MainForm: TMainForm
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
-          Left = 325.039580000000000000
+          Left = 192.756030000000000000
           Top = 37.795300000000000000
-          Width = 75.590600000000000000
+          Width = 68.031540000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Frame.Typ = [ftBottom]
@@ -6776,7 +6794,7 @@ object MainForm: TMainForm
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
-          Left = 400.630180000000000000
+          Left = 627.401980000000000000
           Top = 18.897650000000000000
           Width = 94.488250000000000000
           Height = 37.795300000000000000
@@ -6788,9 +6806,9 @@ object MainForm: TMainForm
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
-          Left = 495.118430000000000000
+          Left = 260.787570000000000000
           Top = 18.897650000000000000
-          Width = 94.488250000000000000
+          Width = 68.031540000000000000
           Height = 37.795300000000000000
           ShowHint = False
           Frame.Typ = [ftBottom]
@@ -6799,22 +6817,10 @@ object MainForm: TMainForm
             #1056#1116#1056#1109#1057#1026#1056#1112#1056#176','#1056#1112'3'
             '[norm()]')
         end
-        object Memo9: TfrxMemoView
-          Left = 589.606680000000000000
-          Top = 18.897650000000000000
-          Width = 94.488250000000000000
-          Height = 37.795300000000000000
-          ShowHint = False
-          Frame.Typ = [ftBottom]
-          HAlign = haCenter
-          Memo.UTF8 = (
-            #1056#1119'i'#1056#1169'"'#1057#8212#1056#183#1056#1169','#1056#1112'3')
-          VAlign = vaCenter
-        end
         object Memo10: TfrxMemoView
-          Left = 102.047310000000000000
+          Left = 56.692950000000000000
           Top = 37.795300000000000000
-          Width = 113.385900000000000000
+          Width = 71.811070000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Frame.Typ = [ftBottom]
@@ -6824,9 +6830,9 @@ object MainForm: TMainForm
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
-          Left = 215.433210000000000000
+          Left = 128.504020000000000000
           Top = 37.795300000000000000
-          Width = 109.606370000000000000
+          Width = 64.252010000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Frame.Typ = [ftBottom]
@@ -6836,15 +6842,59 @@ object MainForm: TMainForm
           VAlign = vaCenter
         end
         object Memo18: TfrxMemoView
-          Left = 102.047310000000000000
+          Left = 56.692950000000000000
           Top = 18.897650000000000000
-          Width = 298.582870000000000000
+          Width = 204.094620000000000000
           Height = 18.897650000000000000
           ShowHint = False
           HAlign = haCenter
           Memo.UTF8 = (
             #1056#8250#1057#8211#1057#8225#1056#1105#1056#187#1057#1034#1056#1029#1056#1105#1056#1108#1056#1105', '#1056#1112'3')
           VAlign = vaCenter
+        end
+        object Memo9: TfrxMemoView
+          Left = 328.819110000000000000
+          Top = 18.897650000000000000
+          Width = 68.031540000000000000
+          Height = 37.795300000000000000
+          ShowHint = False
+          Frame.Typ = [ftBottom]
+          HAlign = haCenter
+          Memo.UTF8 = (
+            #1056#1119#1056#181#1057#1026#1056#181#1057#1026#1056#176#1057#8230'.')
+        end
+        object Memo29: TfrxMemoView
+          Left = 396.850650000000000000
+          Top = 18.897650000000000000
+          Width = 68.031540000000000000
+          Height = 37.795300000000000000
+          ShowHint = False
+          Frame.Typ = [ftBottom]
+          HAlign = haCenter
+          Memo.UTF8 = (
+            #1056#1116#1056#181#1056#177#1056#176#1056#187#1056#176#1056#1029#1057#1027)
+        end
+        object Memo32: TfrxMemoView
+          Left = 464.882190000000000000
+          Top = 18.897650000000000000
+          Width = 68.031540000000000000
+          Height = 37.795300000000000000
+          ShowHint = False
+          Frame.Typ = [ftBottom]
+          HAlign = haCenter
+          Memo.UTF8 = (
+            #1056#1038#1056#1111#1056#1105#1057#1027#1056#176#1056#1029#1056#1029#1057#1039)
+        end
+        object Memo35: TfrxMemoView
+          Left = 532.913730000000000000
+          Top = 18.897650000000000000
+          Width = 68.031540000000000000
+          Height = 37.795300000000000000
+          ShowHint = False
+          Frame.Typ = [ftBottom]
+          HAlign = haCenter
+          Memo.UTF8 = (
+            #1056#8217#1057#1027#1057#1034#1056#1109#1056#1110#1056#1109)
         end
       end
       object GroupHeader1: TfrxGroupHeader
@@ -6857,7 +6907,6 @@ object MainForm: TMainForm
         Top = 222.992270000000000000
         Width = 718.110700000000000000
         object Memo4: TfrxMemoView
-          Left = 30.236240000000000000
           Width = 56.692950000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -6865,8 +6914,8 @@ object MainForm: TMainForm
             '[hvd."DOM"]')
         end
         object Memo12: TfrxMemoView
-          Left = 102.047310000000000000
-          Width = 113.385900000000000000
+          Left = 56.692950000000000000
+          Width = 71.811070000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = frxDBDataset1
@@ -6880,8 +6929,8 @@ object MainForm: TMainForm
             '[SUM(<hvd."SCH_OLD">,MasterData1)]')
         end
         object Memo13: TfrxMemoView
-          Left = 215.433210000000000000
-          Width = 109.606370000000000000
+          Left = 128.504020000000000000
+          Width = 64.252010000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = frxDBDataset1
@@ -6895,8 +6944,8 @@ object MainForm: TMainForm
             '[SUM(<hvd."SCH_CUR">,MasterData1)]')
         end
         object Memo14: TfrxMemoView
-          Left = 325.039580000000000000
-          Width = 75.590600000000000000
+          Left = 192.756030000000000000
+          Width = 68.031540000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = frxDBDataset1
@@ -6910,7 +6959,7 @@ object MainForm: TMainForm
             '[SUM(<hvd."SCH_RAZN">,MasterData1)]')
         end
         object Memo15: TfrxMemoView
-          Left = 400.630180000000000000
+          Left = 627.401980000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           ShowHint = False
@@ -6921,8 +6970,8 @@ object MainForm: TMainForm
             '[SUM(<hvd."KOLI_P">,MasterData1)]')
         end
         object Memo16: TfrxMemoView
-          Left = 495.118430000000000000
-          Width = 94.488250000000000000
+          Left = 260.787570000000000000
+          Width = 68.031540000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = frxDBDataset1
@@ -6933,11 +6982,13 @@ object MainForm: TMainForm
           HAlign = haRight
           HideZeros = True
           Memo.UTF8 = (
-            '[SUM(<hvd."NOR_RAZN">,MasterData1)]')
+            
+              '[SUM(<hvd."NOR_RAZN">,MasterData1)+SUM(<hvd."NORM_BLICH">,Master' +
+              'Data1)]')
         end
         object Memo17: TfrxMemoView
-          Left = 589.606680000000000000
-          Width = 94.488250000000000000
+          Left = 328.819110000000000000
+          Width = 68.031540000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = frxDBDataset1
@@ -6948,7 +6999,52 @@ object MainForm: TMainForm
           HAlign = haRight
           HideZeros = True
           Memo.UTF8 = (
-            '[SUM(<hvd."GRP_RAZN">,MasterData1)]')
+            '[SUM(<hvd."PERERAH">,MasterData1)]')
+        end
+        object Memo30: TfrxMemoView
+          Left = 396.850650000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = frxDBDataset1
+          DataSetName = 'hvd'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.3n'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          HideZeros = True
+          Memo.UTF8 = (
+            '[SUM(<hvd."KUB_NOBALANS">,MasterData1)]')
+        end
+        object Memo33: TfrxMemoView
+          Left = 464.882190000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = frxDBDataset1
+          DataSetName = 'hvd'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.3n'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          HideZeros = True
+          Memo.UTF8 = (
+            '[SUM(<hvd."SPIS">,MasterData1)]')
+        end
+        object Memo36: TfrxMemoView
+          Left = 532.913730000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = frxDBDataset1
+          DataSetName = 'hvd'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.3n'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          HideZeros = True
+          Memo.UTF8 = (
+            '[SUM(<hvd."KUB_ALL">,MasterData1)]')
         end
       end
       object Footer1: TfrxFooter
@@ -6960,14 +7056,15 @@ object MainForm: TMainForm
           Top = 49.133890000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
+          Visible = False
           ShowHint = False
           Memo.UTF8 = (
             #1056#8217#1057#1027#1057#1034#1056#1109#1056#1110#1056#1109)
         end
         object Memo21: TfrxMemoView
-          Left = 102.047310000000000000
+          Left = 56.692950000000000000
           Top = 15.118120000000000000
-          Width = 113.385900000000000000
+          Width = 71.811070000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = frxDBDataset1
@@ -6981,9 +7078,9 @@ object MainForm: TMainForm
             '[SUM(<hvd."SCH_OLD">,MasterData1)]')
         end
         object Memo22: TfrxMemoView
-          Left = 219.212740000000000000
+          Left = 128.504020000000000000
           Top = 15.118120000000000000
-          Width = 105.826840000000000000
+          Width = 64.252010000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = frxDBDataset1
@@ -6997,9 +7094,9 @@ object MainForm: TMainForm
             '[SUM(<hvd."SCH_CUR">,MasterData1)]')
         end
         object Memo23: TfrxMemoView
-          Left = 325.039580000000000000
+          Left = 192.756030000000000000
           Top = 15.118120000000000000
-          Width = 75.590600000000000000
+          Width = 68.031540000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = frxDBDataset1
@@ -7013,7 +7110,7 @@ object MainForm: TMainForm
             '[SUM(<hvd."SCH_RAZN">,MasterData1)]')
         end
         object Memo24: TfrxMemoView
-          Left = 400.630180000000000000
+          Left = 627.401980000000000000
           Top = 15.118120000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
@@ -7025,9 +7122,9 @@ object MainForm: TMainForm
             '[SUM(<hvd."KOLI_P">,MasterData1)]')
         end
         object Memo25: TfrxMemoView
-          Left = 495.118430000000000000
+          Left = 260.787570000000000000
           Top = 15.118120000000000000
-          Width = 94.488250000000000000
+          Width = 68.031540000000000000
           Height = 18.897650000000000000
           ShowHint = False
           DataSet = frxDBDataset1
@@ -7038,42 +7135,27 @@ object MainForm: TMainForm
           HAlign = haRight
           HideZeros = True
           Memo.UTF8 = (
-            '[SUM(<hvd."NOR_RAZN">,MasterData1)]')
-        end
-        object Memo26: TfrxMemoView
-          Left = 589.606680000000000000
-          Top = 15.118120000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          ShowHint = False
-          DataSet = frxDBDataset1
-          DataSetName = 'hvd'
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.FormatStr = '%2.3n'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          HideZeros = True
-          Memo.UTF8 = (
-            '[SUM(<hvd."GRP_RAZN">,MasterData1)]')
+            
+              '[SUM(<hvd."NOR_RAZN">,MasterData1)+SUM(<hvd."NORM_BLICH">,Master' +
+              'Data1)]')
         end
         object Memo27: TfrxMemoView
           Left = 139.842610000000000000
           Top = 49.133890000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
+          Visible = False
           ShowHint = False
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.FormatStr = '%2.3n'
           DisplayFormat.Kind = fkNumeric
           Memo.UTF8 = (
             '[SUM(<hvd."SCH_RAZN">,MasterData1)+'
-            'SUM(<hvd."NOR_RAZN">,MasterData1)+'
-            'SUM(<hvd."GRP_RAZN">,MasterData1)]')
+            'SUM(<hvd."NOR_RAZN">,MasterData1)]')
         end
         object Memo28: TfrxMemoView
-          Left = 30.236240000000000000
           Top = 15.118120000000000000
-          Width = 52.913420000000000000
+          Width = 56.692950000000000000
           Height = 18.897650000000000000
           ShowHint = False
           Memo.UTF8 = (
@@ -7085,6 +7167,70 @@ object MainForm: TMainForm
           Width = 680.315400000000000000
           ShowHint = False
           Frame.Typ = [ftTop]
+        end
+        object Memo26: TfrxMemoView
+          Left = 328.819110000000000000
+          Top = 15.118120000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = frxDBDataset1
+          DataSetName = 'hvd'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.3n'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          HideZeros = True
+          Memo.UTF8 = (
+            '[SUM(<hvd."PERERAH">,MasterData1)]')
+        end
+        object Memo31: TfrxMemoView
+          Left = 396.850650000000000000
+          Top = 15.118120000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = frxDBDataset1
+          DataSetName = 'hvd'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.3n'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          HideZeros = True
+          Memo.UTF8 = (
+            '[SUM(<hvd."KUB_NOBALANS">,MasterData1)]')
+        end
+        object Memo34: TfrxMemoView
+          Left = 464.882190000000000000
+          Top = 15.118120000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = frxDBDataset1
+          DataSetName = 'hvd'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.3n'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          HideZeros = True
+          Memo.UTF8 = (
+            '[SUM(<hvd."SPIS">,MasterData1)]')
+        end
+        object Memo37: TfrxMemoView
+          Left = 532.913730000000000000
+          Top = 15.118120000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          ShowHint = False
+          DataSet = frxDBDataset1
+          DataSetName = 'hvd'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.3n'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          HideZeros = True
+          Memo.UTF8 = (
+            '[SUM(<hvd."KUB_ALL">,MasterData1)]')
         end
       end
     end

@@ -488,10 +488,14 @@ begin
        begin
        if (DS.FieldByName('WID').Value>46) then
             DS.FieldByName('KUB_ALL').Value:=0;
+       if (DS.FieldByName('WID').Value=46) and (DS.FieldByName('NOR_RAZN').Value<>0) then
+            DS.FieldByName('KUB_ALL').Value:=DS.FieldByName('NOR_RAZN').Value
+       else DS.FieldByName('NOR_RAZN').Value:=0;
+
            // DS.FieldByName('SPIS').Value:=0;
             DS.FieldByName('KUB_NOBALANS').Value:=0;
             DS.FieldByName('NORM_BLICH').Value:=0;
-            DS.FieldByName('NOR_RAZN').Value:=0;
+
             DS.FieldByName('R_NACH').Value:='';
             DS.FieldByName('SCH_RAZN').Value:=0;
 
