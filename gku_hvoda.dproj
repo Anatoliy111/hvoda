@@ -578,6 +578,48 @@
       
       
       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       <Excluded_Packages Name="C:\Windows\system32\dxSkinscxPCPainterD11.bpl">ExpressSkins Library Painter for PageControl by Developer Express Inc.</Excluded_Packages>
       <Excluded_Packages Name="C:\Windows\system32\dxSkinsdxLCPainterD11.bpl">ExpressSkins Library Painter for LayoutControl by Developer Express Inc.</Excluded_Packages>
       <Excluded_Packages Name="C:\Windows\system32\dxSkinscxScheduler3PainterD11.bpl">ExpressSkins Library Painter for Scheduler 3 by Developer Express Inc.</Excluded_Packages>
@@ -633,6 +675,9 @@
     <DCCReference Include="..\common\mytools.pas" />
     <DCCReference Include="addkart.pas">
       <Form>FormAddkart</Form>
+    </DCCReference>
+    <DCCReference Include="BudKub.pas">
+      <Form>Form5</Form>
     </DCCReference>
     <DCCReference Include="common\myform.pas">
       <Form>MyForm</Form>

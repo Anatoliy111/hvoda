@@ -14,6 +14,7 @@ object MainForm: TMainForm
   Position = poDesigned
   ShowHint = True
   WindowState = wsMaximized
+  OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
@@ -1130,22 +1131,22 @@ object MainForm: TMainForm
             Width = 103
           end
           object DBGrid3SCH_UR: TcxGridDBColumn
-            Caption = #1050#1091#1073#1080' '#1102#1088'.'#1086#1089#1086#1073#1080
+            Caption = #1050#1091#1073#1080' '#1102#1088'.'#1086#1089#1086#1073#1080' ('#1087#1077#1088#1077#1088#1072#1093')'
             DataBinding.FieldName = 'SCH_UR'
             Options.Editing = False
-            Width = 81
+            Width = 132
           end
           object DBGrid3SCH_NAS: TcxGridDBColumn
-            Caption = #1050#1091#1073#1080' '#1085#1072#1089#1077#1083#1077#1085#1085#1103
+            Caption = #1050#1091#1073#1080' '#1085#1072#1089#1077#1083#1077#1085#1085#1103' ('#1087#1077#1088#1077#1088#1072#1093')'
             DataBinding.FieldName = 'SCH_NAS'
             Options.Editing = False
-            Width = 87
+            Width = 141
           end
           object DBGrid3SCH_SUMABON: TcxGridDBColumn
-            Caption = #1042#1089#1100#1086#1075#1086' '#1087#1086' '#1072#1073#1086#1085#1077#1085#1090#1072#1084
+            Caption = #1042#1089#1100#1086#1075#1086' ('#1079' '#1087#1077#1088#1077#1088#1072#1093#1091#1085#1082#1086#1084')'
             DataBinding.FieldName = 'SCH_SUMABON'
             Options.Editing = False
-            Width = 115
+            Width = 146
           end
           object DBGrid3SCH_RAZN: TcxGridDBColumn
             Caption = #1056#1110#1079#1085#1080#1094#1103
@@ -1185,6 +1186,9 @@ object MainForm: TMainForm
     object cxTabSheet2: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1077' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
       ImageIndex = 4
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object cxGrid3: TcxGrid
         Left = 0
         Top = 0
@@ -2244,6 +2248,10 @@ object MainForm: TMainForm
         item
           Visible = True
           ItemName = 'dxBarButton31'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton40'
         end>
     end
     object dxBarButton30: TdxBarButton
@@ -2359,7 +2367,6 @@ object MainForm: TMainForm
     object dxBarButton39: TdxBarButton
       Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1088#1086#1079#1087#1086#1076#1110#1083#1091
       Category = 0
-      Enabled = False
       Hint = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1088#1086#1079#1087#1086#1076#1110#1083#1091
       Visible = ivAlways
       ImageIndex = 34
@@ -2450,6 +2457,13 @@ object MainForm: TMainForm
       Width = 100
       ReadOnly = True
     end
+    object dxBarButton40: TdxBarButton
+      Caption = #1057#1087#1086#1078#1080#1074#1072#1085#1085#1103' '#1087#1086#1073#1091#1076#1080#1085#1082#1086#1074#1086' '#1079#1072' '#1087#1077#1088#1110#1086#1076
+      Category = 0
+      Hint = #1057#1087#1086#1078#1080#1074#1072#1085#1085#1103' '#1087#1086#1073#1091#1076#1080#1085#1082#1086#1074#1086' '#1079#1072' '#1087#1077#1088#1110#1086#1076
+      Visible = ivAlways
+      OnClick = dxBarButton40Click
+    end
     object dxBarButton1: TdxBarButton
       Action = ActionEdCalcs
       Category = 1
@@ -2495,7 +2509,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000780214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000D80214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5824,19 +5838,18 @@ object MainForm: TMainForm
   end
   object IBDatabase: TIBDatabase
     Connected = True
-    DatabaseName = 'C:\TEMP\GKU.GDB'
+    DatabaseName = 'C:\TEMP\base\GKU.GDB'
     Params.Strings = (
       'user_name=sysdba'
       'password=masterkey'
       'lc_ctype=WIN1251')
     LoginPrompt = False
-    DefaultTransaction = IBTransaction1
     BeforeConnect = IBDatabaseBeforeConnect
     Left = 592
     Top = 272
   end
   object IBTransaction1: TIBTransaction
-    Active = True
+    DefaultDatabase = IBDatabase
     DefaultAction = TACommitRetaining
     Params.Strings = (
       'read_committed'
@@ -6596,6 +6609,7 @@ object MainForm: TMainForm
     Top = 368
   end
   object Timer1: TTimer
+    Enabled = False
     Interval = 10000
     OnTimer = Timer1Timer
     Left = 496
@@ -7922,7 +7936,6 @@ object MainForm: TMainForm
   object hvdall: TIBDataSet
     Database = IBDatabase
     Transaction = IBTransaction1
-    BeforeOpen = hvdallBeforeOpen
     DeleteSQL.Strings = (
       'delete from H_VODA'
       'where'
@@ -8040,9 +8053,7 @@ object MainForm: TMainForm
       'where'
       '  KL = :KL')
     SelectSQL.Strings = (
-      
-        'select * from H_VODA where h_voda.yearmon=:yearmon order by sche' +
-        't')
+      'select * from H_VODA where yearmon=:ym order by schet')
     ModifySQL.Strings = (
       'update H_VODA'
       'set'
@@ -11351,7 +11362,6 @@ object MainForm: TMainForm
   object hvdlichupd: TIBDataSet
     Database = IBDatabase
     Transaction = IBTransaction1
-    BeforeOpen = hvdallBeforeOpen
     DeleteSQL.Strings = (
       'delete from H_VODA'
       'where'
@@ -12496,13 +12506,13 @@ object MainForm: TMainForm
     Left = 144
     Top = 368
   end
-  object IBQuery2: TIBQuery
+  object IBQuery3: TIBQuery
     Database = IBDatabase
-    Transaction = IBTransaction1
+    Transaction = IBTransaction2
     SQL.Strings = (
       '')
-    Left = 560
-    Top = 296
+    Left = 864
+    Top = 336
   end
   object why_pok: TIBDataSet
     Database = IBDatabase
@@ -13006,13 +13016,13 @@ object MainForm: TMainForm
     Left = 640
     Top = 384
   end
-  object IBQuery3: TIBQuery
+  object IBQuery4: TIBQuery
     Database = IBDatabase
-    Transaction = IBTransaction1
+    Transaction = IBTransaction2
     SQL.Strings = (
       '')
-    Left = 592
-    Top = 296
+    Left = 896
+    Top = 336
   end
   object grp_per: TIBDataSet
     Database = IBDatabase
@@ -13169,14 +13179,6 @@ object MainForm: TMainForm
     DataSet = grp_per
     Left = 680
     Top = 384
-  end
-  object IBQuery4: TIBQuery
-    Database = IBDatabase
-    Transaction = IBTransaction1
-    SQL.Strings = (
-      '')
-    Left = 624
-    Top = 296
   end
   object hvdrozpdomSource: TDataSource
     Left = 600
@@ -13658,14 +13660,6 @@ object MainForm: TMainForm
       Origin = '"H_VODA"."SPIS"'
     end
   end
-  object IBQuery5: TIBQuery
-    Database = IBDatabase
-    Transaction = IBTransaction1
-    SQL.Strings = (
-      '')
-    Left = 656
-    Top = 296
-  end
   object delpokazn: TIBDataSet
     Database = IBDatabase
     Transaction = IBTransaction1
@@ -13931,5 +13925,31 @@ object MainForm: TMainForm
     DataSet = spis
     Left = 576
     Top = 464
+  end
+  object IBQuery2: TIBQuery
+    Database = IBDatabase
+    Transaction = IBTransaction1
+    SQL.Strings = (
+      '')
+    Left = 560
+    Top = 296
+  end
+  object IBTransaction2: TIBTransaction
+    DefaultDatabase = IBDatabase
+    DefaultAction = TACommitRetaining
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    Left = 872
+    Top = 288
+  end
+  object IBQuery5: TIBQuery
+    Database = IBDatabase
+    Transaction = IBTransaction2
+    SQL.Strings = (
+      '')
+    Left = 928
+    Top = 336
   end
 end

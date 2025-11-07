@@ -10,7 +10,8 @@ uses
   cxClasses, cxGridCustomView, cxGrid, cxDBEdit, ExtCtrls, cxStyles, cxEdit,
   cxControls, cxContainer, cxTextEdit, cxPC, IBCustomDataSet, IBQuery,
   cxCheckBox, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox,DateUtils, cxGroupBox, cxLabel, cxDBLabel, cxMemo, cxCalc;
+  cxDBLookupComboBox,DateUtils, cxGroupBox, cxLabel, cxDBLabel, cxMemo, cxCalc,
+  cxImageComboBox, cxGridBandedTableView, cxGridDBBandedTableView;
 
 type
   TForm2 = class(TForm)
@@ -48,31 +49,20 @@ type
     cxGrid4: TcxGrid;
     cxGridDBTableView1: TcxGridDBTableView;
     cxGridLevel1: TcxGridLevel;
-    cxGrid5: TcxGrid;
-    cxGridDBTableView2: TcxGridDBTableView;
-    cxGridLevel2: TcxGridLevel;
     cxGrid2DBTableView1SCHET: TcxGridDBColumn;
     cxGrid2DBTableView1DATE_VS: TcxGridDBColumn;
     cxGrid2DBTableView1DATE_ZN: TcxGridDBColumn;
     cxGrid2DBTableView1NOTE: TcxGridDBColumn;
     cxGrid2DBTableView1N_PLOMB: TcxGridDBColumn;
-    cxGridDBTableView2SCHET: TcxGridDBColumn;
-    cxGridDBTableView2TIP: TcxGridDBColumn;
-    cxGridDBTableView2N_LICH: TcxGridDBColumn;
-    cxGridDBTableView2DATA_VIP: TcxGridDBColumn;
-    cxGridDBTableView2DATA_ZN: TcxGridDBColumn;
     cxGridDBTableView1SCHET: TcxGridDBColumn;
     cxGridDBTableView1TIP: TcxGridDBColumn;
     cxGridDBTableView1N_LICH: TcxGridDBColumn;
     cxGridDBTableView1DATA_VIP: TcxGridDBColumn;
     cxGridDBTableView1DATA_POV: TcxGridDBColumn;
     cxGridDBTableView1NOTE: TcxGridDBColumn;
-    cxGridDBTableView2NOTE: TcxGridDBColumn;
     Panel5: TPanel;
     cxButton1: TcxButton;
     cxGridDBTableView1DATA_VIG: TcxGridDBColumn;
-    cxGridDBTableView2DATA_VIG: TcxGridDBColumn;
-    cxGridDBTableView2ZN: TcxGridDBColumn;
     cxGrid2DBTableView1PL: TcxGridDBColumn;
     cxGrid2DBTableView1ZN: TcxGridDBColumn;
     cxGrid3: TcxGrid;
@@ -98,7 +88,6 @@ type
     cxDBLabel1: TcxDBLabel;
     IBQuery5: TIBQuery;
     Label11: TLabel;
-    cxGridDBTableView2RASCH_DAY: TcxGridDBColumn;
     Shape1: TShape;
     Label13: TLabel;
     cxTabSheet8: TcxTabSheet;
@@ -132,8 +121,6 @@ type
     cxGridDBTableView4VID_ZN: TcxGridDBColumn;
     IBQuery6: TIBQuery;
     IBQuery7: TIBQuery;
-    cxGridDBTableView2ID_USER: TcxGridDBColumn;
-    cxGridDBTableView2DATE_USER: TcxGridDBColumn;
     cxGridDBTableView1ID_USER: TcxGridDBColumn;
     cxGridDBTableView1DATE_USER: TcxGridDBColumn;
     cxGrid3DBTableView1ID_USER: TcxGridDBColumn;
@@ -210,6 +197,167 @@ type
     cxDBLabel13: TcxDBLabel;
     cxDBLabel7: TcxDBLabel;
     cxDBMemo1: TcxDBMemo;
+    cxTabSheet12: TcxTabSheet;
+    IBQHV: TIBQuery;
+    QHVSource: TDataSource;
+    IBQHVKL: TIntegerField;
+    IBQHVYEARMON: TIntegerField;
+    IBQHVPLOMB: TSmallintField;
+    IBQHVFIO: TIBStringField;
+    IBQHVWID: TSmallintField;
+    IBQHVWID_PREV: TIntegerField;
+    IBQHVDOM: TIBStringField;
+    IBQHVKVART: TIBStringField;
+    IBQHVSCHET: TIBStringField;
+    IBQHVN_SCH: TIBStringField;
+    IBQHVSCH_OLD: TIBBCDField;
+    IBQHVSCH_CUR: TIBBCDField;
+    IBQHVSCH_RAZN: TIBBCDField;
+    IBQHVSCH_RAZN2: TIBBCDField;
+    IBQHVKOLI_P: TIBBCDField;
+    IBQHVKOLI_P0: TIntegerField;
+    IBQHVKOLI_P1: TIntegerField;
+    IBQHVNOR_RAZN: TIBBCDField;
+    IBQHVGRP_RAZN: TIBBCDField;
+    IBQHVPERE_DAY: TIntegerField;
+    IBQHVPERE_RAZN: TIBBCDField;
+    IBQHVID_KONTR: TSmallintField;
+    IBQHVUL: TIBStringField;
+    IBQHVN_DOM: TIBStringField;
+    IBQHVKV: TIBStringField;
+    IBQHVNOTE: TIBStringField;
+    IBQHVKOLI_F: TLargeintField;
+    IBQHVRASCH_KUB: TIBBCDField;
+    IBQHVRASCH_NOR: TIBBCDField;
+    IBQHVPOD: TIntegerField;
+    IBQHVRASCH_NOTE: TIBStringField;
+    IBQHVDATE_POK: TDateField;
+    IBQHVVID_POK: TIntegerField;
+    IBQHVKUB_MES: TIBBCDField;
+    IBQHVLICH_POV: TDateField;
+    IBQHVORG: TIntegerField;
+    IBQHVVID_RN: TIntegerField;
+    IBQHVFILTR: TIntegerField;
+    IBQHVPOMPA: TIntegerField;
+    IBQHVZN_LICH: TIntegerField;
+    IBQHVZNOLD_LICH: TIntegerField;
+    IBQHVDATE_ZN: TDateField;
+    IBQHVLICH_TO: TIntegerField;
+    IBQHVKLNTAR: TIntegerField;
+    IBQHVTARIF_NAME: TIBStringField;
+    IBQHVNORMA: TFloatField;
+    IBQHVOLD_NORM: TFloatField;
+    IBQHVDEL_NORM: TFloatField;
+    IBQHVPREV_NORM: TFloatField;
+    IBQHVSPIS: TFloatField;
+    IBQHVLICH_YEARMON: TIntegerField;
+    IBQHVEDRPOU: TIntegerField;
+    IBQHVKL_UL: TIntegerField;
+    IBQHVR_NACH: TIBStringField;
+    IBQHVNORM_BLICH: TFloatField;
+    IBQHVKUB_NOBALANS: TFloatField;
+    IBQHVKUB_ALL: TFloatField;
+    IBQHVPLOSCH_UR: TFloatField;
+    IBQHVPERERAH: TFloatField;
+    IBQHVR_NOBAL: TIBStringField;
+    cxGrid5: TcxGrid;
+    cxGridDBTableView2: TcxGridDBTableView;
+    cxGridDBTableView2SCHET: TcxGridDBColumn;
+    cxGridDBTableView2TIP: TcxGridDBColumn;
+    cxGridDBTableView2N_LICH: TcxGridDBColumn;
+    cxGridDBTableView2DATA_VIP: TcxGridDBColumn;
+    cxGridDBTableView2DATA_ZN: TcxGridDBColumn;
+    cxGridDBTableView2ZN: TcxGridDBColumn;
+    cxGridDBTableView2DATA_VIG: TcxGridDBColumn;
+    cxGridDBTableView2NOTE: TcxGridDBColumn;
+    cxGridDBTableView2RASCH_DAY: TcxGridDBColumn;
+    cxGridDBTableView2ID_USER: TcxGridDBColumn;
+    cxGridDBTableView2DATE_USER: TcxGridDBColumn;
+    cxGridLevel2: TcxGridLevel;
+    cxGrid9: TcxGrid;
+    DBGrid1: TcxGridDBBandedTableView;
+    DBGrid1KOLI_P: TcxGridDBBandedColumn;
+    DBGrid1NOR_RAZN: TcxGridDBBandedColumn;
+    DBGrid1PERE_DAY: TcxGridDBBandedColumn;
+    DBGrid1DATE_POK: TcxGridDBBandedColumn;
+    DBGrid1SCH_CUR: TcxGridDBBandedColumn;
+    DBGrid1SCH_OLD: TcxGridDBBandedColumn;
+    DBGrid1SCH_RAZN: TcxGridDBBandedColumn;
+    DBGrid1WID: TcxGridDBBandedColumn;
+    DBGrid1FILTR: TcxGridDBBandedColumn;
+    DBGrid1POMPA: TcxGridDBBandedColumn;
+    DBGrid1TARIF_NAME: TcxGridDBBandedColumn;
+    DBGrid1NORMA: TcxGridDBBandedColumn;
+    DBGrid1DEL_NORM: TcxGridDBBandedColumn;
+    DBGrid1SCH_RAZN2: TcxGridDBBandedColumn;
+    DBGrid1PREV_NORM: TcxGridDBBandedColumn;
+    DBGrid1LICH_YEARMON: TcxGridDBBandedColumn;
+    DBGrid1LICH_TO: TcxGridDBBandedColumn;
+    DBGrid1R_NACH: TcxGridDBBandedColumn;
+    DBGrid1NORM_BLICH: TcxGridDBBandedColumn;
+    DBGrid1KUB_NOBALANS: TcxGridDBBandedColumn;
+    DBGrid1KUB_ALL: TcxGridDBBandedColumn;
+    DBGrid1PERERAH: TcxGridDBBandedColumn;
+    DBGrid1R_NOBAL: TcxGridDBBandedColumn;
+    DBGrid1SPIS: TcxGridDBBandedColumn;
+    cxGridLevel7: TcxGridLevel;
+    Panel8: TPanel;
+    Label35: TLabel;
+    cxButton9: TcxButton;
+    IBQHVym: TStringField;
+    DBGrid1ym: TcxGridDBBandedColumn;
+    cxTabSheet13: TcxTabSheet;
+    Panel10: TPanel;
+    Label36: TLabel;
+    cxButton10: TcxButton;
+    cxGrid10: TcxGrid;
+    cxGridDBTableView7: TcxGridDBTableView;
+    cxGridDBTableView1KL: TcxGridDBColumn;
+    cxGridDBTableView1YEARMONP: TcxGridDBColumn;
+    cxGridDBTableView1YEARMON: TcxGridDBColumn;
+    cxGridDBTableView1KOLI_P: TcxGridDBColumn;
+    cxGridDBTableView1WID: TcxGridDBColumn;
+    cxGridDBTableView1SCH_RAZN: TcxGridDBColumn;
+    cxGridDBTableView1NOR_RAZN: TcxGridDBColumn;
+    cxGridDBTableView1NORM_BLICH: TcxGridDBColumn;
+    cxGridDBTableView1SUMNACH: TcxGridDBColumn;
+    cxGridDBTableView1KUB_NOBALANS: TcxGridDBColumn;
+    cxGridDBTableView1PERERAH: TcxGridDBColumn;
+    cxGridDBTableView1NOTEWID: TcxGridDBColumn;
+    cxGridDBTableView1NOTERAW: TcxGridDBColumn;
+    cxGridLevel8: TcxGridLevel;
+    cxButton12: TcxButton;
+    cxButton13: TcxButton;
+    hvpererah: TIBDataSet;
+    hvpererahKL: TIntegerField;
+    hvpererahYEARMON: TIntegerField;
+    hvpererahYEARMONP: TIntegerField;
+    hvpererahFIO: TIBStringField;
+    hvpererahWID: TSmallintField;
+    hvpererahWID_PREV: TIntegerField;
+    hvpererahSCHET: TIBStringField;
+    hvpererahSCH_RAZN: TIBBCDField;
+    hvpererahKOLI_P: TIBBCDField;
+    hvpererahNOR_RAZN: TIBBCDField;
+    hvpererahGRP_RAZN: TIBBCDField;
+    hvpererahPERE_RAZN: TIBBCDField;
+    hvpererahUL: TIBStringField;
+    hvpererahN_DOM: TIBStringField;
+    hvpererahKV: TIBStringField;
+    hvpererahPOD: TIntegerField;
+    hvpererahDATE_POK: TDateField;
+    hvpererahORG: TIntegerField;
+    hvpererahDEL_NORM: TFloatField;
+    hvpererahKL_UL: TIntegerField;
+    hvpererahNORM_BLICH: TFloatField;
+    hvpererahKUB_NOBALANS: TFloatField;
+    hvpererahKUB_ALL: TFloatField;
+    hvpererahPERERAH: TFloatField;
+    hvpererahNOTEWID: TIBStringField;
+    hvpererahFACT: TIntegerField;
+    hvpererahNOTERAW: TIBStringField;
+    hvpererahSUMNACH: TFloatField;
+    hvpererahSource: TDataSource;
     procedure cxButton1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -218,7 +366,6 @@ type
     procedure cxButton8Click(Sender: TObject);
     procedure cxButton4Click(Sender: TObject);
     procedure cxButton7Click(Sender: TObject);
-    procedure cxButton9Click(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
     procedure cxButton5Click(Sender: TObject);
     procedure cxButton10Click(Sender: TObject);
@@ -229,6 +376,10 @@ type
     procedure cxButton16Click(Sender: TObject);
     procedure cxButton17Click(Sender: TObject);
     procedure cxButton18Click(Sender: TObject);
+    procedure cxButton9Click(Sender: TObject);
+    procedure IBQHVCalcFields(DataSet: TDataSet);
+    procedure cxButton12Click(Sender: TObject);
+    procedure cxButton13Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -253,7 +404,7 @@ var
 
 implementation
 
-uses main, addkart, delkart, mytools, math;
+uses main, addkart, delkart, mytools, math, Pererah;
 
 {$R *.dfm}
 
@@ -470,6 +621,12 @@ begin
 //select id,schet,yearmon,pokazn,vid_pok,date_pok from pokazn where yearmon=:per)
 //order by schet,date_pok,id
 
+    DS.FieldByName('WID').Value;
+    DS.FieldByName('FIO').Value;
+    DS.FieldByName('yearmon').Value;
+
+
+
     DS.Edit;
 
        DS.FieldByName('VID_POK').Value:=vid;
@@ -507,19 +664,31 @@ begin
        end
        else
        begin //41,42,43,44,45
+
+
+
          if (DS.FieldByName('LICH_TO').AsInteger=0) or (DS.FieldByName('LICH_TO').Value=Null) then
                   DS.FieldByName('WID').Value:=42
          else
          begin
-            if (DS.FieldByName('WID').Value=42) or (DS.FieldByName('WID').Value=43) then
+            if (DS.FieldByName('WID').Value=42) or (DS.FieldByName('WID').Value=45) then
                DS.FieldByName('WID').Value:=41;
          end;
 
+         if (DS.FieldByName('LICH_POV').IsNull) and (DS.FieldByName('WID').Value<46) and (DS.FieldByName('WID').Value<>43)then
+         begin
+                  DS.post;
+                  MainForm.lichyear(DS);
+                  DS.Edit;
+         end;
 
 
-
-         if (not DS.FieldByName('LICH_YEARMON').IsNull) and (DS.FieldByName('LICH_YEARMON').Value<MainForm.period) and (DS.FieldByName('WID').Value<>43) and (DS.FieldByName('WID').Value<>42) then
+         if ((DS.FieldByName('LICH_POV').IsNull) or (DS.FieldByName('LICH_YEARMON').Value<MainForm.period)) and (DS.FieldByName('WID').Value<>43) and (DS.FieldByName('WID').Value<>42) then
                   DS.FieldByName('WID').Value:=45;
+
+
+         if (DS.FieldByName('WID').Value=43) then
+             DS.FieldByName('WID').Value:=41;
 
          //45,42
          if (DS.FieldByName('WID').Value=45) or (DS.FieldByName('WID').Value=42) then
@@ -527,13 +696,13 @@ begin
 
 //                if DS.FieldByName('ORG').Value=0 then
 //                begin
-                  if DS.FieldByName('KUB_NOBALANS').AsFloat=0 then
-                  begin
+              //    if DS.FieldByName('KUB_NOBALANS').AsFloat=0 then
+              //    begin
                     DS.FieldByName('SCH_RAZN').Value:=0;
                     DS.FieldByName('NORM_BLICH').Value:=iif(DS.FieldByName('KOLI_P').AsInteger<>0,DS.FieldByName('KOLI_P').AsInteger,1)*DS.FieldByName('NORMA').Value;
                     DS.FieldByName('NOR_RAZN').Value:=0;
                     DS.FieldByName('R_NACH').Value:='Споживання по нормі: к-ть людей або квартира('+inttostr(iif(DS.FieldByName('KOLI_P').AsInteger<>0,DS.FieldByName('KOLI_P').AsInteger,1))+') * норма('+CurrToStr(DS.FieldByName('NORMA').AsCurrency)+')';
-                  end;
+              //    end;
                   //                end
 //                else
 //                begin
@@ -660,8 +829,8 @@ begin
 
   IBQuery3.Close;
   IBQuery3.ParamByName('sch').Value:=trim(DS.FieldByName('schet').value);
-  IBQuery3.ParamByName('yy').Value:=copy(IntToStr(MainForm.curYM),1,4);
-  IBQuery3.ParamByName('mm').Value:=copy(IntToStr(MainForm.curYM),5,2);
+  IBQuery3.ParamByName('yy').Value:=copy(IntToStr(MainForm.period),1,4);
+  IBQuery3.ParamByName('mm').Value:=copy(IntToStr(MainForm.period),5,2);
   IBQuery3.Open;
 
   kol:=0;
@@ -841,7 +1010,7 @@ begin
                DS.FieldByName('NOR_RAZN').Value:=0;
                DS.FieldByName('KUB_ALL').Value:=0;
               // DS.FieldByName('SPIS').Value:=0;
-               DS.FieldByName('KUB_NOBALANS').Value:=0;
+             //  DS.FieldByName('KUB_NOBALANS').Value:=0;
                DS.FieldByName('R_NACH').Value:='';
              end;
 
@@ -924,19 +1093,7 @@ end;
 
 procedure TForm2.cxButton10Click(Sender: TObject);
 begin
-  if mainform.usersADDPOKAZ.Value<>1 then
-  begin
-    ShowMessage('У вас немає доступу!');
-    exit;
-  end;
-
-    IBQuery5.close;
-    IBQuery5.SQL.Text:='execute procedure calc_pok :schet';
-    IBQuery5.ParamByName('schet').Value:=MainForm.DSet.FieldByName('SCHET').Value;
-    IBQuery5.ExecSQL;
-    IBQuery5.close;
-    MainForm.DSet.close;
-    MainForm.DSet.open;
+  MainForm.ExportGrid(cxGrid10,'Небаланс та перерахунки по рахунку '+trim(cxDBTextEdit10.EditValue)+' '+trim(cxDBTextEdit1.EditValue));
 
 end;
 
@@ -988,6 +1145,24 @@ end;
 
   MainForm.IBTransaction1.CommitRetaining;
 
+end;
+
+procedure TForm2.cxButton12Click(Sender: TObject);
+begin
+    hvpererah.SelectSQL.Text:='select HV_PRH.*,(sch_razn+nor_razn+norm_blich) sumnach  from HV_PRH where yearmon=:ym and schet=:sch order by yearmon,yearmonp,kl';
+    hvpererah.ParamByName('ym').Value:=MainForm.period;
+    hvpererah.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
+    hvpererah.Close;
+    hvpererah.open;
+end;
+
+procedure TForm2.cxButton13Click(Sender: TObject);
+begin
+    hvpererah.SelectSQL.Text:='select HV_PRH.*,(sch_razn+nor_razn+norm_blich) sumnach  from HV_PRH where yearmonp>=:ym and schet=:sch order by yearmon,yearmonp,kl';
+    hvpererah.ParamByName('ym').Value:=MainForm.period-100;
+    hvpererah.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
+    hvpererah.Close;
+    hvpererah.open;
 end;
 
 procedure TForm2.cxButton16Click(Sender: TObject);
@@ -1402,58 +1577,7 @@ end;
 
 procedure TForm2.cxButton9Click(Sender: TObject);
 begin
-  if mainform.usersADDPOKAZ.Value<>1 then
-  begin
-    ShowMessage('У вас немає доступу!');
-    exit;
-  end;
-
-  if (MainForm.pokaznYEARMON.Value<MainForm.period) then
-  begin
-    ShowMessage('Неможливо видалити показник попереднього періоду');
-    exit;
-  end;
-
-
-   if (MainForm.pokaznID_LICH.Value<>0) then
-  begin
-  IBQuery1.Close;
-  IBQuery1.SQL.Text:='select * from pokazn where yearmon=:per and schet=:sch and id>=:id  and (del=0 or del is null) order by date_pok';
-  IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
-  IBQuery1.ParamByName('per').Value:=MainForm.period;
-  IBQuery1.ParamByName('id').Value:=MainForm.pokaznID.Value;
-  IBQuery1.Open;
-  IBQuery1.last;
-    if IBQuery1.RecordCount>1 then
-    begin
-      ShowMessage('Неможливо видалити показник, бо існують показники після показника встановлення ');
-      exit;
-    end;
-  end;
-
-  if (MainForm.pokaznID_LICH.Value<>0) then
-  begin
-  IBQuery1.Close;
-  IBQuery1.SQL.Text:='select * from lich where schet=:sch and id=:id and DATA_ZN is null';
-  IBQuery1.ParamByName('sch').Value:=MainForm.DSet.FieldByName('SCHET').Value;
-  IBQuery1.ParamByName('id').Value:=MainForm.pokaznID_LICH.Value;
-  IBQuery1.Open;
-
-    if IBQuery1.RecordCount<>0 then
-    begin
-      ShowMessage('Видаліть спочатку лічильник цього показника - тип '+IBQuery1.FieldByName('tip').Value+' №'+IBQuery1.FieldByName('n_lich').Value+' id'+IntToStr(IBQuery1.FieldByName('id').Value));
-      exit;
-    end;
-  end;
-
-
-  if application.MessageBox('Ви дійсно бажаєте видалити показник?','Підтвердження',MB_YESNO)=IDYES then
-  begin
-  if (MainForm.pokazn.RecordCount<>0) then
-     MainForm.pokazn.Delete;
-     Form2.calcpok2(MainForm.DSet,1);
-     Form2.calclich(MainForm.DSet);
-  end;
+  MainForm.ExportGrid(cxGrid9,'Нарахування по рахунку: '+trim(cxDBTextEdit10.EditValue)+' '+trim(cxDBTextEdit1.EditValue));
 end;
 
 procedure TForm2.cxGridDBTableView2CustomDrawCell(
@@ -1508,8 +1632,17 @@ begin
     MainForm.spis.Close;
     MainForm.spis.open;
 
+    hvpererah.SelectSQL.Text:='select HV_PRH.*,(sch_razn+nor_razn+norm_blich) sumnach  from HV_PRH where yearmon=:ym and schet=:sch order by yearmon,yearmonp,kl';
+    hvpererah.ParamByName('ym').Value:=MainForm.period;
+    hvpererah.ParamByName('sch').Value:=sch;
+    hvpererah.Close;
+    hvpererah.open;
 
 
+  IBQHV.Close;
+  IBQHV.ParamByName('sch').Value:=sch;
+ // IBQHV.ParamByName('ym').Value:=MainForm.period;
+  IBQHV.Open;
 
 
 end;
@@ -1522,10 +1655,17 @@ begin
      if MainForm.hvd.State in [dsInsert,dsEdit] then MainForm.hvd.Post;
      if MainForm.org.State in [dsInsert,dsEdit] then MainForm.org.Post;
 
-
+   IBQHV.Close;
 
    MainForm.IBTransaction1.CommitRetaining;
-      MainForm.Enabled:=true;
+
+
+          if FormPererah.Visible then
+             FormPererah.Enabled:=true
+          else
+             MainForm.Enabled:=true;
+
+
 end;
 
 procedure TForm2.FormShow(Sender: TObject);
@@ -1539,10 +1679,18 @@ begin
     if MainForm.DSet.FieldByName('LICH_TO').AsInteger>MainForm.lich.RecordCount then
        label11.Visible:=true
     else label11.Visible:=false;
-    
+
+    if FormPererah.Visible then
+       FormPererah.Enabled:=false;
 
 
 
+
+end;
+
+procedure TForm2.IBQHVCalcFields(DataSet: TDataSet);
+begin
+    IBQHVym.Value:=Date2Str(YearMon2Date(IBQHVYearMon.Value),'yyyy MMMM');
 end;
 
 end.

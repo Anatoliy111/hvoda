@@ -22,8 +22,10 @@ object Form3: TForm3
     Height = 41
     Align = alTop
     TabOrder = 0
+    ExplicitLeft = -8
+    ExplicitTop = 64
     object cxButton1: TcxButton
-      Left = 15
+      Left = 23
       Top = 8
       Width = 114
       Height = 25

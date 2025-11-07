@@ -28,7 +28,8 @@ uses
   ViberPokDmkg in 'ViberPokDmkg.pas' {FormViberPokDmkg},
   Conn in 'Conn.pas' {FormConn},
   Pererah in 'Pererah.pas' {FormPererah},
-  Users in 'Users.pas' {FormUsers};
+  Users in 'Users.pas' {FormUsers},
+  BudKub in 'BudKub.pas' {Form5};
 
 {$R *.res}
 
@@ -63,6 +64,7 @@ begin
   Application.CreateForm(TFormConn, FormConn);
   Application.CreateForm(TFormPererah, FormPererah);
   Application.CreateForm(TFormUsers, FormUsers);
+  Application.CreateForm(TForm5, Form5);
   // Application.CreateForm(TSplashForm, SplashForm);
 //    SplashForm.Hide;
 //  SplashForm.Free;

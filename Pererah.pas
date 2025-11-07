@@ -7,7 +7,8 @@ uses
   Dialogs, cxStyles, cxCustomData, cxGraphics, cxFilter, cxData, cxDataStorage,
   cxEdit, DB, cxDBData, IBCustomDataSet, cxGridLevel, cxClasses, cxControls,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGrid, ExtCtrls, cxDBLookupComboBox, StdCtrls;
+  cxGrid, ExtCtrls, cxDBLookupComboBox, StdCtrls, cxButtonEdit, Menus,
+  cxLookAndFeelPainters, cxButtons;
 
 type
   TFormPererah = class(TForm)
@@ -155,12 +156,26 @@ type
     hvpererahNOTEWID: TIBStringField;
     hvpererahFACT: TIntegerField;
     hvpererahNOTERAW: TIBStringField;
-    hvpererahSUMNACH: TIBBCDField;
     cxGridDBTableView1NOTERAW: TcxGridDBColumn;
     Label16: TLabel;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    cxGridDBTableView1Column1: TcxGridDBColumn;
+    hv_nowSPIS: TFloatField;
+    cxGridDBTableView1YEARMON: TcxGridDBColumn;
+    cxGridDBTableView1NORM_BLICH: TcxGridDBColumn;
+    hvpererahSUMNACH: TFloatField;
+    cxButton9: TcxButton;
+    cxButton12: TcxButton;
+    cxButton13: TcxButton;
+    procedure cxGridDBTableView1Column1PropertiesButtonClick(Sender: TObject;
+      AButtonIndex: Integer);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cxButton9Click(Sender: TObject);
+    procedure cxButton12Click(Sender: TObject);
+    procedure cxButton13Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -172,8 +187,60 @@ var
 
 implementation
 
-uses main;
+uses main, kart;
 
 {$R *.dfm}
+
+procedure TFormPererah.cxButton12Click(Sender: TObject);
+begin
+    hvpererah.SelectSQL.Text:='select HV_PRH.*,(sch_razn+nor_razn+norm_blich) sumnach  from HV_PRH where yearmon=:ym and ul=:ul and n_dom=:ndom order by yearmon,yearmonp,kl';
+    hvpererah.ParamByName('ym').Value:=MainForm.period;
+    hvpererah.ParamByName('ul').Value:=MainForm.grpUL.AsString;
+    hvpererah.ParamByName('ndom').Value:=MainForm.grpN_DOM.AsString;
+    hvpererah.Close;
+    hvpererah.open;
+end;
+
+procedure TFormPererah.cxButton13Click(Sender: TObject);
+begin
+    hvpererah.SelectSQL.Text:='select HV_PRH.*,(sch_razn+nor_razn+norm_blich) sumnach  from HV_PRH where yearmonp>=:ym and ul=:ul and n_dom=:ndom order by yearmon,yearmonp,kl';
+    hvpererah.ParamByName('ym').Value:=MainForm.period-100;
+    hvpererah.ParamByName('ul').Value:=MainForm.grpUL.AsString;
+    hvpererah.ParamByName('ndom').Value:=MainForm.grpN_DOM.AsString;
+    hvpererah.Close;
+    hvpererah.open;
+end;
+
+procedure TFormPererah.cxButton9Click(Sender: TObject);
+begin
+MainForm.ExportGrid(cxGrid1,'Таблиця перерахунків за період '+trim(Label1.Caption));
+end;
+
+procedure TFormPererah.cxGridDBTableView1Column1PropertiesButtonClick(
+  Sender: TObject; AButtonIndex: Integer);
+begin
+
+     hv_now.First;
+     hv_now.Locate('schet',hvpererah.FieldByName('SCHET').Value,[]);
+     Form2.Find(hv_nowSCHET.Value);
+     Form2.Show;
+end;
+
+procedure TFormPererah.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+     MainForm.Enabled:=true;
+     if (Form2.Enabled) then
+         Form2.Close;
+
+
+end;
+
+procedure TFormPererah.FormShow(Sender: TObject);
+begin
+
+MainForm.DSet:=hv_now;
+MainForm.DataAllSource.DataSet:=MainForm.DSet;
+     MainForm.Enabled:=false;
+end;
 
 end.

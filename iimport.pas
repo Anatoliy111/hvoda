@@ -64,7 +64,7 @@ var pok:integer;
     sch,sss,tarnam:string;
 begin
  MainForm.hvdall.Close;
- MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
+ MainForm.hvdall.ParamByName('ym').Value:=MainForm.period;
  MainForm.hvdall.Open;
  IBPokazn.Open;
 
@@ -220,6 +220,7 @@ begin
      kk.Open;
 
      MainForm.hvdall.Close;
+     MainForm.hvdall.ParamByName('ym').Value:=MainForm.period;
      MainForm.hvdall.Open;
 
     Form4.Label2.Caption:='Оновлення даних. Зачекайте...';
@@ -241,21 +242,24 @@ begin
        MainForm.hvdall.First;
        if MainForm.hvdall.Locate('schet',dos2win(kk.fieldbyname('schet').AsString),[loCaseInsensitive, loPartialKey]) then
        begin
-          MainForm.hvdall.edit;
-          MainForm.hvdallFIO.Value:=dos2win(kk.fieldbyname('fio').AsString+' '+kk.fieldbyname('im').AsString+' '+kk.fieldbyname('ot').AsString);
-          MainForm.hvdallKOLI_P.Value:=kk.fieldbyname('koli_p').AsInteger;
-          MainForm.hvdallKOLI_F.Value:=kk.fieldbyname('koli_pf').AsInteger;
-          MainForm.hvdallUL.Value:=dos2win(kk.fieldbyname('ULNAIM').AsString);
-          MainForm.hvdallN_DOM.Value:=dos2win(kk.fieldbyname('NOMDOM').AsString);
-          MainForm.hvdallKV.Value:=dos2win(kk.fieldbyname('NOMKV').AsString);
-          MainForm.hvdall.post;
-
-          if MainForm.hvdallWID.Value=0 then
+          if MainForm.hvdallORG.Value<>1 then
           begin
-            MainForm.hvdall.Edit;
-            MainForm.hvdallWID.Value:=42;
-            MainForm.hvdall.Post;
-            Form2.calcpok2(MainForm.hvdall,1);
+            MainForm.hvdall.edit;
+            MainForm.hvdallFIO.Value:=dos2win(kk.fieldbyname('fio').AsString+' '+kk.fieldbyname('im').AsString+' '+kk.fieldbyname('ot').AsString);
+            MainForm.hvdallKOLI_P.Value:=kk.fieldbyname('koli_p').AsInteger;
+            MainForm.hvdallKOLI_F.Value:=kk.fieldbyname('koli_pf').AsInteger;
+            MainForm.hvdallUL.Value:=dos2win(kk.fieldbyname('ULNAIM').AsString);
+            MainForm.hvdallN_DOM.Value:=dos2win(kk.fieldbyname('NOMDOM').AsString);
+            MainForm.hvdallKV.Value:=dos2win(kk.fieldbyname('NOMKV').AsString);
+            MainForm.hvdall.post;
+
+            if MainForm.hvdallWID.Value=0 then
+            begin
+              MainForm.hvdall.Edit;
+              MainForm.hvdallWID.Value:=42;
+              MainForm.hvdall.Post;
+              Form2.calcpok2(MainForm.hvdall,1);
+            end;
           end;
 
        end;
@@ -298,6 +302,7 @@ end;
 procedure TForm4.ImPokaz;
 begin
  MainForm.hvdall.Close;
+ MainForm.hvdall.ParamByName('ym').Value:=MainForm.period;
  MainForm.hvdall.Open;
  Form4.Show;
  MainForm.Enabled:=false;
@@ -384,6 +389,7 @@ begin
 
 
     MainForm.hvdall.Close;
+    MainForm.hvdall.ParamByName('ym').Value:=MainForm.period;
     MainForm.hvdall.Open;
 
     Form4.Label2.Caption:='Оновлення даних. Зачекайте...';

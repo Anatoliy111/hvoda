@@ -50,9 +50,10 @@ begin
         try
            MainForm.IBDatabase.Open;
            MainForm.IBTransaction1.Active:=true;
-           MainForm.dom.Open;
-           MainForm.data.Open;
-           MainForm.users.Open;
+           MainForm.startprog;
+//           MainForm.dom.Open;
+//           MainForm.data.Open;
+//           MainForm.users.Open;
 //           if MainForm.fl_startprog then
 //             MainForm.Update;
            FormConn.close;
@@ -61,10 +62,18 @@ begin
           // result:=true;
 
         except
+    on E: Exception do
+      begin
+       // messagedlg('Проблемы с открытием базы данных. Зовите программиста ('+E.Message+')',mtError,[mbCancel],0);
+          ShowMessage('Не підключена база!!! ('+E.Message+')');
+       // Application.Terminate;
           MainForm.Enabled:=false;
           FormConn.Show;
            sec:=11;
            Timer1.Enabled:=true;
+      end;
+          //ShowMessage('Не підключена база exept !!!');
+
           // result:=false;
         end;
 

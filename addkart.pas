@@ -483,10 +483,12 @@ begin
 //    exit;
  // end;
 
+
+
   if cxCalcEdit1.EditValue-cxCalcEdit2.EditValue>150 then
   begin
-    ShowMessage('Перевірте правильність введених даних');
-    exit;
+    if application.MessageBox('Увага!!! Різниця між показниками становить більше 150 кубів, можливо ви допустили помилку. Продовжити введення нового показника?','Підтвердження',MB_YESNO)=IDNO then
+       exit;
   end;
 
 

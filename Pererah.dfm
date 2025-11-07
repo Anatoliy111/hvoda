@@ -2,47 +2,79 @@ object FormPererah: TFormPererah
   Left = 0
   Top = 0
   Caption = #1055#1077#1088#1077#1088#1072#1093#1091#1085#1082#1080' '#1087#1086' '#1073#1091#1076#1080#1085#1082#1091
-  ClientHeight = 659
-  ClientWidth = 949
+  ClientHeight = 698
+  ClientWidth = 1046
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  FormStyle = fsStayOnTop
   OldCreateOrder = False
+  Position = poMainFormCenter
+  OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 949
+    Width = 1046
     Height = 33
     Align = alTop
     TabOrder = 0
     object Label16: TLabel
-      Left = 8
+      Left = 161
       Top = 10
-      Width = 212
+      Width = 209
       Height = 13
       Alignment = taCenter
-      Caption = #1054#1089#1085#1086#1074#1085#1072' '#1090#1072#1073#1083#1080#1094#1103' '#1087#1077#1088#1077#1088#1072#1093#1091#1085#1082#1110#1074' '#1079#1072' '#1087#1077#1088#1110#1086#1076' '
+      Caption = #1054#1089#1085#1086#1074#1085#1072' '#1090#1072#1073#1083#1080#1094#1103' '#1087#1077#1088#1077#1088#1072#1093#1091#1085#1082#1110#1074' '#1079#1072' '#1087#1077#1088#1110#1086#1076
     end
     object Label1: TLabel
-      Left = 226
+      Left = 379
       Top = 10
       Width = 33
       Height = 13
       Alignment = taCenter
       Caption = #1087#1077#1088#1110#1086#1076
     end
+    object cxButton9: TcxButton
+      Left = 10
+      Top = 4
+      Width = 96
+      Height = 25
+      Caption = #1045#1082#1089#1087#1086#1088#1090' '#1074' Excel'
+      TabOrder = 0
+      OnClick = cxButton9Click
+      LookAndFeel.Kind = lfUltraFlat
+    end
+    object cxButton12: TcxButton
+      Left = 517
+      Top = 4
+      Width = 96
+      Height = 25
+      Caption = #1055#1086#1090#1086#1095#1085#1080#1081' '#1087#1077#1088#1110#1086#1076
+      TabOrder = 1
+      OnClick = cxButton12Click
+      LookAndFeel.Kind = lfUltraFlat
+    end
+    object cxButton13: TcxButton
+      Left = 619
+      Top = 4
+      Width = 96
+      Height = 25
+      Caption = #1055#1077#1088#1110#1086#1076' 12 '#1084#1110#1089'.'
+      TabOrder = 2
+      OnClick = cxButton13Click
+      LookAndFeel.Kind = lfUltraFlat
+    end
   end
   object cxGrid3: TcxGrid
-    Left = 473
+    Left = 433
     Top = 421
-    Width = 476
-    Height = 238
+    Width = 613
+    Height = 277
     Align = alClient
     TabOrder = 1
     object cxGrid3DBTableView1: TcxGridDBTableView
@@ -174,7 +206,7 @@ object FormPererah: TFormPererah
   object cxGrid1: TcxGrid
     Left = 0
     Top = 33
-    Width = 949
+    Width = 1046
     Height = 355
     Align = alTop
     TabOrder = 2
@@ -282,6 +314,10 @@ object FormPererah: TFormPererah
         item
           Kind = skSum
           Column = cxGridDBTableView1SUMNACH
+        end
+        item
+          Kind = skSum
+          Column = cxGridDBTableView1NORM_BLICH
         end>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellMultiSelect = True
@@ -297,10 +333,32 @@ object FormPererah: TFormPererah
         Options.Editing = False
         Width = 103
       end
+      object cxGridDBTableView1YEARMON: TcxGridDBColumn
+        Caption = #1055#1077#1088#1110#1086#1076' '#1088#1086#1079#1088#1072#1093#1091#1085#1082#1091
+        DataBinding.FieldName = 'YEARMON'
+        Options.Editing = False
+        Width = 121
+      end
       object cxGridDBTableView1FIO: TcxGridDBColumn
         Caption = #1055#1030#1055
         DataBinding.FieldName = 'FIO'
         Options.Editing = False
+      end
+      object cxGridDBTableView1Column1: TcxGridDBColumn
+        Caption = '...'
+        PropertiesClassName = 'TcxButtonEditProperties'
+        Properties.AutoSelect = False
+        Properties.Buttons = <
+          item
+            Default = True
+            Kind = bkEllipsis
+          end>
+        Properties.OnButtonClick = cxGridDBTableView1Column1PropertiesButtonClick
+        Options.Filtering = False
+        Options.ShowEditButtons = isebAlways
+        Options.Grouping = False
+        Options.Sorting = False
+        Width = 22
       end
       object cxGridDBTableView1KV: TcxGridDBColumn
         Caption = #1050#1074'.'
@@ -333,13 +391,18 @@ object FormPererah: TFormPererah
         Options.Editing = False
       end
       object cxGridDBTableView1SCH_RAZN: TcxGridDBColumn
-        Caption = #1050#1091#1073#1080' '#1083#1110#1095#1083#1100#1085#1080#1082
+        Caption = #1050#1091#1073#1080' '#1083#1110#1095#1080#1083#1100#1085#1080#1082
         DataBinding.FieldName = 'SCH_RAZN'
         Options.Editing = False
       end
       object cxGridDBTableView1NOR_RAZN: TcxGridDBColumn
         Caption = #1056#1086#1079#1088#1072#1093'.'#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
         DataBinding.FieldName = 'NOR_RAZN'
+        Options.Editing = False
+      end
+      object cxGridDBTableView1NORM_BLICH: TcxGridDBColumn
+        Caption = #1053#1086#1088#1084#1072
+        DataBinding.FieldName = 'NORM_BLICH'
         Options.Editing = False
       end
       object cxGridDBTableView1SUMNACH: TcxGridDBColumn
@@ -383,8 +446,8 @@ object FormPererah: TFormPererah
   object cxGrid2: TcxGrid
     Left = 0
     Top = 421
-    Width = 473
-    Height = 238
+    Width = 433
+    Height = 277
     Align = alLeft
     TabOrder = 3
     object cxGridDBTableView2: TcxGridDBTableView
@@ -498,7 +561,7 @@ object FormPererah: TFormPererah
   object Panel1: TPanel
     Left = 0
     Top = 388
-    Width = 949
+    Width = 1046
     Height = 33
     Align = alTop
     TabOrder = 4
@@ -583,9 +646,9 @@ object FormPererah: TFormPererah
       '  KL = :KL')
     SelectSQL.Strings = (
       
-        'select HV_PRH.*,(sch_razn+nor_razn) sumnach  from HV_PRH where y' +
-        'earmon=:ym and ul=:ul and n_dom=:ndom order by yearmon,yearmonp,' +
-        'kl')
+        'select HV_PRH.*,(sch_razn+nor_razn+norm_blich) sumnach  from HV_' +
+        'PRH where yearmonp>=:ym and ul=:ul and n_dom=:ndom order by year' +
+        'mon,yearmonp,kl')
     ModifySQL.Strings = (
       'update HV_PRH'
       'set'
@@ -748,11 +811,9 @@ object FormPererah: TFormPererah
       Origin = '"HV_PRH"."NOTERAW"'
       Size = 200
     end
-    object hvpererahSUMNACH: TIBBCDField
+    object hvpererahSUMNACH: TFloatField
       FieldName = 'SUMNACH'
       ProviderFlags = []
-      Precision = 18
-      Size = 4
     end
   end
   object hvpererahSource: TDataSource
@@ -943,8 +1004,9 @@ object FormPererah: TFormPererah
         '   RASCH_NOR, RASCH_NOTE, SCH_CUR, SCH_OLD, SCH_RAZN, SCH_RAZN2,' +
         ' SCHET, '
       
-        '   TARIF_NAME, UL, VID_POK, VID_RN, WID, WID_PREV, YEARMON, ZN_L' +
-        'ICH, ZNOLD_LICH)'
+        '   SPIS, TARIF_NAME, UL, VID_POK, VID_RN, WID, WID_PREV, YEARMON' +
+        ', ZN_LICH, '
+      '   ZNOLD_LICH)'
       'values'
       
         '  (:DATE_POK, :DATE_ZN, :DEL_NORM, :EDRPOU, :FILTR, :FIO, :GRP_R' +
@@ -965,8 +1027,8 @@ object FormPererah: TFormPererah
         '   :R_NACH, :R_NOBAL, :RASCH_KUB, :RASCH_NOR, :RASCH_NOTE, :SCH_' +
         'CUR, :SCH_OLD, '
       
-        '   :SCH_RAZN, :SCH_RAZN2, :SCHET, :TARIF_NAME, :UL, :VID_POK, :V' +
-        'ID_RN, '
+        '   :SCH_RAZN, :SCH_RAZN2, :SCHET, :SPIS, :TARIF_NAME, :UL, :VID_' +
+        'POK, :VID_RN, '
       '   :WID, :WID_PREV, :YEARMON, :ZN_LICH, :ZNOLD_LICH)')
     RefreshSQL.Strings = (
       'Select '
@@ -1019,6 +1081,7 @@ object FormPererah: TFormPererah
       '  OLD_NORM,'
       '  DEL_NORM,'
       '  PREV_NORM,'
+      '  SPIS,'
       '  LICH_YEARMON,'
       '  EDRPOU,'
       '  KL_UL,'
@@ -1034,8 +1097,8 @@ object FormPererah: TFormPererah
       '  KL = :KL')
     SelectSQL.Strings = (
       
-        'select * from H_VODA where pererah<>0 and yearmon=:ym and ul=:ul' +
-        ' and n_dom=:ndom order by yearmon,schet')
+        'select * from H_VODA where yearmon=:ym and ul=:ul and n_dom=:ndo' +
+        'm order by yearmon,schet')
     ModifySQL.Strings = (
       'update H_VODA'
       'set'
@@ -1087,6 +1150,7 @@ object FormPererah: TFormPererah
       '  SCH_RAZN = :SCH_RAZN,'
       '  SCH_RAZN2 = :SCH_RAZN2,'
       '  SCHET = :SCHET,'
+      '  SPIS = :SPIS,'
       '  TARIF_NAME = :TARIF_NAME,'
       '  UL = :UL,'
       '  VID_POK = :VID_POK,'
@@ -1381,6 +1445,10 @@ object FormPererah: TFormPererah
       FieldName = 'R_NOBAL'
       Origin = '"H_VODA"."R_NOBAL"'
       Size = 100
+    end
+    object hv_nowSPIS: TFloatField
+      FieldName = 'SPIS'
+      Origin = '"H_VODA"."SPIS"'
     end
   end
   object hv_nowSource: TDataSource

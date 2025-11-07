@@ -529,6 +529,12 @@ begin
 end;
 
 function Date2Str(dt:TDate;fmt:string):string;
+const
+     CSIDL_RECENT = $0011;
+     SUBLANG_RUSSIAN = $01;
+     LANG_SYSTEM_UKRAINIAN = (SUBLANG_RUSSIAN shl 10) or LANG_UKRAINIAN;
+     LOCALE_UKRAINIAN = (SORT_DEFAULT shl 16) or LANG_SYSTEM_UKRAINIAN;
+
 var tt:TSystemTime;
   ret:array[1..255] of char;
   Year, Month, Day:word; //, Hour, Min, Sec, MSec: Word;
@@ -548,19 +554,26 @@ begin
   tt.wMonth:=month;
   tt.wDay:=day;
 
-  GetDateFormat(LOCALE_SYSTEM_DEFAULT,
-                LOCALE_USE_CP_ACP,
-                @tt,
-                pchar(fmt),
-                @ret,
-                255);
-
-//  GetDateFormat(LOCALE_uk_UA,
+//  GetDateFormat(LOCALE_SYSTEM_DEFAULT,
 //                LOCALE_USE_CP_ACP,
 //                @tt,
 //                pchar(fmt),
 //                @ret,
 //                255);
+
+//  GetDateFormat(LOCALE_SYSTEM_DEFAULT,
+//                LOCALE_USE_CP_ACP,
+//                @tt,
+//                pchar(fmt),
+//                @ret,
+//                255);
+
+  GetDateFormat(LOCALE_UKRAINIAN,
+                LOCALE_USE_CP_ACP,
+                @tt,
+                pchar(fmt),
+                @ret,
+                255);
 
   result:=pchar(@ret);
 end;

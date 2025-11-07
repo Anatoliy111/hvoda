@@ -332,7 +332,7 @@ var pok:integer;
     hh,kk,oo,oo1,hvd1,ntar:TDbf;
 begin
  MainForm.hvdall.Close;
- MainForm.hvdall.ParamByName('yearmon').Value:=MainForm.period;
+ MainForm.hvdall.ParamByName('ym').Value:=MainForm.period;
  MainForm.hvdall.Open;
 
 
