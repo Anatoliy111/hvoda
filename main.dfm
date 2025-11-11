@@ -1094,6 +1094,7 @@ object MainForm: TMainForm
                 Kind = bkEllipsis
               end>
             Properties.OnButtonClick = DBGrid3Column1PropertiesButtonClick
+            Visible = False
             Options.Filtering = False
             Options.ShowEditButtons = isebAlways
             Options.Grouping = False
@@ -1186,9 +1187,6 @@ object MainForm: TMainForm
     object cxTabSheet2: TcxTabSheet
       Caption = #1041#1091#1076#1080#1085#1082#1086#1074#1077' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
       ImageIndex = 4
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object cxGrid3: TcxGrid
         Left = 0
         Top = 0
@@ -1233,10 +1231,6 @@ object MainForm: TMainForm
             end
             item
               Kind = skSum
-              Column = cxGrid3DBTableView1SCH_RAZNDOM
-            end
-            item
-              Kind = skSum
               Column = cxGrid3DBTableView1SCH_KUB
             end
             item
@@ -1278,6 +1272,14 @@ object MainForm: TMainForm
             item
               Kind = skCount
               Column = cxGrid3DBTableView1UL
+            end
+            item
+              Kind = skSum
+              Column = cxGrid3DBTableView1SCH_RAZNDOM
+            end
+            item
+              Kind = skSum
+              Column = cxGrid3DBTableView1SPIS
             end>
           DataController.Summary.SummaryGroups = <>
           OptionsView.Footer = True
@@ -1292,26 +1294,44 @@ object MainForm: TMainForm
             DataBinding.FieldName = 'N_DOM'
             Options.Editing = False
           end
+          object cxGrid3DBTableView1Column1: TcxGridDBColumn
+            Caption = '...'
+            PropertiesClassName = 'TcxButtonEditProperties'
+            Properties.Buttons = <
+              item
+                Default = True
+                Kind = bkEllipsis
+              end>
+            Properties.OnButtonClick = cxGrid3DBTableView1Column1PropertiesButtonClick
+            Options.Filtering = False
+            Options.ShowEditButtons = isebAlways
+            Options.GroupFooters = False
+            Options.Grouping = False
+            Options.Sorting = False
+            Width = 22
+          end
           object cxGrid3DBTableView1SCH_RAZN: TcxGridDBColumn
             Caption = #1060#1072#1082#1090'. '#1089#1087#1086#1078#1080#1074'.'
             DataBinding.FieldName = 'SCH_RAZN'
             Options.Editing = False
-          end
-          object cxGrid3DBTableView1NOR_RAZN: TcxGridDBColumn
-            Caption = #1056#1086#1079#1088#1072#1093'. '#1089#1087#1086#1078#1080#1074'.'
-            DataBinding.FieldName = 'NOR_RAZN'
-            Options.Editing = False
-          end
-          object cxGrid3DBTableView1SUM_NACH: TcxGridDBColumn
-            Caption = #1042#1089#1100#1086#1075#1086' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
-            DataBinding.FieldName = 'SUM_NACH'
-            Options.Editing = False
+            Width = 99
           end
           object cxGrid3DBTableView1NORM_BLICH: TcxGridDBColumn
             Caption = #1053#1086#1088#1084#1072' '#1073#1077#1079' '#1083#1110#1095#1080#1083#1100#1085#1080#1082#1072
             DataBinding.FieldName = 'NORM_BLICH'
             Options.Editing = False
             Width = 90
+          end
+          object cxGrid3DBTableView1SUM_NACH: TcxGridDBColumn
+            Caption = #1042#1089#1100#1086#1075#1086' '#1089#1087#1086#1078#1080#1074#1072#1085#1085#1103
+            DataBinding.FieldName = 'SUM_SB'
+            Options.Editing = False
+            Width = 84
+          end
+          object cxGrid3DBTableView1NOR_RAZN: TcxGridDBColumn
+            Caption = #1056#1086#1079#1088#1072#1093'. '#1089#1087#1086#1078#1080#1074'.'
+            DataBinding.FieldName = 'NOR_RAZN'
+            Options.Editing = False
           end
           object cxGrid3DBTableView1DEL_NORM: TcxGridDBColumn
             Caption = #1057#1087#1080#1089'.'#1088#1086#1079#1088#1072#1093'.'#1089#1087#1086#1078#1080#1074'.'
@@ -1334,6 +1354,7 @@ object MainForm: TMainForm
           object cxGrid3DBTableView1SPIS: TcxGridDBColumn
             Caption = #1057#1087#1080#1089#1072#1085#1085#1103
             DataBinding.FieldName = 'SPIS'
+            Options.Editing = False
             Width = 94
           end
           object cxGrid3DBTableView1KUB_ALL: TcxGridDBColumn
@@ -2509,7 +2530,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000D80214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000FC0214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5849,6 +5870,7 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
+    Active = True
     DefaultDatabase = IBDatabase
     DefaultAction = TACommitRetaining
     Params.Strings = (
@@ -12613,7 +12635,7 @@ object MainForm: TMainForm
     Database = IBDatabase
     Transaction = IBTransaction1
     BeforeOpen = hvddom2BeforeOpen
-    DeleteSQL.Strings = (
+    InsertSQL.Strings = (
       '')
     RefreshSQL.Strings = (
       'Select '
@@ -12623,7 +12645,9 @@ object MainForm: TMainForm
       '  N_DOM,'
       '  SCH_RAZN,'
       '  NOR_RAZN,'
-      '  SUM_NACH,'
+      '  SUM_SR,'
+      '  SUM_SB,'
+      '  SUM_SRB,'
       '  NORM_BLICH,'
       '  DEL_NORM,'
       '  KUB_NOBALANS,'
@@ -12635,22 +12659,7 @@ object MainForm: TMainForm
       '  SCH_RAZNDOM'
       'from hvdom '
       'where'
-      '  CT = :CT and'
-      '  DEL_NORM = :DEL_NORM and'
-      '  KUB_ALL = :KUB_ALL and'
-      '  KUB_NOBALANS = :KUB_NOBALANS and'
-      '  N_DOM = :N_DOM and'
-      '  NOR_RAZN = :NOR_RAZN and'
-      '  NORM_BLICH = :NORM_BLICH and'
-      '  PERERAH = :PERERAH and'
-      '  PREV_NORM = :PREV_NORM and'
-      '  SCH_KUB = :SCH_KUB and'
-      '  SCH_RAZN = :SCH_RAZN and'
-      '  SCH_RAZNDOM = :SCH_RAZNDOM and'
-      '  SPIS = :SPIS and'
-      '  SUM_NACH = :SUM_NACH and'
-      '  UL = :UL and'
-      '  YEARMON = :YEARMON')
+      '  CT = :CT')
     SelectSQL.Strings = (
       'select * from hvdom where yearmon=:yearmon')
     ModifySQL.Strings = (
@@ -12658,6 +12667,7 @@ object MainForm: TMainForm
     GeneratorField.Field = 'KL'
     GeneratorField.Generator = 'GEN_H_VODA_ID'
     GeneratorField.ApplyEvent = gamOnServer
+    Active = True
     Left = 264
     Top = 336
     object hvddom2CT: TIntegerField
@@ -12708,14 +12718,28 @@ object MainForm: TMainForm
       Precision = 18
       Size = 4
     end
-    object hvddom2SUM_NACH: TIBBCDField
+    object hvddom2SUM_SR: TIBBCDField
       FieldKind = fkInternalCalc
-      FieldName = 'SUM_NACH'
-      Origin = '"HVDOM"."SUM_NACH"'
+      FieldName = 'SUM_SR'
+      Origin = '"HVDOM"."SUM_SR"'
       ProviderFlags = []
       ReadOnly = True
       Precision = 18
       Size = 4
+    end
+    object hvddom2SUM_SB: TFloatField
+      FieldKind = fkInternalCalc
+      FieldName = 'SUM_SB'
+      Origin = '"HVDOM"."SUM_SB"'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object hvddom2SUM_SRB: TFloatField
+      FieldKind = fkInternalCalc
+      FieldName = 'SUM_SRB'
+      Origin = '"HVDOM"."SUM_SRB"'
+      ProviderFlags = []
+      ReadOnly = True
     end
     object hvddom2NORM_BLICH: TFloatField
       FieldKind = fkInternalCalc
@@ -13305,7 +13329,9 @@ object MainForm: TMainForm
       'where'
       '  KL = :KL')
     SelectSQL.Strings = (
-      'select * from h_voda')
+      
+        'select h_voda.*,iif(h_voda.koli_p>0,h_voda.koli_p,1) ludkv, (sch' +
+        '_razn+nor_razn+norm_blich) kubkv from h_voda')
     ModifySQL.Strings = (
       'update h_voda'
       'set'
@@ -13612,6 +13638,10 @@ object MainForm: TMainForm
       FieldName = 'PREV_NORM'
       Origin = '"H_VODA"."PREV_NORM"'
     end
+    object hvdrozpdomSPIS: TFloatField
+      FieldName = 'SPIS'
+      Origin = '"H_VODA"."SPIS"'
+    end
     object hvdrozpdomLICH_YEARMON: TIntegerField
       FieldName = 'LICH_YEARMON'
       Origin = '"H_VODA"."LICH_YEARMON"'
@@ -13648,16 +13678,21 @@ object MainForm: TMainForm
     object hvdrozpdomPERERAH: TFloatField
       FieldName = 'PERERAH'
       Origin = '"H_VODA"."PERERAH"'
-      Required = True
     end
     object hvdrozpdomR_NOBAL: TIBStringField
       FieldName = 'R_NOBAL'
       Origin = '"H_VODA"."R_NOBAL"'
       Size = 100
     end
-    object hvdrozpdomSPIS: TFloatField
-      FieldName = 'SPIS'
-      Origin = '"H_VODA"."SPIS"'
+    object hvdrozpdomLUDKV: TIBBCDField
+      FieldName = 'LUDKV'
+      ProviderFlags = []
+      Precision = 18
+      Size = 4
+    end
+    object hvdrozpdomKUBKV: TFloatField
+      FieldName = 'KUBKV'
+      ProviderFlags = []
     end
   end
   object delpokazn: TIBDataSet

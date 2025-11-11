@@ -774,65 +774,6 @@ type
     DBGrid3Column1: TcxGridDBColumn;
     hvdrozpdomSource: TDataSource;
     hvdrozpdom: TIBDataSet;
-    hvdrozpdomKL: TIntegerField;
-    hvdrozpdomYEARMON: TIntegerField;
-    hvdrozpdomPLOMB: TSmallintField;
-    hvdrozpdomFIO: TIBStringField;
-    hvdrozpdomWID: TSmallintField;
-    hvdrozpdomWID_PREV: TIntegerField;
-    hvdrozpdomDOM: TIBStringField;
-    hvdrozpdomKVART: TIBStringField;
-    hvdrozpdomSCHET: TIBStringField;
-    hvdrozpdomN_SCH: TIBStringField;
-    hvdrozpdomSCH_OLD: TIBBCDField;
-    hvdrozpdomSCH_CUR: TIBBCDField;
-    hvdrozpdomSCH_RAZN: TIBBCDField;
-    hvdrozpdomSCH_RAZN2: TIBBCDField;
-    hvdrozpdomKOLI_P: TIBBCDField;
-    hvdrozpdomKOLI_P0: TIntegerField;
-    hvdrozpdomKOLI_P1: TIntegerField;
-    hvdrozpdomNOR_RAZN: TIBBCDField;
-    hvdrozpdomGRP_RAZN: TIBBCDField;
-    hvdrozpdomPERE_DAY: TIntegerField;
-    hvdrozpdomPERE_RAZN: TIBBCDField;
-    hvdrozpdomID_KONTR: TSmallintField;
-    hvdrozpdomUL: TIBStringField;
-    hvdrozpdomN_DOM: TIBStringField;
-    hvdrozpdomKV: TIBStringField;
-    hvdrozpdomNOTE: TIBStringField;
-    hvdrozpdomKOLI_F: TLargeintField;
-    hvdrozpdomRASCH_KUB: TIBBCDField;
-    hvdrozpdomRASCH_NOR: TIBBCDField;
-    hvdrozpdomPOD: TIntegerField;
-    hvdrozpdomRASCH_NOTE: TIBStringField;
-    hvdrozpdomDATE_POK: TDateField;
-    hvdrozpdomVID_POK: TIntegerField;
-    hvdrozpdomKUB_MES: TIBBCDField;
-    hvdrozpdomLICH_POV: TDateField;
-    hvdrozpdomORG: TIntegerField;
-    hvdrozpdomVID_RN: TIntegerField;
-    hvdrozpdomFILTR: TIntegerField;
-    hvdrozpdomPOMPA: TIntegerField;
-    hvdrozpdomZN_LICH: TIntegerField;
-    hvdrozpdomZNOLD_LICH: TIntegerField;
-    hvdrozpdomDATE_ZN: TDateField;
-    hvdrozpdomLICH_TO: TIntegerField;
-    hvdrozpdomKLNTAR: TIntegerField;
-    hvdrozpdomTARIF_NAME: TIBStringField;
-    hvdrozpdomNORMA: TFloatField;
-    hvdrozpdomOLD_NORM: TFloatField;
-    hvdrozpdomDEL_NORM: TFloatField;
-    hvdrozpdomPREV_NORM: TFloatField;
-    hvdrozpdomLICH_YEARMON: TIntegerField;
-    hvdrozpdomEDRPOU: TIntegerField;
-    hvdrozpdomKL_UL: TIntegerField;
-    hvdrozpdomR_NACH: TIBStringField;
-    hvdrozpdomNORM_BLICH: TFloatField;
-    hvdrozpdomKUB_NOBALANS: TFloatField;
-    hvdrozpdomKUB_ALL: TFloatField;
-    hvdrozpdomPLOSCH_UR: TFloatField;
-    hvdrozpdomPERERAH: TFloatField;
-    hvdrozpdomR_NOBAL: TIBStringField;
     hv_prhKL: TIntegerField;
     hv_prhYEARMON: TIntegerField;
     hv_prhYEARMONP: TIntegerField;
@@ -927,7 +868,6 @@ type
     orgSPIS: TFloatField;
     hvdallWID_PREV: TIntegerField;
     hvdallSPIS: TFloatField;
-    hvdrozpdomSPIS: TFloatField;
     hvd_repWID_PREV: TIntegerField;
     hvd_repN_SCH: TIBStringField;
     hvd_repSCH_RAZN2: TIBBCDField;
@@ -974,13 +914,81 @@ type
     DBGrid1SPIS: TcxGridDBBandedColumn;
     cxGridDBBandedTableView1SPIS: TcxGridDBBandedColumn;
     cxGrid3DBTableView1SPIS: TcxGridDBColumn;
+    impEDRPOU: TIntegerField;
+    dxBarButton40: TdxBarButton;
+    IBTransaction2: TIBTransaction;
+    IBQuery5: TIBQuery;
+    hvdrozpdomKL: TIntegerField;
+    hvdrozpdomYEARMON: TIntegerField;
+    hvdrozpdomPLOMB: TSmallintField;
+    hvdrozpdomFIO: TIBStringField;
+    hvdrozpdomWID: TSmallintField;
+    hvdrozpdomWID_PREV: TIntegerField;
+    hvdrozpdomDOM: TIBStringField;
+    hvdrozpdomKVART: TIBStringField;
+    hvdrozpdomSCHET: TIBStringField;
+    hvdrozpdomN_SCH: TIBStringField;
+    hvdrozpdomSCH_OLD: TIBBCDField;
+    hvdrozpdomSCH_CUR: TIBBCDField;
+    hvdrozpdomSCH_RAZN: TIBBCDField;
+    hvdrozpdomSCH_RAZN2: TIBBCDField;
+    hvdrozpdomKOLI_P: TIBBCDField;
+    hvdrozpdomKOLI_P0: TIntegerField;
+    hvdrozpdomKOLI_P1: TIntegerField;
+    hvdrozpdomNOR_RAZN: TIBBCDField;
+    hvdrozpdomGRP_RAZN: TIBBCDField;
+    hvdrozpdomPERE_DAY: TIntegerField;
+    hvdrozpdomPERE_RAZN: TIBBCDField;
+    hvdrozpdomID_KONTR: TSmallintField;
+    hvdrozpdomUL: TIBStringField;
+    hvdrozpdomN_DOM: TIBStringField;
+    hvdrozpdomKV: TIBStringField;
+    hvdrozpdomNOTE: TIBStringField;
+    hvdrozpdomKOLI_F: TLargeintField;
+    hvdrozpdomRASCH_KUB: TIBBCDField;
+    hvdrozpdomRASCH_NOR: TIBBCDField;
+    hvdrozpdomPOD: TIntegerField;
+    hvdrozpdomRASCH_NOTE: TIBStringField;
+    hvdrozpdomDATE_POK: TDateField;
+    hvdrozpdomVID_POK: TIntegerField;
+    hvdrozpdomKUB_MES: TIBBCDField;
+    hvdrozpdomLICH_POV: TDateField;
+    hvdrozpdomORG: TIntegerField;
+    hvdrozpdomVID_RN: TIntegerField;
+    hvdrozpdomFILTR: TIntegerField;
+    hvdrozpdomPOMPA: TIntegerField;
+    hvdrozpdomZN_LICH: TIntegerField;
+    hvdrozpdomZNOLD_LICH: TIntegerField;
+    hvdrozpdomDATE_ZN: TDateField;
+    hvdrozpdomLICH_TO: TIntegerField;
+    hvdrozpdomKLNTAR: TIntegerField;
+    hvdrozpdomTARIF_NAME: TIBStringField;
+    hvdrozpdomNORMA: TFloatField;
+    hvdrozpdomOLD_NORM: TFloatField;
+    hvdrozpdomDEL_NORM: TFloatField;
+    hvdrozpdomPREV_NORM: TFloatField;
+    hvdrozpdomSPIS: TFloatField;
+    hvdrozpdomLICH_YEARMON: TIntegerField;
+    hvdrozpdomEDRPOU: TIntegerField;
+    hvdrozpdomKL_UL: TIntegerField;
+    hvdrozpdomR_NACH: TIBStringField;
+    hvdrozpdomNORM_BLICH: TFloatField;
+    hvdrozpdomKUB_NOBALANS: TFloatField;
+    hvdrozpdomKUB_ALL: TFloatField;
+    hvdrozpdomPLOSCH_UR: TFloatField;
+    hvdrozpdomPERERAH: TFloatField;
+    hvdrozpdomR_NOBAL: TIBStringField;
+    hvdrozpdomLUDKV: TIBBCDField;
+    hvdrozpdomKUBKV: TFloatField;
     hvddom2CT: TIntegerField;
     hvddom2YEARMON: TIntegerField;
     hvddom2UL: TIBStringField;
     hvddom2N_DOM: TIBStringField;
     hvddom2SCH_RAZN: TIBBCDField;
     hvddom2NOR_RAZN: TIBBCDField;
-    hvddom2SUM_NACH: TIBBCDField;
+    hvddom2SUM_SR: TIBBCDField;
+    hvddom2SUM_SB: TFloatField;
+    hvddom2SUM_SRB: TFloatField;
     hvddom2NORM_BLICH: TFloatField;
     hvddom2DEL_NORM: TFloatField;
     hvddom2KUB_NOBALANS: TFloatField;
@@ -990,10 +998,7 @@ type
     hvddom2PREV_NORM: TFloatField;
     hvddom2SCH_KUB: TFloatField;
     hvddom2SCH_RAZNDOM: TFloatField;
-    impEDRPOU: TIntegerField;
-    dxBarButton40: TdxBarButton;
-    IBTransaction2: TIBTransaction;
-    IBQuery5: TIBQuery;
+    cxGrid3DBTableView1Column1: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure DBGrid1EditKeyDown(Sender: TcxCustomGridTableView;
       AItem: TcxCustomGridTableItem; AEdit: TcxCustomEdit; var Key: Word;
@@ -1134,6 +1139,8 @@ type
       var DisplayValue: Variant; var ErrorText: TCaption; var Error: Boolean);
     procedure dxBarButton40Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cxGrid3DBTableView1Column1PropertiesButtonClick(Sender: TObject;
+      AButtonIndex: Integer);
 
   private
     { Private declarations }
@@ -1175,7 +1182,8 @@ implementation
 
 uses inpedpro, edexpr, import, mytools, itoghvd,ComObj,dbf,dbf_lang,
   edplomb, kart, lichall, iimport, sprzn, addkart, ViberTask, ViberPok,
-  ViberSendOrders, LichPlomb, splash, Conn, math, Pererah, Users, BudKub;
+  ViberSendOrders, LichPlomb, splash, Conn, math, Pererah, Users, BudKub,
+  HistDom;
 
 {$R *.dfm}
 
@@ -1304,8 +1312,8 @@ begin
 
    Update;
 
- // if impLASTROZR.Value=1 then calcalldomlich;
-  if impLASTROZR.Value=1 then calcalldompere;
+  if impLASTROZR.Value=1 then calcalldomlich;
+  //if impLASTROZR.Value=1 then calcalldompere;
 
   MainForm.hvdallSource.Enabled:=true;
 
@@ -1754,7 +1762,7 @@ begin
     if FileName='Table.xls' then
       Filename:='TBL_'+strdate+'.xls'
     else
-      Filename:=Filename+' '+strdate+'.xls';
+      Filename:=Filename+' '+Date2Str(YearMon2Date(curYM),'yyyy MMMM')+' '+strdate+'.xls';
 
     sd.FileName := Filename;
     sd.Filter := 'Excel files (*.xls)|*.XLS';
@@ -2092,10 +2100,11 @@ end;
 
 procedure TMainForm.dxBarButton39Click(Sender: TObject);
 begin
-calcalldompere;
+//calcalldompere;
+calcalldomlich;
   startprog;
     Update;
-//calcalldomlich;
+//
 end;
 
 procedure TMainForm.calcalldompere;
@@ -2232,6 +2241,8 @@ begin
 
       kol_mes:=0;
 
+
+
       //розрахунок в яких місяцях провести перерахунок споживання по абоненту згідно попереднього показника але не більше 12 місяців
       IBQuery3.Close;
       IBQuery3.SQL.Text:='select * from (select first 12 * from hv_prh where fact=1 and schet=:sch and yearmon>:ymprev and yearmon=yearmonp order by yearmon desc) order by yearmon';
@@ -2241,8 +2252,9 @@ begin
       IBQuery3.FetchAll;
 
       //розрахунок середнього споживання по кільк. місяців між показниками
-      kol_mes:=CountMonth2YearMon(IBQuery5.FieldByName('yearmon').AsInteger,MainForm.period);
-
+      IBQuery3.RecordCount;
+     // kol_mes:=CountMonth2YearMon(IBQuery5.FieldByName('yearmon').AsInteger,MainForm.period);
+      kol_mes:=IBQuery3.RecordCount;
       if kol_mes>12 then kol_mes:=12;
       kub_rozp:=SimpleRoundTo(IBQuery2.FieldByName('sch_razn').AsInteger/kol_mes,-3);
 
@@ -2962,6 +2974,87 @@ begin
 
                 IBQuery4.Next;
                 end;
+            end
+            else
+            begin
+
+          //скільки споживання по будинку
+          IBQuery3.Close;
+          IBQuery3.SQL.Text:='select count(*) cn, sum(koli_p) kollud from hv_prh where wid<46 and ul=:uul and n_dom=:ndom and yearmon=:ym and yearmon=yearmonp group by ul,n_dom';
+//          IBQuery3.SQL.Text:='select count(*) cn, sum(sch_razn+nor_razn+norm_blich) kuball from hv_prh where wid<46 and ul=:uul and n_dom=:ndom and yearmon=:ym and yearmon=yearmonp group by ul,n_dom';
+          IBQuery3.ParamByName('uul').Value:=grp.FieldByName('UL').Value;
+          IBQuery3.ParamByName('ndom').Value:=grp.FieldByName('N_DOM').Value;
+          IBQuery3.ParamByName('ym').Value:=MainForm.period;
+          IBQuery3.Open;
+          IBQuery3.FetchAll;
+          IBQuery3.First;
+
+                //людей по рахунку
+                IBQuery4.Close;
+                IBQuery4.SQL.Text:='select schet,fio,org,wid,ul,n_dom,kv, sum(koli_p) ludkv  from hv_prh where wid<46 and ul=:uul and n_dom=:ndom and yearmon=:ym and yearmon=yearmonp group by schet,fio,org,wid,ul,n_dom,kv order by schet';
+                IBQuery4.ParamByName('uul').Value:=grp.FieldByName('UL').Value;
+                IBQuery4.ParamByName('ndom').Value:=grp.FieldByName('N_DOM').Value;
+                IBQuery4.ParamByName('ym').Value:=MainForm.period;
+                IBQuery4.Open;
+                IBQuery4.FetchAll;
+                IBQuery4.First;
+
+                while not IBQuery4.Eof do
+                begin
+                  //якщо є люди по рахунку
+                  if IBQuery4.FieldByName('kollud').Value<>0 then
+                  begin
+                    hv_prh.Append;
+                    hv_prh.Edit;
+
+                    hv_prhYEARMON.Value:=MainForm.period;
+                    hv_prhYEARMONP.Value:=MainForm.period;
+                    hv_prhSCHET.Value:=IBQuery4.FieldByName('SCHET').Value;
+                    hv_prhFIO.Value:=IBQuery4.FieldByName('FIO').Value;
+                    hv_prhORG.Value:=IBQuery4.FieldByName('ORG').Value;
+                    hv_prhWID.Value:=IBQuery4.FieldByName('WID').Value;
+                    hv_prhUL.Value:=IBQuery4.FieldByName('UL').Value;
+                    hv_prhN_DOM.AsString:=IBQuery4.FieldByName('N_DOM').AsString;
+                    hv_prhKV.AsString:=IBQuery4.FieldByName('KV').AsString;
+//                    hv_prhKV.AsString:=iif(IBQuery4.FieldByName('KV').IsNull,'0',IBQuery4.FieldByName('KV').AsString);
+
+                    hv_prhSCH_RAZN.AsCurrency:=0;
+                    hv_prhNOR_RAZN.AsCurrency:=0;
+                    hv_prhDEL_NORM.AsCurrency:=0;
+                    hv_prhNORM_BLICH.AsCurrency:=0;
+                    hv_prhPERERAH.AsCurrency:=0;
+                    hv_prhKOLI_P.Value:=0;
+                    hv_prhKUB_NOBALANS.Value:=SimpleRoundTo((grp.FieldByName('sch_razn').Value/IBQuery3.FieldByName('kollud').Value)*(IBQuery4.FieldByName('ludkv').AsCurrency),-3);
+                    hv_prhKUB_ALL.Value:=hv_prhKUB_NOBALANS.Value;
+
+                    hv_prhNOTEWID.Value:='Нарахування небалансу';
+                    str:='Нарахування небалансу за період '+inttostr(MainForm.period)+'. Різниця ліч. і споживання ('+Currtostr(grp.FieldByName('sch_kub').AsCurrency)+')-('+Currtostr(grp.FieldByName('sch_nas').AsCurrency)+')=('+Currtostr(grp.FieldByName('sch_razn').AsCurrency)+') / к-ть людей по будинку('+currtostr(IBQuery3.FieldByName('kollud').Value)+') * к-ть людей по рахунку ('+currtostr(IBQuery4.FieldByName('ludkv').AsCurrency)+')';
+                    hv_prhNOTERAW.Value:=str;
+
+                    hv_prh.Post;
+                    //Form2.kub_all(hvdrozpdom);
+                    IBTransaction1.CommitRetaining;
+                        application.ProcessMessages;
+
+                    hvdall.First;
+                    if hvdall.Locate('schet',hv_prhSCHET.Value,[]) then
+                    begin
+                       hvdall.Edit;
+                       hvdallKUB_NOBALANS.AsCurrency:=hv_prhKUB_NOBALANS.Value;
+                       //hvdallNORM_BLICH.Value:=0;
+                       hvdallR_NACH.Value:='';
+                       hvdallR_NOBAL.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно к-ті людей';
+                       hvdall.Post;
+                       Form2.kub_all(hvdall);
+                    end;
+
+                    IBTransaction1.CommitRetaining;
+                        application.ProcessMessages;
+                  end;
+
+                IBQuery4.Next;
+                end;
+
             end;
           end;
         end;
@@ -2985,10 +3078,11 @@ begin
      Form4.cxProgressBar1.Properties.Max:=0;
      application.ProcessMessages;
 
-    grp.Close;
-    grp.ParamByName('yearmon').Value:=MainForm.period;
-    grp.Open;
-    grp.FetchAll;
+    IBTransaction1.Active:=true; 
+//    grp.Close;
+   // grp.ParamByName('yearmon').Value:=MainForm.period;
+ //   grp.Open;
+ //   grp.FetchAll;
 
 
     Form4.cxProgressBar1.Properties.Max:=grp.RecordCount-1;
@@ -2996,13 +3090,37 @@ begin
     application.ProcessMessages;
 
     IBQuery2.Close;
-    IBQuery2.SQL.Text:='update h_voda set kub_nobalans=0 where yearmon=:ym';
+    IBQuery2.SQL.Text:='update h_voda set kub_nobalans=0,pererah=0 where yearmon=:ym';
     IBQuery2.ParamByName('ym').Value:=MainForm.period;
     IBQuery2.ExecSQL;
 
-    IBTransaction1.CommitRetaining;
+    IBTransaction1.Commit;
+
+    Form4.Label2.Caption:='Вибірка даних для перерахунку...4';
+
+    Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
+    application.ProcessMessages;
+
+    hv_prh.Close;
+    hv_prh.Open;
+
+    grp_per.close;
+    grp_per.Open;
+
+    grp.Close;
+    grp.ParamByName('yearmon').Value:=MainForm.period;
+    grp.Open;
+    grp.FetchAll;
+
+
+
+      hvdall.Close;
+      hvdall.ParamByName('ym').Value:=MainForm.period;
+      hvdall.Open;
 
     Form4.cxProgressBar1.Position:=0;
+
+
     while not grp.eof do
     begin
     Form4.cxProgressBar1.Position:=Form4.cxProgressBar1.Position+1;
@@ -3018,6 +3136,7 @@ begin
       IBQuery2.ParamByName('ym').Value:=MainForm.period;
       IBQuery2.Open;
       grp.edit;
+      //небаланс по будинку
       grpRAZN.Value:=IBQuery2.FieldByName('nobal').Value;
      grp.Post;
 
@@ -3028,7 +3147,7 @@ begin
             impLASTROZR.Value:=0;
             imp.Post;
             IBTransaction1.CommitRetaining;
-            Update;
+            //Update;
 
          Break;
          end;
@@ -3039,8 +3158,6 @@ begin
     end;
 
   IBTransaction1.CommitRetaining;
-
-  Update;
 
    Form4.Label3.Caption:=Form4.Label3.Caption+' End-'+DateTimeToStr(now());
    Form4.Label4.Caption:='';
@@ -3061,9 +3178,9 @@ var sumabon,sch_razn:Currency;
 begin
 
 
-
+    //споживання факт і норма по будинку для виявлення різниці
     IBQuery2.Close;
-    IBQuery2.SQL.Text:='select org,sum(sch_razn+nor_razn+norm_blich) kuball from h_voda where wid<46 and ul=:uul and n_dom=:ndom and yearmon=:ym group by org';
+    IBQuery2.SQL.Text:='select org,sum(sch_razn+norm_blich) kuball from h_voda where wid<46 and ul=:uul and n_dom=:ndom and yearmon=:ym group by org';
 //    IBQuery2.SQL.Text:='select org,sum(sch_razn+nor_razn+norm_blich) kuball from h_voda where wid<46 and wid<>42 and wid<>45 and ul=:uul and n_dom=:ndom and yearmon=:ym group by org';
     IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
     IBQuery2.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
@@ -3089,9 +3206,12 @@ begin
     DS.FieldByName('sch_kub').Value:=DS.FieldByName('sch_cur').Value-DS.FieldByName('sch_old').Value;
     sch_razn:=DS.FieldByName('sch_kub').Value-DS.FieldByName('sch_sumabon').Value;
     DS.FieldByName('sch_razn').Value:=SimpleRoundTo(sch_razn,-3);
-    if DS.FieldByName('sch_razn').Value>0 then
+
+    if DS.FieldByName('sch_razn').Value<>0 then
     begin
 
+
+      //скільки людей без лічильника
       IBQuery2.Close;
       IBQuery2.SQL.Text:='select count(*) cn,sum(koll) kollud from (select schet, iif(koli_p>0,koli_p,1) koll, wid, ul, n_dom from h_voda where (wid=42 or wid=45) and ul=:uul and n_dom=:ndom and yearmon=:ym) group by ul,n_dom';
       IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
@@ -3100,25 +3220,27 @@ begin
       IBQuery2.Open;
       IBQuery2.FetchAll;
       IBQuery2.First;
-
-      if IBQuery2.FieldByName('cn').Value>0 then
+      //якщо єнебаланс і є дюди без ліч
+      if (IBQuery2.FieldByName('cn').asInteger>0) and (DS.FieldByName('sch_razn').Value>0) then
       begin
+            //вибираємо людей без лічильника по рахунку
             hvdrozpdom.Close;
-            hvdrozpdom.SelectSQL.Text:='select * from h_voda where (wid=42 or wid=45) and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet';
+            hvdrozpdom.SelectSQL.Text:='select h_voda.*,iif(koli_p>0,koli_p,1) ludkv,(sch_razn+nor_razn+norm_blich) kubkv from h_voda where (wid=42 or wid=45) and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet';
             hvdrozpdom.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
             hvdrozpdom.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
             hvdrozpdom.ParamByName('ym').Value:=MainForm.period;
             hvdrozpdom.Open;
             hvdrozpdom.FetchAll;
             hvdrozpdom.First;
+
              while not hvdrozpdom.Eof do
             begin
               hvdrozpdom.Edit;
-              hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kollud').Value)*iif(hvdrozpdomKOLI_P.AsInteger>0,hvdrozpdomKOLI_P.AsInteger,1),-3);
+              hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kollud').Value)*hvdrozpdomLUDKV.AsInteger,-3);
 //              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
        //       hvdrozpdomNORM_BLICH.Value:=0;
        //       hvdrozpdomR_NACH.Value:='';
-       //       hvdrozpdomR_NOBAL.Value:='Розподіл небалансу кубів водопостачання по будинку, абонентам без лічильника або без повірки, пропорційно к-ті людей або квартир.';
+              hvdrozpdomR_NOBAL.Value:='Розподіл небалансу кубів, різниця по буд.('+Currtostr(DS.FieldByName('sch_razn').AsCurrency)+')/к-ть люд.без.ліч('+inttostr(IBQuery2.FieldByName('kollud').asinteger)+')*к-ть люд по кв.('+inttostr(hvdrozpdomLUDKV.AsInteger)+')';
               hvdrozpdom.Post;
               Form2.kub_all(hvdrozpdom);
               hvdrozpdom.Next;
@@ -3126,7 +3248,8 @@ begin
       end
       else
       begin
-
+      //якщо перебаланс або нема люд. без ліч - розподіл згідно споживання
+      //споживання факт, розрахункове і норма по будинку
       IBQuery2.Close;
       IBQuery2.SQL.Text:='select count(*) cn, sum(sch_razn+nor_razn+norm_blich) kuball from h_voda where wid<46 and ul=:uul and n_dom=:ndom and yearmon=:ym group by ul,n_dom';
       IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
@@ -3136,10 +3259,10 @@ begin
       IBQuery2.FetchAll;
       IBQuery2.First;
 
-        if IBQuery2.FieldByName('cn').Value>0 then
+        if IBQuery2.FieldByName('kuball').Value>0 then
         begin
             hvdrozpdom.Close;
-            hvdrozpdom.SelectSQL.Text:='select * from h_voda where wid<46 and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet';
+            hvdrozpdom.SelectSQL.Text:='select h_voda.*,iif(koli_p>0,koli_p,1) ludkv,(sch_razn+nor_razn+norm_blich) kubkv from h_voda where wid<46 and ul=:uul and n_dom=:ndom and yearmon=:ym order by schet';
             hvdrozpdom.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
             hvdrozpdom.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
             hvdrozpdom.ParamByName('ym').Value:=MainForm.period;
@@ -3149,16 +3272,61 @@ begin
 
             while not hvdrozpdom.Eof do
             begin
+              if hvdrozpdomKUBKV.AsCurrency>0 then
+              begin
+                hvdrozpdom.Edit;
+                hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kuball').Value)*hvdrozpdomKUBKV.Value,-3);
+               // hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value+hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value;
+           //     hvdrozpdomNORM_BLICH.Value:=0;
+               // hvdrozpdomR_NOBAL.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно споживанню';
+                hvdrozpdomR_NOBAL.Value:='Розподіл небалансу кубів, різниця по буд.('+Currtostr(DS.FieldByName('sch_razn').AsCurrency)+')/к-ть спож. по буд.('+Currtostr(IBQuery2.FieldByName('kuball').AsCurrency)+')*к-ть спож по кв.('+Currtostr(hvdrozpdomKUBKV.Value)+')';
+                hvdrozpdom.Post;
+                Form2.kub_all(hvdrozpdom);
+              end;
+              hvdrozpdom.Next;
+            end;
+
+        end
+        else
+        begin
+        //якщо споживання 0 - розподіл по людям
+        //скільки людей
+        IBQuery2.Close;
+        IBQuery2.SQL.Text:='select count(*) cn,sum(koll) kollud from (select schet, iif(koli_p>0,koli_p,1) koll, wid, ul, n_dom from h_voda where ul=:uul and n_dom=:ndom and yearmon=:ym) group by ul,n_dom';
+        IBQuery2.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
+        IBQuery2.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
+        IBQuery2.ParamByName('ym').Value:=MainForm.period;
+        IBQuery2.Open;
+        IBQuery2.FetchAll;
+        IBQuery2.First;
+
+          if (IBQuery2.FieldByName('cn').asInteger>0) then
+          begin
+            //вибираємо людей по рахунку
+            hvdrozpdom.Close;
+            hvdrozpdom.SelectSQL.Text:='select h_voda.*,iif(koli_p>0,koli_p,1) ludkv,(sch_razn+nor_razn+norm_blich) kubkv  from h_voda where ul=:uul and n_dom=:ndom and yearmon=:ym order by schet';
+            hvdrozpdom.ParamByName('uul').Value:=DS.FieldByName('UL').Value;
+            hvdrozpdom.ParamByName('ndom').Value:=DS.FieldByName('N_DOM').Value;
+            hvdrozpdom.ParamByName('ym').Value:=MainForm.period;
+            hvdrozpdom.Open;
+            hvdrozpdom.FetchAll;
+            hvdrozpdom.First;
+
+             while not hvdrozpdom.Eof do
+             begin
               hvdrozpdom.Edit;
-              hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kuball').Value)*(hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value),-3);
-             // hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value+hvdrozpdomSCH_RAZN.Value+hvdrozpdomNOR_RAZN.Value;
-         //     hvdrozpdomNORM_BLICH.Value:=0;
-         //     hvdrozpdomR_NOBAL.Value:='Розподіл небалансу кубів водопостачання по будинку пропорційно споживанню';
+              hvdrozpdomKUB_NOBALANS.Value:=SimpleRoundTo((DS.FieldByName('sch_razn').Value/IBQuery2.FieldByName('kollud').Value)*hvdrozpdomLUDKV.AsInteger,-3);
+//              hvdrozpdomKUB_ALL.Value:=hvdrozpdomKUB_NOBALANS.Value;
+       //       hvdrozpdomNORM_BLICH.Value:=0;
+       //       hvdrozpdomR_NACH.Value:='';
+      //        hvdrozpdomR_NOBAL.Value:='Розподіл небалансу кубів, різниця по буд.('+DS.FieldByName('sch_razn').Value+')/к-ть люд.по буд.('+IBQuery2.FieldByName('kollud').Value+')*к-ть люд по кв.('+hvdrozpdomLUDKV.AsInteger+')';
+              hvdrozpdomR_NOBAL.Value:='Розподіл небалансу кубів, різниця по буд.('+Currtostr(DS.FieldByName('sch_razn').AsCurrency)+')/к-ть люд. по буд.('+inttostr(IBQuery2.FieldByName('kollud').asinteger)+')*к-ть люд по кв.('+inttostr(hvdrozpdomLUDKV.AsInteger)+')';
+
               hvdrozpdom.Post;
               Form2.kub_all(hvdrozpdom);
               hvdrozpdom.Next;
             end;
-
+          end;
         end;
 
 
@@ -3375,7 +3543,7 @@ end;
 procedure TMainForm.dxBarLookupCombo2KeyValueChange(Sender: TObject);
 begin
 if (not IBDatabase.Connected) or (fl_startprog) then exit;
-update;
+if Assigned(Form2) then update;
 
 //  if (data.Active and dom.Active)then
 //  begin
@@ -3505,10 +3673,10 @@ end;
 
 procedure TMainForm.ActionExportExecute(Sender: TObject);
 begin
-  if cxPageControl1.ActivePage=cxTabSheet1 then self.ExportGrid(cxGrid2)
-  else if cxPageControl1.ActivePage=cxTabSheet3 then self.ExportGrid(cxGrid4)
-  else if cxPageControl1.ActivePage=cxTabSheet4 then self.ExportGrid(cxGrid1);
-
+  if cxPageControl1.ActivePage=cxTabSheet1 then self.ExportGrid(cxGrid2,cxTabSheet1.Caption)
+  else if cxPageControl1.ActivePage=cxTabSheet3 then self.ExportGrid(cxGrid4,cxTabSheet3.Caption)
+  else if cxPageControl1.ActivePage=cxTabSheet4 then self.ExportGrid(cxGrid1,cxTabSheet4.Caption)
+  else if cxPageControl1.ActivePage=cxTabSheet2 then self.ExportGrid(cxGrid3,cxTabSheet2.Caption);
 end;
 
 procedure TMainForm.ActionExitExecute(Sender: TObject);
@@ -3825,7 +3993,7 @@ procedure TMainForm.DBGrid3Column1PropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
 begin
 
-FormPererah.Label1.Caption:=inttostr(period);
+FormPererah.Label1.Caption:=inttostr(CurYM);
 FormPererah.Caption:='Перерахунки по будинку '+grpUL.AsString+' '+grpN_DOM.AsString;
 FormPererah.hvpererah.Close;
 FormPererah.grppererah.Close;
@@ -3842,7 +4010,7 @@ FormPererah.hv_now.Close;
 
 
     FormPererah.hvpererah.SelectSQL.Text:='select HV_PRH.*,(sch_razn+nor_razn+norm_blich) sumnach  from HV_PRH where yearmon=:ym and ul=:ul and n_dom=:ndom order by yearmon,yearmonp,kl';
-    FormPererah.hvpererah.ParamByName('ym').Value:=MainForm.period;
+    FormPererah.hvpererah.ParamByName('ym').Value:=CurYM;
     FormPererah.hvpererah.ParamByName('ul').Value:=grpUL.AsString;
     FormPererah.hvpererah.ParamByName('ndom').Value:=grpN_DOM.AsString;
     FormPererah.hvpererah.Close;
@@ -4191,6 +4359,17 @@ end;
 procedure TMainForm.why_pokAfterInsert(DataSet: TDataSet);
 begin
 why_pokID_USER.Value:=ActiveUser;
+end;
+
+procedure TMainForm.cxGrid3DBTableView1Column1PropertiesButtonClick(
+  Sender: TObject; AButtonIndex: Integer);
+begin
+Formhistdom.histdom.Close;
+Formhistdom.histdom.ParamByName('uul').Value:=hvddom2UL.Value;
+Formhistdom.histdom.ParamByName('ndom').Value:=hvddom2N_DOM.Value;
+Formhistdom.histdom.Open;
+Formhistdom.Caption:='Історія по будинку '+hvddom2UL.Value+' '+hvddom2N_DOM.Value;
+Formhistdom.show;
 end;
 
 procedure TMainForm.cxGrid3DBTableView1KUB_ALLStylesGetContentStyle(

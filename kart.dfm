@@ -447,7 +447,7 @@ object Form2: TForm2
     Top = 328
     Width = 757
     Height = 439
-    ActivePage = cxTabSheet13
+    ActivePage = cxTabSheet1
     Align = alClient
     TabOrder = 1
     ClientRectBottom = 439
@@ -456,9 +456,6 @@ object Form2: TForm2
     object cxTabSheet1: TcxTabSheet
       Caption = #1051#1110#1095#1080#1083#1100#1085#1080#1082#1080
       ImageIndex = 0
-      ExplicitTop = 0
-      ExplicitWidth = 715
-      ExplicitHeight = 0
       object cxPageControl2: TcxPageControl
         Left = 0
         Top = 0
@@ -467,7 +464,6 @@ object Form2: TForm2
         ActivePage = cxTabSheet4
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 715
         ClientRectBottom = 415
         ClientRectRight = 757
         ClientRectTop = 24
@@ -548,7 +544,6 @@ object Form2: TForm2
             Height = 318
             Align = alClient
             TabOrder = 1
-            ExplicitWidth = 715
             object cxGridDBTableView1: TcxGridDBTableView
               NavigatorButtons.ConfirmDelete = False
               DataController.DataSource = MainForm.lichDataSource
@@ -626,9 +621,6 @@ object Form2: TForm2
         object cxTabSheet6: TcxTabSheet
           Caption = #1030#1089#1090#1086#1088#1110#1103
           ImageIndex = 2
-          ExplicitTop = 0
-          ExplicitWidth = 715
-          ExplicitHeight = 0
           object Panel5: TPanel
             Left = 0
             Top = 0
@@ -636,7 +628,6 @@ object Form2: TForm2
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitWidth = 715
             object Shape1: TShape
               Left = 192
               Top = 12
@@ -670,7 +661,6 @@ object Form2: TForm2
             Height = 350
             Align = alClient
             TabOrder = 1
-            ExplicitWidth = 715
             object cxGridDBTableView2: TcxGridDBTableView
               NavigatorButtons.ConfirmDelete = False
               OnCustomDrawCell = cxGridDBTableView2CustomDrawCell
@@ -751,9 +741,6 @@ object Form2: TForm2
     object cxTabSheet2: TcxTabSheet
       Caption = #1055#1083#1086#1084#1073#1080
       ImageIndex = 1
-      ExplicitTop = 0
-      ExplicitWidth = 715
-      ExplicitHeight = 0
       object cxPageControl3: TcxPageControl
         Left = 0
         Top = 0
@@ -762,16 +749,12 @@ object Form2: TForm2
         ActivePage = cxTabSheet7
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 715
         ClientRectBottom = 415
         ClientRectRight = 757
         ClientRectTop = 24
         object cxTabSheet5: TcxTabSheet
           Caption = #1055#1086#1090#1086#1095#1085#1110' '#1087#1083#1086#1084#1073#1080
           ImageIndex = 0
-          ExplicitTop = 0
-          ExplicitWidth = 715
-          ExplicitHeight = 0
           object Panel3: TPanel
             Left = 0
             Top = 0
@@ -779,7 +762,6 @@ object Form2: TForm2
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitWidth = 715
             object cxButton6: TcxButton
               Left = 15
               Top = 8
@@ -808,7 +790,6 @@ object Form2: TForm2
             Height = 350
             Align = alClient
             TabOrder = 1
-            ExplicitWidth = 715
             object cxGrid3DBTableView1: TcxGridDBTableView
               NavigatorButtons.ConfirmDelete = False
               DataController.DataSource = MainForm.plombsDataSource
@@ -871,9 +852,6 @@ object Form2: TForm2
         object cxTabSheet7: TcxTabSheet
           Caption = #1030#1089#1090#1086#1088#1110#1103
           ImageIndex = 2
-          ExplicitTop = 0
-          ExplicitWidth = 715
-          ExplicitHeight = 0
           object cxGrid2: TcxGrid
             Left = 0
             Top = 0
@@ -881,7 +859,6 @@ object Form2: TForm2
             Height = 391
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 715
             object cxGrid2DBTableView1: TcxGridDBTableView
               NavigatorButtons.ConfirmDelete = False
               DataController.DataSource = MainForm.plombsznDataSource
@@ -953,9 +930,6 @@ object Form2: TForm2
     object cxTabSheet3: TcxTabSheet
       Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
       ImageIndex = 2
-      ExplicitTop = 0
-      ExplicitWidth = 715
-      ExplicitHeight = 0
       object cxPageControl4: TcxPageControl
         Left = 0
         Top = 0
@@ -964,16 +938,12 @@ object Form2: TForm2
         ActivePage = cxTabSheet9
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 715
         ClientRectBottom = 415
         ClientRectRight = 757
         ClientRectTop = 24
         object cxTabSheet9: TcxTabSheet
           Caption = #1055#1086#1082#1072#1079#1085#1080#1082#1080
           ImageIndex = 0
-          ExplicitTop = 0
-          ExplicitWidth = 715
-          ExplicitHeight = 0
           object cxGrid8: TcxGrid
             Left = 0
             Top = 49
@@ -981,7 +951,6 @@ object Form2: TForm2
             Height = 342
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 715
             object cxGridDBTableView5: TcxGridDBTableView
               NavigatorButtons.ConfirmDelete = False
               DataController.DataSource = MainForm.pokaznSource
@@ -1051,7 +1020,6 @@ object Form2: TForm2
             Height = 49
             Align = alTop
             TabOrder = 1
-            ExplicitWidth = 715
             object Label27: TLabel
               Left = 15
               Top = 12
@@ -1112,9 +1080,6 @@ object Form2: TForm2
         object cxTabSheet10: TcxTabSheet
           Caption = #1030#1089#1090#1086#1088#1110#1103
           ImageIndex = 2
-          ExplicitTop = 0
-          ExplicitWidth = 715
-          ExplicitHeight = 0
           object cxGrid1: TcxGrid
             Left = 0
             Top = 25
@@ -1122,7 +1087,6 @@ object Form2: TForm2
             Height = 366
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 715
             object cxGridDBTableView3: TcxGridDBTableView
               NavigatorButtons.ConfirmDelete = False
               DataController.DataSource = MainForm.delpokaznSource
@@ -1194,7 +1158,6 @@ object Form2: TForm2
             Height = 25
             Align = alTop
             TabOrder = 1
-            ExplicitWidth = 715
             object Label1: TLabel
               Left = 15
               Top = 12
@@ -1217,9 +1180,6 @@ object Form2: TForm2
     object cxTabSheet8: TcxTabSheet
       Caption = #1047#1084#1110#1085#1072' '#1074#1080#1076#1091' '#1085#1072#1088#1072#1093#1091#1074#1072#1085#1085#1103
       ImageIndex = 3
-      ExplicitTop = 0
-      ExplicitWidth = 715
-      ExplicitHeight = 0
       object Panel6: TPanel
         Left = 0
         Top = 0
@@ -1227,7 +1187,6 @@ object Form2: TForm2
         Height = 137
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 715
         object Label14: TLabel
           Left = 15
           Top = 12
@@ -1299,7 +1258,6 @@ object Form2: TForm2
         Height = 278
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 715
         object cxGridDBTableView4: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           DataController.DataSource = MainForm.why_pokSource
@@ -1358,9 +1316,6 @@ object Form2: TForm2
     object cxTabSheet11: TcxTabSheet
       Caption = #1057#1087#1080#1089#1072#1085#1085#1103'\'#1055#1077#1088#1077#1088#1072#1093#1091#1085#1086#1082
       ImageIndex = 4
-      ExplicitTop = 0
-      ExplicitWidth = 715
-      ExplicitHeight = 0
       object Panel7: TPanel
         Left = 0
         Top = 0
@@ -1368,7 +1323,6 @@ object Form2: TForm2
         Height = 137
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 715
         object Label24: TLabel
           Left = 15
           Top = 12
@@ -1436,7 +1390,6 @@ object Form2: TForm2
         Height = 278
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 715
         object cxGridDBTableView6: TcxGridDBTableView
           NavigatorButtons.ConfirmDelete = False
           DataController.DataSource = MainForm.spisSource
@@ -1499,9 +1452,6 @@ object Form2: TForm2
     object cxTabSheet12: TcxTabSheet
       Caption = #1030#1089#1090#1086#1088#1110#1103' '#1085#1072#1088#1072#1093#1091#1074#1072#1085#1100' 12 '#1084#1110#1089'.'
       ImageIndex = 5
-      ExplicitTop = 0
-      ExplicitWidth = 715
-      ExplicitHeight = 0
       object cxGrid9: TcxGrid
         Left = 0
         Top = 41
@@ -1509,7 +1459,6 @@ object Form2: TForm2
         Height = 374
         Align = alClient
         TabOrder = 0
-        ExplicitWidth = 715
         object DBGrid1: TcxGridDBBandedTableView
           NavigatorButtons.ConfirmDelete = False
           NavigatorButtons.First.Hint = #1055#1077#1088#1096#1080#1081' '#1079#1072#1087#1080#1089
@@ -1907,7 +1856,6 @@ object Form2: TForm2
         Height = 41
         Align = alTop
         TabOrder = 1
-        ExplicitWidth = 715
         object Label35: TLabel
           Left = 15
           Top = 12

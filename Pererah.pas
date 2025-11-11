@@ -194,7 +194,7 @@ uses main, kart;
 procedure TFormPererah.cxButton12Click(Sender: TObject);
 begin
     hvpererah.SelectSQL.Text:='select HV_PRH.*,(sch_razn+nor_razn+norm_blich) sumnach  from HV_PRH where yearmon=:ym and ul=:ul and n_dom=:ndom order by yearmon,yearmonp,kl';
-    hvpererah.ParamByName('ym').Value:=MainForm.period;
+    hvpererah.ParamByName('ym').Value:=MainForm.CurYM;
     hvpererah.ParamByName('ul').Value:=MainForm.grpUL.AsString;
     hvpererah.ParamByName('ndom').Value:=MainForm.grpN_DOM.AsString;
     hvpererah.Close;
@@ -204,7 +204,7 @@ end;
 procedure TFormPererah.cxButton13Click(Sender: TObject);
 begin
     hvpererah.SelectSQL.Text:='select HV_PRH.*,(sch_razn+nor_razn+norm_blich) sumnach  from HV_PRH where yearmonp>=:ym and ul=:ul and n_dom=:ndom order by yearmon,yearmonp,kl';
-    hvpererah.ParamByName('ym').Value:=MainForm.period-100;
+    hvpererah.ParamByName('ym').Value:=MainForm.CurYM-100;
     hvpererah.ParamByName('ul').Value:=MainForm.grpUL.AsString;
     hvpererah.ParamByName('ndom').Value:=MainForm.grpN_DOM.AsString;
     hvpererah.Close;

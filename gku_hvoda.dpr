@@ -29,7 +29,8 @@ uses
   Conn in 'Conn.pas' {FormConn},
   Pererah in 'Pererah.pas' {FormPererah},
   Users in 'Users.pas' {FormUsers},
-  BudKub in 'BudKub.pas' {Form5};
+  BudKub in 'BudKub.pas' {Form5},
+  HistDom in 'HistDom.pas' {Formhistdom};
 
 {$R *.res}
 
@@ -65,6 +66,7 @@ begin
   Application.CreateForm(TFormPererah, FormPererah);
   Application.CreateForm(TFormUsers, FormUsers);
   Application.CreateForm(TForm5, Form5);
+  Application.CreateForm(TFormhistdom, Formhistdom);
   // Application.CreateForm(TSplashForm, SplashForm);
 //    SplashForm.Hide;
 //  SplashForm.Free;
