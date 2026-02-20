@@ -2530,7 +2530,7 @@ object MainForm: TMainForm
     Left = 616
     Top = 156
     Bitmap = {
-      494C01013E004000FC0214001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01013E004000040314001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000004001000001002000000000000090
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5858,7 +5858,6 @@ object MainForm: TMainForm
       000000000000}
   end
   object IBDatabase: TIBDatabase
-    Connected = True
     DatabaseName = 'C:\TEMP\base\GKU.GDB'
     Params.Strings = (
       'user_name=sysdba'
@@ -5870,7 +5869,6 @@ object MainForm: TMainForm
     Top = 272
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultDatabase = IBDatabase
     DefaultAction = TACommitRetaining
     Params.Strings = (
@@ -7855,6 +7853,19 @@ object MainForm: TMainForm
     Datasets = <>
     Variables = <>
     Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+    end
   end
   object frxXMLExport1: TfrxXMLExport
     UseFileCache = True
@@ -12667,7 +12678,6 @@ object MainForm: TMainForm
     GeneratorField.Field = 'KL'
     GeneratorField.Generator = 'GEN_H_VODA_ID'
     GeneratorField.ApplyEvent = gamOnServer
-    Active = True
     Left = 264
     Top = 336
     object hvddom2CT: TIntegerField
